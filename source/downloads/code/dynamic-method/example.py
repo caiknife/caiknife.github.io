@@ -30,7 +30,7 @@ def main():
     eval(func_name)()
 
     # use getattr() to get method from a class or an instance
-    # sometimes you have use is_callable() to make sure that it is a method but not an attr
+    # sometimes you have to use is_callable() to make sure that it is a method but not an attr
     getattr(obj, func_name)()
     getattr(Print, static_name)()
 
