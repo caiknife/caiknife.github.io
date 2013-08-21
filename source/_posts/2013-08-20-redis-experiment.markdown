@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "redis实验（一）"
+title: "redis实验（1）"
 date: 2013-08-20 21:30
 comments: true
 categories: redis python linux
