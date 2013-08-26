@@ -41,6 +41,19 @@ $name = isset($_GET['name']) ? $_GET['name'] : "caiknife";
 setcookie("name", $name, time()+3600, '/', '.b.com');
 ```
 
+第一行的header函数是因为IE浏览器下有严格的P3P安全验证，所以需要发送这段header信息，FireFox下可以不用。
+
+接下来，是b网站的getcookie.php的代码：
+
+``` php
+if (isset($_GET['callback'])) {
+    $callback = $_GET['callback'];
+    echo $callback."(".json_encode($_COOKIE).")";
+} else {
+    echo json_encode($_COOKIE);
+}
+```
+
 先别管if语句里前面的代码是什么意思，我们直接访问`http://www.b.com/cookie/getcookie.php` ，就能看到结果：{"name":"world"}，OK，cookie跨域设置成功！
 
 {% img /downloads/image/cross-domain-cookie/a.jpg %}
