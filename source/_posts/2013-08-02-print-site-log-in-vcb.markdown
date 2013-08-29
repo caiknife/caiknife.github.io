@@ -3,7 +3,7 @@ layout: post
 title: "一个用来打印log的脚本"
 date: 2013-08-02 00:48
 comments: true
-categories: work VCB shell
+categories: work vcb shell
 ---
 
 现在在公司里做Tracking的工作，在开发环境下，Tracking的log文件保存在服务器的/mezi/sites/apache/logs下，然后又根据网站的不同有着下面这样的格式：

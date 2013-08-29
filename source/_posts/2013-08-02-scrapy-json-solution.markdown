@@ -3,7 +3,7 @@ layout: post
 title: "Scrapy保存json格式的一点小问题"
 date: 2013-08-02 00:01
 comments: true
-categories: Scrapy Python
+categories: scrapy python
 ---
 折腾了两天，才把Scrapy的稍微弄懂了一点点，还得多加努力。
 
