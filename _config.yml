@@ -3,8 +3,8 @@
 # ----------------------- #
 
 url: http://caiknife.github.io
-title: 珍惜时间
-subtitle: 热爱生活
+title: 大哥你玩儿摇滚你玩儿它有啥用啊？
+subtitle: 珍惜时间，热爱生活
 author: CaiKnife
 simple_search: http://google.com/search
 description:
@@ -51,7 +51,7 @@ titlecase: true       # Converts page and post titles to titlecase
 # list each of the sidebar modules you want to include, in the order you want them to appear.
 # To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like 'custom/asides/custom_aside_name.html'
 default_asides: [
-    # asides/category_list.html, 
+    custom/asides/category.html, 
     asides/recent_posts.html, 
     asides/github.html, 
     custom/asides/comments.html, 

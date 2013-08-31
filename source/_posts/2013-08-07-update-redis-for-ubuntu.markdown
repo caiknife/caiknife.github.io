@@ -7,11 +7,11 @@ categories: ubuntu linux redis
 ---
 Ubuntu下的redis默认版本是2.2.x，现在需要更新到最新的版本2.6.14。不采用从源码编译的方式进行更新，直接更新PPA源进行升级。
 
-{% codeblock lang:bash %}
-sudo apt-add-repository ppa:chris-lea/redis-server
-sudo apt-get update
-sudo apt-get install redis-server
-{% endcodeblock %}
+``` bash
+$ sudo apt-add-repository ppa:chris-lea/redis-server
+$ sudo apt-get update
+$ sudo apt-get install redis-server
+```
 
 <!-- more -->
 

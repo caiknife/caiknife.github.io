@@ -10,7 +10,7 @@ categories: ubuntu linux trick
 命令用起来很简单。
 
 ``` bash
-sudo update-alternatives --config command
+$ sudo update-alternatives --config command
 ```
 
 <!-- more -->
@@ -18,7 +18,7 @@ sudo update-alternatives --config command
 比如现在机器上已经有ruby1.8和ruby1.9，进行版本切换就可以输入下面的命令：
 
 ``` bash
-sudo update-alternatives --config ruby
+$ sudo update-alternatives --config ruby
 
 有 2 个候选项可用于替换 ruby (提供 /usr/bin/ruby)。
 

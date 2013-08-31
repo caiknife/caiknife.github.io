@@ -11,7 +11,7 @@ categories: scrapy python
 
 <!-- more -->
 
-{% codeblock lang:python %}
+``` python
 def list_first_item(item):
     return item[0].strip() if item and isinstance(item, list) else None
 
@@ -46,7 +46,7 @@ class TopicPipeline(object):
 
     def spider_closed(self, spider):
         self.file.close()
-{% endcodeblock %}
+```
 
 上面的代码大概是从一个spider爬取数据并输送到pipeline的过程。关键在于```self.file = codecs.open("out.json", "wb", encoding="utf-8")```和```line = json.dumps(dict(item), ensure_ascii=False) + "\n"```这两行代码，如此一来就能够将unicode的数据以utf8的格式保存了。
 

@@ -10,13 +10,13 @@ categories: redis linux
 首先复制一份redis.conf：
 
 ``` bash
-cp /etc/redis/redis.conf /etc/redis/slave.conf
+$ cp /etc/redis/redis.conf /etc/redis/slave.conf
 ```
 
 有几处地方需要修改：
 
 ``` bash
-vi /etc/redis/slave.conf
+$ vi /etc/redis/slave.conf
 
 port 6380
 logfile /var/log/redis/redis-server-slave.log
@@ -29,7 +29,7 @@ slaveof 127.0.0.1 6379
 设置开机启动：
 
 ``` bash
-cp /etc/init.d/redis-server /etc/init.d/redis-server-slave
+$ cp /etc/init.d/redis-server /etc/init.d/redis-server-slave
 ```
 
 修改启动项：
@@ -39,14 +39,14 @@ cp /etc/init.d/redis-server /etc/init.d/redis-server-slave
 最后执行：
 
 ``` bash
-service redis-server-slave start
+$ service redis-server-slave start
 ```
 
 最后确认同步是否成功：
 
 ``` bash
-cd /var/lib/redis
-md5sum *.rdb
+$ cd /var/lib/redis
+$ md5sum *.rdb
 ```
 
 如果checksum值是相同的，则表示同步成功。
@@ -54,13 +54,13 @@ md5sum *.rdb
 把redis-server-slave设置为开机启动：
 
 ``` bash
-update-rc.d redis-server-slave defaults
+$ update-rc.d redis-server-slave defaults
 ```
 
 如果要取消开机启动：
 
 ``` bash
-update-rc.d -f redis-server-slave remove
+$ update-rc.d -f redis-server-slave remove
 ```
 
 配置文件redis.conf里有一部分和save相关的参数，缺省如下：

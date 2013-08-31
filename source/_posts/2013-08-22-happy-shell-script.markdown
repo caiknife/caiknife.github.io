@@ -16,13 +16,13 @@ categories: shell linux script
 可以用find来查找，下面是适合的shell命令：
 
 ``` bash
-find / -type f -name "*.rb" -exec grep -m 1 "ruby1.8" {} + 2>/dev/null | awk -F ":" '{print $1}'
+$ find / -type f -name "*.rb" -exec grep -m 1 "ruby1.8" {} + 2>/dev/null | awk -F ":" '{print $1}'
 ```
 
 上面这条命令的含义：
 
 ``` bash
-find / \ # 从根目录开始查找
+$ find / \ # 从根目录开始查找
     -type f \ # 查找文件
     -name "*.rb" \ # ruby文件
     -exec grep -m 1 "ruby1.8" {} + \ # 找到文件内容里匹配ruby1.8一次的所有文件，和匹配内容一起输出 

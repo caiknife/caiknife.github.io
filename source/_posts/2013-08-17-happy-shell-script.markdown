@@ -18,7 +18,7 @@ categories: work shell script linux
 下面是一个参考的脚本：
 
 ``` bash
-awk -F'\t' '{if(($7 == "CPA" || $7=="CPC") && $35 ~ /www.smarter.com.cn/){print $7,$35}}' /mezi/tracking/data/dump/dahongbao.com/2013-08-15/0[6789]/outgoing.dat /mezi/tracking/data/dump/dahongbao.com/2013-08-15/[12]*/outgoing.dat /mezi/tracking/data/dump/dahongbao.com/2013-08-16/*/outgoing.dat | wc -l
+$ awk -F'\t' '{if(($7 == "CPA" || $7=="CPC") && $35 ~ /www.smarter.com.cn/){print $7,$35}}' /mezi/tracking/data/dump/dahongbao.com/2013-08-15/0[6789]/outgoing.dat /mezi/tracking/data/dump/dahongbao.com/2013-08-15/[12]*/outgoing.dat /mezi/tracking/data/dump/dahongbao.com/2013-08-16/*/outgoing.dat | wc -l
 ```
 
 Have a nice day！

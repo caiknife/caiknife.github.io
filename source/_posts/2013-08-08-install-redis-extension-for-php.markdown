@@ -7,23 +7,23 @@ categories: redis php
 ---
 redis官方推荐的PHP扩展有两个——[Predis](https://github.com/nrk/predis)和[phpredis](https://github.com/nicolasff/phpredis)。phpredis是使用C编写的PHP module，速度应该会比较快，而且CakePHP使用的redis库默认就是phpredis，先安装这个试试看。
 
-{% codeblock lang:bash%}
-sudo apt-get install php5-dev
+``` bash
+$ sudo apt-get install php5-dev
 
-git clone git://github.com/nicolasff/phpredis.git
+$ git clone git://github.com/nicolasff/phpredis.git
 
-cd phpredis
-phpize
-./configure
-make
-sudo make install
+$ cd phpredis
+$ phpize
+$ ./configure
+$ make
+$ sudo make install
 
-sudo -s
-echo "extension=redis.so" > /etc/php5/conf.d/redis.ini
-exit
+$ sudo -s
+$ echo "extension=redis.so" > /etc/php5/conf.d/redis.ini
+$ exit
 
-sudo service apache2 reload
-{% endcodeblock %}
+$ sudo service apache2 reload
+```
 
 之后phpinfo一下就能看到phpredis的扩展信息。
 
@@ -35,8 +35,7 @@ sudo service apache2 reload
 
 在CakePHP中做测试：
 
-{% codeblock lang:php%}
-<?php
+``` php
 class TestsController extends AppController {
     public $uses = array();
 
@@ -54,7 +53,7 @@ class TestsController extends AppController {
         }
     }
 }
-{% endcodeblock %}
+```
 
 输出结果：
 

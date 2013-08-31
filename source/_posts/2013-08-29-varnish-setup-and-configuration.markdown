@@ -26,7 +26,6 @@ Copyright (c) 2006-2011 Varnish Software AS
 
 一个请求发送到 varnish ，第一个状态是 recv ，然后根据不同的逻辑进入三种不同的模式： `pipe` 、 `pass` 和 `lookup` 。
 
-
 **调用 pass 函数，从后端服务器调用数据。**  
 **调用 pipe 函数，建立客户端和后端服务器之间的直接连接，从后端服务器调用数据。**  
 **调用 lookup 函数，从缓存中查找应答数据并返回，如果查找不到，则调用 pass 函数从后端服务器调用数据。**
@@ -64,7 +63,7 @@ if (req.request !="GET" && req.request != "HEAD")
 pipe 模式，这些大的文件是不被缓存在 varnish 中的。 
 ```
 
-在 varnish 的配置文件中，可以看到有一些默认的子过程，当然用户也可以定义自己的子过程。在一次向 varnish 的请求中，会先执行用户自定义的子过程，然后再调用默认的子过程。在生产环境中，我们经常自定义的是 `vcl_recv` 和 `vcl_fetch` 两个子过程，这样一次请求可能就像下面一样： `vcl_recv(user)` -> `vcl_recv(default)` -> `vcl_pass(default)` -> `vcl_fetch(user)` -> `vcl_fetch(default)` 。
+在 varnish 的配置文件中，可以看到有一些默认的子过程，当然用户也可以定义自己的子过程。如果自定义的子过程没有 return 的话，在一次向 varnish 的请求中，会先执行用户自定义的子过程，然后再调用默认的子过程。在生产环境中，我们经常自定义的是 `vcl_recv` 和 `vcl_fetch` 两个子过程，这样一次请求可能就像下面一样： `vcl_recv(user)` -> `vcl_recv(default)` -> `vcl_pass(default)` -> `vcl_fetch(user)` -> `vcl_fetch(default)` 。而如果在子过程中使用了 return ，就会覆盖默认的子过程，只执行自定义的子过程。
 
 下面是我自己的机器上做的一点配置：
 

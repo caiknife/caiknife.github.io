@@ -8,13 +8,15 @@ categories: work vcb shell
 
 现在在公司里做Tracking的工作，在开发环境下，Tracking的log文件保存在服务器的/mezi/sites/apache/logs下，然后又根据网站的不同有着下面这样的格式：
 
-```{site_name}_{machine_name}_YYYY_MM_DD_HH_xx.tracking.log```
+```
+{site_name}_{machine_name}_YYYY_MM_DD_HH_xx.tracking.log
+```
 
 从文件格式来看，是每小时生成一个log文件，但是有些站点会每10分钟生成一个log文件，而服务器上又是UTC时间，但是在我的机器上却是北京时间，这样就很不方便看到最新的log。每次要看log，还得脑子里计算一下时差来确认最新的log文件名，实在太不方便了，于是就写了个脚本来看最新的log文件内容。
 
 <!-- more -->
 
-{% codeblock lang:bash %}
+``` bash
 #!/bin/bash
 
 log_dir="/mezi/sites/apache/logs" # tracking log dir
@@ -42,6 +44,6 @@ if [ -n "$1" ]; then
 else
     echo "No site name provided."
 fi
-{% endcodeblock %}
+```
 
 使用这条命令，就用```./print_latest_tracking_log.sh {site_name}```即可，如果当前机器上没有站点，脚本会提示错误信息。

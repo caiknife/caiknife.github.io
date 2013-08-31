@@ -8,5 +8,5 @@ footer: true
 ---
 
 <div>
-{% category_list %}
+{% page_category_list %}
 </div>

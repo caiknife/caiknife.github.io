@@ -11,9 +11,11 @@ layout: default
 <br>
 </div>
 <script>
-         $('#search_results').tapir({
-             'token': '{{ site.tapir_token }}',
-             'complete' : function() { document.getElementById('search_loading').style.display="none"; }
-         });
+    $('#search_results').tapir({
+        'token': '{{ site.tapir_token }}',
+        'complete' : function() { 
+            document.getElementById('search_loading').style.display="none"; 
+        }
+    });
 </script>
 
