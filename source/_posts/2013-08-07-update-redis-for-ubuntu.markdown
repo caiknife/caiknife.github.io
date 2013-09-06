@@ -21,3 +21,5 @@ $ sudo apt-get install redis-server
 [Redis on Ubuntu 12.04 (Precise Pangolin)](https://library.linode.com/databases/redis/ubuntu-12.04-precise-pangolin)  
 
 如果要从源码编译redis，可以参考官方文档：[http://redis.io/download](http://redis.io/download)
+
+Have a nice day！

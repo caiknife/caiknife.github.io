@@ -91,3 +91,5 @@ if (isset($_GET['callback'])) {
 {% img /downloads/image/cross-domain-cookie/b.jpg %}
 
 以上代码在 FireFox 20.0，IE9 下测试通过。
+
+Have a nice day！

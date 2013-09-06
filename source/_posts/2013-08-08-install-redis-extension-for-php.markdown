@@ -5,7 +5,9 @@ date: 2013-08-08 14:41
 comments: true
 categories: redis php
 ---
-redis官方推荐的PHP扩展有两个——[Predis](https://github.com/nrk/predis)和[phpredis](https://github.com/nicolasff/phpredis)。phpredis是使用C编写的PHP module，速度应该会比较快，而且CakePHP使用的redis库默认就是phpredis，先安装这个试试看。
+redis官方推荐的PHP扩展有两个——[Predis](https://github.com/nrk/predis)和[phpredis](https://github.com/nicolasff/phpredis)。phpredis是使用 C 编写的 PHP module ，速度应该会比较快，而且 CakePHP 使用的 redis 库默认就是 phpredis ，先安装这个试试看。
+
+<!-- more -->
 
 ``` bash
 $ sudo apt-get install php5-dev
@@ -30,8 +32,6 @@ $ sudo service apache2 reload
 >redis  
 >Redis Support   enabled  
 >Redis Version   2.2.3  
-
-<!-- more -->
 
 在CakePHP中做测试：
 
@@ -70,3 +70,5 @@ class TestsController extends AppController {
 >'caiknife:name'  
 >/app/Controller/TestsController.php (line 15)  
 >'Cai'  
+
+Have a nice day！

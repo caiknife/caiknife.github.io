@@ -90,3 +90,5 @@ array(5) {
 {% include_code python-ini/demo.py %}
 
 如此一来就能正常工作了。部分内容参考自StackOverflow——[parsing .properties file in Python](http://stackoverflow.com/questions/2819696/parsing-properties-file-in-python/2819788#2819788) 。
+
+Have a nice day！

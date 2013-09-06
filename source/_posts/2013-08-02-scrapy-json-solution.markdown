@@ -51,3 +51,5 @@ class TopicPipeline(object):
 上面的代码大概是从一个spider爬取数据并输送到pipeline的过程。关键在于```self.file = codecs.open("out.json", "wb", encoding="utf-8")```和```line = json.dumps(dict(item), ensure_ascii=False) + "\n"```这两行代码，如此一来就能够将unicode的数据以utf8的格式保存了。
 
 以上问题的解决方案来自Stack Overflow - [scrapy text encoding](http://stackoverflow.com/questions/9181214/scrapy-text-encoding)
+
+Have a nice day！

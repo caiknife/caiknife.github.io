@@ -53,8 +53,8 @@ titlecase: true       # Converts page and post titles to titlecase
 default_asides: [
     custom/asides/category.html, 
     asides/recent_posts.html, 
-    asides/github.html, 
     custom/asides/comments.html, 
+    asides/github.html, 
     custom/asides/weibo.html
 ]
 
@@ -107,6 +107,7 @@ facebook_like: false
 
 # duoshuo
 duoshuo_enable: true
+duoshuo_shortname: caiknife
 
 # jiathis
 jiathis_enable: true

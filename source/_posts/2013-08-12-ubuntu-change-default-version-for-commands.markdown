@@ -32,4 +32,4 @@ $ sudo update-alternatives --config ruby
 ```
 输入数字即可选择默认的版本号，Octopress要求使用Ruby1.9，那就选择它好了。
 
-
+Have a nice day！

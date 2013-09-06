@@ -51,3 +51,5 @@ Fib without cache costs: datetime.timedelta(0, 6, 219000)
 Fib with cache costs: datetime.timedelta(0, 0, 672000)  
 
 当然，正确的使用Fibonacci数列的方法应该是在函数体内使用循环，而不是使用递归。多层递归很容易对性能造成非常严重的影响。
+
+Have a nice day！

@@ -25,7 +25,7 @@ single: true
     </p>
   </footer>
 </article>
-{% if site.duoshuo_enable == true %}
+{% if site.duoshuo_enable == true and page.comments == true %}
   <section imagesd="comment">
     <h1>添加评论</h1>
     {% include post/duoshuo.html %}

@@ -51,3 +51,5 @@ $foo::$sname();
 > static foo! 
 
 有点儿意思～～～
+
+Have a nice day！

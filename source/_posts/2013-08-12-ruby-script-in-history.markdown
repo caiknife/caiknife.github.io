@@ -28,3 +28,5 @@ ruby album_download.rb [豆瓣相册链接或人人相册链接]
 不过这段代码再也跑不起来了，写这篇博文做个纪念吧。
 
 最后还是想说，我喜欢Python胜过Ruby，不知道自己这辈子还有没有机会当一个Python程序员。
+
+Have a nice day！

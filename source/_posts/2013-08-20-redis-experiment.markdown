@@ -68,3 +68,5 @@ redis>
 下面是一部分测试代码，里面有更详细的注释。
 
 {% include_code redis-py/demo.py %}
+
+Have a nice day！

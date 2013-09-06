@@ -46,4 +46,6 @@ else
 fi
 ```
 
-使用这条命令，就用```./print_latest_tracking_log.sh {site_name}```即可，如果当前机器上没有站点，脚本会提示错误信息。
+使用这条命令，就用 `./print_latest_tracking_log.sh {site_name}` 即可，如果当前机器上没有站点，脚本会提示错误信息。
+
+Have a nice day！
