@@ -1,58 +1,111 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
-    <title>Bootstrap 速查卡</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="Bootstrap_files/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="Bootstrap_files/bootstrap-responsive.css">
-    <link rel="stylesheet" type="text/css" href="Bootstrap_files/other.css">
-    <script type="text/javascript" src="Bootstrap_files/jquery-1.js"></script>
-    <script type="text/javascript" src="Bootstrap_files/bootstrap.js"></script></head>
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <title>Bootstrap</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="http://localhost/cakestrap/favicon.ico" type="image/x-icon" rel="icon"><link href="http://localhost/cakestrap/favicon.ico" type="image/x-icon" rel="shortcut icon"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="index_files/bootstrap.css"><link rel="stylesheet" type="text/css" href="index_files/bootstrap-responsive.css"><link rel="stylesheet" type="text/css" href="index_files/other.css"><script type="text/javascript" src="index_files/jquery-1.js"></script><script type="text/javascript" src="index_files/bootstrap.js"></script>    <script type="text/javascript">
+    $(function(){
+        // prevent default click event;
+        $('a').click(function(e){
+            if ($(this).attr('href') == '#') {
+                e.preventDefault();
+            }
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="popover"]').popover();
+    });
+    </script>
+</head>
 <body style="margin-top: 40px;" id="top" class="other-preview" data-spy="scroll" data-target=".other-subnav" data-offset="80">
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
-            <div class="container">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="#" class="brand">首页</a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li class="active"><a href="#">频道1</a></li>
-                        <li><a href="#">频道2</a></li>
-                        <li><a href="#">频道3</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">频道4<b class="caret"></b></a>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                <li><a href="#">子频道1</a></li>
-                                <li><a href="#">子频道2</a></li>
+    <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="brand">首页</a>
+        <div class="nav-collapse collapse">
+            <ul class="nav">
+                <li class="active"><a title="" data-original-title="" href="#" data-toggle="popover" data-placement="bottom" data-title="链接1" data-content="动次打次动次打次" data-trigger="hover">链接1</a></li>
+                <li><a title="" data-original-title="" href="#" data-toggle="popover" data-placement="bottom" data-title="链接2" data-content="没事儿偷着乐！" data-trigger="hover">链接2</a></li>
+                <li><a title="" data-original-title="" href="#" data-toggle="popover" data-placement="bottom" data-title="链接3" data-content="我和我的小伙伴们都惊呆了！" data-trigger="hover">链接3</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">链接4<b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li><a title="" data-original-title="" href="#" data-toggle="popover" data-placement="left" data-title="链接" data-content="这是左边" data-trigger="hover">链接</a></li>
+                        <li><a title="" data-original-title="" href="#" data-toggle="popover" data-placement="top" data-title="链接" data-content="这是上面" data-trigger="hover">链接</a></li>
+                        <li class="divider"></li>
+                        <li><a title="" data-original-title="" href="#" data-toggle="popover" data-placement="right" data-title="链接" data-content="这是右边" data-trigger="hover">链接</a></li>
+                        <li><a title="" data-original-title="" href="#" data-toggle="popover" data-placement="bottom" data-title="链接" data-content="这是下面" data-trigger="hover">链接</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">链接5 <i class="icon-plus"></i></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-submenu">
+                            <a href="#">链接1</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">子链接1</a></li>
+                                <li><a href="#">子链接2</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">子频道3</a></li>
-                                <li><a href="#">子频道4</a></li>
+                                <li><a href="#">子链接3</a></li>
+                                <li><a href="#">子链接4</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#">链接2</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">子链接1</a></li>
+                                <li><a href="#">子链接2</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">子链接3</a></li>
+                                <li><a href="#">子链接4</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">链接3</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">子链接1</a></li>
+                                <li><a href="#">子链接2</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">子链接3</a></li>
+                                <li><a href="#">子链接4</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#">链接4</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">子链接1</a></li>
+                                <li><a href="#">子链接2</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">子链接3</a></li>
+                                <li><a href="#">子链接4</a></li>
                             </ul>
                         </li>
                     </ul>
-                    <div>
-                        <form class="navbar-search form-search" method="get">
-                            <div class="input-append">
-                                <input name="q" class="span2 search-query" autocomplete="off" placeholder="搜索" type="text">
-                                <button type="submit" class="btn btn-info">
-                                    <i class="icon-white icon-search"></i>
-                                </button>
-                            </div>
-                        </form>
+                </li>
+            </ul>
+            <div>
+                <form class="navbar-search form-search" method="get">
+                    <div class="input-append">
+                        <input title="" data-original-title="" name="q" class="span2 search-query" autocomplete="off" placeholder="搜索" data-toggle="popover" data-title="温馨提示" data-content="这是个静态页面，搜索功能没用的，呵呵呵～" data-trigger="focus" data-placement="bottom" type="text">
+                        <button type="submit" class="btn btn-info">
+                            <i class="icon-white icon-search"></i>
+                        </button>
                     </div>
-                    <ul class="nav pull-right">
-                        <li><a data-original-title="从这里登录" href="#" data-toggle="tooltip" data-placement="bottom" title="" rel="nofollow">登录</a></li>
-                        <li class="divider-vertical"></li>
-                        <li><a data-original-title="从这里注册" href="#" data-toggle="tooltip" data-placement="bottom" title="" rel="nofollow">注册</a></li>
-                    </ul>
-                </div>
+                </form>
             </div>
+            <ul class="nav pull-right">
+                <li><a data-original-title="从这里登录" href="#" data-toggle="tooltip" data-placement="bottom" title="">登录</a></li>
+                <li class="divider-vertical"></li>
+                <li><a data-original-title="从这里注册" href="#" data-toggle="tooltip" data-placement="bottom" title="">注册</a></li>
+            </ul>
         </div>
     </div>
+</div>    </div>
     <div class="container">
         <header>
     <div class="row">
@@ -66,17 +119,16 @@
         </div>
     </div>
     <div class="other-subnav other-subnav-fixed">
-        <ul class="nav nav-pills">
-            <li><a href="#font">字体</a></li>
-            <li><a href="#nav">导航</a></li>
-            <li><a href="#button">按钮</a></li>
-            <li><a href="#form">表单</a></li>
-            <li><a href="#table">表格</a></li>
+        <ul class="nav nav-pills" style="padding-left:2px;">
+            <li class=""><a href="#font">字体</a></li>
+            <li class=""><a href="#nav">导航</a></li>
+            <li class=""><a href="#button">按钮</a></li>
+            <li class=""><a href="#form">表单</a></li>
+            <li class=""><a href="#table">表格</a></li>
             <li class="active"><a href="#other">其他</a></li>
         </ul>
     </div>
-</header>
-<section id="font">
+</header><section id="font">
     <div class="page-header">
         <h1>字体</h1>
     </div>
@@ -127,8 +179,7 @@
             </blockquote>
         </div>
     </div>
-</section>
-<section id="nav">
+</section><section id="nav">
     <div class="page-header">
         <h1>导航</h1>
     </div>
@@ -240,8 +291,7 @@
             </div>
         </div>
     </div>
-</section>
-<section id="button">
+</section><section id="button">
     <div class="page-header">
         <h1>按钮</h1>
     </div>
@@ -399,8 +449,7 @@
             </tr>
         </tbody>
     </table>
-</section>
-<section id="form">
+</section><section id="form">
     <div class="page-header">
         <h1>表单</h1>
     </div>
@@ -531,24 +580,76 @@
                             </select>
                             <span class="help-inline">Woohoo!</span>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="form-actions">
                         <button class="btn btn-primary" type="submit">Save changes</button>
                         <button class="btn" type="reset">Cancel</button>
                     </div>
                 </fieldset>
             </form>
+            <form class="well form-horizontal">
+                <fieldset>
+                    <legend>控件组</legend>
+                    <div class="control-group">
+                        <label class="control-label">组合式输入框</label>
+                        <div class="controls">
+                            <p>
+                                </p><div class="input-prepend">
+                                    <span class="add-on"><i class="icon-align-left"></i></span>
+                                    <input type="text">
+                                </div>
+                            <p></p>
+                            <p>
+                                </p><div class="input-append">
+                                    <input type="text">
+                                    <span class="add-on"><i class="icon-star"></i></span>
+                                </div>
+                            <p></p>
+                            <p>
+                                </p><div class="input-append input-prepend">
+                                    <span class="add-on"><i class="icon-screenshot"></i></span>
+                                    <input type="text">
+                                    <span class="add-on"><i class="icon-heart"></i></span>
+                                </div>
+                            <p></p>
+                            <p>
+                                </p><div class="input-prepend input-append">
+                                    <div class="btn-group">
+                                        <button class="btn" type="reset">按钮1</button>
+                                        <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                        </ul>
+                                    </div>
+                                    <input class="search-query" type="text">
+                                    <div class="btn-group">
+                                        <button class="btn" type="reset"><i class="icon-search"></i></button>
+                                        <button class="btn" type="reset">按钮1</button>
+                                        <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            <p></p>
+                        </div>
+                    </div> 
+                </fieldset>
+            </form>
         </div>
     </div>
-</section>
-<section id="table">
+</section><section id="table">
     <div class="page-header">
         <h1>表格</h1>
     </div>
     <table class="table table-bordered table-striped table-hover">
         <thead>
             <tr>
-                <th>#</th>
+                <th>thead</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Username</th>
@@ -610,26 +711,33 @@
                 <td>@twitter</td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <td>tfoot</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Username</td>
+            </tr>
+        </tfoot>
     </table>
-</section>
-<section id="other">
+</section><section id="other">
     <div class="page-header">
         <h1>其他</h1>
     </div>
     <div class="row">
         <div class="span4">
-          <h3 id="breadcrumbs">Breadcrumbs</h3>
+          <h3 id="breadcrumbs">面包屑</h3>
           <ul class="breadcrumb">
-            <li class="active">Home</li>
+            <li class="active">首页</li>
           </ul>
           <ul class="breadcrumb">
-            <li><a href="#">Home</a> <span class="divider">/</span></li>
-            <li><a href="#">Library</a> <span class="divider">/</span></li>
-            <li class="active">Data</li>
+            <li><a href="#">首页</a> <span class="divider">/</span></li>
+            <li><a href="#">一级目录</a> <span class="divider">/</span></li>
+            <li class="active">二级目录</li>
           </ul>
         </div>
         <div class="span4">
-          <h3 id="pagination">Pagination</h3>
+          <h3 id="pagination">分页</h3>
           <div class="pagination">
             <ul>
               <li class="previous"><a href="#">←</a></li>
@@ -659,24 +767,24 @@
           </div>
         </div>
         <div class="span4">
-          <h3 id="pager">Pagers</h3>
+          <h3 id="pager">分页导航</h3>
             <ul class="pager">
-              <li><a href="#">Previous</a></li>
-              <li><a href="#">Next</a></li>
+              <li><a href="#">上一个</a></li>
+              <li><a href="#">下一个</a></li>
             </ul>
             <ul class="pager">
-              <li class="previous disabled"><a href="#">← Older</a></li>
-              <li class="next"><a href="#">Newer →</a></li>
+              <li class="previous disabled"><a href="#">← 更早</a></li>
+              <li class="next"><a href="#">更新 →</a></li>
             </ul>
         </div>
     </div>
     <div class="row">
         <div class="span4">
-          <h3 id="tabs">Tabs</h3>
+          <h3 id="tabs">标签页</h3>
           <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#A">Section 1</a></li>
-            <li><a data-toggle="tab" href="#B">Section 2</a></li>
-            <li class="disabled"><a data-toggle="tab" href="#">Section 3</a></li>
+            <li class="active"><a data-toggle="tab" href="#A">区块 1</a></li>
+            <li><a data-toggle="tab" href="#B">区块 2</a></li>
+            <li class="disabled"><a data-toggle="tab" href="#C">区块 3</a></li>
           </ul>
           <div class="tabbable">
             <div class="tab-content">
@@ -693,7 +801,7 @@
           </div> <!-- /tabbable -->
         </div>
         <div class="span4">
-          <h3 id="pills">Pills</h3>
+          <h3 id="pills">胶囊式菜单</h3>
           <ul class="nav nav-pills">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#">Profile</a></li>
@@ -711,7 +819,7 @@
           </ul>
         </div>
         <div class="span4">
-          <h3 id="list">Lists</h3>
+          <h3 id="list">列表</h3>
           <div style="padding: 8px 0;" class="well">
             <ul class="nav nav-list">
               <li class="nav-header">List header</li>
@@ -729,7 +837,7 @@
     </div>
     <div class="row">
         <div class="span6">
-          <h3 id="labels">Labels</h3>
+          <h3 id="labels">标签</h3>
           <span class="label">Default</span>
           <span class="label label-success">Success</span>
           <span class="label label-warning">Warning</span>
@@ -738,7 +846,7 @@
           <span class="label label-inverse">Inverse</span>
         </div>
         <div class="span6">
-          <h3 id="badges">Badges</h3>
+          <h3 id="badges">徽章</h3>
           <span class="badge">Default</span>
           <span class="badge badge-success">Success</span>
           <span class="badge badge-warning">Warning</span>
@@ -748,7 +856,7 @@
         </div>
     </div>
     <br>
-    <h3 id="progressbars">Progress bars</h3>
+    <h3 id="progressbars">进度条</h3>
     <div class="row">
         <div class="span4">
           <div class="progress">
@@ -767,7 +875,7 @@
         </div>
     </div>
     <br>
-    <h3 id="alerts">Alerts</h3>
+    <h3 id="alerts">警告</h3>
     <div class="row">
       <div class="span12">
           <div class="alert alert-block">
@@ -800,25 +908,22 @@ scelerisque nisl consectetur et.</p>
         </div>
     </div>
 </section>
-<script type="text/javascript" src="Bootstrap_files/hello.js"></script>    </div>
+<script type="text/javascript" src="index_files/hello.js"></script>    </div>
     <div class="navbar navbar-fixed-bottom">
         <div class="navbar-inner">
-            <div class="container">
-                <div class="row">
-                    <div class="span12">
-                        <p>
-                            </p><div class="pull-right">
-                                <a href="#top" rel="nofollow">回到顶端</a>
-                            </div>                                
-                        <p></p>
-                        <p>
-                            </p><div class="info">
-                            BootStrap 2.3.2 速查板
-                            </div>
-                        <p></p>
-                    </div>
-                </div>            
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <p></p>
+                <div class="pull-right">
+                    <a href="#top" rel="nofollow">回到顶端</a>
+                </div>                              
+                <div>
+                    <span class="label label-info">BootStrap 2.3.2 速查板 @ 2013</span>
+                </div>
             </div>
-        </div>
+        </div>            
     </div>
+</div>    </div>
+
 </body></html>

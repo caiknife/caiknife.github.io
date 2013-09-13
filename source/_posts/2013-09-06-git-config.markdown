@@ -9,7 +9,7 @@ categories: git linux ubuntu
 
 首先在 ubuntu 上更新 git 的源。
 
-```
+``` console
 $ sudo apt-add-repository ppa:git-core/ppa
 
 $ sudo update
@@ -21,7 +21,7 @@ $ sudo apt-get install git
 
 安装好后， shell 下的 git 提示都变成了中文，很方便。然后再设置 git 命令的别名。
 
-```
+``` console
 $ git config --global alias.st status
 
 $ git config --global alias.ci commit
@@ -37,6 +37,20 @@ $ git config --global alias.hist "log --pretty=format:\"%h %ad | %s%d [%an]\" --
 $ git config --global alias.type "cat-file -t"
 
 $ git config --global alias.dump "cat-file -p"
+```
+
+在 `～/.gitconfig` 文件中就会生成下面的内容：
+
+```
+[alias]
+    co = checkout
+    ci = commit
+    df = diff
+    st = status
+    br = branch
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
 ```
 
 下面是一些学习 git 的参考资料：

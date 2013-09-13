@@ -1,0 +1,44 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    position: relative;
+}
+
+section {
+  padding-top: 50px;
+}
+
+@media (max-width: 980px) {
+    body {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+.bs-cheatsheet-sidebar {
+    width: 250px;
+}
+
+.bs-cheatsheet-example:after {
+  background-color: #F5F5F5;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px 0 4px 0;
+  color: #9DA0A4;
+  content: "Example";
+  font-size: 12px;
+  font-weight: bold;
+  left: -1px;
+  padding: 3px 7px;
+  position: absolute;
+  top: -1px;
+}
+
+.bs-cheatsheet-example {
+  background-color: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px 4px 4px 4px;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  position: relative;
+  z-index: -100;
+}
