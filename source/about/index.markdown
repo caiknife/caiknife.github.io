@@ -16,3 +16,12 @@ footer: true
 print "Hello, world!"
 print "I'm CaiKnife."
 ```
+
+最近又开始觉得 Ruby 很好玩了，这种才应该是真正的面向对象语言。
+
+``` ruby Ruby真的很有意思！大家一起来玩Ruby吧！
+puts "Hello, world"
+puts "I'm CaiKnife."
+```
+
+PHP 的 $，加上 Ruby ，跟钱打交道的语言才是王道，呵呵呵。
