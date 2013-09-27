@@ -84,22 +84,27 @@ sub vcl_recv {
     # random load balance
     set req.backend = drandom;
 
+
     # rr load balance
     set req.backend = drr;
 
+
     # client load balance
     set req.backend = dcli;
+
     # 根据 client.identity 来决定该访问哪台服务器
     # load balance by IP, default
     set client.identity = client.ip;
+
     # load balance by URL
     set client.identity = req.url;
+
     # load balance by User Agent
     set client.identity = req.http.user-agent;
 }
 ```
 
-当然最常用的负载均衡策略就是 `round-robin` ，而除此之外还有 `hash` 、`dns` 、`fallback` 集中不同的策略，它们的思路都差不多类似，在此不再详述了。
+当然最常用的负载均衡策略就是 `round-robin` ，而除此之外还有 `hash` 、`dns` 、`fallback` 几种不同的策略，它们的思路都差不多类似，在此不再详述了。
 
 Nginx 和 varnish 一样都有反向代理和负载均衡的功能，看来也值得了解学习一下。下一个目标—— Nginx！
 
