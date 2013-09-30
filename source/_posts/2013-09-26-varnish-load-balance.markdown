@@ -9,6 +9,8 @@ categories: varnish linux
 
 常用的负载均衡方式有 `LVS` 、`Nginx` 、`HAProxy` 等等，其实 varnish 作为一个反向代理软件，也可以起到负载均衡的作用。在 varnish 的官方 wiki 上有详细的介绍：<https://www.varnish-cache.org/trac/wiki/LoadBalancing> 。我们来看看如何设置。
 
+<!-- more -->
+
 先设置好后端的几台服务器：
 
 ```
