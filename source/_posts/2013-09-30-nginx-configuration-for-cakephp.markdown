@@ -19,7 +19,7 @@ $ sudo apt-get install nginx php5-fpm
 
 <!-- more -->
 
-##将 CakePHP 作为独立网站配置
+###将 CakePHP 作为独立网站配置
 
 下面是将 CakePHP 作为一个单独的主机进行配置的 Nginx 配置文件。
 
@@ -77,7 +77,7 @@ $ sudo service nginx <reload|restart>
 
 编辑 `/etc/hosts` ，加入两行： `127.0.0.1   cakestrap.local` 和 `127.0.0.1   www.cakestrap.local` 。之后就可以在浏览器里直接访问了。
 
-##将CakePHP作为网站子目录配置。
+###将CakePHP作为网站子目录配置。
 
 如果要把 CakePHP 作为一个网站的子目录访问，应该如何设置呢？
 

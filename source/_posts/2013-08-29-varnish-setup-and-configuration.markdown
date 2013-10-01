@@ -79,6 +79,7 @@ backend default {
 sub vcl_recv {
     set req.backend = default; # 设置 backend ，默认就是 default 。如果做了负载 director 的话，就写 director 的名字。
     # 在varnish的默认设置中，如果不是 GET 也不是 HEAD，就会直接进入 pass
+    # 这里将所有请求发送到内存中进行查询
     return (lookup);
 }
 
