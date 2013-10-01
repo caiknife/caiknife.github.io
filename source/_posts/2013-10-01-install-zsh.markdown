@@ -27,6 +27,8 @@ $ curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh 
 $ wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 ```
 
+<!-- more -->
+
 安装完成之后，就会在 home 目录下生成一个 `.zshrc` 文件，这里可以做很多的设置，比如设置插件、加载其他 bash 文件等等，`zsh` 是完全兼容 `bash` 的。我就在这个文件里加载了默认的 `.bash_aliases` 文件。
 
 在这个文件里还有一个叫做 `ZSH_THEME` 的设置，用来配置 shell 的外观。目前我的外观配置如下：
