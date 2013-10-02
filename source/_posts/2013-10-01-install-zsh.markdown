@@ -81,5 +81,3 @@ RPROMPT='%{$GREEN_BOLD%}$(current_branch)$(git_prompt_short_sha)$(git_prompt_sta
 {% fancybox /downloads/image/zsh/zsh.png zsh demo %}
 
 挺有意思的，是不？ Have a nice day！
-
-
