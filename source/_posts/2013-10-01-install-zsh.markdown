@@ -78,6 +78,8 @@ RPROMPT='%{$GREEN_BOLD%}$(current_branch)$(git_prompt_short_sha)$(git_prompt_sta
 
 来瞅瞅换成 `zsh` 之后变成什么样了。
 
-![zsh](/downloads/image/zsh/zsh.png)
+{% fancybox /downloads/image/zsh/zsh.png zsh demo %}
 
 挺有意思的，是不？ Have a nice day！
+
+
