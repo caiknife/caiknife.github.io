@@ -3,7 +3,7 @@
 module Jekyll
 
   # Usage:
-  # {% fancybox filename [thumb:thumb] [title] %}
+  # {% fancybox @filename [thumb:@thumb] [@title] %}
 
   class FancyboxTag < Liquid::Tag
     def initialize(tag_name, markup, tokens)
@@ -20,7 +20,7 @@ module Jekyll
       if @filename
         "<a href=\"#{@filename}\" title=\"#{@title}\" class=\"fancybox\"><img src=\"#{thumb_for(@filename, @thumb)}\" alt=\"#{@title}\" /></a>"
       else
-        "Error. Usage: {% fancybox filename [thumb:thumb] [title] %}"
+        "Error. Usage: {% fancybox @filename [thumb:@thumb] [@title] %}"
       end
     end
 
