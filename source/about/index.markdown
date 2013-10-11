@@ -31,3 +31,7 @@ footer: true
 <http://explainshell.com/> —— Shell 在线解释工具
 
 <http://www.commandlinefu.com/commands/browse> —— Shell 命令汇总
+
+<http://stackoverflow.com/> —— 上了 StackOverflow 之后，我掉头发再也没有那么严重了。
+
+<http://runnable.com/> —— 一站式代码查询工具，代码社区里的 YouTube 。
