@@ -1,0 +1,250 @@
+---
+layout: post
+title: "PHP 笔记"
+date: 2013-10-14 22:35
+comments: true
+categories: php
+---
+写了这么多年的 PHP ，还真没好好记过笔记什么的，说起来挺惭愧的。现在年纪也越来越大了，记忆力开始下降，俗话说“好记性不如烂笔头”，知识通过白纸黑字记下来，要比一直用脑子记好得多，还方便查漏补缺。
+
+先从最基本的开始吧。
+
+##PHP 访问权限
+
+PHP 的类有 `public` 、`protected` 、`private` 三种权限修饰符。这三种修饰符的作用如下：
+
+- public (公有的)：类中的成员将没有访问限制，所有的外部成员都可以访问（读和写）这个类成员(包括成员属性和成员方法)。如果类的成员没有指定成员访问修饰符，将被视为 public 。
+- protected (受保护的)：被定义为 protected 的成员不能被该类的外部代码访问，但该类的子类具有访问权限。
+- private (私有的)：被定义为 private 的成员，允许同一个类里的所有成员访问，但对于该类的外部代码和子类都不允许访问。
+
+<!-- more -->
+
+举个例子：
+
+``` php 
+<?php
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
+
+require_once 'Zend/Loader/Autoloader.php';
+Zend_Loader_Autoloader::getInstance();
+
+class A {
+    public $pubName = 'PubA';
+
+    protected $_proName = 'ProA';
+
+    private $__priName = 'PriA';
+}
+
+$a = new A();
+
+Zend_Debug::dump($a->pubName);
+Zend_Debug::dump($a->_proName);
+Zend_Debug::dump($a->__priName);
+```
+
+上面这个例子，后面两条 `Zend_Debug::dump($a->_proName);` 和 `Zend_Debug::dump($a->__priName);` 就会报错，因为 `protected` 和 `private` 的属性、方法是不能在类外访问的。
+
+再来看看下面的代码：
+
+``` php
+<?php
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
+
+require_once 'Zend/Loader/Autoloader.php';
+Zend_Loader_Autoloader::getInstance();
+
+class A {
+    public $pubName = 'PubA';
+
+    protected $_proName = 'ProA';
+
+    private $__priName = 'PriA';
+
+    public function publicDump() {
+        Zend_Debug::dump($this->pubName);
+        Zend_Debug::dump($this->_proName);
+        Zend_Debug::dump($this->__priName);
+    }
+}
+
+class B extends A {
+
+    public function publicDump() {
+        parent::publicDump();
+
+        Zend_Debug::dump($this->pubName);
+        Zend_Debug::dump($this->_proName);
+        Zend_Debug::dump($this->__priName);
+    }
+
+}
+
+$b = new B();
+$b->publicDump();
+```
+
+运行的结果是依次是：
+
+```
+string 'PubA' (length=4)
+string 'ProA' (length=4)
+string 'PriA' (length=4)
+string 'PubA' (length=4)
+string 'ProA' (length=4)
+null
+```
+
+很明显，`public` 和 `protected` 修饰的属性子类继承了下来，而 `private` 修饰的属性无法被继承。这个规律对类的方法同样也适用。
+
+第三段代码：
+
+``` php
+<?php
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
+
+require_once 'Zend/Loader/Autoloader.php';
+Zend_Loader_Autoloader::getInstance();
+
+class A {
+    public static $name;
+}
+
+class B extends A {
+
+}
+
+A::$name = "A";
+Zend_Debug::dump(A::$name);
+Zend_Debug::dump(B::$name);
+
+B::$name = "B";
+Zend_Debug::dump(A::$name);
+Zend_Debug::dump(B::$name);
+```
+
+输出结果是：
+
+```
+string 'A' (length=1)
+string 'A' (length=1)
+string 'B' (length=1)
+string 'B' (length=1)
+```
+
+对比一下：
+
+``` php
+<?php
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
+
+require_once 'Zend/Loader/Autoloader.php';
+Zend_Loader_Autoloader::getInstance();
+
+class A {
+    public static $name;
+}
+
+class B extends A {
+    public static $name;
+}
+
+A::$name = "A";
+Zend_Debug::dump(A::$name);
+Zend_Debug::dump(B::$name);
+
+B::$name = "B";
+Zend_Debug::dump(A::$name);
+Zend_Debug::dump(B::$name);
+```
+
+输出结果：
+
+```
+string 'A' (length=1)
+null
+string 'A' (length=1)
+string 'B' (length=1)
+```
+
+可见，如果子类没有覆盖父类的静态变量的话，子类和父类就会共享这一个静态变量。
+
+##PHP 禁止继承
+
+可以通过 `final` 关键字来实现禁止类的继承或者方法的覆盖。比如：
+
+``` php
+// 禁止继承
+final class A {
+    // A 不能被继承
+}
+
+// 禁止覆盖方法
+class A {
+    // hello 方法可以继承，但是不能被覆盖。
+    final public function hello() {
+        Zend_Debug::dump('A');
+    }
+}
+```
+
+##PHP 禁止类的实例化
+
+可以通过 `abstract` 关键字将类定义为抽象类以禁止类的实例化，强制要求类的继承；还可以用来修饰方法，强制要求在子类中实现函数体。比如：
+
+``` php
+abstract class A {
+    public $name = 'A';
+
+    // hello 方法现在是空函数体，该方法必须在子类中实现。
+    abstract public function hello();
+}
+
+class B extends A {
+    public function hello() {
+        Zend_Debug::dump($this->name);
+    }
+}
+
+// Fatal error: Cannot instantiate abstract class A 
+$a = new A();
+```
+
+## 来实现一个 PHP 的单例模式
+
+综合以上内容，我们来实现一个相对比较安全的单例模式。
+
+``` php
+<?php
+// 默认不能继承
+final class Singleton {
+    // 懒汉单例模式
+    private static $__instance = null;
+
+    // 构造函数私有化，无法在外部进行实例化
+    private function __construct() {
+
+    }
+
+    // __clone魔术方法私有化，不能通过 clone 进行复制
+    private function __clone() {
+
+    }
+
+    // 单例模式通过 Singleton::getInstance 方法调用，生成全局唯一的变量
+    public static function getInstance() {
+        if (is_null(self::$__instance)) {
+            self::$__instance = new self();
+        }
+        return self::$__instance;
+    }
+}
+```
+
+时候不早了，早点睡觉。
+
+Have a nice day！
