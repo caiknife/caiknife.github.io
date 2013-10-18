@@ -3,7 +3,7 @@ layout: post
 title: "git 备忘"
 date: 2013-10-18 09:47
 comments: true
-categories: 
+categories: git work
 ---
 之前做了 git 的设置，今天总结一下它的常用命令。
 
