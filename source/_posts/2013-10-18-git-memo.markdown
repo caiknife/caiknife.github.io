@@ -62,7 +62,7 @@ git log -p <file>   # 查看每次详细修改内容的diff
 git log -p -2       # 查看最近两次详细修改内容的diff
 ```
 
-##Git 本地分支管理
+##git 本地分支管理
 
 查看、切换、创建和删除分支
 
@@ -82,6 +82,18 @@ git co $id -b <new_branch>  # 把某次历史提交记录checkout出来，创建
 
 git br -d <branch>  # 删除某个分支
 git br -D <branch>  # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)
+```
+
+打标签
+
+``` bash 打标签
+git tag                         # 列出已有标签
+git tag -l 'v1.4.2.*'           # 列出 1.4.2 系列的标签
+git tag <tag>                   # 为当前提交打上轻量标签
+git tag -a <tag> -m "<comment>" # 为当前提交打上附注标签
+git tag -a <tag> <$id>          # 为指定提交打上标签
+git push origin <tag>           # 将指定标签推送到远程服务器
+git push origin --tags          # 所有标签推送到远程服务器
 ```
 
 分支合并和 rebase
