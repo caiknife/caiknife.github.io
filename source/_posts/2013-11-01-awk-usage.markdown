@@ -1,0 +1,150 @@
+---
+layout: post
+title: "awk 使用"
+date: 2013-11-01 12:00
+comments: true
+categories: linux shell
+---
+Linux下的`sed`和`awk`是两个非常强大的文本处理工具，今天先总结一下`awk`的用法。
+
+首先看看`awk`的帮助文档：
+
+<!-- more -->
+
+``` bash awk help
+> awk --help
+用法: awk [POSIX 或 GNU 风格选项] -f 脚本文件 [--] 文件 ...
+用法: awk [POSIX 或 GNU 风格选项] [--] '程序' 文件 ...
+POSIX 选项:           GNU 长选项:
+    -f 脚本文件     --file=脚本文件
+    -F fs           --field-separator=fs
+    -v var=val      --assign=var=val
+    -m[fr] val
+    -O          --optimize
+    -W compat       --compat
+    -W copyleft     --copyleft
+    -W copyright        --copyright
+    -W dump-variables[=file]    --dump-variables[=file]
+    -W exec=file        --exec=file
+    -W gen-po       --gen-po
+    -W help         --help
+    -W lint[=fatal]     --lint[=fatal]
+    -W lint-old     --lint-old
+    -W non-decimal-data --non-decimal-data
+    -W profile[=file]   --profile[=file]
+    -W posix        --posix
+    -W re-interval      --re-interval
+    -W source=program-text  --source=program-text
+    -W traditional      --traditional
+    -W usage        --usage
+    -W use-lc-numeric   --use-lc-numeric
+    -W version      --version
+
+提交错误报告请参考“gawk.info”中的“Bugs”页，它位于打印版本中的“Reporting
+Problems and Bugs”一节
+
+翻译错误请发信至 translation-team-zh-cn@lists.sourceforge.net
+
+gawk 是一个模式扫描及处理语言。缺省情况下它从标准输入读入并写至标准输出。
+
+范例:
+    gawk '{ sum += $1 }; END { print sum }' file
+    gawk -F: '{ print $1 }' /etc/passwd
+```
+
+##上手起步
+
+以`/etc/passwd`这个文件为例，这个文件保存了linux下所有用户的信息，字段之间用`:`分割。那么，如果我想看到所有的用户和对应的主目录，用下面的命令就可以完成：
+
+``` bash
+> awk -F: '{print $1, $6}' /etc/passwd # 第一列是用户名，第六列是主目录
+```
+
+输出结果：
+
+``` bash
+root /root
+daemon /usr/sbin
+bin /bin
+sys /dev
+sync /bin
+games /usr/games
+man /var/cache/man
+lp /var/spool/lpd
+mail /var/mail
+news /var/spool/news
+uucp /var/spool/uucp
+proxy /bin
+www-data /var/www
+...
+```
+
+##过滤记录
+
+如果想过滤记录的话，可以在语句中加上条件判断：
+
+``` bash
+> awk -F: '$3==$4 {print $1, $6}' /etc/passwd # 显示uid==gid的记录
+
+> awk -F: '$3<=100 {print $1, $6}' /etc/passwd # 显示uid小于等于100的记录
+```
+
+##指定分割符
+
+`awk`的`-F`参数可以指定输入时的分割符，同时设置`OFS`参数，可以指定输出分割符：
+
+``` bash
+> awk -F: '$3==$4 {print $1, $3, $6}' OFS="\t" /etc/passwd
+root    0   /root
+daemon  1   /usr/sbin
+bin 2   /bin
+sys 3   /dev
+lp  7   /var/spool/lpd
+mail    8   /var/mail
+news    9   /var/spool/news
+uucp    10  /var/spool/uucp
+proxy   13  /bin
+www-data    33  /var/www
+backup  34  /var/backups
+list    38  /var/list
+irc 39  /var/run/ircd
+gnats   41  /var/lib/gnats
+nobody  65534   /nonexistent
+caiknife    1000    /home/caiknife
+```
+
+##字符串匹配
+
+`awk`还可以使用类似正则表达式的方式来进行字符串的匹配，比如：
+
+``` bash
+> awk -F: '$1 ~ /caiknife/ {print $1, $6}' OFS="\t" /etc/passwd
+```
+
+使用`!`可以进行模式取反：
+
+``` bash
+> awk -F: '$1 !~ /caiknife/ {print $1, $6}' OFS="\t" /etc/passwd
+```
+
+常用的方法就是这些，但是还有很重要的内建变量：
+
+
+<table>
+    <tbody>
+        <tr><td>$0</td><td>当前记录（这个变量中存放着整个行的内容）</td></tr>
+        <tr><td>$1~$n</td><td>当前记录的第n个字段，字段间由FS分隔</td></tr>
+        <tr><td>FS</td><td>输入字段分隔符 默认是空格或Tab</td></tr>
+        <tr><td>NF</td><td>当前记录中的字段个数，就是有多少列</td></tr>
+        <tr><td>NR</td><td>已经读出的记录数，就是行号，从1开始，如果有多个文件话，这个值也是不断累加中。</td></tr>
+        <tr><td>FNR</td><td>当前记录数，与NR不同的是，这个值会是各个文件自己的行号</td></tr>
+        <tr><td>RS</td><td>输入的记录分隔符， 默认为换行符</td></tr>
+        <tr><td>OFS</td><td>输出字段分隔符， 默认也是空格</td></tr>
+        <tr><td>ORS</td><td>输出的记录分隔符，默认为换行符</td></tr>
+        <tr><td>FILENAME</td><td>当前输入文件的名字</td></tr>
+    </tbody>
+</table>
+
+`awk`是神器，务必一定要好好使用，深入了解。
+
+Have a nice day！
