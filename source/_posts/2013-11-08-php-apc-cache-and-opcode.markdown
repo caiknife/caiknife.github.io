@@ -9,6 +9,8 @@ categories: php
 
 {% fancybox /downloads/image/apc/apc.png PHP APC cache %}
 
+<!-- more -->
+
 1.Lexicon Scan，将PHP代码转换为语言片段(Tokens)。    
 2.Parse，将Tokens转换成简单而有意义的表达式。    
 3.Compilation，将表达式编译成Opocdes。    
@@ -23,3 +25,4 @@ categories: php
 除了APC之外，还有xcache、eAccelerator、Zend Optimizor+可以对Opcodes进行缓存。
 
 Have a nice day！
+
