@@ -26,3 +26,9 @@ categories: php
 
 Have a nice day！
 
+补充一下：
+
+在PHP 5.5中，Zend Opcache已经成为默认的扩展，据说比APC的性能有所提高，参考下面的链接：  
+<http://cnzhx.net/blog/zendopcache-accelerate-php/>  
+<http://blog.wu-boy.com/2013/06/php-5-5-0-release-zend-opcache/>  
+<http://www.linuxde.net/2013/07/14698.html>  

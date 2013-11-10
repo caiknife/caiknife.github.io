@@ -8,19 +8,19 @@ footer: true
 ---
 ##我是谁？
 
-这个人很懒。
+常用ID：CaiKnife
 
 主要写 PHP ，还会点 Ruby 和 Python。
 
-在一台 2009 年初购买的 T400 上装了个 Ubuntu 12.04 玩玩儿，没有用过 Mac ，一是经济上买不起，二是迁移成本负担不起。
+会拍点破照片。
 
-有个破单反，2009 年买的，有空就拍点破片子，常常混迹与各个音乐节。
+会弹点破吉他。
 
-会弹点吉他，兴趣是 Blues、Jazz、Funk、Reggae、Soul、Folk。
-
-最喜欢的吉他手是 Paul Gilbert。
+最喜欢的吉他手是 Paul Gilbert 和 John Mayer。
 
 {% fancybox http://www.dimarzio.com/sites/default/files/imagecache/player_page_image/player/paul_gilbert5_l.jpg Paul Gilbert %}
+
+{% fancybox http://userserve-ak.last.fm/serve/500/24020631/John%252BMayer.jpg John Mayer %}
 
 ##常用工具汇总
 
