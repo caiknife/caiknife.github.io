@@ -35,3 +35,5 @@ footer: true
 <http://stackoverflow.com/> —— 上了 StackOverflow 之后，我掉头发再也没有那么严重了。
 
 <http://runnable.com/> —— 一站式代码查询工具，代码社区里的 YouTube 。
+
+<http://soundcloud.com/> —— 发现有意思的音乐，已经被 GFW 认证。
