@@ -37,3 +37,7 @@ footer: true
 <http://runnable.com/> —— 一站式代码查询工具，代码社区里的 YouTube 。
 
 <http://soundcloud.com/> —— 发现有意思的音乐，已经被 GFW 认证。
+
+<http://segmentfault.com/> —— 国内的 StackOverflow 。
+
+<http://www.oschina.net/> —— 不上 JavaEye 改上 OSChina 了。
