@@ -17,7 +17,7 @@ categories: memcache php redis
 
 ``` php
 <?php
-$mc = new Memcache();
+$mc = new Memcached();
 $mc->addServers(array(
     array('127.0.0.1', 11211, 40),
     array('127.0.0.1', 11212, 30),
@@ -57,8 +57,12 @@ B 请求缓存命中（由于 A 的运算）
 ``` php
 <?php
 function get($key) {
-    global $mc;
-
+    $mc = new Memcached();
+    $mc->addServers(array(
+        array('127.0.0.1', 11211, 40),
+        array('127.0.0.1', 11212, 30),
+        array('127.0.0.1', 11213, 30)
+    ));
     $data = $mc->get($key);
     // check if cache exists
     if ($mc->getResultCode() === Memcached::RES_SUCCESS) {
