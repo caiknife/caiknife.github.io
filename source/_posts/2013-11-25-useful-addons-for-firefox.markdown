@@ -3,7 +3,7 @@ layout: post
 title: "FireFox 常用扩展"
 date: 2013-11-25 14:25:07 +0800
 comments: true
-categories: firefox 
+categories: firefox browser
 ---
 公司电脑重装了系统，FireFox 的同步功能不好用，扩展又得重装了。
 
