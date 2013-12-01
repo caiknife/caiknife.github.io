@@ -9,6 +9,8 @@ categories: mysql
 
 从理论上讲，完全可以为数据表里的每一个字段分别创建一个索引，但是 MySQL 把同一个数据表里的索引总数限制为 16 个。MySQL 还允许为多个字段的组合创建索引，这种索引对涉及多个字段的查询/排序操作——例如 `WHERE coutry='China' AND city='Shanghai'` 特别有帮助。
 
+<!-- more -->
+
 ##InnoDB 表的索引
 
 和 MyISAM 数据表相比，索引对 InnoDB 数据表的重要性大得多。在 InnoDB 数据表上，索引不仅会在搜索数据记录时发挥作用，还是数据行级锁定机制的基础。“数据行级锁定”的意思是在事务操作的执行过程中锁定正在被处理的个别记录，不让其他的用户访问。这种锁定将影响到（但是不限于） `SELECT ... LOCK IN SHARE MODE` 、`SELECT ... FOR UPDATE` 命令以及 `INSERT` 、`UPDATE` 和 `DELETE` 命令。
