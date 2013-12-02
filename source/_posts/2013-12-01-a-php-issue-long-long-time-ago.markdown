@@ -3,7 +3,7 @@ layout: post
 title: "早先碰到的一个 PHP 问题，有关 curl 和 file_get_contents"
 date: 2013-12-01 09:41:38 +0800
 comments: true
-categories: php
+categories: php work
 ---
 最早在 SmarterUS 改版的时候，后台数据采用了 API 的方式来提供，当时我第一次想要获取 API 数据时，天真的使用了 `file_get_contents` 函数，结果在自己的机器上能正常获取 XML 数据，但是代码一上到公司的开发机，获取 API 时返回竟然是空白页面，实在是百思不得其解。
 

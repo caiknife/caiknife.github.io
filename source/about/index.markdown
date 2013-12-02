@@ -24,6 +24,8 @@ footer: true
 
 ##常用工具汇总
 
+<http://git-scm.com/book/zh> —— 在 Git 流行的年代，用 SVN 还能理解，如果还在用 CVS 的话，一点都不高大上啊！赶紧开始学 Git ！
+
 <http://www.rubular.com/> —— Ruby 正则表达式在线测试工具
 
 <http://dillinger.io/> —— Markdown 在线编辑器
