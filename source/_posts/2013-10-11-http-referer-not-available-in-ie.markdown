@@ -3,7 +3,7 @@ layout: post
 title: "IE 下获取 HTTP_REFERER 无效"
 date: 2013-10-11 15:19
 comments: true
-categories: work bug browser http
+categories: work browser 
 ---
 前段时间 SMKR 上线了一个 coupon 频道，用的是 CMUS 的 coupon 数据，用户点击一个 coupon 之后，会先跳转到 CMUS 站点然后再跳转到商家站点。这样在 SMKR 站点上就会记录一个 `Affiliate Outgoing Log`，在 CMUS 站点上记录一个 `Offer Outgoing Log`。
 

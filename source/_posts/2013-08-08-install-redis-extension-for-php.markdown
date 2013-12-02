@@ -3,7 +3,7 @@ layout: post
 title: "安装phpredis扩展"
 date: 2013-08-08 14:41
 comments: true
-categories: redis php
+categories: redis php linux ubuntu
 ---
 redis官方推荐的PHP扩展有两个——[Predis](https://github.com/nrk/predis)和[phpredis](https://github.com/nicolasff/phpredis)。phpredis是使用 C 编写的 PHP module ，速度应该会比较快，而且 CakePHP 使用的 redis 库默认就是 phpredis ，先安装这个试试看。
 

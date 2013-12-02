@@ -3,7 +3,7 @@ layout: post
 title: "给博客写了个 fancybox 的插件"
 date: 2013-10-02 17:37
 comments: true
-categories: jquery ruby octopress
+categories: js jquery ruby octopress
 ---
 octopress 默认没有放大图片的效果，今天用 fancybox 做了一个插件扩展。
 

@@ -3,7 +3,7 @@ layout: post
 title: "发现了 redis commander 的一个 bug"
 date: 2013-09-18 21:45
 comments: true
-categories: redis linux nodejs 
+categories: redis linux nodejs js
 ---
 长久以来，我的工作平台是 Ubuntu ，而我用来管理 redis 的工具是 [redis-commander](http://nearinfinity.github.io/redis-commander/)。
 

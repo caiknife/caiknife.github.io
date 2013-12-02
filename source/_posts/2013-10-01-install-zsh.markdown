@@ -3,7 +3,7 @@ layout: post
 title: "安装 zsh"
 date: 2013-10-01 22:01
 comments: true
-categories: zsh linux
+categories: shell linux
 ---
 前几天在看[MacTalk·人生元编程](http://read.douban.com/ebook/1531222/)的时候谈到了 `zsh` 这个很有意思的 shell 。前两天安装好，用下来感觉相当不错，特别总结一下。
 

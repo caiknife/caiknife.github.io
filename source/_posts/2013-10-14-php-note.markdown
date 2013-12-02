@@ -3,7 +3,7 @@ layout: post
 title: "PHP 笔记"
 date: 2013-10-14 22:35
 comments: true
-categories: php
+categories: php 设计模式
 ---
 写了这么多年的 PHP ，还真没好好记过笔记什么的，说起来挺惭愧的。现在年纪也越来越大了，记忆力开始下降，俗话说“好记性不如烂笔头”，知识通过白纸黑字记下来，要比一直用脑子记好得多，还方便查漏补缺。
 

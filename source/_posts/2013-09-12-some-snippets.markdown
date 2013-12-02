@@ -3,7 +3,7 @@ layout: post
 title: "一点废话"
 date: 2013-09-12 23:25
 comments: true
-categories: cakephp linux bootstrap
+categories: cakephp linux bootstrap js
 ---
 有几天没写博客了，最近这几天一直在看文档学习。 PHP 、Python 、Ruby 的各种微框架都在看—— Flask 、Sinatra 、 Padrino 、Silex 、Slim 、 Limonade 、 Flight，还有一个最近比较火的 Laravel 4 。看了这么多，却不知道自己能用上的能有多少，如此多的微框架，真正用起来的时候，还是要自己造轮子。用了很多年的 CakePHP ，还是感觉这个东西最好用，估计我这一辈子就和 CakePHP 一起活了，呵呵。
 

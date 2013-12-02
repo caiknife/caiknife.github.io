@@ -3,7 +3,7 @@ layout: post
 title: "使用装饰器为Python函数做缓存"
 date: 2013-08-13 10:11
 comments: true
-categories: python 设计模式 装饰器
+categories: python 设计模式
 ---
 写了个函数作为装饰器为Fibonacci数列做缓存，做了一下性能比较。
 

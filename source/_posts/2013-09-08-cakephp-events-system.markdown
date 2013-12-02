@@ -3,7 +3,7 @@ layout: post
 title: "CakePHP 事件机制"
 date: 2013-09-08 01:41
 comments: true
-categories: cakephp events observer 设计模式
+categories: php cakephp 设计模式
 ---
 内置事件机制的编程语言不多，而绝大部分编程语言都是靠观察者设计模式来实现这一机制的。而引入事件机制的目的之一，就是要解耦，让代码能够更加容易维护，让一个对象只做自己该做的事情，不要去做别的对象应该做的事情。
 

@@ -42,6 +42,8 @@ categories: firefox browser
 
 [SQLiteManager](https://addons.mozilla.org/zh-TW/firefox/addon/sqlite-manager/?src=search)
 
+[User Agent Switcher](https://addons.mozilla.org/zh-CN/firefox/addon/user-agent-switcher/)，需要导入[常用UA](http://techpatterns.com/downloads/download_item.php?folder=firefox&filename=useragentswitcher.xml)来配合使用。
+
 [Wappalyzer](https://addons.mozilla.org/zh-TW/firefox/addon/wappalyzer/?src=ss)
 
 今后将不定期更新常用 FireFox 扩展。

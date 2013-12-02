@@ -3,7 +3,7 @@ layout: post
 title: "CakePHP 的 Nginx 设置"
 date: 2013-09-30 10:01
 comments: true
-categories: cakephp nginx linux
+categories: php cakephp nginx linux
 ---
 在自己的笔记本上弄了个 CakePHP + Nginx 的组合，做了基本设置。
 
