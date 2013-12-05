@@ -26,9 +26,15 @@ footer: true
 
 <http://git-scm.com/book/zh> —— 在 Git 流行的年代，用 SVN 还能理解，如果还在用 CVS 的话，一点都不高大上啊！赶紧开始学 Git ！
 
+<http://raveren.github.io/kint/> —— PHP 调试工具
+
 <http://www.rubular.com/> —— Ruby 正则表达式在线测试工具
 
 <http://dillinger.io/> —— Markdown 在线编辑器
+
+<https://stackedit.io/> —— 更加强大的 Markdown 在线编辑器
+
+<http://www.zybuluo.com/mdeditor> —— 国人开发的 Markdown 在线编辑器
 
 <http://explainshell.com/> —— Shell 在线解释工具
 
