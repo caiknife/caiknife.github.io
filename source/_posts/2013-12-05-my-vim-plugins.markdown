@@ -287,6 +287,10 @@ $ git submodule update
 
 如此一来就完成了同步。
 
+配置完成之后，在 vim 里的效果就是下面这个样子：
+
+{% fancybox /downloads/image/vim/vim.png Vim %}
+
 不过听说还有个叫 `Vundle` 的工具比 `Pathogen` 更加智能化，不用 Git 来更新仓库，只用同步 vim 配置文件就可以了，这两天有空再研究一下。
 
 Have a nice day！
