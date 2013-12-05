@@ -78,16 +78,7 @@ $ tree -L 1
 8 directories, 0 files
 ```
 
-别的插件我用不上，只用到了 `neocomplcache.vim` 和 `vim-powerline` 这两个。配置文件统一放在 `～/.vim/plugin` 下，内容和上一篇文章里的提到的一样：
-
-``` bash
-$ tree -L 1
-.
-├── neocomplcache.vim
-└── powerline.vim
-
-0 directories, 2 files
-```
+别的插件我用不上，只用到了 `neocomplcache.vim` 和 `vim-powerline` 这两个。配置文件内容和上一篇文章里的提到的一样：
 
 ##更新插件
 
