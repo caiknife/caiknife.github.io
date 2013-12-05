@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "using vundle for vim plugins"
+title: "使用 Vundle 来管理 vim 插件"
 date: 2013-12-05 14:00:23 +0800
 comments: true
 categories: vim linux git
