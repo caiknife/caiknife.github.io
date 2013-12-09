@@ -95,6 +95,7 @@ if (strlen($foo) < 5) {
 if (!isset($foo{5})) { 
     echo “Foo is too short”; 
 }
+```
 
 调用 isset() 恰巧比 strlen() 快，因为与后者不同的是，isset() 作为一种语言结构，意味着它的执行不需要函数查找和字母小写化。也就是说，实际上在检验字符串长度的顶层代码中你没有花太多开销。
 
