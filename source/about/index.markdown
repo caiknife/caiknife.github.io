@@ -30,6 +30,8 @@ footer: true
 
 <http://www.rubular.com/> —— Ruby 正则表达式在线测试工具
 
+<http://regex101.com/> <http://refiddle.com/> <https://www.debuggex.com/>—— 其他正则表达式在线测试工具
+
 <http://dillinger.io/> —— Markdown 在线编辑器
 
 <https://stackedit.io/> —— 更加强大的 Markdown 在线编辑器
