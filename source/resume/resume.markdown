@@ -1,11 +1,3 @@
----
-layout: page
-title: "简历"
-date: 2013-10-10 00:20
-comments: true
-sharing: true
-footer: true
----
 ## 个人信息
 * 姓名：蔡智江
 * 性别：男
