@@ -53,9 +53,9 @@ titlecase: true       # Converts page and post titles to titlecase
 default_asides: [
     #custom/asides/category.html, 
     asides/recent_posts.html,
+    custom/asides/card.html,
     custom/asides/comments.html,
     asides/github.html,
-    custom/asides/card.html,
     custom/asides/weibo.html
 ]
 
