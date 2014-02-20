@@ -33,7 +33,6 @@ xdebug.remote_enable=on
 xdebug.idekey=""
 xdebug.remote_handler=dbgp 
 xdebug.remote_host=localhost
-xdebug.remote_port=8888
 xdebug.remote_port=9000
 ```
 
