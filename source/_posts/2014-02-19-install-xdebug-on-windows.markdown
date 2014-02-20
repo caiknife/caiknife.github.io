@@ -11,6 +11,8 @@ categories: php
 $ sudo apt-get install php5-xdebug
 ```
 
+<!-- more -->
+
 但是在 Windows 上安装 xdebug ，就有点小麻烦了。首先我们一般是在 <http://windows.php.net/download/> 这里下载 PHP 环境，我用的 PHP 版本是 5.4.X 系列，只有 x86 架构的环境。
 
 首先配置好 PHP 环境，我使用的是 PHP 5.4.X Thread Safe 版本，所以在安装 xdebug 的时候，应该要用对应的文件是—— [php_xdebug-2.2.3-5.4-vc9.dll](http://xdebug.org/files/php_xdebug-2.2.3-5.4-vc9.dll) ，千万不要选 64 位或者是 NTS 的版本，这样都无法正常启动 xdebug 。
