@@ -43,7 +43,7 @@
 * 接手公司内部工具系统 **Mango**，用于对全公司各个生产线上的网站进行配置。该系统以 Ruby on Rails 编写，期间工作是维护原有系统和开发新功能。
 * 用 CakePHP 重写 Mango 系统，并培训其他工程师学习使用 CakePHP。
 * 维护一套原有的 SEO 工具，并将其整合进 Mango 系统中。该工具为公司几个主要产品站点进行 SEO 配置，用户是公司的 SEO 小组。SEO 小组可以通过这套 SEO 工具对产品站点进行 SEO 优化，提升搜索质量。
-* 进入公司最大的产品线 **SmarterUS**（<http://www.smarter.com>），当时 SmarterUS 版本为 V4。当时团队内开发工程师三人。期间工作是根据 Nagios 系统报警邮件对站点进行性能调优，包括 MySQL数据库性能调优，SQL 语句优化，处理 PHP 代码异常报警；根据 Yahoo 的 YSlow 工具对站点页面结构进行优化，加快页面加载速度，提高网站 PageRank；使用 Mantis 系统进行 Bug 管理，定期清理系统中已经发现的 Bug；和项目经理与美国需求方进行邮件沟通，对网站进行设计并开发新功能。开发框架：原生PHP；数据库：MySQL；全文搜索：Sphinx；缓存加速：Memcache，APC Cache；CDN加速：Akamai云服务。
+* 进入公司最大的产品线 **SmarterUS**（<http://www.smarter.com>），当时 SmarterUS 版本为 V4。当时团队内开发工程师三人。期间工作是根据 Nagios 系统报警邮件对站点进行性能调优，包括 MySQL数据库性能调优，SQL 语句优化，处理 PHP 代码异常报警；根据 Yahoo 的 YSlow 工具对站点页面结构进行优化，加快页面加载速度，提高网站 PageRank；使用 Mantis 系统进行 Bug 管理，定期清理系统中已经发现的 Bug；和项目经理与美国需求方进行邮件沟通，对网站进行设计并开发新功能。开发框架：原生PHP + PearDB + Smarty；数据库：MySQL；全文搜索：Sphinx；缓存加速：Memcache，APC Cache；CDN加速：Akamai 云服务。
 * 2009年春节后，由于业务量提升，SmarterUS 开始重构，网站数据从数据库读取改为从 API 读取。当时团队内开发工程师两人。期间工作负责将现有 SQL 语句和查询逻辑移交给数据组，和数据组定义 API 接口及 XML 结构，将原有的 PHP 代码从面向过程式改为用面向对象式重写；为优化 API 返回的 XML 结构引入 XSLT，节约内网传输流量；配合 SEM 部门开发新页面做 AB Testing 提升 CTR；前端采用 jQuery 进行重构，提升用户体验。当时 SmarterUS 版本为 V5。
 * 2010年初临时转入 **SmarterJP**（<http://www.smarter.co.jp> 目前该网站已经关闭）和 **SmarterKR**（<http://www.smarter.co.kr>）产品线，进行网站重构。当时团队内开发工程师三人。期间工作负责网站的业务逻辑重写和前端页面重构。
 * 回到 SmarterUS 项目组继续担任开发工作，当时团队内开发工程师四人。主要工作是配合 Business Owner，SEO，SEM 部门进行站点新业务的设计与开发，对原有站点进行改版，期间个人还负责 <http://www.simpli.com>（该网站现在已经关闭）的网站重构。由于收购期结束，公司 OA 系统并入集团系统，Bug 管理从原来的 Mantis 迁移到 Bugzilla。2010年 SmarterUS 达到业务最鼎盛时期，当时 SmarterUS 版本为 V6。
