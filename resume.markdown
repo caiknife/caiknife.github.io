@@ -10,7 +10,7 @@
 ## 自我介绍
 * 有多年 PHP 开发经验，熟练掌握相关的 Web 开发技术和工具，如 CakePHP，Zend Framework，jQuery，Memcache，Redis，Varnish，Sphinx等等。
 * 对其它技术有着浓厚的兴趣，本人业余时间曾经自学了 Python、Ruby，对流行的类库和框架有一定了解，比如 Rails，Sinatra，Padrino，Django，Flask，Tornado，requests等等。希望能在今后的工作中能够接触到其它的技术。
-* 多年的外企工作经验，培养了良好的团队工作习惯，有成熟并能够接受有压力的工作。
+* 多年的外企工作经验，培养了良好的团队工作习惯，有标准化的工作流程方式，并能够接受有压力的工作。
 * Github 博客：<http://caiknife.github.io/>
 * SegmentFault 问答社区账号：<http://segmentfault.com/u/caiknife>
 
@@ -23,6 +23,7 @@
 * 2003年 获得大学英语四级证书
 * 2005年 获得大学英语六级证书
 * 参加过 PHPChina 社区组织的 Learning jQuery 书籍志愿汉化工作，详细链接：<http://bbs.phpchina.com/viewthread.php?tid=31367>
+* 自行翻译 Django Tutorial 官方文档，详细链接：<http://www.iteye.com/topic/360373#952079>
 
 
 ## 工作经历
