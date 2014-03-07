@@ -10,27 +10,50 @@ class AppModel extends Model {
         return parent::save($data, $validate, $fieldList);
     }
 
-    protected $_params;
-    /*
-     * custom data query method goes here
-     */
-    public function relation($params) { $this->_params['recursive'] = $params; return $this; }
+    public function relation($params) {
+        $this->_params['recursive'] = $params;
+        return $this;
+    }
 
-    public function where($params) { $this->_params['conditions'] = $params; return $this; }
+    public function where(array $params) {
+        $this->_params['conditions'] = $params;
+        return $this;
+    }
 
-    public function order($params) { $this->_params['order'] = $params; return $this; }
+    public function order($params) {
+        $this->_params['order'] = $params;
+        return $this;
+    }
 
-    public function fields($params) { $this->_params['fields'] = $params; return $this; }
+    public function fields($params) {
+        $this->_params['fields'] = $params;
+        return $this;
+    }
 
-    public function page($params) { $this->_params['page'] = $params; return $this; }
+    public function page($params) {
+        $this->_params['page'] = $params;
+        return $this;
+    }
 
-    public function limit($params) { $this->_params['limit'] = $params; return $this; }
+    public function limit($params) {
+        $this->_params['limit'] = $params;
+        return $this;
+    }
 
-    public function offset($params) { $this->_params['offset'] = $params; return $this; }
+    public function offset($params) {
+        $this->_params['offset'] = $params;
+        return $this;
+    }
 
-    public function joins($params) { $this->_params['joins'] = $params; return $this; }
+    public function joins($params) {
+        $this->_params['joins'] = $params;
+        return $this;
+    }
 
-    public function group($params) { $this->_params['group'] = $params; return $this; }
+    public function group($params) {
+        $this->_params['group'] = $params;
+        return $this;
+    }
 
     public function count() {
         $r = $this->find('count', $this->_params);
@@ -68,13 +91,19 @@ class AppModel extends Model {
         return $r;
     }
 
-    public function drop($cascade=false) {
-        if (!empty($this->_params['conditions'])) {
-            $r = $this->deleteAll($this->_params['conditions'], $cascade);
-        } else {
-            $r = array();
+    public function getConditions() {
+        if (isset($this->_params['conditions'])) {
+            return $this->_params['conditions'];
         }
-        $this->_params = array();
-        return $r;
+        return array();
+    }
+
+    protected function _appendConditions($params) {
+        if (!isset($this->_params['conditions'])) {
+            $this->_params['conditions'] = $params;
+        } else {
+            $this->_params['conditions'] = am($this->_params['conditions'], $params);
+        }
+        return $this;
     }
 }
