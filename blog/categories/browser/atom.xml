@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: browser | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/browser/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[越过长城，呼吸自由]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/03/cross-the-great-fire-wall/"/>
+    <updated>2014-03-03T11:23:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/03/cross-the-great-fire-wall</id>
+    <content type="html"><![CDATA[<p>最近 GFW 似乎又升级了，有几天上 GitHub 的时候很不方便；而 Chrome 的 Google 账户登录更是从来没成功过。在公司的时候，由于走的是国外的线路，接上网线就相当于直接翻墙了，可是回到家里，我还是需要登录 Google 账户的。怎么办？</p>
+
+<p>翻墙工具找起来！</p>
+
+<p>前段时间用了 GoAgent 来翻墙，今天来做个记录。</p>
+
+<!-- more -->
+
+
+<p>项目主页在这里：<a href="https://code.google.com/p/goagent/">https://code.google.com/p/goagent/</a> 。</p>
+
+<p>最新的源代码可以在这里 <a href="https://github.com/goagent/goagent/">https://github.com/goagent/goagent/</a> 找到。</p>
+
+<p>安装方法和配置方法都有图文介绍，挺方便的。翻墙之后速度挺快，一般的浏览没啥问题，不过如果要是看 YouTube 之类的网站的话就有点捉襟见肘了。</p>
+
+<p>虽然身在长城内，但是心还是向往自由的。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[FireFox 常用扩展]]></title>
+    <link href="http://caiknife.github.io/blog/2013/11/25/useful-addons-for-firefox/"/>
+    <updated>2013-11-25T14:25:07+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/11/25/useful-addons-for-firefox</id>
+    <content type="html"><![CDATA[<p>公司电脑重装了系统，FireFox 的同步功能不好用，扩展又得重装了。</p>
+
+<p>整理一下常用的 FireFox 扩展，以后重装系统的时候就没这么麻烦了。</p>
+
+<!-- more -->
+
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/autoproxy/?src=search">AutoProxy</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/codeviewer/?src=search">CodeViewer</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/cookies-manager-plus/?src=ss">Cookie Manager +</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/codeburner-for-firebug/?src=search">CodeBurner for FireBug</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/firebug/?src=search">FireBug</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/firebug-autocompleter/?src=api">FireBug AutoCompleter</a></p>
+
+<p><a href="https://addons.mozilla.org/en-US/firefox/addon/11905/">FireFinder</a></p>
+
+<p><a href="https://addons.mozilla.org/en-US/firefox/addon/firephp/">FirePHP</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/firequery/">FireQuery</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/httpfox/?src=search">HttpFox</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/httprequester/?src=api">HttpRequester</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/JSON-handle/">JsonHandle</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-TW/firefox/addon/js-switch/">JsSwitch</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-TW/firefox/addon/refcontrol/?src=ss">RefControl</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-TW/firefox/addon/sqlite-manager/?src=search">SQLiteManager</a></p>
+
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/user-agent-switcher/">User Agent Switcher</a>，需要导入<a href="http://techpatterns.com/downloads/download_item.php?folder=firefox&amp;filename=useragentswitcher.xml">常用UA</a>来配合使用。</p>
+
+<p><a href="https://addons.mozilla.org/zh-TW/firefox/addon/wappalyzer/?src=ss">Wappalyzer</a></p>
+
+<p>今后将不定期更新常用 FireFox 扩展。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[IE 下获取 HTTP_REFERER 无效]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/11/http-referer-not-available-in-ie/"/>
+    <updated>2013-10-11T15:19:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/11/http-referer-not-available-in-ie</id>
+    <content type="html"><![CDATA[<p>前段时间 SMKR 上线了一个 coupon 频道，用的是 CMUS 的 coupon 数据，用户点击一个 coupon 之后，会先跳转到 CMUS 站点然后再跳转到商家站点。这样在 SMKR 站点上就会记录一个 <code>Affiliate Outgoing Log</code>，在 CMUS 站点上记录一个 <code>Offer Outgoing Log</code>。</p>
+
+<p>今天收到一个问题，在 Oracle 的报表中，我发现 IE 浏览器下产生的 <code>Offer Outgoing Log</code> 文件里，所有的 <code>HTTP_REFERER</code> 字段都为空。</p>
+
+<p>Here comes the bug， what can we do？</p>
+
+<!-- more -->
+
+
+<p>动用万能的 Google 和 StackOverflow，在这两大神器的帮助下，一点点的，问题开始明朗起来，就好像无尽的黑暗之中，亮起了一盏小桔灯，哈哈哈。</p>
+
+<p>首先， SMKR 上的这次跳转有个中间页面，在这个中间页面上，会停顿两秒钟后，再跳转到 CMUS 上。而这次跳转，用到的是 <code>&lt;meta http-equiv="refresh" /&gt;</code> 这个方式：</p>
+
+<p><code>html
+&lt;meta http-equiv="refresh" content="2; url=http://www.smarter.co.kr/track/scripts/redir.php?bt=YWZmaWxpYXRl&amp;ds=Q1BB&amp;ch=1&amp;pi=668114&amp;mi=549&amp;du=aHR0cDovL3d3dy5jb3Vwb25tb3VudGFpbi5jb20vc3RhdHMvcmVkaXIucGhwP3JlcXVlc3RpZD05ZWQxZTFkZDc0OWM1N2ZjMmRhZGQ5NzdiNzFmZGI4OCZmcm9tPXNta3ImbT01NDkmcD02NjgxMTQmZHM9Q1BB" /&gt;
+</code></p>
+
+<p>而在现代浏览器中，除了使用 webkit 内核的 Chrome 和 Safari 之外，使用这种方式进行跳转的话，浏览器是不会在请求头信息里面添加 <code>HTTP_REFERER</code> 的。只能通过 a 标签点击， form 提交等方法进行跳转，而 <code>location.href</code> 这个方法在 IE 下无效，在 FireFox 里有效，不过为了兼容所有的浏览器，还是不推荐使用这个方法。</p>
+
+<p>下面是在解决这个问题的过程中，找到的一些参考资料：</p>
+
+<p><a href="http://stackoverflow.com/questions/2985579/does-http-equiv-refresh-keep-referrer-info-and-metadata">http://stackoverflow.com/questions/2985579/does-http-equiv-refresh-keep-referrer-info-and-metadata</a><br/>
+<a href="http://stackoverflow.com/questions/5643773/http-referer-not-always-being-passed">http://stackoverflow.com/questions/5643773/http-referer-not-always-being-passed</a><br/>
+<a href="http://leeon.me/a/http-refer-issue">http://leeon.me/a/http-refer-issue</a><br/>
+<a href="http://www.blueisme.com/?p=1759">http://www.blueisme.com/?p=1759</a></p>
+
+<p>剩下的事情，就是修改跳转的方式，很简单，Just do it！</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: jquery | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/jquery/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery 中 return false 和 event.preventDefault() 的区别]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/22/jquery-return-false-and-event-prevent-default/"/>
+    <updated>2013-10-22T15:21:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/22/jquery-return-false-and-event-prevent-default</id>
+    <content type="html"><![CDATA[<p>以前，我在用 jQuery 写链接的点击事件时，一般都是用的 <code>return false</code> 来阻止它默认的行为，就像下面这样：</p>
+
+<p>``` js+php
+$(function(){</p>
+
+<pre><code>$('a').click(function(){
+    // bla... bla... bla..
+    return false;
+});
+</code></pre>
+
+<p>});
+```</p>
+
+<!-- more -->
+
+
+<p>在 javascript 中，发生一个点击时，会向下面示例的那样，从内而外地将事件向上进行传递：</p>
+
+<p>```</p>
+
+<pre><code>              / \
+</code></pre>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;| |&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+| element1     | |                |
+|   &mdash;&mdash;&mdash;&mdash;&mdash;&ndash;| |&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;     |
+|   |element2  | |          |     |
+|   &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;     |</p>
+
+<h2>|        Event BUBBLING           |</h2>
+
+<p>```</p>
+
+<p>因此，当点击了 element2 的时候，同时也会触发 element1 的 click 事件。而在 jQuery 的 click 事件中使用 <code>return false</code> 的时候，即阻止了默认事件的发生，同时也阻止了事件向上冒泡。就像下面这个样子：</p>
+
+<p>``` js+php
+if (true) {</p>
+
+<pre><code>return false;
+</code></pre>
+
+<p>}</p>
+
+<p>// equals to:</p>
+
+<p>if (true) {</p>
+
+<pre><code>event.preventDefault();
+event.stopPropagation();
+</code></pre>
+
+<p>}
+```</p>
+
+<p>所以，我之前使用 <code>return false</code> 来阻止 click 默认事件，并没有考虑到它同时也阻止了事件冒泡。换句话说，我之前是<code>只知其然而不知其所以然</code>，遗憾啊。</p>
+
+<p>下面这段代码，分别用 <code>return false</code> 和 <code>event.preventDefault()</code> 处理点击事件，体验一下它们之前的区别。</p>
+
+<p>``` html
+&lt;!doctype html>
+<html>
+<head></p>
+
+<pre><code>&lt;title&gt;jQuery return false and event preventDefault()&lt;/title&gt;
+&lt;script type="text/javascript" src="jquery.1.8.3.min.js"&gt;&lt;/script&gt;
+&lt;style type="text/css"&gt;
+body {
+    margin: auto;
+}
+.outer {
+    position: relative;
+    border: 3px solid red;
+    width: 800px;
+    height: 600px;
+}
+.inner {
+    position: absolute;
+    border: 3px solid blue;
+    width: 400px;
+    height: 300px;
+    top: 150px;
+    left: 200px;
+}
+&lt;/style&gt;
+</code></pre>
+
+<p></head>
+<body></p>
+
+<pre><code>&lt;div class="outer"&gt;
+    &lt;div class="inner"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+$('.inner').click(function(e){
+    alert('click inner!');
+    // e.preventDefault();
+    return false;
+});
+
+$('.outer').click(function(e){
+    alert('click outer!');
+    // e.preventDefault();
+    return false;
+});
+
+$('body').click(function(e){
+    alert('click body!');
+    // e.preventDefault();
+    return false;
+});
+&lt;/script&gt;
+</code></pre>
+
+<p></body>
+</html>
+```</p>
+
+<p>参考链接：<br/>
+&ndash; <a href="http://stackoverflow.com/questions/1357118/event-preventdefault-vs-return-false">http://stackoverflow.com/questions/1357118/event-preventdefault-vs-return-false</a><br/>
+&ndash; <a href="http://css-tricks.com/return-false-and-prevent-default/">http://css-tricks.com/return-false-and-prevent-default/</a></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[给博客写了个 fancybox 的插件]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/02/fancybox-plugin-for-octopress/"/>
+    <updated>2013-10-02T17:37:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/02/fancybox-plugin-for-octopress</id>
+    <content type="html"><![CDATA[<p>octopress 默认没有放大图片的效果，今天用 fancybox 做了一个插件扩展。</p>
+
+<p>首先从 <a href="http://fancyapps.com/fancybox/#license">http://fancyapps.com/fancybox/#license</a> 下载最新版的 fancybox ，解压缩后复制 source 目录到 octopress 的 javascripts 目录下。</p>
+
+<p>打开文件 <code>/source/_includes/custom/head.html</code> ，在最后增加一条语句：</p>
+
+<p><code>erb /source/_includes/custom/head.html
+{% include fancybox.html %}
+</code></p>
+
+<!-- more -->
+
+
+<p>然后建立文件 <code>/source/_includes/fancybox.html</code> ，加入以下内容：</p>
+
+<p>``` html /source/_includes/fancybox.html</p>
+
+<script src="http://caiknife.github.io/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<p><link rel="stylesheet" type="text/css" href="http://caiknife.github.io/javascripts/fancybox/jquery.fancybox.css" /></p>
+
+<script type="text/javascript">
+(function($){
+    $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<p>```</p>
+
+<p>下面的重头戏就是增加一个 <code>fancybox</code> 的标签。创建文件 <code>/plugins/fancybox_tag.rb</code> ，详细代码如下：</p>
+
+<p>``` ruby /plugins/fancybox_tag.rb</p>
+
+<h1>coding: utf-8</h1>
+
+<p>module Jekyll</p>
+
+<p>  # Usage:
+  # {% fancybox @filename [thumb:@thumb] [@title] %}
+  # {% fancybox @filename [@title] %}</p>
+
+<p>  class FancyboxTag &lt; Liquid::Tag</p>
+
+<pre><code>def initialize(tag_name, markup, tokens)
+  #  /(?&lt;filename&gt;\S+)(?:\s+(?&lt;thumb&gt;\S+))?(?:\s+(?&lt;title&gt;.+))?/i
+  #  /(?&lt;filename&gt;\S+)(?:\s+(?&lt;title&gt;.+))?/i
+  if /(?&lt;filename&gt;\S+)(?:\s+thumb:(?&lt;thumb&gt;\S+))?(?:\s+(?&lt;title&gt;.+))?/i =~ markup
+    @filename = filename
+    @thumb = thumb
+    @title = title
+  end
+end
+
+def render(context)
+  if @filename
+    "&lt;a href=\"#{@filename}\" title=\"#{@title}\" class=\"fancybox\"&gt;&lt;img src=\"#{thumb_for(@filename, @thumb)}\" alt=\"#{@title}\" /&gt;&lt;/a&gt;"
+  else
+    "Error. Usage: {% fancybox @filename [thumb:@thumb] [@title] %}"
+  end
+end
+
+def thumb_for(filename, thumb)
+  if thumb.nil?
+    filename
+  else
+    thumb
+  end
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>end</p>
+
+<p>Liquid::Template.register_tag(&lsquo;fancybox&rsquo;, Jekyll::FancyboxTag)
+```</p>
+
+<p>使用方法在注释里有介绍，很简单。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[老生常谈cookie跨域]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/26/cross-domain-cookie/"/>
+    <updated>2013-08-26T18:00:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/26/cross-domain-cookie</id>
+    <content type="html"><![CDATA[<p>很早之前就做过跨域设置 cookie 的项目了，但是以前没有做好积累，今晚花了点时间重新复习一下。</p>
+
+<p>OK ，有两个域名， www.a.com 和 www.b.com ，现在要通过 a 网站来设置 b 网站下的 cookie 。</p>
+
+<p>a 网站下 setcookie.php 的代码：</p>
+
+<p>``` php
+<html>
+<head></p>
+
+<pre><code>&lt;meta charset="utf-8" /&gt;
+&lt;title&gt;Cookie Cross Domain&lt;/title&gt;
+&lt;!--
+--&gt;
+&lt;script type="text/javascript" src="http://www.b.com/cookie/setcookie.php?name=world"&gt;&lt;/script&gt;
+</code></pre>
+
+<p></head>
+<body></p>
+
+<pre><code>&lt;h1&gt;test&lt;/h1&gt;
+&lt;!--
+&lt;iframe src="http://www.b.com/cookie/setcookie.php?name=hello"&gt;&lt;/iframe&gt;
+--&gt;
+</code></pre>
+
+<p></body>
+</html>
+```</p>
+
+<p>用 JavaScript 来调用或者用 iframe 调用都是没有问题的。</p>
+
+<!-- more -->
+
+
+<p>下面是 b 网站的 setcookie.php 的代码：</p>
+
+<p><code>php
+header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
+$name = isset($_GET['name']) ? $_GET['name'] : "caiknife";
+setcookie("name", $name, time()+3600, '/', '.b.com');
+</code></p>
+
+<p>第一行的header函数是因为IE浏览器下有严格的P3P安全验证，所以需要发送这段header信息，FireFox下可以不用。</p>
+
+<p>接下来，是b网站的getcookie.php的代码：</p>
+
+<p>``` php
+if (isset($_GET[&lsquo;callback&rsquo;])) {</p>
+
+<pre><code>$callback = $_GET['callback'];
+echo $callback."(".json_encode($_COOKIE).")";
+</code></pre>
+
+<p>} else {</p>
+
+<pre><code>echo json_encode($_COOKIE);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>先别管if语句里前面的代码是什么意思，我们直接访问<code>http://www.b.com/cookie/getcookie.php</code> ，就能看到结果：{&ldquo;name&rdquo;:&ldquo;world&rdquo;}，OK，cookie跨域设置成功！</p>
+
+<p><img src="/downloads/image/cross-domain-cookie/a.jpg"></p>
+
+<p>接下来，是cookie跨域读取，看看a网站的getcookie.php代码：</p>
+
+<p>``` php
+<html>
+<head></p>
+
+<pre><code>&lt;meta charset="utf-8" /&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;script type="text/javascript" src="js/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+$(function(){
+
+$.getJSON("http://www.b.com/cookie/getcookie.php?callback=?", function(data){
+    $("p").html(data.name);
+    // alert(data.name);
+});
+
+});
+&lt;/script&gt;
+</code></pre>
+
+<p></head>
+<body></p>
+
+<pre><code>&lt;p&gt;&lt;/p&gt;
+</code></pre>
+
+<p></body>
+</html>
+```</p>
+
+<p>这里callback=?，在jQuery的官方文档里是这么解释的：</p>
+
+<blockquote><p>在 jQuery 1.2 中，您可以通过使用JSONP形式的回调函数来加载其他网域的JSON数据，如 &ldquo;myurl?callback=?"。jQuery 将自动替换 ? 为正确的函数名，以执行回调函数。 注意：此行以后的代码将在这个回调函数执行前执行。”。</p></blockquote>
+
+<p>现在访问 a 网站的 <code>http://www.a.com/cookie/getcookie.php</code> 页面，看到p标签里显示了“world”，跨域 cookie 读取成功！</p>
+
+<p><img src="/downloads/image/cross-domain-cookie/b.jpg"></p>
+
+<p>以上代码在 FireFox 20.0，IE9 下测试通过。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

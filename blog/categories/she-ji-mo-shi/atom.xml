@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 设计模式 | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/she-ji-mo-shi/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[PHP 笔记]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/14/php-note/"/>
+    <updated>2013-10-14T22:35:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/14/php-note</id>
+    <content type="html"><![CDATA[<p>写了这么多年的 PHP ，还真没好好记过笔记什么的，说起来挺惭愧的。现在年纪也越来越大了，记忆力开始下降，俗话说“好记性不如烂笔头”，知识通过白纸黑字记下来，要比一直用脑子记好得多，还方便查漏补缺。</p>
+
+<p>先从最基本的开始吧。</p>
+
+<h2>PHP 访问权限</h2>
+
+<p>PHP 的类有 <code>public</code> 、<code>protected</code> 、<code>private</code> 三种权限修饰符。这三种修饰符的作用如下：</p>
+
+<ul>
+<li>public (公有的)：类中的成员将没有访问限制，所有的外部成员都可以访问（读和写）这个类成员(包括成员属性和成员方法)。如果类的成员没有指定成员访问修饰符，将被视为 public 。</li>
+<li>protected (受保护的)：被定义为 protected 的成员不能被该类的外部代码访问，但该类的子类具有访问权限。</li>
+<li>private (私有的)：被定义为 private 的成员，允许同一个类里的所有成员访问，但对于该类的外部代码和子类都不允许访问。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>举个例子：</p>
+
+<p>``` php
+&lt;?php
+ini_set(&lsquo;display_errors&rsquo;, &lsquo;on&rsquo;);
+error_reporting(E_ALL);</p>
+
+<p>require_once &lsquo;Zend/Loader/Autoloader.php&rsquo;;
+Zend_Loader_Autoloader::getInstance();</p>
+
+<p>class A {</p>
+
+<pre><code>public $pubName = 'PubA';
+
+protected $_proName = 'ProA';
+
+private $__priName = 'PriA';
+</code></pre>
+
+<p>}</p>
+
+<p>$a = new A();</p>
+
+<p>Zend_Debug::dump($a->pubName);
+Zend_Debug::dump($a->_proName);
+Zend_Debug::dump($a->__priName);
+```</p>
+
+<p>上面这个例子，后面两条 <code>Zend_Debug::dump($a-&gt;_proName);</code> 和 <code>Zend_Debug::dump($a-&gt;__priName);</code> 就会报错，因为 <code>protected</code> 和 <code>private</code> 的属性、方法是不能在类外访问的。</p>
+
+<p>再来看看下面的代码：</p>
+
+<p>``` php
+&lt;?php
+ini_set(&lsquo;display_errors&rsquo;, &lsquo;on&rsquo;);
+error_reporting(E_ALL);</p>
+
+<p>require_once &lsquo;Zend/Loader/Autoloader.php&rsquo;;
+Zend_Loader_Autoloader::getInstance();</p>
+
+<p>class A {</p>
+
+<pre><code>public $pubName = 'PubA';
+
+protected $_proName = 'ProA';
+
+private $__priName = 'PriA';
+
+public function publicDump() {
+    Zend_Debug::dump($this-&gt;pubName);
+    Zend_Debug::dump($this-&gt;_proName);
+    Zend_Debug::dump($this-&gt;__priName);
+}
+</code></pre>
+
+<p>}</p>
+
+<p>class B extends A {</p>
+
+<pre><code>public function publicDump() {
+    parent::publicDump();
+
+    Zend_Debug::dump($this-&gt;pubName);
+    Zend_Debug::dump($this-&gt;_proName);
+    Zend_Debug::dump($this-&gt;__priName);
+}
+</code></pre>
+
+<p>}</p>
+
+<p>$b = new B();
+$b->publicDump();
+```</p>
+
+<p>运行的结果是依次是：</p>
+
+<p><code>
+string 'PubA' (length=4)
+string 'ProA' (length=4)
+string 'PriA' (length=4)
+string 'PubA' (length=4)
+string 'ProA' (length=4)
+null
+</code></p>
+
+<p>很明显，<code>public</code> 和 <code>protected</code> 修饰的属性子类继承了下来，而 <code>private</code> 修饰的属性无法被继承。这个规律对类的方法同样也适用。</p>
+
+<p>第三段代码：</p>
+
+<p>``` php
+&lt;?php
+ini_set(&lsquo;display_errors&rsquo;, &lsquo;on&rsquo;);
+error_reporting(E_ALL);</p>
+
+<p>require_once &lsquo;Zend/Loader/Autoloader.php&rsquo;;
+Zend_Loader_Autoloader::getInstance();</p>
+
+<p>class A {</p>
+
+<pre><code>public static $name;
+</code></pre>
+
+<p>}</p>
+
+<p>class B extends A {</p>
+
+<p>}</p>
+
+<p>A::$name = &ldquo;A&rdquo;;
+Zend_Debug::dump(A::$name);
+Zend_Debug::dump(B::$name);</p>
+
+<p>B::$name = &ldquo;B&rdquo;;
+Zend_Debug::dump(A::$name);
+Zend_Debug::dump(B::$name);
+```</p>
+
+<p>输出结果是：</p>
+
+<p><code>
+string 'A' (length=1)
+string 'A' (length=1)
+string 'B' (length=1)
+string 'B' (length=1)
+</code></p>
+
+<p>对比一下：</p>
+
+<p>``` php
+&lt;?php
+ini_set(&lsquo;display_errors&rsquo;, &lsquo;on&rsquo;);
+error_reporting(E_ALL);</p>
+
+<p>require_once &lsquo;Zend/Loader/Autoloader.php&rsquo;;
+Zend_Loader_Autoloader::getInstance();</p>
+
+<p>class A {</p>
+
+<pre><code>public static $name;
+</code></pre>
+
+<p>}</p>
+
+<p>class B extends A {</p>
+
+<pre><code>public static $name;
+</code></pre>
+
+<p>}</p>
+
+<p>A::$name = &ldquo;A&rdquo;;
+Zend_Debug::dump(A::$name);
+Zend_Debug::dump(B::$name);</p>
+
+<p>B::$name = &ldquo;B&rdquo;;
+Zend_Debug::dump(A::$name);
+Zend_Debug::dump(B::$name);
+```</p>
+
+<p>输出结果：</p>
+
+<p><code>
+string 'A' (length=1)
+null
+string 'A' (length=1)
+string 'B' (length=1)
+</code></p>
+
+<p>可见，如果子类没有覆盖父类的静态变量的话，子类和父类就会共享这一个静态变量。</p>
+
+<h2>PHP 禁止继承</h2>
+
+<p>可以通过 <code>final</code> 关键字来实现禁止类的继承或者方法的覆盖。比如：</p>
+
+<p>``` php
+// 禁止继承
+final class A {</p>
+
+<pre><code>// A 不能被继承
+</code></pre>
+
+<p>}</p>
+
+<p>// 禁止覆盖方法
+class A {</p>
+
+<pre><code>// hello 方法可以继承，但是不能被覆盖。
+final public function hello() {
+    Zend_Debug::dump('A');
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<h2>PHP 禁止类的实例化</h2>
+
+<p>可以通过 <code>abstract</code> 关键字将类定义为抽象类以禁止类的实例化，强制要求类的继承；还可以用来修饰方法，强制要求在子类中实现函数体。比如：</p>
+
+<p>``` php
+abstract class A {</p>
+
+<pre><code>public $name = 'A';
+
+// hello 方法现在是空函数体，该方法必须在子类中实现。
+abstract public function hello();
+</code></pre>
+
+<p>}</p>
+
+<p>class B extends A {</p>
+
+<pre><code>public function hello() {
+    Zend_Debug::dump($this-&gt;name);
+}
+</code></pre>
+
+<p>}</p>
+
+<p>// Fatal error: Cannot instantiate abstract class A
+$a = new A();
+```</p>
+
+<h2>来实现一个 PHP 的单例模式</h2>
+
+<p>综合以上内容，我们来实现一个相对比较安全的单例模式。</p>
+
+<p>``` php
+&lt;?php
+// 默认不能继承
+final class Singleton {</p>
+
+<pre><code>// 懒汉单例模式
+private static $__instance = null;
+
+// 构造函数私有化，无法在外部进行实例化
+private function __construct() {
+
+}
+
+// __clone魔术方法私有化，不能通过 clone 进行复制
+private function __clone() {
+
+}
+
+// 单例模式通过 Singleton::getInstance 方法调用，生成全局唯一的变量
+public static function getInstance() {
+    if (is_null(self::$__instance)) {
+        self::$__instance = new self();
+    }
+    return self::$__instance;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>时候不早了，早点睡觉。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CakePHP 事件机制]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/08/cakephp-events-system/"/>
+    <updated>2013-09-08T01:41:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/08/cakephp-events-system</id>
+    <content type="html"><![CDATA[<p>内置事件机制的编程语言不多，而绝大部分编程语言都是靠观察者设计模式来实现这一机制的。而引入事件机制的目的之一，就是要解耦，让代码能够更加容易维护，让一个对象只做自己该做的事情，不要去做别的对象应该做的事情。</p>
+
+<p>现在 CakePHP 中的 Controller 和 Model 中，都有 <code>getEventManager()</code> 方法，这就相当于观察者模式中的<code>被观察者</code>，而我们自己编写的事件就是<code>观察者</code>。在别的地方编写代码注册事件之后，在一个地方进行事件的广播，从而调用所有的观察者方法。</p>
+
+<!-- more -->
+
+
+<p>我们来看看怎么使用 CakePHP 的事件机制。首先你得创建一个 <code>CakeEvent</code> 对象：</p>
+
+<p>``` php
+class EventsController extends AppController {</p>
+
+<pre><code>public $uses = array();
+
+public function index() {
+    /**
+     * CakeEvent构造函数接受三个参数
+     * @param $name 事件名称，尽量全局唯一
+     * @param $subject 被观察者对象，一般都用 $this
+     * @param $data 保存参数，可以通过 $event-&gt;data 获得
+     * @type {CakeEvent}
+     */
+    $event = new CakeEvent(
+        'Controller.events.index', 
+        $this, 
+        array(
+            'profile' =&gt; array(
+                'name' =&gt; 'caiknife', 
+                'email' =&gt; 'caiknife@foxmail.com',
+            ),
+        )
+    );
+
+    /**
+     * 进行广播，调用观察者的方法
+     */
+    $this-&gt;getEventManager()-&gt;dispatch($event);
+
+    debug($event-&gt;result);
+}
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>我们先用一个匿名函数来测试一下，为了方便，统一在 Controller 的 <code>beforeFilter()</code> 方法里进行注册。</p>
+
+<p>``` php
+public function beforeFilter() {</p>
+
+<pre><code>parent::beforeFilter();
+
+$this-&gt;getEventManager()-&gt;attach(
+    function($profile){
+        pr('In an anonymous function.');
+        pr($profile);
+    }, 
+    'Controller.events.index', 
+    array(
+        'passParams' =&gt; true,
+        'priority' =&gt; 2,
+    )
+);
+</code></pre>
+
+<p>}
+```</p>
+
+<p><code>EventManager</code> 的 <code>attach</code> 方法接受三个参数，第一个是回调方法；第二个就是前面提到的事件名称，要求全局唯一；第三个参数是设置选项，传入的值不同可能会影响回调函数的动作。</p>
+
+<p><code>passParams</code> 这个参数设置为 <code>true</code>，会把 <code>$event-&gt;data</code> 的值作为回调函数的参数传入，而不设置的话，回调函数的参数就是 <code>$event</code> 对象。我个人觉得还是不要设置为 <code>true</code> ，直接操作 <code>$event</code> 对象能让程序更灵活。</p>
+
+<p><code>priority</code> 设置回调函数的优先级，默认情况下都是 10 ，数字越小则优先执行，数字相等的话则根据回调函数注册顺序执行。</p>
+
+<p>上面的代码按我个人的喜好风格，还可以写成：</p>
+
+<p>``` php
+public function beforeFilter() {</p>
+
+<pre><code>parent::beforeFilter();
+
+$this-&gt;getEventManager()-&gt;attach(
+    function($event){
+        pr('In an anonymous function.');
+        pr($event-&gt;data['profile']);
+    }, 
+    'Controller.events.index', 
+    array(
+        'priority' =&gt; 2,
+    )
+);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>同样在注册回调函数的时候，也可以用事先定义好的函数或者是类方法，就跟 <code>call_user_func()</code> 和 <code>call_user_func_array()</code> 的第一个参数一样，详细的代码我会在最后列出。</p>
+
+<p>除了使用函数之外，还可以通过实现 <code>CakeEventListener</code> 接口来注册回调函数。下面就是一个例子。</p>
+
+<p>``` php
+class ProfileListener implements CakeEventListener {</p>
+
+<pre><code>public function implementedEvents() {
+    return array(
+        'Controller.events.index' =&gt; array(
+            'callable' =&gt; 'profile', // 把 profile 方法注册为 Controller.events.index 这个事件的回调函数
+            'priority' =&gt; -2,
+        ),
+    );
+}
+
+public function profile($event) {
+    pr('In an class listener.');
+    pr($event-&gt;data);
+    $event-&gt;result[__METHOD__] = 'class method';
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>在进行注册的时候，直接调用：</p>
+
+<p><code>php
+$this-&gt;getEventManager()-&gt;attach(new ProfileListener());
+</code></p>
+
+<p>从上面的代码可以看出，实现 <code>CakeEventListener</code> 接口可以为多个事件回调函数，只需要实现 <code>implementedEvents()</code> 方法并在返回的数组中指明对应的调用关系即可。为了方便代码的维护，以后最好使用这种方法进行回调函数的注册。</p>
+
+<p>当然，事件是有返回值的。前面提到的 <code>passParams</code> 设置为 <code>true</code> 的情况下，回调函数的返回值就是事件的返回值，通过 <code>$event-&gt;result</code> 来获取，但是这样以来有个问题——如果我们注册了很多回调函数并且这些回调函数都有返回值的话，<code>$event-&gt;result</code> 这个值总是会被最后一个回调函数的返回值给覆盖掉，这样一来我们就无法知道所有回调函数的运行结果了。所以，我才会在前面并不推荐把 <code>passParams</code> 设置为 <code>true</code>，而是在上面的代码里使用了类似 <code>$event-&gt;result[__METHOD__] = 'class method';</code> 这样的方法来获取每一个回调函数的结果。</p>
+
+<p>关于 CakePHP 的事件机制，先研究了这么多。想要了解其中更深奥的内容，最好的办法就是阅读开源代码—— <a href="https://github.com/cakephp/debug_kit">https://github.com/cakephp/debug_kit</a> ，这个 CakePHP 的 Debug 工具就用到了事件机制，非常值得学习。</p>
+
+<p>除此之外，Zend Framework 2 中也实现了事件机制，我个人并不是太喜欢 ZF1 ，觉得它作为一个 MVC 框架来说太重太复杂，但是作为一个类库是非常棒的， ZF2 我还没有研究过，希望将来能有机会学习了解并用上它。关于 ZF2 的事件机制，可以从官方文档查阅—— <a href="http://framework.zend.com/manual/2.2/en/modules/zend.event-manager.event-manager.html">http://framework.zend.com/manual/2.2/en/modules/zend.event-manager.event-manager.html</a></p>
+
+<p>Have a nice day！</p>
+
+<p>最后，是这篇文章整理过的源代码。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (example.php)</span> <a href='/downloads/code/cakephp-event/example.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">EventsController</span> <span class="k">extends</span> <span class="nx">AppController</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$uses</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">beforeFilter</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">parent</span><span class="o">::</span><span class="na">beforeFilter</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span>
+</span><span class='line'>            <span class="k">function</span><span class="p">(</span><span class="nv">$profile</span><span class="p">){</span>
+</span><span class='line'>                <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an anonymous function with passParams set to true.&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="nx">pr</span><span class="p">(</span><span class="nv">$profile</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="p">},</span> <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;passParams&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">7</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span>
+</span><span class='line'>            <span class="k">function</span><span class="p">(</span><span class="nv">$event</span><span class="p">){</span>
+</span><span class='line'>                <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an anonymous with passParams set to true to false.&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="nx">pr</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="s1">&#39;profile&#39;</span><span class="p">]);</span>
+</span><span class='line'>            <span class="p">},</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span>
+</span><span class='line'>            <span class="s1">&#39;print_profile&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;passParams&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span>
+</span><span class='line'>            <span class="s1">&#39;print_profile_with_event&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="s1">&#39;_profile&#39;</span><span class="p">),</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span><span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span><span class="k">new</span> <span class="nx">ProfileListener</span><span class="p">());</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="sd">/**</span>
+</span><span class='line'><span class="sd">         * CakeEvent构造函数接受三个参数</span>
+</span><span class='line'><span class="sd">         * @param $name 事件名称，尽量全局唯一</span>
+</span><span class='line'><span class="sd">         * @param $subject 被观察者对象，一般都用 $this</span>
+</span><span class='line'><span class="sd">         * @param $data 保存参数，可以通过 $event-&gt;data 获得</span>
+</span><span class='line'><span class="sd">         * @type {CakeEvent}</span>
+</span><span class='line'><span class="sd">         */</span>
+</span><span class='line'>        <span class="nv">$event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CakeEvent</span><span class="p">(</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="p">,</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;profile&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;caiknife&#39;</span><span class="p">,</span>
+</span><span class='line'>                    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;caiknife@foxmail.com&#39;</span><span class="p">,</span>
+</span><span class='line'>                <span class="p">),</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>        <span class="sd">/**</span>
+</span><span class='line'><span class="sd">         * 进行广播，调用观察者的方法</span>
+</span><span class='line'><span class="sd">         */</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">dispatch</span><span class="p">(</span><span class="nv">$event</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">debug</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">result</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">_profile</span><span class="p">(</span><span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an class method.&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">result</span><span class="p">[</span><span class="nx">__METHOD__</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;class method&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">function</span> <span class="nf">print_profile</span><span class="p">(</span><span class="nv">$profile</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an pre-defined function with passParams set to true.&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">pr</span><span class="p">(</span><span class="nv">$profile</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">function</span> <span class="nf">print_profile_with_event</span><span class="p">(</span><span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an pre-defined function with passParams set to false.&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">pr</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">ProfileListener</span> <span class="k">implements</span> <span class="nx">CakeEventListener</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">implementedEvents</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;callable&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;profile&#39;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="o">-</span><span class="mi">2</span>
+</span><span class='line'>            <span class="p">),</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">profile</span><span class="p">(</span><span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an class listener.&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">);</span>
+</span><span class='line'>        <span class="c1">// 被观察者是我们的 EventsController 对象的一个实例</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="nb">get_class</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">subject</span><span class="p">()));</span>
+</span><span class='line'>        <span class="c1">// 可以像平常一样调用 Controller 的各种方法</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">subject</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">result</span><span class="p">[</span><span class="nx">__METHOD__</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;class method&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用装饰器为Python函数做缓存]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/13/python-decorator/"/>
+    <updated>2013-08-13T10:11:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/13/python-decorator</id>
+    <content type="html"><![CDATA[<p>写了个函数作为装饰器为Fibonacci数列做缓存，做了一下性能比较。</p>
+
+<!-- more -->
+
+
+<p>``` python</p>
+
+<h1>!/usr/bin/python</h1>
+
+<h1>coding: UTF-8</h1>
+
+<p>import datetime
+now = datetime.datetime.now
+from functools import wraps</p>
+
+<p>def cache(func):</p>
+
+<pre><code>caches = {}
+@wraps(func)
+def wrap(*args):
+    if args not in caches:
+        caches[args] = func(*args)
+    return caches[args]
+return wrap
+</code></pre>
+
+<p>def fib(num):</p>
+
+<pre><code>if num &lt; 2:
+    return 1
+return fib(num-1) + fib(num-2)
+</code></pre>
+
+<p>fib_with_cache = cache(fib)</p>
+
+<p>start = now()
+for i in range(10):</p>
+
+<pre><code>fib(30)
+</code></pre>
+
+<p>end = now()
+print &ldquo;Fib without cache costs: %r&rdquo; % (end &ndash; start)</p>
+
+<p>start = now()
+for i in range(10):</p>
+
+<pre><code>fib_with_cache(30)
+</code></pre>
+
+<p>end = now()
+print &ldquo;Fib with cache costs: %r&rdquo; % (end &ndash; start)
+```</p>
+
+<p>输出结果：<br/>
+Fib without cache costs: datetime.timedelta(0, 6, 219000)<br/>
+Fib with cache costs: datetime.timedelta(0, 0, 672000)</p>
+
+<p>当然，正确的使用Fibonacci数列的方法应该是在函数体内使用循环，而不是使用递归。多层递归很容易对性能造成非常严重的影响。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Python单例模式]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/13/python-singleton-design-pattern/"/>
+    <updated>2013-08-13T09:58:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/13/python-singleton-design-pattern</id>
+    <content type="html"><![CDATA[<p>设计模式，单例模式，老生常谈。</p>
+
+<p>``` python</p>
+
+<h1>!/usr/bin/python</h1>
+
+<h1>coding: UTF-8</h1>
+
+<p>&ldquo;&rdquo;&ldquo;
+@author: CaiKnife</p>
+
+<p>Singleton
+&ldquo;&rdquo;&ldquo;
+from functools import wraps</p>
+
+<h1>使用<strong>new</strong>方法构造单例类</h1>
+
+<p>class Singleton(object):</p>
+
+<pre><code>def __new__(cls, *args, **kwargs):
+    if not hasattr(cls, '_instance'):
+        cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
+    return cls._instance
+</code></pre>
+
+<p>print Singleton()
+print Singleton()</p>
+
+<h1>使用单例装饰器构造单例类</h1>
+
+<p>def singleton(cls):</p>
+
+<pre><code>instances = {}
+@wraps(cls)
+def wrapper(*args, **kwargs):
+    if cls not in instances:
+        instances[cls] = cls(*args, **kwargs)
+    return instances[cls]
+return wrapper
+</code></pre>
+
+<p>@singleton
+class MyClass(object):</p>
+
+<pre><code>pass
+</code></pre>
+
+<p>print MyClass()
+print MyClass()</p>
+
+<h1>使用getInstance方法构造单例对象，非线程安全</h1>
+
+<p>class MySingleton(object):</p>
+
+<pre><code>@classmethod
+def getInstance(cls):
+    if not hasattr(cls, '_instance'):
+        cls._instance = cls()
+    return cls._instance
+</code></pre>
+
+<p>print MySingleton.getInstance()
+print MySingleton.getInstance()
+```</p>
+
+<!-- more -->
+
+
+<p>输出结果：<br/>
+&lt;__main__.Singleton object at 0x00BBFBD0><br/>
+&lt;__main__.Singleton object at 0x00BBFBD0><br/>
+&lt;__main__.MyClass object at 0x00BBFC30><br/>
+&lt;__main__.MyClass object at 0x00BBFC30><br/>
+&lt;__main__.MySingleton object at 0x00BBFC90><br/>
+&lt;__main__.MySingleton object at 0x00BBFC90></p>
+
+<p>测试代码：</p>
+
+<p>``` python
+import <strong>init</strong>, unittest, threading
+from singleton import Singleton, MyClass, MySingleton</p>
+
+<p>class TestSingleton(unittest.TestCase):</p>
+
+<pre><code>def setUp(self):
+    self.singleton_instances = [Singleton() for x in range(100)]
+    self.my_class_instances = [MyClass() for x in range(100)]
+    self.my_singleton_instances = [MySingleton.getInstance() for x in range(100)]
+
+def tearDown(self):
+    del self.singleton_instances, self.my_class_instances, self.my_singleton_instances
+
+def test_singleton(self):
+    for x in self.singleton_instances:
+        self.assertIs(x, Singleton())
+
+def test_my_class(self):
+    for x in self.my_class_instances:
+        self.assertIs(x, MyClass())
+
+def test_my_singleton(self):
+    for x in self.my_singleton_instances:
+        self.assertIs(x, MySingleton.getInstance())
+</code></pre>
+
+<p>if <strong>name</strong> == &ldquo;<strong>main</strong>&rdquo;:</p>
+
+<pre><code>unittest.main()
+</code></pre>
+
+<p>```</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

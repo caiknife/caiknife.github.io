@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: error | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/error/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[apt-get install error]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/29/apt-get-install-error/"/>
+    <updated>2013-08-29T13:59:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/29/apt-get-install-error</id>
+    <content type="html"><![CDATA[<p>最近不知道为何，在更新 Ubuntu 内核时总是报错：</p>
+
+<p><code>
+Failed to process /etc/kernel/postinst.d at /var/lib/dpkg/info/linux-image-3.2.0-52-generic.postinst line 1010
+</code></p>
+
+<p>Google 了一下，是以前使用 apt-get 卸载软件时不完全引起的，解决方法是：</p>
+
+<p><code>bash
+$ cd /var/lib/dpkg
+$ mv info infobak
+$ mkdir info
+$ dpkg --configure -a
+$ apt-get -f install
+</code></p>
+
+<p>困扰了我多年的顽疾终于得到解决了，妈蛋！</p>
+
+<p>Have a nice day！</p>
+
+<!-- more -->
+
+
+<p>&mdash;&mdash;&mdash;&mdash;2013年8月30日补充&mdash;&mdash;&mdash;&mdash;</p>
+
+<p>执行了上面的操作后，再次用apt-get安装程序的时候，出现了多处类似下面的报错：</p>
+
+<p><code>
+dpkg：警告：无法找到软件包 python-pkg-resources 的文件名列表文件，现假定该软件包目前没有任何文件被安装在系统里。
+</code></p>
+
+<p>原因就是我修改了 <code>/var/lib/dpkg/info</code> 的名称，变成 <code>/var/lib/dpkg/infobak</code> ，在这里保存了所有软件包的配置信息。而现在的 <code>/var/lib/dpkg/info</code> 文件夹里是空的，之前安装的所有软件包的信息都丢失了，所以就报错。现在只需要把目录名称修改回来即可。</p>
+
+<p>如果不小心删除了 <code>/var/lib/dpkg/info</code> ，可以通过<a href="http://lx.shellcodes.org/show/507d6fed04b91e46db000002.html">Debian/Ubuntu删除/var/lib/dpkg/info后的补救方法</a>里介绍的方法重新安装所有软件包。一定要养成备份的好习惯，不要随便删除文件，一失足成千古很！</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

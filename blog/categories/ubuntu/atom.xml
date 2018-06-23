@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ubuntu | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/ubuntu/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ubuntu 下 Gnome 终端出现假透明]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/11/ubuntu-gnome-terminal-no-transparency/"/>
+    <updated>2014-02-11T14:28:56+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/11/ubuntu-gnome-terminal-no-transparency</id>
+    <content type="html"><![CDATA[<p>某次更新过 Ubuntu 之后，Gnome 终端就从真透明变成了假透明，使用起来非常不方便。</p>
+
+<p>今天，从 <a href="http://askubuntu.com/questions/266533/gnome-terminal-transparency-with-gnome-classic-no-effects">http://askubuntu.com/questions/266533/gnome-terminal-transparency-with-gnome-classic-no-effects</a> 找到了解决问题的方法。</p>
+
+<!-- more -->
+
+
+<p>按照图中的方法修改一下配置，终端又变回真透明了。</p>
+
+<p><a href="/downloads/image/terminal/config.png" title="Config " class="fancybox"><img src="/downloads/image/terminal/config.png" alt="Config " /></a></p>
+
+<p>下面是之前的假透明：</p>
+
+<p><a href="/downloads/image/terminal/faketrans.png" title="Fake Transparency " class="fancybox"><img src="/downloads/image/terminal/faketrans.png" alt="Fake Transparency " /></a></p>
+
+<p>修改之后回到了真透明：</p>
+
+<p><a href="/downloads/image/terminal/truetrans.png" title="True Transparency " class="fancybox"><img src="/downloads/image/terminal/truetrans.png" alt="True Transparency " /></a></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[git 设置]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/06/git-config/"/>
+    <updated>2013-09-06T21:09:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/06/git-config</id>
+    <content type="html"><![CDATA[<p>花了两天时间，看了关于 git 的资料，稍微整理一下，挖个坑先。</p>
+
+<p>首先在 ubuntu 上更新 git 的源。</p>
+
+<p>``` console
+$ sudo apt-add-repository ppa:git-core/ppa</p>
+
+<p>$ sudo update</p>
+
+<p>$ sudo apt-get install git
+```</p>
+
+<!-- more -->
+
+
+<p>安装好后， shell 下的 git 提示都变成了中文，很方便。然后再设置 git 命令的别名。</p>
+
+<p>``` console
+$ git config &mdash;global alias.st status</p>
+
+<p>$ git config &mdash;global alias.ci commit</p>
+
+<p>$ git config &mdash;global alias.df diff</p>
+
+<p>$ git config &mdash;global alias.co checkout</p>
+
+<p>$ git config &mdash;global alias.br branch</p>
+
+<p>$ git config &mdash;global alias.hist &ldquo;log &mdash;pretty=format:\&rdquo;%h %ad | %s%d [%an]\&ldquo; &mdash;graph &mdash;date=short&rdquo;</p>
+
+<p>$ git config &mdash;global alias.type &ldquo;cat-file -t&rdquo;</p>
+
+<p>$ git config &mdash;global alias.dump &ldquo;cat-file -p&rdquo;
+```</p>
+
+<p>在 <code>～/.gitconfig</code> 文件中就会生成下面的内容：</p>
+
+<p>```
+[alias]</p>
+
+<pre><code>co = checkout
+ci = commit
+df = diff
+st = status
+br = branch
+hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+type = cat-file -t
+dump = cat-file -p
+</code></pre>
+
+<p>```</p>
+
+<p>下面是一些学习 git 的参考资料：</p>
+
+<ul>
+<li><a href="http://gitref.cyj.me/zh/about.html">http://gitref.cyj.me/zh/about.html</a></li>
+<li><a href="http://gitbook.liuhui998.com/">http://gitbook.liuhui998.com/</a></li>
+<li><a href="http://git-scm.com/book/zh">http://git-scm.com/book/zh</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/index.html">http://www.worldhello.net/gotgithub/index.html</a></li>
+</ul>
+
+
+<p>前几天 bootstrap 的坑还没填，今天又挖了个 git 的坑，真是坑爹。</p>
+
+<p>抓紧时间一点点填吧。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[varnish 的安装和配置]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/29/varnish-setup-and-configuration/"/>
+    <updated>2013-08-29T21:47:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/29/varnish-setup-and-configuration</id>
+    <content type="html"><![CDATA[<p>在 Ubuntu 下安装 varnish 很简单，直接用 apt-get 安装即可。</p>
+
+<p>```
+$ sudo apt-get install varnish</p>
+
+<p>$ varnishd -V
+varnishd (varnish-3.0.2 revision cbf1284)
+Copyright &copy; 2006 Verdens Gang AS
+Copyright &copy; 2006-2011 Varnish Software AS
+```</p>
+
+<p>默认版本是 3.0.2 ，挺新的，现在 varnish 的最新 dev 版本是 3.0.4 ，这个版本足够用了。</p>
+
+<!-- more -->
+
+
+<p>再来看看 varnish 的状态图。</p>
+
+<p><img src="/downloads/image/varnish/120044934.jpg"></p>
+
+<p>一个请求发送到 varnish ，第一个状态是 recv ，然后根据不同的逻辑进入三种不同的模式： <code>pipe</code> 、 <code>pass</code> 和 <code>lookup</code> 。</p>
+
+<p><strong>调用 pass 函数，从后端服务器调用数据。</strong><br/>
+<strong>调用 pipe 函数，建立客户端和后端服务器之间的直接连接，从后端服务器调用数据。</strong><br/>
+<strong>调用 lookup 函数，从缓存中查找应答数据并返回，如果查找不到，则调用 pass 函数从后端服务器调用数据。</strong></p>
+
+<p>```
+问： pass 和 pipe 都从后端服务器取数据，它们之间有什么不同呢？</p>
+
+<p>答：当 vcl_recv 调用 pass 函数时， pass 将当前请求直接转发到后端服务器。而后续的
+请求仍然通过 varnish 处理。 例如，建立了 HTTP 连接之后，客户端顺序请求 a.css 、
+a.png 两个文件，“当前请求”指的是第一个请求，即 a.css。 a.css 被直接转发到后端服务
+器，不被缓存。而后续的 a.png 则再由 varnish 来做处理， varnish 会判断 a.png 如
+何处理。</p>
+
+<p>总结：一个连接中除了当前请求，其它请求仍然按照正常情况由varnish处理。而 pipe 模式
+则不一样，当 vcl_recv 判断需要调用 pipe 函数时， varnish 会在客户端和服务器之间
+建立一条直接的连接，之后客户端的所有请求都直接发送给服务器，绕过 varnish , 不再由
+varnish 检查请求，直到连接断开。
+```</p>
+
+<p>```
+问：什么情况下用 pass ，什么情况下用 pipe 呢？</p>
+
+<p>答： pass 通常只处理静态页面。即只在 GET 和 HEAD 类型的请求中时才适合调用 pass
+函数。另外，需要注意的一点是， pass 模式不能处理 POST 请求，为什么呢？因为 POST
+请求一般是发送数据给服务器，需要服务器接收数据，并处理数据，反馈数据 。是动态的，不
+作缓存。</p>
+
+<p>示例代码如下:
+if (req.request !=&ldquo;GET&rdquo; &amp;&amp; req.request != &ldquo;HEAD&rdquo;)
+{</p>
+
+<pre><code>return (pipe);       
+</code></pre>
+
+<p>}     <br/>
+那什么情况下用 pipe ？由以上陈述可以知，类型是 POST 时用 pipe ，但是也许还不太清晰。
+举个例子，当客户端在请求一个视频文件时，或者一个大的文档，如.zip .tar 文件，就需要用
+pipe 模式，这些大的文件是不被缓存在 varnish 中的。
+```</p>
+
+<p>在 varnish 的配置文件中，可以看到有一些默认的子过程，当然用户也可以定义自己的子过程。如果自定义的子过程没有 return 的话，在一次向 varnish 的请求中，会先执行用户自定义的子过程，然后再调用默认的子过程。在生产环境中，我们经常自定义的是 <code>vcl_recv</code> 和 <code>vcl_fetch</code> 两个子过程，这样一次请求可能就像下面一样： <code>vcl_recv(user)</code> &ndash;> <code>vcl_recv(default)</code> &ndash;> <code>vcl_pass(default)</code> &ndash;> <code>vcl_fetch(user)</code> &ndash;> <code>vcl_fetch(default)</code> 。而如果在子过程中使用了 return ，就会覆盖默认的子过程，只执行自定义的子过程。</p>
+
+<p>下面是我自己的机器上做的一点配置：</p>
+
+<p>```
+backend default {</p>
+
+<pre><code>.host = "127.0.0.1";
+.port = "80";
+.connect_timeout = 4s; # varnish 和 backend 连接的超时时间
+.first_byte_timeout = 5s; # backend 第一个字节到达 varnish 的超时时间
+.between_bytes_timeout = 20s; # 字节之间的超时时间
+</code></pre>
+
+<p>}</p>
+
+<p>sub vcl_recv {</p>
+
+<pre><code>set req.backend = default; # 设置 backend ，默认就是 default 。如果做了负载 director 的话，就写 director 的名字。
+# 在varnish的默认设置中，如果不是 GET 也不是 HEAD，就会直接进入 pass
+# 这里将所有请求发送到内存中进行查询
+return (lookup);
+</code></pre>
+
+<p>}</p>
+
+<p>sub vcl_fetch {</p>
+
+<pre><code>set beresp.do_esi = true; # 开启 esi ，类似 apache 的 server side include
+set beresp.ttl = 600s; # 缓存时间10分钟
+return (deliver);
+</code></pre>
+
+<p>}</p>
+
+<p>sub vcl_deliver {</p>
+
+<pre><code>set resp.http.X-Hits = obj.hits; # 添加响应头
+if (obj.hits &gt; 0) {
+    set resp.http.X-Cache = "HIT"; # 如果从 cache 中取到，标记为 HIT
+} else {
+    set resp.http.X-Cache = "MISS"; # 否则就是 MISS
+}
+return (deliver);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>据说 varnish 比 squid 的性能高很多，还是得在将来有机会能实际测试一下到底有多好。每天进步一小点！</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[apt-get install error]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/29/apt-get-install-error/"/>
+    <updated>2013-08-29T13:59:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/29/apt-get-install-error</id>
+    <content type="html"><![CDATA[<p>最近不知道为何，在更新 Ubuntu 内核时总是报错：</p>
+
+<p><code>
+Failed to process /etc/kernel/postinst.d at /var/lib/dpkg/info/linux-image-3.2.0-52-generic.postinst line 1010
+</code></p>
+
+<p>Google 了一下，是以前使用 apt-get 卸载软件时不完全引起的，解决方法是：</p>
+
+<p><code>bash
+$ cd /var/lib/dpkg
+$ mv info infobak
+$ mkdir info
+$ dpkg --configure -a
+$ apt-get -f install
+</code></p>
+
+<p>困扰了我多年的顽疾终于得到解决了，妈蛋！</p>
+
+<p>Have a nice day！</p>
+
+<!-- more -->
+
+
+<p>&mdash;&mdash;&mdash;&mdash;2013年8月30日补充&mdash;&mdash;&mdash;&mdash;</p>
+
+<p>执行了上面的操作后，再次用apt-get安装程序的时候，出现了多处类似下面的报错：</p>
+
+<p><code>
+dpkg：警告：无法找到软件包 python-pkg-resources 的文件名列表文件，现假定该软件包目前没有任何文件被安装在系统里。
+</code></p>
+
+<p>原因就是我修改了 <code>/var/lib/dpkg/info</code> 的名称，变成 <code>/var/lib/dpkg/infobak</code> ，在这里保存了所有软件包的配置信息。而现在的 <code>/var/lib/dpkg/info</code> 文件夹里是空的，之前安装的所有软件包的信息都丢失了，所以就报错。现在只需要把目录名称修改回来即可。</p>
+
+<p>如果不小心删除了 <code>/var/lib/dpkg/info</code> ，可以通过<a href="http://lx.shellcodes.org/show/507d6fed04b91e46db000002.html">Debian/Ubuntu删除/var/lib/dpkg/info后的补救方法</a>里介绍的方法重新安装所有软件包。一定要养成备份的好习惯，不要随便删除文件，一失足成千古很！</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ubuntu切换系统默认命令]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/12/ubuntu-change-default-version-for-commands/"/>
+    <updated>2013-08-12T23:01:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/12/ubuntu-change-default-version-for-commands</id>
+    <content type="html"><![CDATA[<p>在Ubuntu中由于环境需要，可能需要共存某个软件的多个版本，比如Python2和Python3，以及Ruby1.8和Ruby1.9。这两者有virtualenv和homebrew可以用来做版本的管理，不过从Ubuntu系统层面上，有一个命令可以直接切换软件的版本——update-alternatives。</p>
+
+<p>命令用起来很简单。</p>
+
+<p><code>bash
+$ sudo update-alternatives --config command
+</code></p>
+
+<!-- more -->
+
+
+<p>比如现在机器上已经有ruby1.8和ruby1.9，进行版本切换就可以输入下面的命令：</p>
+
+<p>``` bash
+$ sudo update-alternatives &mdash;config ruby</p>
+
+<p>有 2 个候选项可用于替换 ruby (提供 /usr/bin/ruby)。</p>
+
+<h2>  选择       路径              优先级  状态</h2>
+
+<p>  0            /usr/bin/ruby1.8     50        自动模式
+  1            /usr/bin/ruby1.8     50        手动模式
+* 2            /usr/bin/ruby1.9.1   10        手动模式</p>
+
+<p>要维持当前值[*]请按回车键，或者键入选择的编号：
+```
+输入数字即可选择默认的版本号，Octopress要求使用Ruby1.9，那就选择它好了。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

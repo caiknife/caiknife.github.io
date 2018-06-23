@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: nginx | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/nginx/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[CakePHP 的 Nginx 设置]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/30/nginx-configuration-for-cakephp/"/>
+    <updated>2013-09-30T10:01:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/30/nginx-configuration-for-cakephp</id>
+    <content type="html"><![CDATA[<p>在自己的笔记本上弄了个 CakePHP + Nginx 的组合，做了基本设置。</p>
+
+<p>由于 80 端口已经被 Apache 占用，因此我指定 Nginx 监听 81 端口。</p>
+
+<p>首先记得安装 Nginx 和 PHP5-FPM 模块：</p>
+
+<p><code>bash
+$ sudo apt-get install nginx php5-fpm
+</code></p>
+
+<p>然后记得编辑 <code>/etc/php/fpm/php.ini</code> ，并设置 <code>cgi.fix_pathinfo=0</code>，接着重启 <code>php-fpm</code> 。</p>
+
+<!-- more -->
+
+
+<h3>将 CakePHP 作为独立网站配置</h3>
+
+<p>下面是将 CakePHP 作为一个单独的主机进行配置的 Nginx 配置文件。</p>
+
+<p>``` nginx /etc/nginx/sites-available/cakestrap.conf
+server {</p>
+
+<pre><code># 监听 81 端口
+listen 81; 
+# 配置本地域名 cakestrap.local
+server_name cakestrap.local; 
+# 将这个域名下所有的请求重写到 www.cakestrap.local
+rewrite ^(.*) http://www.cakestrap.local:81$1 permanent; 
+</code></pre>
+
+<p>}</p>
+
+<p>server {</p>
+
+<pre><code>listen 81;
+# 配置本地域名 www.cakestrap.local
+server_name www.cakestrap.local;
+
+# 设置 $document_root
+root "/home/caiknife/source/cakestrap/app/webroot/";
+index index.php;
+access_log /var/log/nginx/cakestrap.local.access.log;
+error_log /var/log/nginx/cakestrap.local.error.log;
+
+# 解析根目录
+location / {
+    # 尝试将请求 $uri 解析为文件或者目录，如果都不是的话，重写到根目录下的 index.php 
+    try_files $uri $uri/ /index.php?$uri&amp;$args;
+}
+
+# 解析 PHP 文件
+location ~ \.php$ {
+    # 请求文件，如果失败的话，显示404。
+    try_files $uri =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    include fastcgi_params;
+    # 这里用 php fpm 模块比传统的 fast cgi 模块要快
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>接着建立软链接，并测试 Nginx 配置语法是否正确：
+<code>bash
+$ sudo ln -s /etc/nginx/sites-available/cakestrap.conf /etc/nginx/sites-enable/cakestrap.conf
+$ sudo nginx -t
+</code></p>
+
+<p>如果语法正常没有错误的话，就重启 Nginx ：</p>
+
+<p><code>bash
+$ sudo service nginx &lt;reload|restart&gt;
+</code></p>
+
+<p>编辑 <code>/etc/hosts</code> ，加入两行： <code>127.0.0.1   cakestrap.local</code> 和 <code>127.0.0.1   www.cakestrap.local</code> 。之后就可以在浏览器里直接访问了。</p>
+
+<h3>将CakePHP作为网站子目录配置。</h3>
+
+<p>如果要把 CakePHP 作为一个网站的子目录访问，应该如何设置呢？</p>
+
+<p>假设本机已经有网站 <code>localhost</code> ，我要把一个 CakePHP 项目配置到这个网站的 <code>cakestrap</code> 目录下，第一步就在 <code>localhost</code> 的根目录下建立一个软链接指向这个 CakePHP 项目。</p>
+
+<p><code>bash
+$ ln -s /home/caiknife/source/cakestrap/app/webroot /usr/share/nginx/html/cakestrap
+</code></p>
+
+<p>然后在 <code>localhost</code> 的配置文件里加入下面的代码：</p>
+
+<p>``` nginx
+location /cakestrap {</p>
+
+<pre><code># 目录浏览开启
+autoindex on;
+# 尝试将请求 $uri 解析为文件或者目录，如果都不是的话，重写到 $document_root/cakestrap/index.php 
+try_files $uri $uri/ /cakestrap/index.php?$uri&amp;$args;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>CakePHP 默认的 Apache 重写规则是：</p>
+
+<p>``` apache
+<IfModule mod_rewrite.c></p>
+
+<pre><code>RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]
+</code></pre>
+
+<p></IfModule>
+```</p>
+
+<p>和 Nginx 的 <code>try_files $uri $uri/ /cakestrap/index.php?$uri&amp;$args;</code> 有异曲同工之妙， Apache 的重写规则很容易就能迁移到 Nginx 上。</p>
+
+<p>Nginx 的基本配置就到这里，今后得研究研究它的反向代理、负载均衡和缓存功能。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

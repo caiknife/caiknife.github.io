@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: vcb | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/vcb/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[一个用来打印log的脚本]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/02/print-site-log-in-vcb/"/>
+    <updated>2013-08-02T00:48:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/02/print-site-log-in-vcb</id>
+    <content type="html"><![CDATA[<p>现在在公司里做Tracking的工作，在开发环境下，Tracking的log文件保存在服务器的/mezi/sites/apache/logs下，然后又根据网站的不同有着下面这样的格式：</p>
+
+<p><code>
+{site_name}_{machine_name}_YYYY_MM_DD_HH_xx.tracking.log
+</code></p>
+
+<p>从文件格式来看，是每小时生成一个log文件，但是有些站点会每10分钟生成一个log文件，而服务器上又是UTC时间，但是在我的机器上却是北京时间，这样就很不方便看到最新的log。每次要看log，还得脑子里计算一下时差来确认最新的log文件名，实在太不方便了，于是就写了个脚本来看最新的log文件内容。</p>
+
+<!-- more -->
+
+
+<p>``` bash</p>
+
+<h1>!/bin/bash</h1>
+
+<p>log_dir=&ldquo;/mezi/sites/apache/logs&rdquo; # tracking log dir
+machine_name=<code>hostname -s</code> # get short name of this machine</p>
+
+<p>if [ -n &ldquo;$1&rdquo; ]; then</p>
+
+<pre><code>site_path="/mezi/sites/${1}" # site located in /mezi/sites/$site_name
+if [ ! -e "$site_path" ]; then
+    echo "There is no such site on this machine!"
+    exit 1
+fi
+
+#echo "OK, we got the site. Let's tail tracking log for it."
+date=`date +%Y_%m_%d`
+log_file_format="${log_dir}/${1}_${machine_name}_${date}*" #get tracking log file format
+#echo "$log_file_format"
+
+log_target=`ls ${log_file_format} 2&gt;/dev/null | sort -rn | head -1`
+if [ -n "$log_target" ] &amp;&amp; [ -e "$log_target" ]; then
+    echo "The latest log file is $log_target"
+    tail -f "$log_target"
+else
+    echo "There is no such log file."
+fi
+</code></pre>
+
+<p>else</p>
+
+<pre><code>echo "No site name provided."
+</code></pre>
+
+<p>fi
+```</p>
+
+<p>使用这条命令，就用 <code>./print_latest_tracking_log.sh {site_name}</code> 即可，如果当前机器上没有站点，脚本会提示错误信息。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

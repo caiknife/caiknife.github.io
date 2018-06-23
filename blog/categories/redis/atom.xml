@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: redis | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/redis/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[如何处理 Dog Pile Effect]]></title>
+    <link href="http://caiknife.github.io/blog/2013/11/20/how-to-deal-with-dog-pile-effect/"/>
+    <updated>2013-11-20T16:02:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/11/20/how-to-deal-with-dog-pile-effect</id>
+    <content type="html"><![CDATA[<p>什么是 Dog Pile Effect？</p>
+
+<p>在缓存系统中，缓存总有失效的时候，比如我们经常使用的 Memcache 和 Redis ，都会设置超时时间；而一旦缓存到了超时时间失效之后，如果此时再有大量的并发向数据库发起请求，就会造成服务器卡顿甚至是系统当机。这就是 Dog Pile Effect 。</p>
+
+<!-- more -->
+
+
+<p><a href="/downloads/image/dog-pile/dog-pile.png" title="Dog Pile Effect " class="fancybox"><img src="/downloads/image/dog-pile/dog-pile.png" alt="Dog Pile Effect " /></a></p>
+
+<p>参考下面的代码：</p>
+
+<p>``` php
+&lt;?php
+$mc = new Memcached();
+$mc->addServers(array(</p>
+
+<pre><code>array('127.0.0.1', 11211, 40),
+array('127.0.0.1', 11212, 30),
+array('127.0.0.1', 11213, 30)
+</code></pre>
+
+<p>));
+$data = $mc->get(&lsquo;cached_key&rsquo;);
+if ($mc->getResultCode() === Memcached::RES_NOTFOUND) {</p>
+
+<pre><code>$data = generateData(); // long-running process
+$mc-&gt;set('cached_key', $data, time() + 30);
+</code></pre>
+
+<p>}
+var_dump($data);
+```</p>
+
+<p>如果第 10 行代码需要执行 1 秒钟，而这个时间上正好缓存失效，系统又正好碰到访问高峰，比如 1000 RPS ，这样在生成缓存之前，所有的请求都会直接访问到数据库服务器上，导致系统故障。</p>
+
+<p>避免这样的 Dog Pile 效应，通常有两种方法：</p>
+
+<h3>使用独立的更新进程</h3>
+
+<p>使用独立的进程（比如 cron job）去更新缓存，而不是让 web 服务器即时更新数据缓存。举个例子：一个数据统计需要每五分钟更新一次（但是每次计算过程耗时1分钟），那么可以使用 cron job 去计算这个数据，并更新缓存。这样的话，数据永远都会存在，即使不存在也不用担心产生 Dog Pile 效应，因为客户端没有更新缓存的操作。这种方法适合不需要即时运算的全局数据。但对用户对象、朋友列表、评论之类的就不太适用。</p>
+
+<h3>使用“锁”</h3>
+
+<p>除了使用独立的更新进程之外，我们也可以通过加“锁”，每次只允许一个客户端请求去更新缓存，以避免 Dog Pile 效应。</p>
+
+<p>处理过程大概是这样的：</p>
+
+<p>A 请求的缓存没命中<br/>
+A 请求“锁住”缓存 key<br/>
+B 请求的缓存没命中<br/>
+B 请求需要等待直到“锁”释放<br/>
+A 请求完成，并且释放“锁”<br/>
+B 请求缓存命中（由于 A 的运算）</p>
+
+<p>下面的代码就用到“锁”来处理：</p>
+
+<p>``` php
+&lt;?php
+function get($key) {</p>
+
+<pre><code>$mc = new Memcached();
+$mc-&gt;addServers(array(
+    array('127.0.0.1', 11211, 40),
+    array('127.0.0.1', 11212, 30),
+    array('127.0.0.1', 11213, 30)
+));
+$data = $mc-&gt;get($key);
+// check if cache exists
+if ($mc-&gt;getResultCode() === Memcached::RES_SUCCESS) {
+    return $data;
+}
+
+// add locking
+$mc-&gt;add('lock:' . $key, 'locked', 20);
+if ($mc-&gt;getResultCode() === Memcached::RES_SUCCESS) {
+    $data = generateData();
+    $mc-&gt;set($key, $data, 30);
+} else {
+    while(1) {
+        usleep(500000);
+        $data = $mc-&gt;get($key);
+        if ($data !== false){
+            break;
+        }
+    }
+}
+return $data;
+</code></pre>
+
+<p>}</p>
+
+<p>$data = get(&lsquo;cached_key&rsquo;);</p>
+
+<p>var_dump($data);
+```</p>
+
+<p>打完收工，Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[发现了 redis commander 的一个 bug]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/18/redis-commander-bug/"/>
+    <updated>2013-09-18T21:45:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/18/redis-commander-bug</id>
+    <content type="html"><![CDATA[<p>长久以来，我的工作平台是 Ubuntu ，而我用来管理 redis 的工具是 <a href="http://nearinfinity.github.io/redis-commander/">redis-commander</a>。</p>
+
+<p>之前我由于做了 redis 的主从备份，开启了本地的 6379 端口和 6380 端口作为 redis 的两个实例，前者作为主机，后者是从机。并且在 redis-commander 的管理界面上分别添加了 6379 和 6380 的 0 号数据库。后来为了提高机器的性能，我关闭了 6380 的实例，并删除了这个实例在 redis-commander 的 tree-view 中对应的分支。结果后来再进入 redis-commander 的时候，左边的实例管理 tree-view 消失了，检查控制台输出时，发现提示是无法连接到 6380 端口。</p>
+
+<p><strong>为什么我已经删掉了对应的分支，但是 redis-commander 还是会请求 6380 端口呢？</strong></p>
+
+<!-- more -->
+
+
+<p>首先想到了可能是 redis-commander 的配置文件有问题。于是我从 redis-commander 的源代码入手去检查。</p>
+
+<p>在 <code>/usr/lib/node_modules/redis-commander/lib/util.js</code> 这个文件下找到了 redis-commander 的配置文件路径：</p>
+
+<p>``` js+php
+//Config Util functions
+exports.getConfig = function (callback) {
+  fs.readFile(getUserHome() + &ldquo;/.redis-commander&rdquo;, &lsquo;utf8&rsquo;, function (err, data) {</p>
+
+<pre><code>if (err) {
+  callback(err);
+} else {
+  var config = JSON.parse(data);
+  callback(null, config);
+}
+</code></pre>
+
+<p>  });
+};</p>
+
+<p>exports.saveConfig = function (config, callback) {
+  fs.writeFile(getUserHome() + &ldquo;/.redis-commander&rdquo;, JSON.stringify(config), function (err) {</p>
+
+<pre><code>if (err) {
+  callback(err);
+} else {
+  callback(null);
+}
+</code></pre>
+
+<p>  });
+};
+```</p>
+
+<p>于是修改 <code>/home/caiknife/.redis-commander</code> 这个文件的内容：</p>
+
+<p>``` js+php
+{</p>
+
+<pre><code>"sidebarWidth":"454",
+"locked":"true",
+"CLIHeight":"94",
+"CLIOpen":"false",
+"default_connections":[
+    {"host":"localhost","port":"6379","password":"","dbIndex":"0"},
+    {"host":"localhost","port":"6379","password":"","dbIndex":"1"},
+    {"host":"localhost","port":"6380","password":"","dbIndex":"0"}
+]
+</code></pre>
+
+<p>}
+```</p>
+
+<p>很明显，虽然我删除了一个连接，但是配置文件中并没有更新这个删除操作，仍然保留了以前的内容。所以我得手动删除。</p>
+
+<p>于是删除多余的配置，重新启动 redis-commander 。 OK ，一切又正常了。</p>
+
+<p>Have a nice day！</p>
+
+<p><strong>2013年9月19日更新</strong></p>
+
+<p>删除实例的时候在控制台里看到 <code>Could not remove localhost:6379:1 from default connections.</code> ，然后在 <code>/usr/lib/node_modules/redis-commander/lib/routes/home.js</code> 找到了对应的源代码：</p>
+
+<p>``` js+php
+function removeConnectionFromDefaults (connections, connectionIds, callback) {
+  var notRemoved = true;
+  var hostname = connectionIds[0];
+  var port = connectionIds[1];
+  var db = connectionIds[2];
+  connections.forEach(function (connection, index) {</p>
+
+<pre><code>console.log(connection.selected_db);
+console.log(connection);
+if (notRemoved &amp;&amp; connection.host == hostname &amp;&amp; connection.port == port &amp;&amp; connection.selected_db == db) {
+  notRemoved = false;
+  connections.splice(index, 1);
+}
+</code></pre>
+
+<p>  });
+  if (notRemoved) {</p>
+
+<pre><code>return callback("Could not remove " + hostname + ":" + port + ":" + db + " from default connections.");
+</code></pre>
+
+<p>  } else {</p>
+
+<pre><code>return callback(null, connections);
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>通过 <code>console.log(connection.selected_db);</code> 发现始终返回 <code>undefined</code> 。接着输出 <code>console.log(connection);</code> 发现它是一个这样的数据结构：</p>
+
+<p><code>js+php
+{ host: 'localhost', port: '6379', password: '', dbIndex: '2' }
+</code></p>
+
+<p>可见这里有个 bug ，在应该使用 <code>dbIndex</code> 的地方使用了 <code>selected_db</code> 。修改代码后就可以正常删除连接实例并更新到配置文件里了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[redis实验（1）]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/20/redis-experiment/"/>
+    <updated>2013-08-20T21:30:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/20/redis-experiment</id>
+    <content type="html"><![CDATA[<p>研究了一下redis的常用技巧。</p>
+
+<p>除了SET方法之外，redis还有MSET方法可以批量设置，如果发现有同名的key存在，就会覆盖原有的key。如果不想覆盖已经存在的key，请使用MSETNX方法。</p>
+
+<p>用法：MSET key value [key value &hellip;]<br/>
+<code>
+redis&gt; MSET key1 "Hello" key2 "World"
+OK
+redis&gt; GET key1
+"Hello"
+redis&gt; GET key2
+"World"
+redis&gt;
+</code></p>
+
+<p>用法：MSETNX key value [key value &hellip;]<br/>
+<code>
+redis&gt; MSETNX key1 "Hello" key2 "there"
+(integer) 1
+redis&gt; MSETNX key2 "there" key3 "world"
+(integer) 0
+redis&gt; MGET key1 key2 key3
+1) "Hello"
+2) "there"
+3) (nil)
+redis&gt;
+</code></p>
+
+<!-- more -->
+
+
+<p>查讯key就要使用KEYS方法，文档中提到KEYS方法速度很快，虽然时间复杂度是O(N)，但是在一台入门级的笔记本电脑上，搜索100W条key，redis只需要40毫秒左右。但是在生产环境上，还是尽量不要使用KEYS命令，而是使用set来进行查询。</p>
+
+<blockquote><p><strong><em>Warning</em></strong>: consider KEYS as a command that should only be used in production environments with extreme care. It may ruin performance when it is executed against large databases. This command is intended for debugging and special operations, such as changing your keyspace layout. Don&rsquo;t use KEYS in your regular application code. If you&rsquo;re looking for a way to find keys in a subset of your keyspace, consider using sets.</p></blockquote>
+
+<p>用法：KEYS pattern <br/>
+<code>
+redis&gt; MSET one 1 two 2 three 3 four 4
+OK
+redis&gt; KEYS *o*
+1) "two"
+2) "one"
+3) "four"
+redis&gt; KEYS t??
+1) "two"
+redis&gt; KEYS *
+1) "two"
+2) "three"
+3) "one"
+4) "four"
+redis&gt;
+</code></p>
+
+<p>在redis里，排序是一件比较复杂的事情，<a href="http://redis.io/commands/sort">官方文档写得很详细</a> 。</p>
+
+<p>用法：SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern &hellip;]] [ASC|DESC] [ALPHA] [STORE destination]。正常排序还是很好理解的，直接<code>SORT key LIMIT offset count ASC|DESC ALPHA</code>即可，<code>LIMIT</code>和SQL语句中的含义一样，一般用来做分页用；<code>ASC|DESC</code>就是升序/降序排列；<code>ALPHA</code>表示将元素都当作字符串对待。</p>
+
+<p>不过在使用外部key进行排序的时候，就有点复杂了。</p>
+
+<p>举个例子，<code>SORT mylist BY weight_* GET object_*</code>。首先就要求你在mylist中存储是所有weight_*的id，而这句话的意思就是根据weight进行升序排序，并获得对应的id，并由此获得对应的排序完成的object值。用SQL来描述就是：<code>SELECT object FROM table ORDER BY weight ASC;</code>。同样还有用hashes来进行排序的——<code>SORT mylist BY weight_*-&gt;fieldname GET object_*-&gt;fieldname</code>，这就好比<code>SELECT b.fielname FROM weight a LEFT JOIN object b ON a.id=b.id ORDER BY a.fieldname ASC;</code>。更详细的内容，还是参考<a href="http://redis.io/commands/sort">文档</a> 。</p>
+
+<p>下面是一部分测试代码，里面有更详细的注释。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (demo.py)</span> <a href='/downloads/code/redis-py/demo.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">redis</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">random</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">string</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">gen_random_string</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="o">+</span><span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    生成指定长度的随机字符串</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)])</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="n">r</span><span class="o">.</span><span class="n">flushdb</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+</span><span class='line'>    <span class="n">caiknife</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">cai</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">zhi</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">jiang</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">knife</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">test</span><span class="o">=</span><span class="mi">6</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">r</span><span class="o">.</span><span class="n">mset</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">mget</span><span class="p">([</span><span class="s">&#39;cai&#39;</span><span class="p">,</span> <span class="s">&#39;caiknife&#39;</span><span class="p">])</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">获得key=cai和key=caiknife的值</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;1&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;*cai*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配包含cai的key</span>
+</span><span class='line'><span class="sd">[&#39;cai&#39;, &#39;caiknife&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;c??&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配以c开头，长度为3的key</span>
+</span><span class='line'><span class="sd">[&#39;cai&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;k[n]*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配k开头，包含0个或者多个n的key</span>
+</span><span class='line'><span class="sd">[&#39;knife&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配所有key</span>
+</span><span class='line'><span class="sd">[&#39;zhi&#39;, &#39;test&#39;, &#39;jiang&#39;, &#39;knife&#39;, &#39;cai&#39;, &#39;caiknife&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">r</span><span class="o">.</span><span class="n">flushdb</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">生成10个随机数据 id    name    score</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">gen_random_string</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">r</span><span class="o">.</span><span class="n">lpush</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;name:</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;score:</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;score&#39;</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s">&#39;score&#39;</span><span class="p">]):</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">d</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">按照score进行升序排序</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 7, &#39;name&#39;: &#39;Uir8Pfo27c&#39;, &#39;id&#39;: 2}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 17, &#39;name&#39;: &#39;oFhLHSu42X&#39;, &#39;id&#39;: 7}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 19, &#39;name&#39;: &#39;C3DWCos4wq&#39;, &#39;id&#39;: 10}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 56, &#39;name&#39;: &#39;I7JRymyPJ5&#39;, &#39;id&#39;: 9}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 58, &#39;name&#39;: &#39;gJPkpD1TGn&#39;, &#39;id&#39;: 6}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 63, &#39;name&#39;: &#39;Vzt7gy2349&#39;, &#39;id&#39;: 1}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 75, &#39;name&#39;: &#39;eRHfRbeWrW&#39;, &#39;id&#39;: 4}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 77, &#39;name&#39;: &#39;Kja64ofoP1&#39;, &#39;id&#39;: 3}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 85, &#39;name&#39;: &#39;VRRPhp5Vmz&#39;, &#39;id&#39;: 8}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 94, &#39;name&#39;: &#39;m5mKg1s7Ji&#39;, &#39;id&#39;: 5}</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">&#39;score:*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">根据score获得排序后的id</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;7&#39;, &#39;10&#39;, &#39;9&#39;, &#39;6&#39;, &#39;1&#39;, &#39;4&#39;, &#39;3&#39;, &#39;8&#39;, &#39;5&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">&#39;score:*&#39;</span><span class="p">,</span> <span class="n">get</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;#&#39;</span><span class="p">,</span> <span class="s">&#39;name:*&#39;</span><span class="p">,</span> <span class="s">&#39;score:*&#39;</span><span class="p">])</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">根据score获得排序后的id, name, score, 返回的是一个N*M的数组，N是id的数量，M是GET中所取属性的数量</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;7&#39;, &#39;10&#39;, &#39;9&#39;, &#39;6&#39;, &#39;1&#39;, &#39;4&#39;, &#39;3&#39;, &#39;8&#39;, &#39;5&#39;]</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;Uir8Pfo27c&#39;, &#39;7&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;7&#39;, &#39;oFhLHSu42X&#39;, &#39;17&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;10&#39;, &#39;C3DWCos4wq&#39;, &#39;19&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;9&#39;, &#39;I7JRymyPJ5&#39;, &#39;56&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;6&#39;, &#39;gJPkpD1TGn&#39;, &#39;58&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;1&#39;, &#39;Vzt7gy2349&#39;, &#39;63&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;4&#39;, &#39;eRHfRbeWrW&#39;, &#39;75&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;3&#39;, &#39;Kja64ofoP1&#39;, &#39;77&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;8&#39;, &#39;VRRPhp5Vmz&#39;, &#39;85&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;5&#39;, &#39;m5mKg1s7Ji&#39;, &#39;94&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[redis主从复制]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/13/redis-replication/"/>
+    <updated>2013-08-13T23:54:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/13/redis-replication</id>
+    <content type="html"><![CDATA[<p>晚上在家尝试做了一下redis的主从复制。下面的Linux命令有一部分需要sudo才能完成。</p>
+
+<p>首先复制一份redis.conf：</p>
+
+<p><code>bash
+$ cp /etc/redis/redis.conf /etc/redis/slave.conf
+</code></p>
+
+<p>有几处地方需要修改：</p>
+
+<p>``` bash
+$ vi /etc/redis/slave.conf</p>
+
+<p>port 6380
+logfile /var/log/redis/redis-server-slave.log
+dbfilename slave.rdb
+slaveof 127.0.0.1 6379
+```</p>
+
+<!-- more -->
+
+
+<p>设置开机启动：</p>
+
+<p><code>bash
+$ cp /etc/init.d/redis-server /etc/init.d/redis-server-slave
+</code></p>
+
+<p>修改启动项：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (redis-server-slave)</span> <a href='/downloads/code/redis-replication/redis-server-slave'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'><span class="c">#! /bin/sh</span>
+</span><span class='line'><span class="c">### BEGIN INIT INFO</span>
+</span><span class='line'><span class="c"># Provides:     redis-server</span>
+</span><span class='line'><span class="c"># Required-Start:   $syslog $remote_fs</span>
+</span><span class='line'><span class="c"># Required-Stop:    $syslog $remote_fs</span>
+</span><span class='line'><span class="c"># Should-Start:     $local_fs</span>
+</span><span class='line'><span class="c"># Should-Stop:      $local_fs</span>
+</span><span class='line'><span class="c"># Default-Start:    2 3 4 5</span>
+</span><span class='line'><span class="c"># Default-Stop:     0 1 6</span>
+</span><span class='line'><span class="c"># Short-Description:    redis-server - Persistent key-value db</span>
+</span><span class='line'><span class="c"># Description:      redis-server - Persistent key-value db</span>
+</span><span class='line'><span class="c">### END INIT INFO</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+</span><span class='line'><span class="nv">DAEMON</span><span class="o">=</span>/usr/bin/redis-server
+</span><span class='line'><span class="nv">DAEMON_ARGS</span><span class="o">=</span>/etc/redis/slave.conf <span class="c"># modified to slave</span>
+</span><span class='line'><span class="nv">NAME</span><span class="o">=</span>redis-server-slave <span class="c"># modified to slave</span>
+</span><span class='line'><span class="nv">DESC</span><span class="o">=</span>redis-server-slave <span class="c"># modified to slave</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">RUNDIR</span><span class="o">=</span>/var/run/redis
+</span><span class='line'><span class="nv">PIDFILE</span><span class="o">=</span><span class="nv">$RUNDIR</span>/redis-server-slave.pid <span class="c"># modified to slave</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">test</span> -x <span class="nv">$DAEMON</span> <span class="o">||</span> <span class="nb">exit </span>0
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> -r /etc/default/<span class="nv">$NAME</span> <span class="o">]</span>
+</span><span class='line'><span class="k">then</span>
+</span><span class='line'>    . /etc/default/<span class="nv">$NAME</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">set</span> -e
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
+</span><span class='line'>  start<span class="o">)</span>
+</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;Starting $DESC: &quot;</span>
+</span><span class='line'>    mkdir -p <span class="nv">$RUNDIR</span>
+</span><span class='line'>    touch <span class="nv">$PIDFILE</span>
+</span><span class='line'>    chown redis:redis <span class="nv">$RUNDIR</span> <span class="nv">$PIDFILE</span>
+</span><span class='line'>    chmod 755 <span class="nv">$RUNDIR</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;$ULIMIT&quot;</span> <span class="o">]</span>
+</span><span class='line'>    <span class="k">then</span>
+</span><span class='line'><span class="k">        </span><span class="nb">ulimit</span> -n <span class="nv">$ULIMIT</span>
+</span><span class='line'>    <span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">    if </span>start-stop-daemon --start --quiet --umask 007 --pidfile <span class="nv">$PIDFILE</span> --chuid redis:redis --exec <span class="nv">$DAEMON</span> -- <span class="nv">$DAEMON_ARGS</span>
+</span><span class='line'>    <span class="k">then</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;$NAME.&quot;</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;failed&quot;</span>
+</span><span class='line'>    <span class="k">fi</span>
+</span><span class='line'>    ;;
+</span><span class='line'>  stop<span class="o">)</span>
+</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;Stopping $DESC: &quot;</span>
+</span><span class='line'>    <span class="k">if </span>start-stop-daemon --stop --retry forever/TERM/1 --quiet --oknodo --pidfile <span class="nv">$PIDFILE</span> --exec <span class="nv">$DAEMON</span>
+</span><span class='line'>    <span class="k">then</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;$NAME.&quot;</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;failed&quot;</span>
+</span><span class='line'>    <span class="k">fi</span>
+</span><span class='line'><span class="k">    </span>rm -f <span class="nv">$PIDFILE</span>
+</span><span class='line'>    sleep 1
+</span><span class='line'>    ;;
+</span><span class='line'>
+</span><span class='line'>  restart|force-reload<span class="o">)</span>
+</span><span class='line'>    <span class="k">${</span><span class="nv">0</span><span class="k">}</span> stop
+</span><span class='line'>    <span class="k">${</span><span class="nv">0</span><span class="k">}</span> start
+</span><span class='line'>    ;;
+</span><span class='line'>
+</span><span class='line'>  status<span class="o">)</span>
+</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;$DESC is &quot;</span>
+</span><span class='line'>    <span class="k">if </span>start-stop-daemon --stop --quiet --signal 0 --name <span class="k">${</span><span class="nv">NAME</span><span class="k">}</span> --pidfile <span class="k">${</span><span class="nv">PIDFILE</span><span class="k">}</span>
+</span><span class='line'>    <span class="k">then</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;running&quot;</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;not running&quot;</span>
+</span><span class='line'>        <span class="nb">exit </span>1
+</span><span class='line'>    <span class="k">fi</span>
+</span><span class='line'>    ;;
+</span><span class='line'>
+</span><span class='line'>  *<span class="o">)</span>
+</span><span class='line'>    <span class="nb">echo</span> <span class="s2">&quot;Usage: /etc/init.d/$NAME {start|stop|restart|force-reload}&quot;</span> &gt;&amp;2
+</span><span class='line'>    <span class="nb">exit </span>1
+</span><span class='line'>    ;;
+</span><span class='line'><span class="k">esac</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">exit </span>0
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>最后执行：</p>
+
+<p><code>bash
+$ service redis-server-slave start
+</code></p>
+
+<p>最后确认同步是否成功：</p>
+
+<p><code>bash
+$ cd /var/lib/redis
+$ md5sum *.rdb
+</code></p>
+
+<p>如果checksum值是相同的，则表示同步成功。</p>
+
+<p>把redis-server-slave设置为开机启动：</p>
+
+<p><code>bash
+$ update-rc.d redis-server-slave defaults
+</code></p>
+
+<p>如果要取消开机启动：</p>
+
+<p><code>bash
+$ update-rc.d -f redis-server-slave remove
+</code></p>
+
+<p>配置文件redis.conf里有一部分和save相关的参数，缺省如下：</p>
+
+<p>``` bash</p>
+
+<h1>Save the DB on disk:</h1>
+
+<p>#</p>
+
+<h1>save <seconds> <changes></h1>
+
+<p>#</p>
+
+<h1>Will save the DB if both the given number of seconds and the given</h1>
+
+<h1>number of write operations against the DB occurred.</h1>
+
+<p>#</p>
+
+<h1>In the example below the behaviour will be to save:</h1>
+
+<h1>after 900 sec (15 min) if at least 1 key changed</h1>
+
+<h1>after 300 sec (5 min) if at least 10 keys changed</h1>
+
+<h1>after 60 sec if at least 10000 keys changed</h1>
+
+<p>save 900 1
+save 300 10
+save 60 10000
+```</p>
+
+<p>在主服务器上，我们可以去掉上面的设置，改成类似下面的设置（只要参数值够大即可）：</p>
+
+<p><code>bash
+save 10000000000 10000000000
+</code></p>
+
+<p>如此一来主服务器变成一个完全的内存服务器，所有的操作都在内存里完成，“永远”不会再往磁盘上持久化保存数据，异步的也没有。持久化则通过从服务器来完成，这样在操作主服务器的时候效率会更高。不过要注意的一点是此方法不适合保存关键数据，否则一旦主服务器挂掉，如果你头脑一热简单的重启服务，那么从服务器的数据也会跟着消失，此时，必须拷贝一份备份数据到主服务器，然后再重启服务才可以，数据的恢复稍显麻烦。</p>
+
+<p>从服务器也可以通过设置这个参数来调整从内存同步到磁盘的频率。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[安装phpredis扩展]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/08/install-redis-extension-for-php/"/>
+    <updated>2013-08-08T14:41:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/08/install-redis-extension-for-php</id>
+    <content type="html"><![CDATA[<p>redis官方推荐的PHP扩展有两个——<a href="https://github.com/nrk/predis">Predis</a>和<a href="https://github.com/nicolasff/phpredis">phpredis</a>。phpredis是使用 C 编写的 PHP module ，速度应该会比较快，而且 CakePHP 使用的 redis 库默认就是 phpredis ，先安装这个试试看。</p>
+
+<!-- more -->
+
+
+<p>``` bash
+$ sudo apt-get install php5-dev</p>
+
+<p>$ git clone git://github.com/nicolasff/phpredis.git</p>
+
+<p>$ cd phpredis
+$ phpize
+$ ./configure
+$ make
+$ sudo make install</p>
+
+<p>$ sudo -s
+$ echo &ldquo;extension=redis.so&rdquo; > /etc/php5/conf.d/redis.ini
+$ exit</p>
+
+<p>$ sudo service apache2 reload
+```</p>
+
+<p>之后phpinfo一下就能看到phpredis的扩展信息。</p>
+
+<blockquote><p>redis<br/>
+Redis Support   enabled<br/>
+Redis Version   2.2.3</p></blockquote>
+
+<p>在CakePHP中做测试：</p>
+
+<p>``` php
+class TestsController extends AppController {</p>
+
+<pre><code>public $uses = array();
+
+public function index() {
+    $this-&gt;autoRender = false;
+
+    $r = new Redis();
+    $r-&gt;connect('localhost');
+
+    debug($r-&gt;keys('*c*'));
+
+    foreach ($r-&gt;keys('*c*') as $index =&gt; $key) {
+        debug($key);
+        debug($r-&gt;get($key));
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>输出结果：</p>
+
+<blockquote><p>/app/Controller/TestsController.php (line 11)<br/>
+array(<br/>
+   (int) 0 => &lsquo;counter:rand:000000000000&rsquo;,<br/>
+   (int) 1 => &lsquo;caiknife:name'<br/>
+)<br/>
+/app/Controller/TestsController.php (line 14) <br/>
+'counter:rand:000000000000'<br/>
+/app/Controller/TestsController.php (line 15)<br/>
+'110000'<br/>
+/app/Controller/TestsController.php (line 14)<br/>
+'caiknife:name'<br/>
+/app/Controller/TestsController.php (line 15)<br/>
+'Cai&rsquo;</p></blockquote>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: nodejs | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/nodejs/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[发现了 redis commander 的一个 bug]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/18/redis-commander-bug/"/>
+    <updated>2013-09-18T21:45:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/18/redis-commander-bug</id>
+    <content type="html"><![CDATA[<p>长久以来，我的工作平台是 Ubuntu ，而我用来管理 redis 的工具是 <a href="http://nearinfinity.github.io/redis-commander/">redis-commander</a>。</p>
+
+<p>之前我由于做了 redis 的主从备份，开启了本地的 6379 端口和 6380 端口作为 redis 的两个实例，前者作为主机，后者是从机。并且在 redis-commander 的管理界面上分别添加了 6379 和 6380 的 0 号数据库。后来为了提高机器的性能，我关闭了 6380 的实例，并删除了这个实例在 redis-commander 的 tree-view 中对应的分支。结果后来再进入 redis-commander 的时候，左边的实例管理 tree-view 消失了，检查控制台输出时，发现提示是无法连接到 6380 端口。</p>
+
+<p><strong>为什么我已经删掉了对应的分支，但是 redis-commander 还是会请求 6380 端口呢？</strong></p>
+
+<!-- more -->
+
+
+<p>首先想到了可能是 redis-commander 的配置文件有问题。于是我从 redis-commander 的源代码入手去检查。</p>
+
+<p>在 <code>/usr/lib/node_modules/redis-commander/lib/util.js</code> 这个文件下找到了 redis-commander 的配置文件路径：</p>
+
+<p>``` js+php
+//Config Util functions
+exports.getConfig = function (callback) {
+  fs.readFile(getUserHome() + &ldquo;/.redis-commander&rdquo;, &lsquo;utf8&rsquo;, function (err, data) {</p>
+
+<pre><code>if (err) {
+  callback(err);
+} else {
+  var config = JSON.parse(data);
+  callback(null, config);
+}
+</code></pre>
+
+<p>  });
+};</p>
+
+<p>exports.saveConfig = function (config, callback) {
+  fs.writeFile(getUserHome() + &ldquo;/.redis-commander&rdquo;, JSON.stringify(config), function (err) {</p>
+
+<pre><code>if (err) {
+  callback(err);
+} else {
+  callback(null);
+}
+</code></pre>
+
+<p>  });
+};
+```</p>
+
+<p>于是修改 <code>/home/caiknife/.redis-commander</code> 这个文件的内容：</p>
+
+<p>``` js+php
+{</p>
+
+<pre><code>"sidebarWidth":"454",
+"locked":"true",
+"CLIHeight":"94",
+"CLIOpen":"false",
+"default_connections":[
+    {"host":"localhost","port":"6379","password":"","dbIndex":"0"},
+    {"host":"localhost","port":"6379","password":"","dbIndex":"1"},
+    {"host":"localhost","port":"6380","password":"","dbIndex":"0"}
+]
+</code></pre>
+
+<p>}
+```</p>
+
+<p>很明显，虽然我删除了一个连接，但是配置文件中并没有更新这个删除操作，仍然保留了以前的内容。所以我得手动删除。</p>
+
+<p>于是删除多余的配置，重新启动 redis-commander 。 OK ，一切又正常了。</p>
+
+<p>Have a nice day！</p>
+
+<p><strong>2013年9月19日更新</strong></p>
+
+<p>删除实例的时候在控制台里看到 <code>Could not remove localhost:6379:1 from default connections.</code> ，然后在 <code>/usr/lib/node_modules/redis-commander/lib/routes/home.js</code> 找到了对应的源代码：</p>
+
+<p>``` js+php
+function removeConnectionFromDefaults (connections, connectionIds, callback) {
+  var notRemoved = true;
+  var hostname = connectionIds[0];
+  var port = connectionIds[1];
+  var db = connectionIds[2];
+  connections.forEach(function (connection, index) {</p>
+
+<pre><code>console.log(connection.selected_db);
+console.log(connection);
+if (notRemoved &amp;&amp; connection.host == hostname &amp;&amp; connection.port == port &amp;&amp; connection.selected_db == db) {
+  notRemoved = false;
+  connections.splice(index, 1);
+}
+</code></pre>
+
+<p>  });
+  if (notRemoved) {</p>
+
+<pre><code>return callback("Could not remove " + hostname + ":" + port + ":" + db + " from default connections.");
+</code></pre>
+
+<p>  } else {</p>
+
+<pre><code>return callback(null, connections);
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>通过 <code>console.log(connection.selected_db);</code> 发现始终返回 <code>undefined</code> 。接着输出 <code>console.log(connection);</code> 发现它是一个这样的数据结构：</p>
+
+<p><code>js+php
+{ host: 'localhost', port: '6379', password: '', dbIndex: '2' }
+</code></p>
+
+<p>可见这里有个 bug ，在应该使用 <code>dbIndex</code> 的地方使用了 <code>selected_db</code> 。修改代码后就可以正常删除连接实例并更新到配置文件里了。</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: magic | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/magic/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[根据字符串名称动态调用Python的函数和对象方法]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/15/dynamic-method/"/>
+    <updated>2013-08-15T14:31:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/15/dynamic-method</id>
+    <content type="html"><![CDATA[<p>在PHP里，根据字符串动态调用方法是一件很简单的事情。</p>
+
+<p>``` php
+class Foo {</p>
+
+<pre><code>// static method
+public static function sbar() {
+    echo "foosbar!";
+}
+
+// normal method
+public function bar() {
+    echo "foobar!";
+}  
+</code></pre>
+
+<p>}</p>
+
+<p>// normal function
+function bar() {</p>
+
+<pre><code>echo "bar!";
+</code></pre>
+
+<p>}</p>
+
+<p>$name = &ldquo;bar&rdquo;;
+$sname = &ldquo;sbar&rdquo;;</p>
+
+<p>$name();</p>
+
+<p>$foo = new Foo();
+$foo->{$name}();
+$foo::$sname();
+```
+输出结果：</p>
+
+<blockquote><p>bar!<br/>
+foobar!<br/>
+foosbar!</p></blockquote>
+
+<!-- more -->
+
+
+<p>而在Python中，没有PHP中这么简单，需要一点小技巧才能实现。也许这就是没有$的坏处吧，有钱确实就是不一样，呵呵。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (example.py)</span> <a href='/downloads/code/dynamic-method/example.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/python</span>
+</span><span class='line'><span class="c">#coding: UTF-8</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">@author: CaiKnife</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">根据函数名称动态调用</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># normal function</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">do_foo</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;foo!&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Print</span><span class="p">():</span>
+</span><span class='line'>    <span class="c"># normal method</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">do_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">print</span> <span class="s">&quot;foo!&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># static method</span>
+</span><span class='line'>    <span class="nd">@staticmethod</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">static_foo</span><span class="p">():</span>
+</span><span class='line'>        <span class="k">print</span> <span class="s">&quot;static foo!&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">obj</span> <span class="o">=</span> <span class="n">Print</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">func_name</span> <span class="o">=</span> <span class="s">&quot;do_foo&quot;</span>
+</span><span class='line'>    <span class="n">static_name</span> <span class="o">=</span> <span class="s">&quot;static_foo&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># use eval() to get the string value from a variable</span>
+</span><span class='line'>    <span class="nb">eval</span><span class="p">(</span><span class="n">func_name</span><span class="p">)()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># use getattr() to get method from a class or an instance</span>
+</span><span class='line'>    <span class="c"># sometimes you have to use is_callable() to make sure that it is a method but not an attr</span>
+</span><span class='line'>    <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">func_name</span><span class="p">)()</span>
+</span><span class='line'>    <span class="nb">getattr</span><span class="p">(</span><span class="n">Print</span><span class="p">,</span> <span class="n">static_name</span><span class="p">)()</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>输出结果：</p>
+
+<blockquote><p>foo!<br/>
+foo!<br/>
+static foo!</p></blockquote>
+
+<p>有点儿意思～～～</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

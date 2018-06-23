@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: js | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/js/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[BootStrap 的文件上传控件]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/24/bootstrap-filestyle/"/>
+    <updated>2014-02-24T10:21:34+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/24/bootstrap-filestyle</id>
+    <content type="html"><![CDATA[<p><code>input[type=file]</code> 的这个控件，在不同的浏览器上表现出的样式不同，尤其是在 Chrome 上，完全和 FF 、IE 的天差地别。为了让这个控件在不同的浏览器表现出统一的样式，需要有一个优秀的解决方案。</p>
+
+<!-- more -->
+
+
+<p>周末在家里做东西的时候，由于后台使用了 BootStrap 来做，于是就想找一个类似的插件来修改，在 Google 上搜了一下，找到了下面这个插件：</p>
+
+<p><a href="http://markusslima.github.io/bootstrap-filestyle/">http://markusslima.github.io/bootstrap-filestyle/</a></p>
+
+<p>导入该插件的库文件之后，</p>
+
+<p>``` js+php</p>
+
+<script type="text/javascript" src="js/bootstrap-filestyle.min.js"></script>
+
+
+<p>```</p>
+
+<p>配置起来异常简单：</p>
+
+<p><code>js+php
+$(":file").filestyle();
+</code></p>
+
+<p>当然如果只是想为单个控件做样式修改的话，可以通过 HTML5 的 data API 来完成：</p>
+
+<p><code>js+php
+&lt;input type="file" class="filestyle" data-classButton="btn btn-primary" data-input="false"&gt;
+</code></p>
+
+<p>这个插件还有一些配置选项和 API 可以满足各种定制，具体的内容可以查看源文档。</p>
+
+<p>BootStrap 真是好东西，但是用多了之后，会不会有审美疲劳？</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery 中 return false 和 event.preventDefault() 的区别]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/22/jquery-return-false-and-event-prevent-default/"/>
+    <updated>2013-10-22T15:21:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/22/jquery-return-false-and-event-prevent-default</id>
+    <content type="html"><![CDATA[<p>以前，我在用 jQuery 写链接的点击事件时，一般都是用的 <code>return false</code> 来阻止它默认的行为，就像下面这样：</p>
+
+<p>``` js+php
+$(function(){</p>
+
+<pre><code>$('a').click(function(){
+    // bla... bla... bla..
+    return false;
+});
+</code></pre>
+
+<p>});
+```</p>
+
+<!-- more -->
+
+
+<p>在 javascript 中，发生一个点击时，会向下面示例的那样，从内而外地将事件向上进行传递：</p>
+
+<p>```</p>
+
+<pre><code>              / \
+</code></pre>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;| |&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+| element1     | |                |
+|   &mdash;&mdash;&mdash;&mdash;&mdash;&ndash;| |&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;     |
+|   |element2  | |          |     |
+|   &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;     |</p>
+
+<h2>|        Event BUBBLING           |</h2>
+
+<p>```</p>
+
+<p>因此，当点击了 element2 的时候，同时也会触发 element1 的 click 事件。而在 jQuery 的 click 事件中使用 <code>return false</code> 的时候，即阻止了默认事件的发生，同时也阻止了事件向上冒泡。就像下面这个样子：</p>
+
+<p>``` js+php
+if (true) {</p>
+
+<pre><code>return false;
+</code></pre>
+
+<p>}</p>
+
+<p>// equals to:</p>
+
+<p>if (true) {</p>
+
+<pre><code>event.preventDefault();
+event.stopPropagation();
+</code></pre>
+
+<p>}
+```</p>
+
+<p>所以，我之前使用 <code>return false</code> 来阻止 click 默认事件，并没有考虑到它同时也阻止了事件冒泡。换句话说，我之前是<code>只知其然而不知其所以然</code>，遗憾啊。</p>
+
+<p>下面这段代码，分别用 <code>return false</code> 和 <code>event.preventDefault()</code> 处理点击事件，体验一下它们之前的区别。</p>
+
+<p>``` html
+&lt;!doctype html>
+<html>
+<head></p>
+
+<pre><code>&lt;title&gt;jQuery return false and event preventDefault()&lt;/title&gt;
+&lt;script type="text/javascript" src="jquery.1.8.3.min.js"&gt;&lt;/script&gt;
+&lt;style type="text/css"&gt;
+body {
+    margin: auto;
+}
+.outer {
+    position: relative;
+    border: 3px solid red;
+    width: 800px;
+    height: 600px;
+}
+.inner {
+    position: absolute;
+    border: 3px solid blue;
+    width: 400px;
+    height: 300px;
+    top: 150px;
+    left: 200px;
+}
+&lt;/style&gt;
+</code></pre>
+
+<p></head>
+<body></p>
+
+<pre><code>&lt;div class="outer"&gt;
+    &lt;div class="inner"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+$('.inner').click(function(e){
+    alert('click inner!');
+    // e.preventDefault();
+    return false;
+});
+
+$('.outer').click(function(e){
+    alert('click outer!');
+    // e.preventDefault();
+    return false;
+});
+
+$('body').click(function(e){
+    alert('click body!');
+    // e.preventDefault();
+    return false;
+});
+&lt;/script&gt;
+</code></pre>
+
+<p></body>
+</html>
+```</p>
+
+<p>参考链接：<br/>
+&ndash; <a href="http://stackoverflow.com/questions/1357118/event-preventdefault-vs-return-false">http://stackoverflow.com/questions/1357118/event-preventdefault-vs-return-false</a><br/>
+&ndash; <a href="http://css-tricks.com/return-false-and-prevent-default/">http://css-tricks.com/return-false-and-prevent-default/</a></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[前端这个坑该不该踩？该踩多深？]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/10/frontend-is-a-big-hole/"/>
+    <updated>2013-10-10T00:47:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/10/frontend-is-a-big-hole</id>
+    <content type="html"><![CDATA[<p>曾经我以为只要能用好 jQuery 就够了，后来做天猫的外包之后接触到了 Kissy 这个东西，感觉自己才刚进了前端的门。</p>
+
+<p>很久之前，因为经常使用 CakePHP ，就用上了 Scriptaculous 这个框架，接着就是 jQuery 一路用下来，期间又对 YUI 和 MooTools 浅尝辄止。接着又惊闻 JS 可以做后端开发了（Node.JS），过完 2012 年，当我再想看看前端界有什么新技术的时候，似乎那里已经百花齐放、百家争艳了。</p>
+
+<!-- more -->
+
+
+<p>下面这些 JS 类库/框架都是我最近才听说过的：</p>
+
+<ul>
+<li><a href="http://underscorejs.org/">Underscore</a></li>
+<li><a href="http://modernizr.com/">Modernizr</a></li>
+<li><a href="http://mustache.github.io/">mustache</a></li>
+<li><a href="http://handlebarsjs.com/">handlebars</a></li>
+<li><a href="http://angularjs.org/">AngularJS</a></li>
+<li><a href="http://emberjs.com/">emberjs</a></li>
+<li><a href="http://backbonejs.org/">Backbone</a></li>
+<li><a href="http://momentjs.com/">Moment</a></li>
+<li><a href="http://streamjs.org/">Stream</a></li>
+<li>……</li>
+</ul>
+
+
+<p>实在是太多了，最后找到了这个网站 <a href="http://www.jsdb.io/">http://www.jsdb.io/</a> ，JS 类库和框架层出不穷，令人眼花缭乱。</p>
+
+<p><a href="/downloads/image/frontend/jsdb.png" title="JSDB.io " class="fancybox"><img src="/downloads/image/frontend/jsdb.png" alt="JSDB.io " /></a></p>
+
+<p>每一个项目都是一个坑，坑肯定是要踩的，但是该猜哪些，应该慎重考虑。</p>
+
+<p>学海无涯，得努力奋斗。看过上一代国企工人下岗的经历，要给自己敲响警钟，绝对不能被社会淘汰！</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[给博客写了个 fancybox 的插件]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/02/fancybox-plugin-for-octopress/"/>
+    <updated>2013-10-02T17:37:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/02/fancybox-plugin-for-octopress</id>
+    <content type="html"><![CDATA[<p>octopress 默认没有放大图片的效果，今天用 fancybox 做了一个插件扩展。</p>
+
+<p>首先从 <a href="http://fancyapps.com/fancybox/#license">http://fancyapps.com/fancybox/#license</a> 下载最新版的 fancybox ，解压缩后复制 source 目录到 octopress 的 javascripts 目录下。</p>
+
+<p>打开文件 <code>/source/_includes/custom/head.html</code> ，在最后增加一条语句：</p>
+
+<p><code>erb /source/_includes/custom/head.html
+{% include fancybox.html %}
+</code></p>
+
+<!-- more -->
+
+
+<p>然后建立文件 <code>/source/_includes/fancybox.html</code> ，加入以下内容：</p>
+
+<p>``` html /source/_includes/fancybox.html</p>
+
+<script src="http://caiknife.github.io/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<p><link rel="stylesheet" type="text/css" href="http://caiknife.github.io/javascripts/fancybox/jquery.fancybox.css" /></p>
+
+<script type="text/javascript">
+(function($){
+    $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<p>```</p>
+
+<p>下面的重头戏就是增加一个 <code>fancybox</code> 的标签。创建文件 <code>/plugins/fancybox_tag.rb</code> ，详细代码如下：</p>
+
+<p>``` ruby /plugins/fancybox_tag.rb</p>
+
+<h1>coding: utf-8</h1>
+
+<p>module Jekyll</p>
+
+<p>  # Usage:
+  # {% fancybox @filename [thumb:@thumb] [@title] %}
+  # {% fancybox @filename [@title] %}</p>
+
+<p>  class FancyboxTag &lt; Liquid::Tag</p>
+
+<pre><code>def initialize(tag_name, markup, tokens)
+  #  /(?&lt;filename&gt;\S+)(?:\s+(?&lt;thumb&gt;\S+))?(?:\s+(?&lt;title&gt;.+))?/i
+  #  /(?&lt;filename&gt;\S+)(?:\s+(?&lt;title&gt;.+))?/i
+  if /(?&lt;filename&gt;\S+)(?:\s+thumb:(?&lt;thumb&gt;\S+))?(?:\s+(?&lt;title&gt;.+))?/i =~ markup
+    @filename = filename
+    @thumb = thumb
+    @title = title
+  end
+end
+
+def render(context)
+  if @filename
+    "&lt;a href=\"#{@filename}\" title=\"#{@title}\" class=\"fancybox\"&gt;&lt;img src=\"#{thumb_for(@filename, @thumb)}\" alt=\"#{@title}\" /&gt;&lt;/a&gt;"
+  else
+    "Error. Usage: {% fancybox @filename [thumb:@thumb] [@title] %}"
+  end
+end
+
+def thumb_for(filename, thumb)
+  if thumb.nil?
+    filename
+  else
+    thumb
+  end
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>end</p>
+
+<p>Liquid::Template.register_tag(&lsquo;fancybox&rsquo;, Jekyll::FancyboxTag)
+```</p>
+
+<p>使用方法在注释里有介绍，很简单。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[发现了 redis commander 的一个 bug]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/18/redis-commander-bug/"/>
+    <updated>2013-09-18T21:45:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/18/redis-commander-bug</id>
+    <content type="html"><![CDATA[<p>长久以来，我的工作平台是 Ubuntu ，而我用来管理 redis 的工具是 <a href="http://nearinfinity.github.io/redis-commander/">redis-commander</a>。</p>
+
+<p>之前我由于做了 redis 的主从备份，开启了本地的 6379 端口和 6380 端口作为 redis 的两个实例，前者作为主机，后者是从机。并且在 redis-commander 的管理界面上分别添加了 6379 和 6380 的 0 号数据库。后来为了提高机器的性能，我关闭了 6380 的实例，并删除了这个实例在 redis-commander 的 tree-view 中对应的分支。结果后来再进入 redis-commander 的时候，左边的实例管理 tree-view 消失了，检查控制台输出时，发现提示是无法连接到 6380 端口。</p>
+
+<p><strong>为什么我已经删掉了对应的分支，但是 redis-commander 还是会请求 6380 端口呢？</strong></p>
+
+<!-- more -->
+
+
+<p>首先想到了可能是 redis-commander 的配置文件有问题。于是我从 redis-commander 的源代码入手去检查。</p>
+
+<p>在 <code>/usr/lib/node_modules/redis-commander/lib/util.js</code> 这个文件下找到了 redis-commander 的配置文件路径：</p>
+
+<p>``` js+php
+//Config Util functions
+exports.getConfig = function (callback) {
+  fs.readFile(getUserHome() + &ldquo;/.redis-commander&rdquo;, &lsquo;utf8&rsquo;, function (err, data) {</p>
+
+<pre><code>if (err) {
+  callback(err);
+} else {
+  var config = JSON.parse(data);
+  callback(null, config);
+}
+</code></pre>
+
+<p>  });
+};</p>
+
+<p>exports.saveConfig = function (config, callback) {
+  fs.writeFile(getUserHome() + &ldquo;/.redis-commander&rdquo;, JSON.stringify(config), function (err) {</p>
+
+<pre><code>if (err) {
+  callback(err);
+} else {
+  callback(null);
+}
+</code></pre>
+
+<p>  });
+};
+```</p>
+
+<p>于是修改 <code>/home/caiknife/.redis-commander</code> 这个文件的内容：</p>
+
+<p>``` js+php
+{</p>
+
+<pre><code>"sidebarWidth":"454",
+"locked":"true",
+"CLIHeight":"94",
+"CLIOpen":"false",
+"default_connections":[
+    {"host":"localhost","port":"6379","password":"","dbIndex":"0"},
+    {"host":"localhost","port":"6379","password":"","dbIndex":"1"},
+    {"host":"localhost","port":"6380","password":"","dbIndex":"0"}
+]
+</code></pre>
+
+<p>}
+```</p>
+
+<p>很明显，虽然我删除了一个连接，但是配置文件中并没有更新这个删除操作，仍然保留了以前的内容。所以我得手动删除。</p>
+
+<p>于是删除多余的配置，重新启动 redis-commander 。 OK ，一切又正常了。</p>
+
+<p>Have a nice day！</p>
+
+<p><strong>2013年9月19日更新</strong></p>
+
+<p>删除实例的时候在控制台里看到 <code>Could not remove localhost:6379:1 from default connections.</code> ，然后在 <code>/usr/lib/node_modules/redis-commander/lib/routes/home.js</code> 找到了对应的源代码：</p>
+
+<p>``` js+php
+function removeConnectionFromDefaults (connections, connectionIds, callback) {
+  var notRemoved = true;
+  var hostname = connectionIds[0];
+  var port = connectionIds[1];
+  var db = connectionIds[2];
+  connections.forEach(function (connection, index) {</p>
+
+<pre><code>console.log(connection.selected_db);
+console.log(connection);
+if (notRemoved &amp;&amp; connection.host == hostname &amp;&amp; connection.port == port &amp;&amp; connection.selected_db == db) {
+  notRemoved = false;
+  connections.splice(index, 1);
+}
+</code></pre>
+
+<p>  });
+  if (notRemoved) {</p>
+
+<pre><code>return callback("Could not remove " + hostname + ":" + port + ":" + db + " from default connections.");
+</code></pre>
+
+<p>  } else {</p>
+
+<pre><code>return callback(null, connections);
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>通过 <code>console.log(connection.selected_db);</code> 发现始终返回 <code>undefined</code> 。接着输出 <code>console.log(connection);</code> 发现它是一个这样的数据结构：</p>
+
+<p><code>js+php
+{ host: 'localhost', port: '6379', password: '', dbIndex: '2' }
+</code></p>
+
+<p>可见这里有个 bug ，在应该使用 <code>dbIndex</code> 的地方使用了 <code>selected_db</code> 。修改代码后就可以正常删除连接实例并更新到配置文件里了。</p>
+]]></content>
+  </entry>
+  
+</feed>

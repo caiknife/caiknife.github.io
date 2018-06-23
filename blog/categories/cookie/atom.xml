@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cookie | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/cookie/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[老生常谈cookie跨域]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/26/cross-domain-cookie/"/>
+    <updated>2013-08-26T18:00:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/26/cross-domain-cookie</id>
+    <content type="html"><![CDATA[<p>很早之前就做过跨域设置 cookie 的项目了，但是以前没有做好积累，今晚花了点时间重新复习一下。</p>
+
+<p>OK ，有两个域名， www.a.com 和 www.b.com ，现在要通过 a 网站来设置 b 网站下的 cookie 。</p>
+
+<p>a 网站下 setcookie.php 的代码：</p>
+
+<p>``` php
+<html>
+<head></p>
+
+<pre><code>&lt;meta charset="utf-8" /&gt;
+&lt;title&gt;Cookie Cross Domain&lt;/title&gt;
+&lt;!--
+--&gt;
+&lt;script type="text/javascript" src="http://www.b.com/cookie/setcookie.php?name=world"&gt;&lt;/script&gt;
+</code></pre>
+
+<p></head>
+<body></p>
+
+<pre><code>&lt;h1&gt;test&lt;/h1&gt;
+&lt;!--
+&lt;iframe src="http://www.b.com/cookie/setcookie.php?name=hello"&gt;&lt;/iframe&gt;
+--&gt;
+</code></pre>
+
+<p></body>
+</html>
+```</p>
+
+<p>用 JavaScript 来调用或者用 iframe 调用都是没有问题的。</p>
+
+<!-- more -->
+
+
+<p>下面是 b 网站的 setcookie.php 的代码：</p>
+
+<p><code>php
+header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
+$name = isset($_GET['name']) ? $_GET['name'] : "caiknife";
+setcookie("name", $name, time()+3600, '/', '.b.com');
+</code></p>
+
+<p>第一行的header函数是因为IE浏览器下有严格的P3P安全验证，所以需要发送这段header信息，FireFox下可以不用。</p>
+
+<p>接下来，是b网站的getcookie.php的代码：</p>
+
+<p>``` php
+if (isset($_GET[&lsquo;callback&rsquo;])) {</p>
+
+<pre><code>$callback = $_GET['callback'];
+echo $callback."(".json_encode($_COOKIE).")";
+</code></pre>
+
+<p>} else {</p>
+
+<pre><code>echo json_encode($_COOKIE);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>先别管if语句里前面的代码是什么意思，我们直接访问<code>http://www.b.com/cookie/getcookie.php</code> ，就能看到结果：{&ldquo;name&rdquo;:&ldquo;world&rdquo;}，OK，cookie跨域设置成功！</p>
+
+<p><img src="/downloads/image/cross-domain-cookie/a.jpg"></p>
+
+<p>接下来，是cookie跨域读取，看看a网站的getcookie.php代码：</p>
+
+<p>``` php
+<html>
+<head></p>
+
+<pre><code>&lt;meta charset="utf-8" /&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;script type="text/javascript" src="js/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+$(function(){
+
+$.getJSON("http://www.b.com/cookie/getcookie.php?callback=?", function(data){
+    $("p").html(data.name);
+    // alert(data.name);
+});
+
+});
+&lt;/script&gt;
+</code></pre>
+
+<p></head>
+<body></p>
+
+<pre><code>&lt;p&gt;&lt;/p&gt;
+</code></pre>
+
+<p></body>
+</html>
+```</p>
+
+<p>这里callback=?，在jQuery的官方文档里是这么解释的：</p>
+
+<blockquote><p>在 jQuery 1.2 中，您可以通过使用JSONP形式的回调函数来加载其他网域的JSON数据，如 &ldquo;myurl?callback=?"。jQuery 将自动替换 ? 为正确的函数名，以执行回调函数。 注意：此行以后的代码将在这个回调函数执行前执行。”。</p></blockquote>
+
+<p>现在访问 a 网站的 <code>http://www.a.com/cookie/getcookie.php</code> 页面，看到p标签里显示了“world”，跨域 cookie 读取成功！</p>
+
+<p><img src="/downloads/image/cross-domain-cookie/b.jpg"></p>
+
+<p>以上代码在 FireFox 20.0，IE9 下测试通过。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: trick | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/trick/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ubuntu切换系统默认命令]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/12/ubuntu-change-default-version-for-commands/"/>
+    <updated>2013-08-12T23:01:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/12/ubuntu-change-default-version-for-commands</id>
+    <content type="html"><![CDATA[<p>在Ubuntu中由于环境需要，可能需要共存某个软件的多个版本，比如Python2和Python3，以及Ruby1.8和Ruby1.9。这两者有virtualenv和homebrew可以用来做版本的管理，不过从Ubuntu系统层面上，有一个命令可以直接切换软件的版本——update-alternatives。</p>
+
+<p>命令用起来很简单。</p>
+
+<p><code>bash
+$ sudo update-alternatives --config command
+</code></p>
+
+<!-- more -->
+
+
+<p>比如现在机器上已经有ruby1.8和ruby1.9，进行版本切换就可以输入下面的命令：</p>
+
+<p>``` bash
+$ sudo update-alternatives &mdash;config ruby</p>
+
+<p>有 2 个候选项可用于替换 ruby (提供 /usr/bin/ruby)。</p>
+
+<h2>  选择       路径              优先级  状态</h2>
+
+<p>  0            /usr/bin/ruby1.8     50        自动模式
+  1            /usr/bin/ruby1.8     50        手动模式
+* 2            /usr/bin/ruby1.9.1   10        手动模式</p>
+
+<p>要维持当前值[*]请按回车键，或者键入选择的编号：
+```
+输入数字即可选择默认的版本号，Octopress要求使用Ruby1.9，那就选择它好了。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

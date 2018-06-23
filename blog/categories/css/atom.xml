@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: css | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/css/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[bootstrap 初学习]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/05/start-bootstrap/"/>
+    <updated>2013-09-05T00:13:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/05/start-bootstrap</id>
+    <content type="html"><![CDATA[<p>花了一个下午的时间学习了 bootstrap ，用的版本是 2.3.2 ，暂时不用 bs3 还是想保守一点先用 2.x 这个比较成熟的框架做点东西出来。</p>
+
+<p>今天的成果就是一个页面 <a href="/bootstrap/" target="_blank">bootstrap 速查卡</a>。写得很简陋，列出了一些平常开发时会用到的元素，方便以后开发的时候可以很快就能利用起来。</p>
+
+<p>更详细的文档可以在 <a href="http://www.bootcss.com/scaffolding.html">http://www.bootcss.com/scaffolding.html</a> 查到。</p>
+
+<p>今天花了很多时间在学习 bootstrap 上，有些心得暂时来不及写了。过几天时间补上。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

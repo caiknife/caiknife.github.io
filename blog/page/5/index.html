@@ -1,0 +1,1003 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>但行好事，莫问前程</title>
+  <meta name="author" content="CaiKnife">
+
+  
+  <meta name="description" content="前段时间 SMKR 上线了一个 coupon 频道，用的是 CMUS 的 coupon 数据，用户点击一个 coupon 之后，会先跳转到 CMUS 站点然后再跳转到商家站点。这样在 SMKR 站点上就会记录一个 Affiliate Outgoing Log，在 CMUS 站点上记录一个 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caiknife.github.io/blog/page/5">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="但行好事，莫问前程" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="/javascripts/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">但行好事，莫问前程</a></h1>
+  
+    <h2>挖了太多坑，一点点填回来</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caiknife.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">存档</a></li>
+  <li><a href="/about/">关于我</a></li>
+  <li><a href="/category/">所有分类</a></li>
+  <li><a href="/blog/2014/02/24/http-status-code/">HTTP状态码</a></li>
+  <li><a href="/blog/2013/10/18/git-memo/">Git 备忘</a></li>
+  <li><a href="/bootstrap/" target="_blank">BS 速查</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/11/http-referer-not-available-in-ie/">IE 下获取 HTTP_REFERER 无效</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-11T15:19:00+08:00" pubdate data-updated="true">Oct 11<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-11T15:19:00+08:00" pubdate data-updated="true">Oct 11<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/browser/'>browser</a>, <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>前段时间 SMKR 上线了一个 coupon 频道，用的是 CMUS 的 coupon 数据，用户点击一个 coupon 之后，会先跳转到 CMUS 站点然后再跳转到商家站点。这样在 SMKR 站点上就会记录一个 <code>Affiliate Outgoing Log</code>，在 CMUS 站点上记录一个 <code>Offer Outgoing Log</code>。</p>
+
+<p>今天收到一个问题，在 Oracle 的报表中，我发现 IE 浏览器下产生的 <code>Offer Outgoing Log</code> 文件里，所有的 <code>HTTP_REFERER</code> 字段都为空。</p>
+
+<p>Here comes the bug， what can we do？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/10/11/http-referer-not-available-in-ie/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/10/frontend-is-a-big-hole/">前端这个坑该不该踩？该踩多深？</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-10T00:47:00+08:00" pubdate data-updated="true">Oct 10<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-10T00:47:00+08:00" pubdate data-updated="true">Oct 10<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/js/'>js</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>曾经我以为只要能用好 jQuery 就够了，后来做天猫的外包之后接触到了 Kissy 这个东西，感觉自己才刚进了前端的门。</p>
+
+<p>很久之前，因为经常使用 CakePHP ，就用上了 Scriptaculous 这个框架，接着就是 jQuery 一路用下来，期间又对 YUI 和 MooTools 浅尝辄止。接着又惊闻 JS 可以做后端开发了（Node.JS），过完 2012 年，当我再想看看前端界有什么新技术的时候，似乎那里已经百花齐放、百家争艳了。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/10/10/frontend-is-a-big-hole/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/02/fancybox-plugin-for-octopress/">给博客写了个 Fancybox 的插件</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-02T17:37:00+08:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-02T17:37:00+08:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/jquery/'>jquery</a>, <a class='category' href='/blog/categories/js/'>js</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>octopress 默认没有放大图片的效果，今天用 fancybox 做了一个插件扩展。</p>
+
+<p>首先从 <a href="http://fancyapps.com/fancybox/#license">http://fancyapps.com/fancybox/#license</a> 下载最新版的 fancybox ，解压缩后复制 source 目录到 octopress 的 javascripts 目录下。</p>
+
+<p>打开文件 <code>/source/_includes/custom/head.html</code> ，在最后增加一条语句：</p>
+
+<figure class='code'><figcaption><span>/source/_includes/custom/head.html</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">{% include fancybox.html %}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/10/02/fancybox-plugin-for-octopress/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/01/install-zsh/">安装 Zsh</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-01T22:01:00+08:00" pubdate data-updated="true">Oct 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-01T22:01:00+08:00" pubdate data-updated="true">Oct 1<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/shell/'>shell</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>前几天在看<a href="http://read.douban.com/ebook/1531222/">MacTalk·人生元编程</a>的时候谈到了 <code>zsh</code> 这个很有意思的 shell 。前两天安装好，用下来感觉相当不错，特别总结一下。</p>
+
+<p>安装 zsh 并设置为默认 shell:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install zsh
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>chsh -s /bin/zsh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接着安装 <code>oh-my-zsh</code> 这个强大的扩展脚本：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或者：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/10/01/install-zsh/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/30/nginx-configuration-for-cakephp/">CakePHP 的 Nginx 设置</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-30T10:01:00+08:00" pubdate data-updated="true">Sep 30<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-30T10:01:00+08:00" pubdate data-updated="true">Sep 30<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cakephp/'>cakephp</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/nginx/'>nginx</a>, <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>在自己的笔记本上弄了个 CakePHP + Nginx 的组合，做了基本设置。</p>
+
+<p>由于 80 端口已经被 Apache 占用，因此我指定 Nginx 监听 81 端口。</p>
+
+<p>首先记得安装 Nginx 和 PHP5-FPM 模块：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install nginx php5-fpm
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后记得编辑 <code>/etc/php/fpm/php.ini</code> ，并设置 <code>cgi.fix_pathinfo=0</code>，接着重启 <code>php-fpm</code> 。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/30/nginx-configuration-for-cakephp/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/26/varnish-load-balance/">Varnish 负载均衡</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-26T22:18:00+08:00" pubdate data-updated="true">Sep 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-26T22:18:00+08:00" pubdate data-updated="true">Sep 26<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/varnish/'>varnish</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>忙了一段时间，总算又有空写总结了。今天总结一下用 varnish 做负载均衡。</p>
+
+<p>常用的负载均衡方式有 <code>LVS</code> 、<code>Nginx</code> 、<code>HAProxy</code> 等等，其实 varnish 作为一个反向代理软件，也可以起到负载均衡的作用。在 varnish 的官方 wiki 上有详细的介绍：<a href="https://www.varnish-cache.org/trac/wiki/LoadBalancing">https://www.varnish-cache.org/trac/wiki/LoadBalancing</a> 。我们来看看如何设置。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/26/varnish-load-balance/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/18/redis-commander-bug/">发现了 Redis Commander 的一个 Bug</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-18T21:45:00+08:00" pubdate data-updated="true">Sep 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-18T21:45:00+08:00" pubdate data-updated="true">Sep 18<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/js/'>js</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/nodejs/'>nodejs</a>, <a class='category' href='/blog/categories/redis/'>redis</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>长久以来，我的工作平台是 Ubuntu ，而我用来管理 redis 的工具是 <a href="http://nearinfinity.github.io/redis-commander/">redis-commander</a>。</p>
+
+<p>之前我由于做了 redis 的主从备份，开启了本地的 6379 端口和 6380 端口作为 redis 的两个实例，前者作为主机，后者是从机。并且在 redis-commander 的管理界面上分别添加了 6379 和 6380 的 0 号数据库。后来为了提高机器的性能，我关闭了 6380 的实例，并删除了这个实例在 redis-commander 的 tree-view 中对应的分支。结果后来再进入 redis-commander 的时候，左边的实例管理 tree-view 消失了，检查控制台输出时，发现提示是无法连接到 6380 端口。</p>
+
+<p><strong>为什么我已经删掉了对应的分支，但是 redis-commander 还是会请求 6380 端口呢？</strong></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/18/redis-commander-bug/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/12/some-snippets/">一点废话</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-12T23:25:00+08:00" pubdate data-updated="true">Sep 12<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-12T23:25:00+08:00" pubdate data-updated="true">Sep 12<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bootstrap/'>bootstrap</a>, <a class='category' href='/blog/categories/cakephp/'>cakephp</a>, <a class='category' href='/blog/categories/js/'>js</a>, <a class='category' href='/blog/categories/linux/'>linux</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>有几天没写博客了，最近这几天一直在看文档学习。 PHP 、Python 、Ruby 的各种微框架都在看—— Flask 、Sinatra 、 Padrino 、Silex 、Slim 、 Limonade 、 Flight，还有一个最近比较火的 Laravel 4 。看了这么多，却不知道自己能用上的能有多少，如此多的微框架，真正用起来的时候，还是要自己造轮子。用了很多年的 CakePHP ，还是感觉这个东西最好用，估计我这一辈子就和 CakePHP 一起活了，呵呵。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/12/some-snippets/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/08/cakephp-events-system/">CakePHP 事件机制</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-08T01:41:00+08:00" pubdate data-updated="true">Sep 8<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-08T01:41:00+08:00" pubdate data-updated="true">Sep 8<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cakephp/'>cakephp</a>, <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/she-ji-mo-shi/'>设计模式</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>内置事件机制的编程语言不多，而绝大部分编程语言都是靠观察者设计模式来实现这一机制的。而引入事件机制的目的之一，就是要解耦，让代码能够更加容易维护，让一个对象只做自己该做的事情，不要去做别的对象应该做的事情。</p>
+
+<p>现在 CakePHP 中的 Controller 和 Model 中，都有 <code>getEventManager()</code> 方法，这就相当于观察者模式中的<code>被观察者</code>，而我们自己编写的事件就是<code>观察者</code>。在别的地方编写代码注册事件之后，在一个地方进行事件的广播，从而调用所有的观察者方法。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/08/cakephp-events-system/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/06/git-config/">Git 设置</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-06T21:09:00+08:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-06T21:09:00+08:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>花了两天时间，看了关于 git 的资料，稍微整理一下，挖个坑先。</p>
+
+<p>首先在 ubuntu 上更新 git 的源。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> sudo apt-add-repository ppa:git-core/ppa
+</span><span class='line'>
+</span><span class='line'><span class="gp">$</span> sudo update
+</span><span class='line'>
+</span><span class='line'><span class="gp">$</span> sudo apt-get install git
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/06/git-config/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/6/">&larr; 向前</a>
+    
+    <a href="/blog/archives">存档</a>
+    
+    <a class="next" href="/blog/page/4/">向后 &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/06/24/zhe-ge-bo-ke-fu-huo-liao/">这个博客复活了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/23/working-in-tencent/">入职腾讯一个月了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/23/love-music/">爱生活爱音乐</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/21/byebye-vcb-byebye-mezi/">再见，惠击；再见，满星！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/20/valueclick-brands-is-under-an-earthquake/">我司地震咧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/11/the-way-is-under-your-feet/">敢问路在何方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/07/linux-commands/">Linux 查看系统性能和配置的常用命令整理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/05/little-php-benchmark/">字符串拼接性能测试</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/03/cross-the-great-fire-wall/">越过长城，呼吸自由</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/02/something-about-artisan/">我也来谈谈「匠人」</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <div class="sf-usercard" id="sf-usercard-1030000000157336"></div>
+    <script>
+    (function() {
+    var sf = document.createElement('script'); sf.type = 'text/javascript'; sf.async = true;
+    sf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://w.segmentfault.com/card/1030000000157336.js?w=0&3rd=1&bg=0&bd=dddddd&cl=333333&btn=eaeaea';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf, s);
+    })();
+    </script>
+</section><section>
+    <ul class="ds-recent-comments" data-num-items="10" data-show-title="1"></ul>
+    <!--多说js加载开始，一个页面只需要加载一次 -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+
+<section>
+  <h1>GitHub项目</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/caiknife">@caiknife</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caiknife',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section>
+    <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1649186337&verifier=f479351c&dpc=1"></iframe>
+</section>
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F54c89ad841b193f6fbef6bde11681aed' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

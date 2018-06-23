@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: git | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Vundle 来管理 vim 插件]]></title>
+    <link href="http://caiknife.github.io/blog/2013/12/05/using-vundle-for-vim-plugins/"/>
+    <updated>2013-12-05T14:00:23+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/12/05/using-vundle-for-vim-plugins</id>
+    <content type="html"><![CDATA[<p>刚用 <code>Pathogen</code> 配置好了 vim 的插件，马上就去看了 <code>Vundle</code> ，了解之后顿时觉得——哇塞这玩意儿太给力了！</p>
+
+<p>比起 <code>Pathogen</code> 用 git submodule 来手动管理插件，<code>Vundle</code> 则是使用 git 做了完全自动化的操作，只需要很少的配置就能管理 vim 插件了。</p>
+
+<!-- more -->
+
+
+<h2>安装 Vundle</h2>
+
+<p>使用下面的命令来安装 <code>Vundle</code> ，并把主目录下面的 <code>~/.vimrc</code> 文件指向 <code>～/.vim/.vimrc</code> ：</p>
+
+<p><code>bash
+$ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+$ ln -s ～/.vim/.vimrc ~/.vimrc
+</code></p>
+
+<h2>配置 .vimrc</h2>
+
+<p>在 <code>Vundle</code> 的官方网站 <a href="https://github.com/gmarik/vundle">https://github.com/gmarik/vundle</a> 上有默认的配置，只需要做一下修改就行了：</p>
+
+<p>``` vim
+set nocompatible              &ldquo; be iMproved
+filetype off                  &rdquo; required!</p>
+
+<p>set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()</p>
+
+<p>&ldquo; let Vundle manage Vundle
+&rdquo; required!
+Bundle &lsquo;gmarik/vundle&rsquo;</p>
+
+<p>&ldquo; My bundles here:
+&rdquo;
+&ldquo; original repos on GitHub
+Bundle &lsquo;tpope/vim-fugitive&rsquo;
+Bundle &lsquo;Lokaltog/vim-powerline&rsquo;
+Bundle &lsquo;Shougo/neocomplcache.vim&rsquo;
+Bundle &lsquo;rstacruz/sparkup&rsquo;, {&lsquo;rtp&rsquo;: &lsquo;vim/&rsquo;}
+Bundle &lsquo;tpope/vim-rails.git&rsquo;
+&rdquo; vim-scripts repos
+Bundle &lsquo;L9&rsquo;
+Bundle &lsquo;FuzzyFinder&rsquo;</p>
+
+<p>filetype plugin indent on     &ldquo; required!
+&rdquo;
+&ldquo; Brief help
+&rdquo; :BundleList          &ndash; list configured bundles
+&ldquo; :BundleInstall(!)    &ndash; install (update) bundles
+&rdquo; :BundleSearch(!) foo &ndash; search (or refresh cache first) for foo
+&ldquo; :BundleClean(!)      &ndash; confirm (or auto-approve) removal of unused bundles
+&rdquo;
+&ldquo; see :h vundle for more details or wiki for FAQ
+&rdquo; NOTE: comments after Bundle commands are not allowed.
+```</p>
+
+<h2>安装插件</h2>
+
+<p>配置完 <code>.vimrc</code> 之后，推出 vim 并重新进入，在命令模式下输入 <code>:BundleInstall</code> ，系统就会自动开始安装插件。在 <code>bundle</code> 目录下生成下面的目录结构：</p>
+
+<p>``` bash
+$ tree -L 1
+.
+├── FuzzyFinder
+├── L9
+├── neocomplcache.vim
+├── sparkup
+├── vim-fugitive
+├── vim-powerline
+├── vim-rails
+└── vundle</p>
+
+<p>8 directories, 0 files
+```</p>
+
+<p>别的插件我用不上，只用到了 <code>neocomplcache.vim</code> 和 <code>vim-powerline</code> 这两个。配置文件内容和上一篇文章里的提到的一样：</p>
+
+<h2>更新插件</h2>
+
+<p>使用 <code>Vundle</code> 更新插件非常简单，只用打开一个 vim ，然后输入命令 <code>:BundleInstall!</code> 。</p>
+
+<h2>删除插件</h2>
+
+<p>使用 <code>Vundle</code> 卸载插件也很简单，只需在 .vimrc 去掉绑定插件的命令及插件的配置（注释掉即可，以免以后会使用），假如需要卸载 <code>vim-powerline</code> 这个插件，首先在 .vimrc 中注释掉以下内容：</p>
+
+<p>``` vim
+Bundle &lsquo;Lokaltog/vim-powerline&rsquo;</p>
+
+<p>set laststatus=2
+set t_Co=256
+let g:Powline_symbols=&lsquo;fancy&rsquo;
+```</p>
+
+<p>保存 .vimrc 文件，重新打开一个 vim ，输入命令 <code>:BundleClean</code> ，打开 <code>~/.vim/bundle</code> 已经看不到插件 <code>vim-powerline</code> 的相关文件。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[弄了点 vim 插件]]></title>
+    <link href="http://caiknife.github.io/blog/2013/12/05/my-vim-plugins/"/>
+    <updated>2013-12-05T08:51:36+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/12/05/my-vim-plugins</id>
+    <content type="html"><![CDATA[<p>说起来挺惭愧的，一直以来在 vim 下开发都是处于裸奔的状态，没有用插件来提高自己的效率，所以实际上 vim 对我来说只是相当于一个文本编辑器，只有在做小幅度修改的时候才会用到。绝大多数时间，我还是用 Zend Studio 和 Sublime Text 来写代码。</p>
+
+<p>前两天 Google 了一下 vim 的插件，在目前我这种还不能拿 vim 做主要开发工具的水平下，我找到了几个能对我有点帮助的插件。</p>
+
+<!-- more -->
+
+
+<h2>准备工作</h2>
+
+<p>备份之前的 vim 设置：</p>
+
+<p><code>bash
+$ mv .vim{,.bak}
+$ mv .vimrc{,.bak}
+$ mkdir -pv .vim/bundle
+mkdir: 已创建目录 ".vim"
+mkdir: 已创建目录 ".vim/bundle/"
+</code></p>
+
+<p>然后把 .vim 目录变成一个 Git 仓库。做这一步非常简单，切换到 .vim 目录下，执行 <code>git init</code> 命令，Git 会创建一个 .git 目录：</p>
+
+<p><code>bash
+$ cd .vim &amp;&amp; git init
+初始化空的 Git 版本库于 /home/caiknife/.vim/.git/
+</code></p>
+
+<p>下面的命令，如果没有特别说明，都是在 .vim 目录下完成的。</p>
+
+<h2>安装Pathogen</h2>
+
+<p>我会采用 git submodule 的方式来管理 vim 插件，这里安装新插件的方法是：</p>
+
+<p><code>bash
+$ git submodule add 插件的Git仓库地址 bundle/插件名字
+</code></p>
+
+<p>如果要安装 Pathogen ，就采用下面的命令：</p>
+
+<p><code>bash
+$ git submodule add https://github.com/tpope/vim-pathogen.git bundle/vim-pathogen
+正克隆到 'bundle/vim-pathogen'...
+remote: Counting objects: 414, done.
+remote: Compressing objects: 100% (227/227), done.
+remote: Total 414 (delta 112), reused 392 (delta 93)
+接收对象中: 100% (414/414), 56.45 KiB | 0 bytes/s, done.
+处理 delta 中: 100% (112/112), done.
+检查连接... 完成。
+</code></p>
+
+<p>通常来讲，一个插件下载完之后就已经可以使用了，但是对于 Pathogen 这个“插件中的插件”来说，还要创建一个非常简单的 .vimrc 文件，加载 Pathogen 。</p>
+
+<p><code>bash
+$ echo -e "runtime bundle/vim-pathogen/autoload/pathogen.vim\ncall pathogen#infect()\nHelptags" &gt;&gt; .vimrc
+$ ln -sf `pwd`/.vimrc $HOME/
+</code></p>
+
+<h2>安装其他插件</h2>
+
+<p>方法跟安装 Pathogen 是一样的，在 .vim 目录下执行：</p>
+
+<p><code>bash
+$ git submodule add 插件的Git仓库地址 bundle/插件名字
+</code></p>
+
+<h3>安装 vim-powerline</h3>
+
+<p>第一步先安装这个很有用的 <code>vim-powerline</code>:</p>
+
+<p>``` bash</p>
+
+<blockquote><p>git submodule add <a href="https://github.com/Lokaltog/vim-powerline">https://github.com/Lokaltog/vim-powerline</a> bundle/vim-powerline
+正克隆到 &lsquo;bundle/vim-powerline&rsquo;&hellip;
+remote: Counting objects: 1522, done.
+remote: Compressing objects: 100% (1041/1041), done.
+remote: Total 1522 (delta 555), reused 1293 (delta 355)
+接收对象中: 100% (1522/1522), 338.25 KiB | 199.00 KiB/s, done.
+处理 delta 中: 100% (555/555), done.
+检查连接&hellip; 完成。
+```</p></blockquote>
+
+<p>然后在 .vimrc 里加上下面的配置：</p>
+
+<p><code>vim
+"powerline
+set laststatus=2
+set t_Co=256
+let g:Powerline_symbols='fancy'
+</code></p>
+
+<h3>安装 neocomplcache</h3>
+
+<p>执行下面的命令：</p>
+
+<p><code>bash
+$ git submodule add https://github.com/Shougo/neocomplcache.vim bundle/neocomplcache
+正克隆到 'bundle/neocomplcache'...
+remote: Counting objects: 13926, done.
+remote: Compressing objects: 100% (7568/7568), done.
+remote: Total 13926 (delta 5507), reused 13811 (delta 5404)
+接收对象中: 100% (13926/13926), 5.93 MiB | 1012.00 KiB/s, done.
+处理 delta 中: 100% (5507/5507), done.
+检查连接... 完成。
+</code></p>
+
+<p>配置上我用了官方提供的默认配置，可以在 <a href="https://github.com/Shougo/neocomplcache.vim/blob/master/README.md">https://github.com/Shougo/neocomplcache.vim/blob/master/README.md</a> 这里查询。</p>
+
+<p>``` vim
+&ldquo;Note: This option must set it in .vimrc(<em>vimrc).  NOT IN .gvimrc(</em>gvimrc)!
+&rdquo; Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+&ldquo; Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+&rdquo; Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+&ldquo; Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = &lsquo;*ku*&rsquo;</p>
+
+<p>&ldquo; Enable heavy features.
+&rdquo; Use camel case completion.
+&ldquo;let g:neocomplcache_enable_camel_case_completion = 1
+&rdquo; Use underbar completion.
+&ldquo;let g:neocomplcache_enable_underbar_completion = 1</p>
+
+<p>&ldquo; Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {</p>
+
+<pre><code>\ 'default' : '',
+\ 'vimshell' : $HOME.'/.vimshell_hist',
+\ 'scheme' : $HOME.'/.gosh_completions'
+    \ }
+</code></pre>
+
+<p>&ldquo; Define keyword.
+if !exists(&lsquo;g:neocomplcache_keyword_patterns&rsquo;)</p>
+
+<pre><code>let g:neocomplcache_keyword_patterns = {}
+</code></pre>
+
+<p>endif
+let g:neocomplcache_keyword_patterns[&lsquo;default&rsquo;] = &lsquo;\h\w*&rsquo;</p>
+
+<p>&ldquo; Plugin key-mappings.
+inoremap <expr>&lt;C-g>     neocomplcache#undo_completion()
+inoremap <expr>&lt;C-l>     neocomplcache#complete_common_string()</p>
+
+<p>&ldquo; Recommended key-mappings.
+&rdquo; <CR>: close popup and save indent.
+inoremap <silent> <CR> &lt;C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . &ldquo;&lt;CR>&rdquo;
+  &ldquo; For no inserting <CR> key.
+  "return pumvisible() ? neocomplcache#close_popup() : &rdquo;&lt;CR>&ldquo;
+endfunction
+&rdquo; <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? &ldquo;&lt;C-n>&rdquo; : &ldquo;&lt;TAB>&rdquo;
+&ldquo; &lt;C-h>, <BS>: close popup and delete backword char.
+inoremap <expr>&lt;C-h> neocomplcache#smart_close_popup().&rdquo;&lt;C-h>&ldquo;
+inoremap <expr><BS> neocomplcache#smart_close_popup().&rdquo;&lt;C-h>&ldquo;
+inoremap <expr>&lt;C-y>  neocomplcache#close_popup()
+inoremap <expr>&lt;C-e>  neocomplcache#cancel_popup()
+&rdquo; Close popup by <Space>.
+&ldquo;inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : &rdquo;&lt;Space>"</p>
+
+<p>&ldquo; For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplcache#close_popup() . &rdquo;&lt;Left>&ldquo;
+"inoremap <expr><Right> neocomplcache#close_popup() . &rdquo;&lt;Right>&ldquo;
+"inoremap <expr><Up>    neocomplcache#close_popup() . &rdquo;&lt;Up>&ldquo;
+"inoremap <expr><Down>  neocomplcache#close_popup() . &rdquo;&lt;Down>&ldquo;
+&rdquo; Or set this.
+&ldquo;let g:neocomplcache_enable_cursor_hold_i = 1
+&rdquo; Or set this.
+&ldquo;let g:neocomplcache_enable_insert_char_pre = 1</p>
+
+<p>&ldquo; AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1</p>
+
+<p>&ldquo; Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? &rdquo;&lt;Down>&ldquo; : &rdquo;&lt;C-x>&lt;C-u>"</p>
+
+<p>&ldquo; Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags</p>
+
+<p>&ldquo; Enable heavy omni completion.
+if !exists(&lsquo;g:neocomplcache_omni_patterns&rsquo;)
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.php = &lsquo;[^. \t]&ndash;>\h\w<em>\|\h\w</em>::&rsquo;
+let g:neocomplcache_omni_patterns.c = &lsquo;[^.[:digit:] <em>\t]\%(.\|&ndash;>)&rsquo;
+let g:neocomplcache_omni_patterns.cpp = &lsquo;[^.[:digit:] </em>\t]\%(.\|&ndash;>)\|\h\w*::&rsquo;</p>
+
+<p>&ldquo; For perlomni.vim setting.
+&rdquo; <a href="https://github.com/c9s/perlomni.vim">https://github.com/c9s/perlomni.vim</a>
+let g:neocomplcache_omni_patterns.perl = &lsquo;\h\w<em>&ndash;>\h\w</em>\|\h\w*::&rsquo;
+```</p>
+
+<h3>vim 通用配置</h3>
+
+<p>除了插件的配置之外，还有 vim 的通用配置：</p>
+
+<p>``` vim
+&ldquo;common
+syntax on
+set nocp
+set ru
+"set number
+set backspace=indent,eol,start
+set whichwrap=b,s,&lt;,>,[,]
+set sw=4
+set ts=4
+set et
+set lbr
+set ai
+"set nobackup
+if (has("gui_running&rdquo;))</p>
+
+<pre><code>set nowrap
+set guioptions+=b
+colo torte
+</code></pre>
+
+<p>else</p>
+
+<pre><code>set wrap
+colo ron
+</code></pre>
+
+<p>endif
+```</p>
+
+<h2>升级插件</h2>
+
+<p>单独升级插件，只要先进入插件目录，然后执行：</p>
+
+<p><code>bash
+$ git checkout master &amp;&amp; git pull
+</code></p>
+
+<p>通过 <code>git submodule foreach</code> 来可以一次性升级全部插件：</p>
+
+<p><code>bash
+$ git submodule foreach 'git checkout master &amp;&amp; git pull'
+</code></p>
+
+<h2>删除插件</h2>
+
+<p>删除一个插件稍微繁琐了一点（相比较添加和升级），需要两条命令：</p>
+
+<p><code>bash
+$ rm -rf bundle/插件名
+$ git rm -r bundle/插件名
+</code></p>
+
+<h2>发布 .vim 目录到 GitHub</h2>
+
+<p>首先在在 GitHub 上创建一个仓库，我的仓库是 <a href="https://github.com/caiknife/my-dot-vim">https://github.com/caiknife/my-dot-vim</a> 。</p>
+
+<p>添加远程仓库并提交：</p>
+
+<p><code>bash
+$ git remote add origin https://github.com/caiknife/my-dot-vim
+$ git pull origin master
+$ git add .
+$ git ci -m "vim conf and plugins"
+$ git push origin master
+</code></p>
+
+<h2>在其他机器进行同步</h2>
+
+<p>登录到其他机器后，先备份当前 vim 设置：</p>
+
+<p><code>
+$ mv .vim{,.bak}
+$ mv .vimrc{,.bak}
+</code></p>
+
+<p>克隆远程仓库：</p>
+
+<p><code>bash
+$ git clone https://github.com/caiknife/my-dot-vim ~/.vim
+$ ln -s ~/.vim/.vimrc ~/.vimrc
+$ cd .vim
+$ git submodule init
+$ git submodule update
+</code></p>
+
+<p>如此一来就完成了同步。</p>
+
+<p>配置完成之后，在 vim 里的效果就是下面这个样子：</p>
+
+<p><a href="/downloads/image/vim/vim.png" title="Vim " class="fancybox"><img src="/downloads/image/vim/vim.png" alt="Vim " /></a></p>
+
+<p>不过听说还有个叫 <code>Vundle</code> 的工具比 <code>Pathogen</code> 更加智能化，不用 Git 来更新仓库，只用同步 vim 配置文件就可以了，这两天有空再研究一下。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[git 备忘]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/18/git-memo/"/>
+    <updated>2013-10-18T09:47:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/18/git-memo</id>
+    <content type="html"><![CDATA[<p>之前做了 git 的设置，今天总结一下它的常用命令。</p>
+
+<!-- more -->
+
+
+<h2>git 文件操作</h2>
+
+<p>查看、添加、提交、删除、找回、重置修改文件</p>
+
+<p>``` bash 查看、添加、提交、删除、找回、重置修改文件
+git help <command>  # 显示command的help
+git show            # 显示某次提交的内容
+git show $id</p>
+
+<p>git co  &mdash; <file>   # 抛弃工作区修改
+git co  .           # 抛弃工作区修改</p>
+
+<p>git add <file>      # 将工作文件修改提交到本地暂存区
+git add .           # 将所有修改过的工作文件提交暂存区</p>
+
+<p>git rm <file>       # 从版本库中删除文件
+git rm <file> &mdash;cached  # 从版本库中删除文件，但不删除文件</p>
+
+<p>git reset <file>    # 从暂存区恢复到工作文件
+git reset &mdash; .      # 从暂存区恢复到工作文件
+git reset &mdash;hard    # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改</p>
+
+<p>git ci <file>
+git ci .
+git ci -a           # 将git add, git rm和git ci等操作都合并在一起做
+git ci -am &ldquo;some comments&rdquo;
+git ci &mdash;amend      # 修改最后一次提交记录</p>
+
+<p>git revert &lt;$id>    # 恢复某次提交的状态，恢复动作本身也创建了一次提交对象
+git revert HEAD     # 恢复最后一次提交的状态
+```</p>
+
+<p>查看文件 diff</p>
+
+<p><code>bash 查看文件 diff
+git diff &lt;file&gt;     # 比较当前文件和暂存区文件差异
+git diff
+git diff &lt;$id1&gt; &lt;$id2&gt;   # 比较两次提交之间的差异
+git diff &lt;branch1&gt;..&lt;branch2&gt; # 在两个分支之间比较
+git diff --staged   # 比较暂存区和版本库差异
+git diff --cached   # 比较暂存区和版本库差异
+git diff --stat     # 仅仅比较统计信息
+</code></p>
+
+<p>查看提交记录</p>
+
+<p><code>bash 查看提交记录
+git log
+git log &lt;file&gt;      # 查看该文件每次提交记录
+git log -p &lt;file&gt;   # 查看每次详细修改内容的diff
+git log -p -2       # 查看最近两次详细修改内容的diff
+</code></p>
+
+<h2>git 本地分支管理</h2>
+
+<p>查看、切换、创建和删除分支</p>
+
+<p>``` bash 查看、切换、创建和删除分支
+git br -r           # 查看远程分支
+git br &lt;new_branch> # 创建新的分支
+git br -v           # 查看各个分支最后提交信息
+git br &mdash;merged     # 查看已经被合并到当前分支的分支
+git br &mdash;no-merged  # 查看尚未被合并到当前分支的分支</p>
+
+<p>git co <branch>     # 切换到某个分支
+git co -b &lt;new_branch> # 创建新的分支，并且切换过去
+git co -b &lt;new_branch> <branch>  # 基于branch创建新的new_branch</p>
+
+<p>git co $id          # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除
+git co $id -b &lt;new_branch>  # 把某次历史提交记录checkout出来，创建成一个分支</p>
+
+<p>git br -d <branch>  # 删除某个分支
+git br -D <branch>  # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)
+```</p>
+
+<p>打标签</p>
+
+<p><code>bash 打标签
+git tag                         # 列出已有标签
+git tag -l 'v1.4.2.*'           # 列出 1.4.2 系列的标签
+git tag &lt;tag&gt;                   # 为当前提交打上轻量标签
+git tag -a &lt;tag&gt; -m "&lt;comment&gt;" # 为当前提交打上附注标签
+git tag -a &lt;tag&gt; &lt;$id&gt;          # 为指定提交打上标签
+git push origin &lt;tag&gt;           # 将指定标签推送到远程服务器
+git push origin --tags          # 所有标签推送到远程服务器
+</code></p>
+
+<p>分支合并和 rebase</p>
+
+<p>``` bash 分支合并和 rebase
+git merge <branch>               # 将branch分支合并到当前分支
+git merge origin/master &mdash;no-ff  # 不要Fast-Foward合并，这样可以生成merge提交</p>
+
+<p>git rebase master <branch>       # 将master rebase到branch，相当于：
+git co <branch> &amp;&amp; git rebase master &amp;&amp; git co master &amp;&amp; git merge <branch>
+```</p>
+
+<h2>git 远程分支管理</h2>
+
+<p>``` bash git 远程分支管理
+git pull                         # 抓取远程仓库所有分支更新并合并到本地
+git pull &mdash;no-ff                 # 抓取远程仓库所有分支更新并合并到本地，不要快进合并
+git fetch origin                 # 抓取远程仓库更新
+git merge origin/master          # 将远程主分支合并到本地当前分支
+git co &mdash;track origin/branch     # 跟踪某个远程分支创建相应的本地分支
+git co -b &lt;local_branch> origin/&lt;remote_branch>  # 基于远程分支创建本地分支，功能同上</p>
+
+<p>git push                         # push所有分支
+git push origin master           # 将本地主分支推到远程主分支
+git push -u origin master        # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)
+git push origin &lt;local_branch>   # 创建远程分支， origin是远程仓库名
+git push origin &lt;local_branch>:&lt;remote_branch>  # 创建远程分支
+git push origin :&lt;remote_branch>  #先删除本地分支(git br -d <branch>)，然后再push删除远程分支
+```</p>
+
+<h2>git 远程仓库管理</h2>
+
+<p><code>bash git 远程仓库管理
+git remote -v                    # 查看远程服务器地址和仓库名称
+git remote show origin           # 查看远程服务器仓库状态
+git remote add origin &lt;url&gt;      # 添加远程仓库地址
+git remote set-url origin &lt;url&gt;  # 设置远程仓库地址(用于修改远程仓库地址)
+git remote rm &lt;repository&gt;       # 删除远程仓库
+</code></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[git 设置]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/06/git-config/"/>
+    <updated>2013-09-06T21:09:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/06/git-config</id>
+    <content type="html"><![CDATA[<p>花了两天时间，看了关于 git 的资料，稍微整理一下，挖个坑先。</p>
+
+<p>首先在 ubuntu 上更新 git 的源。</p>
+
+<p>``` console
+$ sudo apt-add-repository ppa:git-core/ppa</p>
+
+<p>$ sudo update</p>
+
+<p>$ sudo apt-get install git
+```</p>
+
+<!-- more -->
+
+
+<p>安装好后， shell 下的 git 提示都变成了中文，很方便。然后再设置 git 命令的别名。</p>
+
+<p>``` console
+$ git config &mdash;global alias.st status</p>
+
+<p>$ git config &mdash;global alias.ci commit</p>
+
+<p>$ git config &mdash;global alias.df diff</p>
+
+<p>$ git config &mdash;global alias.co checkout</p>
+
+<p>$ git config &mdash;global alias.br branch</p>
+
+<p>$ git config &mdash;global alias.hist &ldquo;log &mdash;pretty=format:\&rdquo;%h %ad | %s%d [%an]\&ldquo; &mdash;graph &mdash;date=short&rdquo;</p>
+
+<p>$ git config &mdash;global alias.type &ldquo;cat-file -t&rdquo;</p>
+
+<p>$ git config &mdash;global alias.dump &ldquo;cat-file -p&rdquo;
+```</p>
+
+<p>在 <code>～/.gitconfig</code> 文件中就会生成下面的内容：</p>
+
+<p>```
+[alias]</p>
+
+<pre><code>co = checkout
+ci = commit
+df = diff
+st = status
+br = branch
+hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+type = cat-file -t
+dump = cat-file -p
+</code></pre>
+
+<p>```</p>
+
+<p>下面是一些学习 git 的参考资料：</p>
+
+<ul>
+<li><a href="http://gitref.cyj.me/zh/about.html">http://gitref.cyj.me/zh/about.html</a></li>
+<li><a href="http://gitbook.liuhui998.com/">http://gitbook.liuhui998.com/</a></li>
+<li><a href="http://git-scm.com/book/zh">http://git-scm.com/book/zh</a></li>
+<li><a href="http://www.worldhello.net/gotgithub/index.html">http://www.worldhello.net/gotgithub/index.html</a></li>
+</ul>
+
+
+<p>前几天 bootstrap 的坑还没填，今天又挖了个 git 的坑，真是坑爹。</p>
+
+<p>抓紧时间一点点填吧。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

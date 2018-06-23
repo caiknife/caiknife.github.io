@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: hack | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/hack/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Python读取ini文件]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/21/python-read-ini-files/"/>
+    <updated>2013-08-21T14:08:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/21/python-read-ini-files</id>
+    <content type="html"><![CDATA[<p>标准的ini文件中，应该有一个类似[section]的部分作为正文的开头，但是很多情况下，ini文件都是不标准的，比如下面这个格式：</p>
+
+<p>``` ini
+master.host                 = stats10.mezimedia.com
+master.username             = scltrk
+master.password             = Mhok8homL7
+master.dbname               = tracking</p>
+
+<p>slave.host                  = stats11.mezimedia.com
+slave.port                  = 3308
+slave.username              = scltrk
+slave.password              = Mhok8homL7
+slave.dbname                = tracking</p>
+
+<p>msgsite                     = smarter
+offset                      = 20000
+```</p>
+
+<p>在PHP中，对ini文件的格式容错率较高，不管是不是以[section]开头，PHP总能以正确的方式解析，不管是用原生的<code>parse_ini_file</code>函数还是<code>Zend_Config_Ini</code>类库，都可以非常方便无错地解析ini。</p>
+
+<!-- more -->
+
+
+<p>下面是用<code>parse_ini_file</code>解析文件的结果
+``` php
+require_once &lsquo;Zend/Loader.php&rsquo;;
+Zend_Loader::registerAutoload();</p>
+
+<p>$iniFile = &lsquo;./smus.ini&rsquo;;</p>
+
+<p>Zend_Debug::dump(parse_ini_file($iniFile));
+/<em>
+输出结果
+array(12) {
+  [&ldquo;master.host&rdquo;] => string(21) &ldquo;stats10.mezimedia.com&rdquo;
+  [&ldquo;master.username&rdquo;] => string(6) &ldquo;scltrk&rdquo;
+  [&ldquo;master.password&rdquo;] => string(10) &ldquo;Mhok8homL7&rdquo;
+  [&ldquo;master.dbname&rdquo;] => string(8) &ldquo;tracking&rdquo;
+  [&ldquo;slave.host&rdquo;] => string(21) &ldquo;stats11.mezimedia.com&rdquo;
+  [&ldquo;slave.port&rdquo;] => string(4) &ldquo;3308&rdquo;
+  [&ldquo;slave.username&rdquo;] => string(6) &ldquo;scltrk&rdquo;
+  [&ldquo;slave.password&rdquo;] => string(10) &ldquo;Mhok8homL7&rdquo;
+  [&ldquo;slave.dbname&rdquo;] => string(8) &ldquo;tracking&rdquo;
+  [&ldquo;msgsite&rdquo;] => string(7) &ldquo;smarter&rdquo;
+  [&ldquo;offset&rdquo;] => string(5) &ldquo;20000&rdquo;
+}
+ </em>/</p>
+
+<p>Zend_Debug::dump(parse_ini_file($iniFile, true));
+/<em>
+输出结果和上面的语句一样，但是如果ini文件中有[section]的话，输出数组的根key就是[&ldquo;section&rdquo;]
+ </em>/
+```</p>
+
+<p>而如果用<code>Zend_Config_Ini</code>来解析的话，输出的结构会更清晰：</p>
+
+<p>``` php
+$config = new Zend_Config_Ini($iniFile);
+Zend_Debug::dump($config->toArray());
+/*
+输出结果如下。同样如果ini文件中有[section]的话，输出数组的根key就是[&ldquo;section&rdquo;]
+array(5) {
+  [&ldquo;master&rdquo;] => array(4) {</p>
+
+<pre><code>["host"] =&gt; string(21) "stats10.mezimedia.com"
+["username"] =&gt; string(6) "scltrk"
+["password"] =&gt; string(10) "Mhok8homL7"
+["dbname"] =&gt; string(8) "tracking"
+</code></pre>
+
+<p>  }
+  [&ldquo;slave&rdquo;] => array(5) {</p>
+
+<pre><code>["host"] =&gt; string(21) "stats11.mezimedia.com"
+["port"] =&gt; string(4) "3308"
+["username"] =&gt; string(6) "scltrk"
+["password"] =&gt; string(10) "Mhok8homL7"
+["dbname"] =&gt; string(8) "tracking"
+</code></pre>
+
+<p>  }
+  [&ldquo;msgsite&rdquo;] => string(7) &ldquo;smarter&rdquo;
+  [&ldquo;offset&rdquo;] => string(5) &ldquo;20000&rdquo;
+}
+ */
+```</p>
+
+<p>但是在Python中用来解析ini文件的ConfigParser类，则对ini文件的格式有着非常严格的要求——必须在文件开头含有[section]部分，否则在读取时会抛出<code>ConfigParser.MissingSectionHeaderError</code>。为了能让Python解析ini也可以容错，有必要做一下hack。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (demo.py)</span> <a href='/downloads/code/python-ini/demo.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/python</span>
+</span><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">ConfigParser</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">FakeSectionHead</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    文件wrapper</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fp</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;如果没有section的话，默认添加一个叫[default]的section&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fp</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="s">&quot;[default]</span><span class="se">\n</span><span class="s">&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">readline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;第一次输出[default], 以后就输出文件的内容&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span>
+</span><span class='line'>            <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>                <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ini</span> <span class="o">=</span> <span class="s">&#39;./config/smus.ini&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">parse_ini_file</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">p</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;标准格式的ini文件，直接读取内容&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">ini</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">except</span> <span class="n">ConfigParser</span><span class="o">.</span><span class="n">MissingSectionHeaderError</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;非标准格式的ini文件，用FakeSectionHead类包装一下&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">error</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">        此处输出：</span>
+</span><span class='line'><span class="sd">        File contains no section headers.</span>
+</span><span class='line'><span class="sd">        file: ./config/smus.ini, line: 1</span>
+</span><span class='line'><span class="sd">        &#39;master.host                 = stats10.mezimedia.com\r\n&#39;</span>
+</span><span class='line'><span class="sd">        &quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="n">FakeSectionHead</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">ini</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">p</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span> <span class="o">=</span> <span class="n">parse_ini_file</span><span class="p">(</span><span class="n">ini</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">[(&#39;master.host&#39;, &#39;stats10.mezimedia.com&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.username&#39;, &#39;scltrk&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.password&#39;, &#39;Mhok8homL7&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.dbname&#39;, &#39;tracking&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.host&#39;, &#39;stats11.mezimedia.com&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.port&#39;, &#39;3308&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.username&#39;, &#39;scltrk&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.password&#39;, &#39;Mhok8homL7&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.dbname&#39;, &#39;tracking&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;msgsite&#39;, &#39;smarter&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;offset&#39;, &#39;20000&#39;)]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">sections</span><span class="p">()</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">[&#39;default&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如此一来就能正常工作了。部分内容参考自StackOverflow——<a href="http://stackoverflow.com/questions/2819696/parsing-properties-file-in-python/2819788#2819788">parsing .properties file in Python</a> 。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

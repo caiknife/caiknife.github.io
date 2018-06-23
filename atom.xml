@@ -1,0 +1,1964 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[这个博客复活了]]></title>
+    <link href="http://caiknife.github.io/blog/2018/06/24/zhe-ge-bo-ke-fu-huo-liao/"/>
+    <updated>2018-06-24T03:53:03+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/06/24/zhe-ge-bo-ke-fu-huo-liao</id>
+    <content type="html"><![CDATA[<p>这个博客复活了。</p>
+
+<!-- more -->
+
+
+<p>前几年由于更换了电脑，从 Linux 平台迁移到了 Mac 平台，Ruby 的版本发生了变化，而这个博客是基于 Jekyll 的 Octopress，依赖于 Ruby 的老版本，所以那个时候这个博客就一直没办法更新了，一直凉了很久。</p>
+
+<p>今晚突然心血来潮，在 Mac 上安装了 rvm 来管理 Ruby 的版本，重新安装了 Ruby 1.9.3，这样这个博客总算是复活能用了，挺不容易的。</p>
+
+<p>以后又有可以写东西的地方了，不在乎有没有人看，反正我自己能坚持写就行。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[入职腾讯一个月了]]></title>
+    <link href="http://caiknife.github.io/blog/2014/04/23/working-in-tencent/"/>
+    <updated>2014-04-23T17:24:11+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/04/23/working-in-tencent</id>
+    <content type="html"><![CDATA[<p>3月24日，我正式加入腾讯。掐指一算，今天正好是一个月了。一个月以来，工作还是比较轻松的，部门内的工作气氛不错，同事们也都挺有意思的。</p>
+
+<!-- more -->
+
+
+<p>这边的工作气氛还是挺自由的。我的作息之间和之前在 VCB 差不多，早上坐班车过来一般 9 点半到公司，晚上下班没有别的事情的话 6 点半就下班了；不过我其他的同事们一般都会在公司里解决晚餐，加一会儿班之后再回家。</p>
+
+<p>工作流程上比较严格，制度规范也很多。有专门的开发网，只能访问腾讯旗下的网站。所以这边的人一般都有两台电脑，一台连接开发网，另外一台连接体验网。我的体验机都已经等了一个月了，还是没下来，唉，我等得花儿都谢了。</p>
+
+<p>版本管理用的是 SVN ，比之前在 VCB 用 CVS 真的是方便很多。开发方式是将远程 Linux 服务器的家目录映射为本地 Windows 的网络驱动盘，也就是 Samba ，当然这种方式比之前在 VCB 把修改过的文件一个个用 SFTP 上传到服务器上好。</p>
+
+<p>发布项目的时候，方式又非常不同了。测试服务器完全是和外界隔离的，要上传文件的话，只能通过 Web 界面上传，异常蛋疼……好吧，看看将来有什么解决方案。</p>
+
+<p>在新的环境里，得比以往更加努力工作。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[爱生活爱音乐]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/23/love-music/"/>
+    <updated>2014-03-23T17:20:36+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/23/love-music</id>
+    <content type="html"><![CDATA[<p>这周五办完了离职手续，于是这周末就可以完全无忧无虑地玩音乐啦~~~</p>
+
+<!-- more -->
+
+
+<p>周六下午在延安西路碰到了 <a href="http://weibo.com/p/1005051599598742">@JAMMALA</a> 鼓聚活动，于是就和他们度过了一个开心地下午。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/jammala/1.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/jammala/1.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/jammala/2.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/jammala/2.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/jammala/3.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/jammala/3.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/jammala/4.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/jammala/4.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/jammala/5.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/jammala/5.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/jammala/6.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/jammala/6.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/jammala/7.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/jammala/7.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/jammala/8.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/jammala/8.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/jammala/9.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/jammala/9.jpg" alt="" /></a></p>
+
+<p>和大家在一起玩音乐，才是最开心的！</p>
+
+<p>人不是孤立的个体，是社会性动物，所以一定要聚集才一起，分享快乐，享受这美好的生活！</p>
+
+<p>不要宅在家里！Enjoy MUSIC！</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[再见，惠击；再见，满星！]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/21/byebye-vcb-byebye-mezi/"/>
+    <updated>2014-03-21T22:47:45+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/21/byebye-vcb-byebye-mezi</id>
+    <content type="html"><![CDATA[<p>Bye bye，ValueClick Brands！</p>
+
+<p>Bye bye，Mezi Media！</p>
+
+<!-- more -->
+
+
+<p><a href="http://caiknife.github.io/downloads/image/byebye/1.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/byebye/1.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/byebye/2.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/byebye/2.jpg" alt="" /></a></p>
+
+<p>I will never come back again！</p>
+
+<p>Have a nice day and have a nice life！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[我司地震咧]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/20/valueclick-brands-is-under-an-earthquake/"/>
+    <updated>2014-03-20T11:05:53+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/20/valueclick-brands-is-under-an-earthquake</id>
+    <content type="html"><![CDATA[<p>最近发生的事情实在是太多了，我深深地感受到了什么叫做——“计划不如变化”。</p>
+
+<!-- more -->
+
+
+<p>昨天下午，SMKR 和 SMCN 的运营妹纸们都统统被叫了出去，开了一个集体会议。我当时看到她们一下子走光的时候，顿时就有感觉——妈蛋估计又没有好事儿了！</p>
+
+<p>果然，南希开完会回来之后，就宣布了—— SMKR 和 SMCN 全部砍掉，运营岗位全部 N + 1，技术岗位全部内部转岗消化。</p>
+
+<p>老员工得到的赔偿非常到位，新员工虽然赔偿少，但是现在这个时间段找工作还算方便，拿了赔偿去找工作，还算幸福。</p>
+
+<p>不过技术岗位的话，内部转岗之后还有试用期，这又是一个深坑。</p>
+
+<p>不过我已经要离开了，只能拍几张照片怀念一下。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/vcb/1.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/vcb/1.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/vcb/2.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/vcb/2.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/vcb/3.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/vcb/3.jpg" alt="" /></a></p>
+
+<p>这两个项目一被砍掉，我之前做过的项目和交接的文档基本就是无用功……</p>
+
+<p>妈蛋，真是坑爹！</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[敢问路在何方]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/11/the-way-is-under-your-feet/"/>
+    <updated>2014-03-11T10:23:30+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/11/the-way-is-under-your-feet</id>
+    <content type="html"><![CDATA[<p>新的工作已经确定下来了，月底我就要去新公司报道。</p>
+
+<!-- more -->
+
+
+<p>最近不光是新工作确定了，在音乐上我又找到了新的小伙伴，上周日下午做了第一次排练，还是在熟悉的大杨浦左摇排练房，感觉非常好！！！</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/way/1.jpg" title="左摇排练房 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/way/1.jpg" alt="左摇排练房 " /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/way/2.jpg" title="前级、合唱、延时 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/way/2.jpg" alt="前级、合唱、延时 " /></a></p>
+
+<p>这周日会进行第二次排练，到时会进行更深入的磨合。玩了这么多年的音乐，还是跟大家一起玩最有意思，一个人闷在家里是绝对得不到提高的！交流沟通更能提升你的视野，帮助别人成长的同时，自己也能获得更多的回报。That&rsquo;s teamwork！</p>
+
+<p>当然，除了音乐之外，还得在专业技术上提高。</p>
+
+<p>新买了《黑客与画家》和《人生元编程》，学习学习前辈的经验，提升一下视野。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/way/3.jpg" title="黑客与画家、人生元编程 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/way/3.jpg" alt="黑客与画家、人生元编程 " /></a></p>
+
+<p>未来的工作估计会充满了挑战，敢问路在何方？</p>
+
+<p>The way is under your feet！</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Linux 查看系统性能和配置的常用命令整理]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/07/linux-commands/"/>
+    <updated>2014-03-07T11:53:02+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/07/linux-commands</id>
+    <content type="html"><![CDATA[<p>常用 Linux 命令存档。</p>
+
+<!-- more -->
+
+
+<p>查看CPU信息（型号）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
+</span><span class='line'>    8  Intel<span class="o">(</span>R<span class="o">)</span> Xeon<span class="o">(</span>R<span class="o">)</span> CPU            E5410   @ 2.33GHz
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>（看到有8个逻辑CPU, 也知道了CPU型号）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>cat /proc/cpuinfo | grep physical | uniq -c
+</span><span class='line'>    4 physical id      : 0
+</span><span class='line'>    4 physical id      : 1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>（说明实际上是两颗4核的CPU）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>getconf LONG_BIT
+</span><span class='line'>    32
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>（说明当前CPU运行在32bit模式下, 但不代表CPU不支持64bit）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>cat /proc/cpuinfo | grep flags | grep <span class="s1">&#39; lm &#39;</span> | wc -l
+</span><span class='line'>   8
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>（结果大于0, 说明支持64bit计算. lm指long mode, 支持lm则是64bit）</p>
+
+<p>再完整看cpu详细信息, 不过大部分我们都不关心而已。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>dmidecode | grep -A81 <span class="s1">&#39;Processor Information&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>查看主板型号：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>dmidecode | grep -A16 <span class="s2">&quot;System Information$&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>内存槽及内存条：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>dmidecode | grep -A16 <span class="s2">&quot;Memory Device$&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>查看内存信息</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>cat /proc/meminfo
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>uname -a
+</span><span class='line'>    Linux euis1 2.6.9-55.ELsmp <span class="c">#1 SMP Fri Apr 20 17:03:35 EDT 2007 i686 i686 i386 GNU/Linux</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>（查看当前操作系统内核信息）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>hostname      <span class="c"># 主机名</span>
+</span><span class='line'><span class="nv">$ </span>lspci -tv     <span class="c"># 列出所有pci设备</span>
+</span><span class='line'><span class="nv">$ </span>lsusb -tv     <span class="c"># 列出所有use设备</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>cat /etc/issue | grep Linux
+</span><span class='line'>    Red Hat Enterprise Linux AS release 4 <span class="o">(</span>Nahant Update 5<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>（查看当前操作系统发行版信息）</p>
+
+<p>查看机器型号：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>dmidecode | grep <span class="s2">&quot;Product Name&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>查看网卡信息：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>dmesg | grep -i eth
+</span><span class='line'><span class="nv">$ </span>mii-tool
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>硬盘：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>fdisk -l
+</span><span class='line'><span class="nv">$ </span>smartctl -a /dev/sda
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>hostname                      <span class="c"># 查看计算机名</span>
+</span><span class='line'><span class="nv">$ </span>lspci -tv                     <span class="c"># 列出所有PCI设备</span>
+</span><span class='line'><span class="nv">$ </span>lsusb -tv                     <span class="c"># 列出所有USB设备</span>
+</span><span class='line'><span class="nv">$ </span>lsmod                         <span class="c"># 列出加载的内核模块</span>
+</span><span class='line'><span class="nv">$ </span>env                           <span class="c"># 查看环境变量资源</span>
+</span><span class='line'><span class="nv">$ </span>free -m                       <span class="c"># 查看内存使用量和交换区使用量</span>
+</span><span class='line'><span class="nv">$ </span>df -h                         <span class="c"># 查看各分区使用情况</span>
+</span><span class='line'><span class="nv">$ </span>du -sh                        <span class="c"># 查看指定目录的大小</span>
+</span><span class='line'><span class="nv">$ </span>grep MemTotal /proc/meminfo   <span class="c"># 查看内存总量</span>
+</span><span class='line'><span class="nv">$ </span>grep MemFree /proc/meminfo    <span class="c"># 查看空闲内存量</span>
+</span><span class='line'><span class="nv">$ </span>uptime                        <span class="c"># 查看系统运行时间、用户数、负载</span>
+</span><span class='line'><span class="nv">$ </span>cat /proc/loadavg             <span class="c"># 查看系统负载磁盘和分区</span>
+</span><span class='line'><span class="nv">$ </span>mount | column -t             <span class="c"># 查看挂接的分区状态</span>
+</span><span class='line'><span class="nv">$ </span>fdisk -l                      <span class="c"># 查看所有分区</span>
+</span><span class='line'><span class="nv">$ </span>swapon -s                     <span class="c"># 查看所有交换分区</span>
+</span><span class='line'><span class="nv">$ </span>hdparm -i /dev/hda            <span class="c"># 查看磁盘参数(仅适用于IDE设备)</span>
+</span><span class='line'><span class="nv">$ </span>dmesg | grep IDE              <span class="c"># 查看启动时IDE设备检测状况网络</span>
+</span><span class='line'><span class="nv">$ </span>ifconfig                      <span class="c"># 查看所有网络接口的属性</span>
+</span><span class='line'><span class="nv">$ </span>iptables -L                   <span class="c"># 查看防火墙设置</span>
+</span><span class='line'><span class="nv">$ </span>route -n                      <span class="c"># 查看路由表</span>
+</span><span class='line'><span class="nv">$ </span>netstat -lntp                 <span class="c"># 查看所有监听端口</span>
+</span><span class='line'><span class="nv">$ </span>netstat -antp                 <span class="c"># 查看所有已经建立的连接</span>
+</span><span class='line'><span class="nv">$ </span>netstat -s                    <span class="c"># 查看网络统计信息进程</span>
+</span><span class='line'><span class="nv">$ </span>ps -ef                        <span class="c"># 查看所有进程</span>
+</span><span class='line'><span class="nv">$ </span>top                           <span class="c"># 实时显示进程状态用户</span>
+</span><span class='line'><span class="nv">$ </span>w                             <span class="c"># 查看活动用户</span>
+</span><span class='line'><span class="nv">$ </span>id                            <span class="c"># 查看指定用户信息</span>
+</span><span class='line'><span class="nv">$ </span>last                          <span class="c"># 查看用户登录日志</span>
+</span><span class='line'><span class="nv">$ </span>cut -d: -f1 /etc/passwd       <span class="c"># 查看系统所有用户</span>
+</span><span class='line'><span class="nv">$ </span>cut -d: -f1 /etc/group        <span class="c"># 查看系统所有组</span>
+</span><span class='line'><span class="nv">$ </span>crontab -l                    <span class="c"># 查看当前用户的计划任务服务</span>
+</span><span class='line'><span class="nv">$ </span>chkconfig –list               <span class="c"># 列出所有系统服务</span>
+</span><span class='line'><span class="nv">$ </span>chkconfig –list | grep on     <span class="c"># 列出所有启动的系统服务程序</span>
+</span><span class='line'><span class="nv">$ </span>rpm -qa                       <span class="c"># 查看所有安装的软件包</span>
+</span><span class='line'><span class="nv">$ </span>cat /proc/cpuinfo             <span class="c"># 查看CPU相关参数</span>
+</span><span class='line'><span class="nv">$ </span>cat /proc/partitions          <span class="c"># 查看硬盘和分区</span>
+</span><span class='line'><span class="nv">$ </span>cat /proc/meminfo             <span class="c"># 查看内存信息</span>
+</span><span class='line'><span class="nv">$ </span>cat /proc/version             <span class="c"># 查看版本，类似uname -r</span>
+</span><span class='line'><span class="nv">$ </span>cat /proc/ioports             <span class="c"># 查看设备io端口</span>
+</span><span class='line'><span class="nv">$ </span>cat /proc/interrupts          <span class="c"># 查看中断</span>
+</span><span class='line'><span class="nv">$ </span>cat /proc/pci                 <span class="c"># 查看pci设备的信息</span>
+</span><span class='line'><span class="nv">$ </span>cat /proc/swaps               <span class="c"># 查看所有swap分区的信息</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[字符串拼接性能测试]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/05/little-php-benchmark/"/>
+    <updated>2014-03-05T16:35:37+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/05/little-php-benchmark</id>
+    <content type="html"><![CDATA[<p>写这篇文章的目的是因为某天在群里有人出了一到笔试题——下面三种拼接字符串方式，哪一种的性能最快？</p>
+
+<figure class='code'><figcaption><span>字符串拼接性能测试</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="nv">$z</span> <span class="o">=</span> <span class="nv">$x</span> <span class="o">.</span> <span class="nv">$y</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$z</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">$x$y</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$z</span> <span class="o">=</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;%s%s&#39;</span><span class="p">,</span> <span class="nv">$x</span><span class="p">,</span> <span class="nv">$y</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!-- more -->
+
+
+<p>我的第一直觉——第三种方式肯定是最慢的，因为要调用函数做额外的开销。在 PHP 中，使用语言特性要比使用函数的效率高，所以在平常工作中我会用 <code>$foo === null</code> 来代替 <code>is_null($foo)</code> 这样类似的技巧。</p>
+
+<p>但是第一种和第二种方式哪个更快呢？于是我写了下面的这个测试脚本：</p>
+
+<figure class='code'><figcaption><span> (bench.php)</span> <a href='http://caiknife.github.io/downloads/code/bench/bench.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: zcai</span>
+</span><span class='line'><span class="sd"> * Date: 14-3-4</span>
+</span><span class='line'><span class="sd"> * Time: 上午10:33</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * 比较三种方式下，字符串拼接最快的方法。</span>
+</span><span class='line'><span class="sd"> * 1、字符串直接连接</span>
+</span><span class='line'><span class="sd"> * 2、双引号内变量转义</span>
+</span><span class='line'><span class="sd"> * 3、sprintf格式化</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Benchmark</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_timeStart</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_timeEnd</span>   <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_repeatTimes</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_formatters</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_repeatTimes</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">setRepeatTimes</span><span class="p">(</span><span class="nv">$repeatTimes</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_repeatTimes</span> <span class="o">=</span> <span class="nv">$repeatTimes</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">addFormatter</span><span class="p">(</span><span class="nx">StringFormatter</span> <span class="nv">$formatter</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_formatters</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$formatter</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">bench</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_formatters</span> <span class="k">as</span> <span class="nv">$formatter</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_invokeFormatter</span><span class="p">(</span><span class="nv">$formatter</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">function</span> <span class="nf">_invokeFormatter</span><span class="p">(</span><span class="nx">StringFormatter</span> <span class="nv">$formatter</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_timeStart</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_repeatTimes</span><span class="p">;</span> <span class="o">++</span><span class="nv">$i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$formatter</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_timeEnd</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_timeEnd</span> <span class="o">-</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_timeStart</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">abstract</span> <span class="k">class</span> <span class="nc">StringFormatter</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_firstString</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_secondString</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_result</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$firstString</span><span class="p">,</span> <span class="nv">$secondString</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_firstString</span> <span class="o">=</span> <span class="nv">$firstString</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_secondString</span> <span class="o">=</span> <span class="nv">$secondString</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getResult</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_result</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getFirstString</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_firstString</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getSecondString</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_secondString</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="nf">format</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">StringContactFormatter</span> <span class="k">extends</span> <span class="nx">StringFormatter</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">format</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_firstString</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_secondString</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">DoubleQuoteFormatter</span> <span class="k">extends</span> <span class="nx">StringFormatter</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">format</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_result</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_firstString</span><span class="si">}{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_secondString</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">SprintfFormatter</span> <span class="k">extends</span> <span class="nx">StringFormatter</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">format</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_result</span> <span class="o">=</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;%s%s&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_firstString</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_secondString</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$benchmark</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Benchmark</span><span class="p">();</span>
+</span><span class='line'><span class="nv">$benchmark</span><span class="o">-&gt;</span><span class="na">addFormatter</span><span class="p">(</span><span class="k">new</span> <span class="nx">StringContactFormatter</span><span class="p">(</span><span class="s1">&#39;cai&#39;</span><span class="p">,</span> <span class="s1">&#39;knife&#39;</span><span class="p">))</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">addFormatter</span><span class="p">(</span><span class="k">new</span> <span class="nx">DoubleQuoteFormatter</span><span class="p">(</span><span class="s1">&#39;cai&#39;</span><span class="p">,</span> <span class="s1">&#39;knife&#39;</span><span class="p">))</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">addFormatter</span><span class="p">(</span><span class="k">new</span> <span class="nx">SprintfFormatter</span><span class="p">(</span><span class="s1">&#39;cai&#39;</span><span class="p">,</span> <span class="s1">&#39;knife&#39;</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$benchmark</span><span class="o">-&gt;</span><span class="na">bench</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在笔记本上执行了若干次，得到下面的结果：</p>
+
+<figure class='code'><figcaption><span>benchmark result</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.025658130645752<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.026356935501099<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.050467967987061<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.026144981384277<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.025960922241211<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.053239107131958<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.029561042785645<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.026247978210449<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.051438093185425<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.026479005813599<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.026005983352661<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.05446195602417<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.026879072189331<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.026219129562378<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.051171064376831<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.026100873947144<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.025912046432495<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.051729917526245<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.025666952133179<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.025691986083984<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.051711082458496<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.025789022445679<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.050994873046875<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.024961948394775<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.025660991668701<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.051864147186279<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.025777101516724<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.025542020797729<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.05191707611084<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.0258629322052<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.02587890625<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.050651073455811<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.027279138565063<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.026965141296387<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.05425500869751<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.027122020721436<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.026250123977661<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.053034067153931<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.026654005050659<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.02558708190918<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.052467823028564<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span>16:44<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~/www/phptest/benchmark
+</span><span class='line'>&gt; php string.php
+</span><span class='line'>double<span class="o">(</span>0.02632212638855<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.026074171066284<span class="o">)</span>
+</span><span class='line'>double<span class="o">(</span>0.051969051361084<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>比较之下，第二种方法的性能最快，第一种方法稍微有点慢，而第三种方法则慢了一倍。</p>
+
+<p>不过这下我又有点迷茫了——平常在做字符串拼接的时候，我都是用第一种方法，并且都是使用单引号来做字面量，因为一直觉得第二种方法里的双引号要对变量进行预先转义会有性能损失。可是这一次测试结果算下来，我之前的经验完全被推翻了啊！</p>
+
+<p>哦，对了，忘记提到测试环境了：</p>
+
+<figure class='code'><figcaption><span>environment</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>17:11<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~
+</span><span class='line'>&gt; uname -a
+</span><span class='line'>Linux caiknife-ThinkPad-T400 3.2.0-59-generic <span class="c">#90-Ubuntu SMP Tue Jan 7 22:43:51 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux</span>
+</span><span class='line'><span class="o">[</span>17:11<span class="o">]</span> caiknife@caiknife-ThinkPad-T400:~
+</span><span class='line'>&gt; php -v
+</span><span class='line'>PHP 5.4.25-1+sury.org~precise+2 <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Feb 12 2014 10:45:30<span class="o">)</span>
+</span><span class='line'>Copyright <span class="o">(</span>c<span class="o">)</span> 1997-2014 The PHP Group
+</span><span class='line'>Zend Engine v2.4.0, Copyright <span class="o">(</span>c<span class="o">)</span> 1998-2014 Zend Technologies
+</span><span class='line'>    with Xdebug v2.2.3, Copyright <span class="o">(</span>c<span class="o">)</span> 2002-2013, by Derick Rethans
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[越过长城，呼吸自由]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/03/cross-the-great-fire-wall/"/>
+    <updated>2014-03-03T11:23:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/03/cross-the-great-fire-wall</id>
+    <content type="html"><![CDATA[<p>最近 GFW 似乎又升级了，有几天上 GitHub 的时候很不方便；而 Chrome 的 Google 账户登录更是从来没成功过。在公司的时候，由于走的是国外的线路，接上网线就相当于直接翻墙了，可是回到家里，我还是需要登录 Google 账户的。怎么办？</p>
+
+<p>翻墙工具找起来！</p>
+
+<p>前段时间用了 GoAgent 来翻墙，今天来做个记录。</p>
+
+<!-- more -->
+
+
+<p>项目主页在这里：<a href="https://code.google.com/p/goagent/">https://code.google.com/p/goagent/</a> 。</p>
+
+<p>最新的源代码可以在这里 <a href="https://github.com/goagent/goagent/">https://github.com/goagent/goagent/</a> 找到。</p>
+
+<p>安装方法和配置方法都有图文介绍，挺方便的。翻墙之后速度挺快，一般的浏览没啥问题，不过如果要是看 YouTube 之类的网站的话就有点捉襟见肘了。</p>
+
+<p>虽然身在长城内，但是心还是向往自由的。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[我也来谈谈「匠人」]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/02/something-about-artisan/"/>
+    <updated>2014-03-02T11:08:40+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/02/something-about-artisan</id>
+    <content type="html"><![CDATA[<p>曾经有人问我——“如果有一天你有了很多钱，不用再写代码了，你会去干什么？”</p>
+
+<p>我告诉她：“去做琴。”</p>
+
+<p>是的，我真的想做琴，不管是像李宗盛那样投入自己的全部身家去做一个「中国人自己的国际品牌」的李吉他，还是说只是自己玩票性质地从无到有、从零到一地手工打造一把只属于自己的琴，能在自己喜欢的一样事物上投入全身心的爱，踏踏实实地做出成果来，这就是我想做的「匠人」。</p>
+
+<!-- more -->
+
+
+<p>先来聊聊琴吧。</p>
+
+<p>上周花了 2000 大洋买到了梦寐以求的箱琴拾音器—— LR Baggs Anthem ，接着周末就去金陵东路的石桥乐器把它给装好了。晚上回来后，给琴做了一次指板保养。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/artisan/1.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/artisan/1.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/artisan/2.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/artisan/2.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/artisan/3.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/artisan/3.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/artisan/4.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/artisan/4.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/artisan/5.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/artisan/5.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/artisan/6.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/artisan/6.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/artisan/7.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/artisan/7.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/artisan/8.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/artisan/8.jpg" alt="" /></a></p>
+
+<p>当时石桥乐器接待我的师傅叫「张雄」，看起来是专门的吉他保养技师。这套拾音器在他手上只用了一个小时左右就安装好了，而且还带打磨琴桥和调节弦高，手艺非常好。</p>
+
+<p>目前，在国内，给吉他、贝斯乐器做保养和调节的服务还很少，在北京有一个叫「高烁」的人很有名，一把琴到了他的手上能重获新生；而在上海，只有石桥乐器提供了专门吉他类乐器保养和调节的服务，收费合理，效果卓著。之前每次去石桥乐器的时候，都能看到工作台旁边放了很多琴箱，里面都是岁月沧桑等着重获新生的吉他。</p>
+
+<p>今天这一次行程，让我感觉到，其实像「张雄」和「高烁」这样的人，更能称得上是「匠人」。为什么？琴做出来了，就好比一辆汽车下了生产线，不同的主人买回去，初始的效果基本都是一样的。但是人和车会磨合，人和琴自然也要磨合，这才需要有吉他保养技师为乐手服务，让人和琴能融为一体，达到生命的大和谐。</p>
+
+<p>在国外，很多乐队和音乐人都有专门的技师团队，不光负责吉他的保养，还会负责音响的调教等等，这些人也更加称得上是「匠人」。有名的技师——比如 S.R.V. 的技师，现在就在 John Mayer 的团队内服务，为 John Mayer 提供他所敬爱的偶像的吉他音色。</p>
+
+<p>所以，「匠人」这个词，应该不光是用来形容那些创造了某些事物的人，还应该包括那些为这些事物提供后期维护，能让其发挥更大价值的人。</p>
+
+<p>好吧，其实我想说的是我们这些苦逼码农。</p>
+
+<p>现在互联网的产品一旦走红了，出名的往往都是产品经理和架构师，真正奋斗在一线的工程师们仍然是默默无名的幕后人物。当然我并不是对产品经理和架构师有敌意，只是希望工程师也能在项目中和大众面前得到同样的重视。一部电影最后的字幕都会显示所有的演职人员名单，一张专辑也会在歌词页上列出制作人和乐手的名单，同样都是做幕后的工作，我们这帮做互联网产品的工程师为什么就不能给自己做做宣传呢？</p>
+
+<p>不过，现在有了 GitHub ，我能够在这个的平台上认识很多优秀的项目和工程师，在「匠人」的道路上越走越宽。</p>
+
+<p>不积跬步，无以至千里。</p>
+
+<p>以上我所说的，都是错的。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一句话 Shell 脚本（3）]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/26/happy-shell-script/"/>
+    <updated>2014-02-26T10:00:43+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/26/happy-shell-script</id>
+    <content type="html"><![CDATA[<p>CakePHP 会在自己的项目文件夹的 <code>app/tmp</code> 下建立缓存文件，用来保存数据库表结构。在开启 debug 的情况下，每次发起请求后都会刷新缓存，但是在生产环境下，一般都是关闭了 debug 的，如果某次功能升级修改了表结构的话，缓存并不会主动更新，如此一来就会产生 InternalError 。</p>
+
+<p>看来还是要写个脚本来手动删除这些缓存文件。</p>
+
+<!-- more -->
+
+
+<p>先看看缓存目录结构是什么样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; tree
+</span><span class='line'>.
+</span><span class='line'>├── cache
+</span><span class='line'>│   ├── cake_toolbar_cache19c90b767c0870ceefeb6659d993da93
+</span><span class='line'>│   ├── models
+</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_accounts
+</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_articles
+</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_list
+</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_train_divisions
+</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_trainees
+</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_trainers
+</span><span class='line'>│   │   └── ccqo_cake_model_default_ccqo_train_infos
+</span><span class='line'>│   └── persistent
+</span><span class='line'>│       ├── ccqo_cake_core_cake_zh-cn
+</span><span class='line'>│       ├── ccqo_cake_core_debug_kit_zh-cn
+</span><span class='line'>│       ├── ccqo_cake_core_file_map
+</span><span class='line'>│       └── ccqo_cake_core_method_cache
+</span><span class='line'>└── logs
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>要删除的是缓存文件，目录不用删除。 OK ，那么就写个脚本一次性全部搞定好了。</p>
+
+<p>先想到的是用 <code>find</code> 命令配合管道符来用：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; find . -type f | xargs rm -f
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>结果报了权限错误：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; find . -type f | xargs rm -f
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/persistent/ccqo_cake_core_cake_zh-cn&quot;</span>: 权限不够
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/persistent/ccqo_cake_core_file_map&quot;</span>: 权限不够
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/persistent/ccqo_cake_core_debug_kit_zh-cn&quot;</span>: 权限不够
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/persistent/ccqo_cake_core_method_cache&quot;</span>: 权限不够
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_list&quot;</span>: 权限不够
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_train_divisions&quot;</span>: 权限不够
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_trainers&quot;</span>: 权限不够
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_articles&quot;</span>: 权限不够
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_train_infos&quot;</span>: 权限不够
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_trainees&quot;</span>: 权限不够
+</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_accounts&quot;</span>: 权限不够
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这些文件是由 <code>www-data</code> 帐号生成的，所以我自然不能删除，所以加上 <code>sudo</code> 再删除吧。</p>
+
+<p>几分钟之后又想了想，其实不用管道符，完全可以用 <code>find</code> 自己就可以完成了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; find . -type f -exec sudo rm -f <span class="o">{}</span> +
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>打完收工！</p>
+
+<p>最近越来越感觉随着年纪的增长，接触的事情越来越多，记忆力没有以前好了。高中时代特别自豪地过目不忘的本事也指望不上了，看来还是好记性不如烂笔头，得养成一个良好的记录和总结的习惯，才会对将来的工作有所帮助。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[给 CakePHP 的 Session Flash 做点小修改]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/25/hack-session-flash-for-cakephp/"/>
+    <updated>2014-02-25T11:59:36+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/25/hack-session-flash-for-cakephp</id>
+    <content type="html"><![CDATA[<p>在 CakePHP 的教程中，CRUD 操作结束后跳转到新页面时，一般会做一个提示框显示在页面上。这个做法在教程中是按照下面的这么个流程写的：</p>
+
+<!-- more -->
+
+
+<p>首先在 Controller 里面做跳转之前：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">is</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Post</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Post</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>            <span class="sd">/**</span>
+</span><span class='line'><span class="sd">             * 跳转之前设置一条 Session 信息</span>
+</span><span class='line'><span class="sd">             */</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Session</span><span class="o">-&gt;</span><span class="na">setFlash</span><span class="p">(</span><span class="nx">__</span><span class="p">(</span><span class="s1">&#39;Your post has been saved.&#39;</span><span class="p">));</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;index&#39;</span><span class="p">));</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Session</span><span class="o">-&gt;</span><span class="na">setFlash</span><span class="p">(</span><span class="nx">__</span><span class="p">(</span><span class="s1">&#39;Unable to add your post.&#39;</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 View 上要做下面修改：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Session</span><span class="o">-&gt;</span><span class="na">flash</span><span class="p">();</span> <span class="cp">?&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">    </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面代码中的 <code>&lt;?php echo $this-&gt;Session-&gt;flash(); ?&gt;</code> 的作用就是将前一次跳转中设置的 Session 跳转信息显示在页面上，随后删除 Session 中的跳转信息，以确保下一次不会再显示。</p>
+
+<p>但是，默认情况下，这段跳转信息的 HTML 结构是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;flashMessage&quot;</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;message&quot;</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="nx">world</span><span class="o">!&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>那么，如果要配合 BootStrap 一起使用的话，应该如何设置呢？咱们先来看看 SessionComponent 和 SessionHelper 的部分源代码。</p>
+
+<figure class='code'><figcaption><span>SessionComponent</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">setFlash</span><span class="p">(</span><span class="nv">$message</span><span class="p">,</span> <span class="nv">$element</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">(),</span> <span class="nv">$key</span> <span class="o">=</span> <span class="s1">&#39;flash&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">CakeSession</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;Message.&#39;</span> <span class="o">.</span> <span class="nv">$key</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="s1">&#39;element&#39;</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>很明显，在跳转之前调用 $this->Session->setFlash(__(&lsquo;Your post has been saved.&rsquo;)); ，会在 Session 中以 <code>Message{$key}</code> 作为 Key 写入对应的 <code>$message</code> ，<code>$element</code> ，<code>$params</code>。接着会在 SessionHelper 中调用：</p>
+
+<figure class='code'><figcaption><span>SessionHelper</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">flash</span><span class="p">(</span><span class="nv">$key</span> <span class="o">=</span> <span class="s1">&#39;flash&#39;</span><span class="p">,</span> <span class="nv">$attrs</span> <span class="o">=</span> <span class="k">array</span><span class="p">())</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$out</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">CakeSession</span><span class="o">::</span><span class="na">check</span><span class="p">(</span><span class="s1">&#39;Message.&#39;</span> <span class="o">.</span> <span class="nv">$key</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$flash</span> <span class="o">=</span> <span class="nx">CakeSession</span><span class="o">::</span><span class="na">read</span><span class="p">(</span><span class="s1">&#39;Message.&#39;</span> <span class="o">.</span> <span class="nv">$key</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$message</span> <span class="o">=</span> <span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">];</span>
+</span><span class='line'>        <span class="nb">unset</span><span class="p">(</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$attrs</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$flash</span> <span class="o">=</span> <span class="nb">array_merge</span><span class="p">(</span><span class="nv">$flash</span><span class="p">,</span> <span class="nv">$attrs</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$class</span> <span class="o">=</span> <span class="s1">&#39;message&#39;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;class&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$class</span> <span class="o">=</span> <span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;class&#39;</span><span class="p">];</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="nv">$out</span> <span class="o">=</span> <span class="s1">&#39;&lt;div id=&quot;&#39;</span> <span class="o">.</span> <span class="nv">$key</span> <span class="o">.</span> <span class="s1">&#39;Message&quot; class=&quot;&#39;</span> <span class="o">.</span> <span class="nv">$class</span> <span class="o">.</span> <span class="s1">&#39;&quot;&gt;&#39;</span> <span class="o">.</span> <span class="nv">$message</span> <span class="o">.</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="o">!</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$out</span> <span class="o">=</span> <span class="nv">$message</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;plugin&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$options</span><span class="p">[</span><span class="s1">&#39;plugin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;plugin&#39;</span><span class="p">];</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="nv">$tmpVars</span> <span class="o">=</span> <span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">];</span>
+</span><span class='line'>            <span class="nv">$tmpVars</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$message</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$out</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_View</span><span class="o">-&gt;</span><span class="na">element</span><span class="p">(</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">],</span> <span class="nv">$tmpVars</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nx">CakeSession</span><span class="o">::</span><span class="na">delete</span><span class="p">(</span><span class="s1">&#39;Message.&#39;</span> <span class="o">.</span> <span class="nv">$key</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nv">$out</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>从上面默认的代码可以看出，如果 <code>$element</code> 为 <code>default</code> 的话，就是之前默认的 HTML 结构；如果没设置的话，则直接显示 <code>$message</code> 文本信息；如果设置成其他的值，就会到 <code>View/Elements</code> 下调用相对应的模板文件。</p>
+
+<p>为此，我特别写了一个模板：</p>
+
+<figure class='code'><figcaption><span>notify.ctp</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;flashMessage&quot;</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;alert &lt;?php echo isset(</span><span class="si">$status</span><span class="s2">) ? &#39;alert-&#39; . </span><span class="si">$status</span><span class="s2"> : &#39;&#39;; ?&gt; &lt;?php echo isset(</span><span class="si">$block</span><span class="s2">) &amp;&amp; </span><span class="si">$block</span><span class="s2"> ? &#39;alert-block&#39; : &#39;&#39;; ?&gt; text-center&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;close&quot;</span> <span class="nx">data</span><span class="o">-</span><span class="nx">dismiss</span><span class="o">=</span><span class="s2">&quot;alert&quot;</span><span class="o">&gt;</span><span class="err">×</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span> <span class="nx">h</span><span class="p">(</span><span class="nv">$message</span><span class="p">)</span><span class="cp">?&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样调用的时候，只需要在 Controller 里用下面的代码即可，View 中不需要更改。最终在显示的时候，就会呈现出一个通栏的提示框，当然你也可以把它放在特定的 DIV 里，让它的样式能够符合你的需求。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Session</span><span class="o">-&gt;</span><span class="na">setFlash</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">,</span> <span class="s1">&#39;notify&#39;</span> <span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;success&#39;</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第三个参数中的 <code>status</code> 就是用来定制显示信息的样式，具体有哪些配置可以参考 <a href="http://v2.bootcss.com/components.html#alerts">http://v2.bootcss.com/components.html#alerts</a> 。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HTTP 状态码]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/24/http-status-code/"/>
+    <updated>2014-02-24T17:06:33+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/24/http-status-code</id>
+    <content type="html"><![CDATA[<p>好记性不如烂笔头。</p>
+
+<p>做了这么多年的 Web 开发，经常和 HTTP 状态码打交道，经常碰到 200 、201 、301 、302 、304 、400 、404 、500 、502 、503 这些数字，但是我却从来没有把这些知识系统地做个总结，实在是不应该。今天特此把所有 HTTP 状态码列个单子，背也要背下来。</p>
+
+<!-- more -->
+
+
+<h3>1xx —— 继续响应</h3>
+
+<p>表示临时响应并需要请求者继续执行操作的状态码。</p>
+
+<ul>
+<li>100（继续） 请求者应当继续提出请求。服务器返回此代码表示已收到请求的第一部分，正在等待其余部分。</li>
+<li>101（切换协议） 请求者已要求服务器切换协议，服务器已确认并准备切换。</li>
+</ul>
+
+
+<h3>2xx —— 成功</h3>
+
+<p>表示成功处理了请求的状态码。</p>
+
+<ul>
+<li>200（成功） 服务器已成功处理了请求。通常，这表示服务器提供了请求的网页。如果是对您的 robots.txt 文件显示此状态码，则表示 Googlebot 已成功检索到该文件。</li>
+<li>201（已创建） 请求成功并且服务器创建了新的资源。</li>
+<li>202（已接受） 服务器已接受请求，但尚未处理。</li>
+<li>203（非授权信息） 服务器已成功处理了请求，但返回的信息可能来自另一来源。</li>
+<li>204（无内容） 服务器成功处理了请求，但没有返回任何内容。</li>
+<li>205（重置内容） 服务器成功处理了请求，但没有返回任何内容。与 204 响应不同，此响应要求请求者重置文档视图（例如，清除表单内容以输入新内容）。</li>
+<li>206（部分内容） 服务器成功处理了部分 GET 请求。</li>
+</ul>
+
+
+<h3>3xx —— 重定向</h3>
+
+<p>要完成请求，需要进一步操作。通常，这些状态码用来重定向。Google 建议您在每次请求中使用重定向不要超过 5 次。您可以使用网站管理员工具查看一下 Googlebot 在抓取重定向网页时是否遇到问题。诊断下的网络抓取页列出了由于重定向错误导致 Googlebot 无法抓取的网址。</p>
+
+<ul>
+<li>300（多种选择） 针对请求，服务器可执行多种操作。服务器可根据请求者 (user agent) 选择一项操作，或提供操作列表供请求者选择。</li>
+<li>301（永久移动） 请求的网页已永久移动到新位置。服务器返回此响应（对 GET 或 HEAD 请求的响应）时，会自动将请求者转到新位置。您应使用此代码告诉 Googlebot 某个网页或网站已永久移动到新位置。</li>
+<li>302（临时移动） 服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来响应以后的请求。此代码与响应 GET 和 HEAD 请求的 301 代码类似，会自动将请求者转到不同的位置，但您不应使用此代码来告诉 Googlebot 某个网页或网站已经移动，因为 Googlebot 会继续抓取原有位置并编制索引。</li>
+<li>303（查看其他位置） 请求者应当对不同的位置使用单独的 GET 请求来检索响应时，服务器返回此代码。对于除 HEAD 之外的所有请求，服务器会自动转到其他位置。</li>
+<li>304（未修改） 自从上次请求后，请求的网页未修改过。服务器返回此响应时，不会返回网页内容。如果网页自请求者上次请求后再也没有更改过，您应将服务器配置为返回此响应（称为 If-Modified-Since HTTP 标头）。服务器可以告诉 Googlebot 自从上次抓取后网页没有变更，进而节省带宽和开销。</li>
+<li>305（使用代理） 请求者只能使用代理访问请求的网页。如果服务器返回此响应，还表示请求者应使用代理。</li>
+<li>307（临时重定向） 服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来响应以后的请求。此代码与响应 GET 和 HEAD 请求的 <a href=answer.py?answer=>301</a> 代码类似，会自动将请求者转到不同的位置，但您不应使用此代码来告诉 Googlebot 某个页面或网站已经移动，因为 Googlebot 会继续抓取原有位置并编制索引。</li>
+</ul>
+
+
+<h3>4xx —— 请求错误</h3>
+
+<p>这些状态码表示请求可能出错，妨碍了服务器的处理。</p>
+
+<ul>
+<li>400（错误请求） 服务器不理解请求的语法。</li>
+<li>401（未授权） 请求要求身份验证。对于登录后请求的网页，服务器可能返回此响应。</li>
+<li>403（禁止） 服务器拒绝请求。如果您在 Googlebot 尝试抓取您网站上的有效网页时看到此状态码（您可以在 Google 网站管理员工具诊断下的网络抓取页面上看到此信息），可能是您的服务器或主机拒绝了 Googlebot 访问。</li>
+<li>404（未找到） 服务器找不到请求的网页。例如，对于服务器上不存在的网页经常会返回此代码。如果您的网站上没有 robots.txt 文件，而您在 Google 网站管理员工具“诊断”标签的 robots.txt 页上看到此状态码，则这是正确的状态码。但是，如果您有 robots.txt 文件而又看到此状态码，则说明您的 robots.txt 文件可能命名错误或位于错误的位置（该文件应当位于顶级域，名为 robots.txt）。如果对于 Googlebot 抓取的网址看到此状态码（在”诊断”标签的 HTTP 错误页面上），则表示 Googlebot 跟随的可能是另一个页面的无效链接（是旧链接或输入有误的链接）。</li>
+<li>405（方法禁用） 禁用请求中指定的方法。</li>
+<li>406（不接受） 无法使用请求的内容特性响应请求的网页。</li>
+<li>407（需要代理授权） 此状态码与 <a href=answer.py?answer=35128>401（未授权）</a>类似，但指定请求者应当授权使用代理。如果服务器返回此响应，还表示请求者应当使用代理。</li>
+<li>408（请求超时） 服务器等候请求时发生超时。</li>
+<li>409（冲突） 服务器在完成请求时发生冲突。服务器必须在响应中包含有关冲突的信息。服务器在响应与前一个请求相冲突的 PUT 请求时可能会返回此代码，以及两个请求的差异列表。</li>
+<li>410（已删除） 如果请求的资源已永久删除，服务器就会返回此响应。该代码与 404（未找到）代码类似，但在资源以前存在而现在不存在的情况下，有时会用来替代 404 代码。如果资源已永久移动，您应使用 301 指定资源的新位置。</li>
+<li>411（需要有效长度） 服务器不接受不含有效内容长度标头字段的请求。</li>
+<li>412（未满足前提条件） 服务器未满足请求者在请求中设置的其中一个前提条件。</li>
+<li>413（请求实体过大） 服务器无法处理请求，因为请求实体过大，超出服务器的处理能力。</li>
+<li>414（请求的 URI 过长） 请求的 URI（通常为网址）过长，服务器无法处理。</li>
+<li>415（不支持的媒体类型） 请求的格式不受请求页面的支持。</li>
+<li>416（请求范围不符合要求） 如果页面无法提供请求的范围，则服务器会返回此状态码。</li>
+<li>417（未满足期望值） 服务器未满足”期望”请求标头字段的要求。</li>
+</ul>
+
+
+<h3>5xx —— 服务器错误</h3>
+
+<p>这些状态码表示服务器在处理请求时发生内部错误。这些错误可能是服务器本身的错误，而不是请求出错。</p>
+
+<ul>
+<li>500（服务器内部错误） 服务器遇到错误，无法完成请求。</li>
+<li>501（尚未实施） 服务器不具备完成请求的功能。例如，服务器无法识别请求方法时可能会返回此代码。</li>
+<li>502（错误网关） 服务器作为网关或代理，从上游服务器收到无效响应。</li>
+<li>503（服务不可用） 服务器目前无法使用（由于超载或停机维护）。通常，这只是暂时状态。</li>
+<li>504（网关超时） 服务器作为网关或代理，但是没有及时从上游服务器收到请求。</li>
+<li>505（HTTP 版本不受支持） 服务器不支持请求中所用的 HTTP 协议版本。</li>
+</ul>
+
+
+<p>争取做到每周一阅，温故而知新。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BootStrap 的文件上传控件]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/24/bootstrap-filestyle/"/>
+    <updated>2014-02-24T10:21:34+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/24/bootstrap-filestyle</id>
+    <content type="html"><![CDATA[<p><code>input[type=file]</code> 的这个控件，在不同的浏览器上表现出的样式不同，尤其是在 Chrome 上，完全和 FF 、IE 的天差地别。为了让这个控件在不同的浏览器表现出统一的样式，需要有一个优秀的解决方案。</p>
+
+<!-- more -->
+
+
+<p>周末在家里做东西的时候，由于后台使用了 BootStrap 来做，于是就想找一个类似的插件来修改，在 Google 上搜了一下，找到了下面这个插件：</p>
+
+<p><a href="http://markusslima.github.io/bootstrap-filestyle/">http://markusslima.github.io/bootstrap-filestyle/</a></p>
+
+<p>导入该插件的库文件之后，</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js+php'><span class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;js/bootstrap-filestyle.min.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>配置起来异常简单：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js+php'><span class='line'><span class="err">$</span><span class="p">(</span><span class="s2">&quot;:file&quot;</span><span class="p">)</span><span class="o">.</span><span class="nx">filestyle</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当然如果只是想为单个控件做样式修改的话，可以通过 HTML5 的 data API 来完成：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js+php'><span class='line'><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;filestyle&quot;</span> <span class="nx">data</span><span class="o">-</span><span class="nx">classButton</span><span class="o">=</span><span class="s2">&quot;btn btn-primary&quot;</span> <span class="nx">data</span><span class="o">-</span><span class="nx">input</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个插件还有一些配置选项和 API 可以满足各种定制，具体的内容可以查看源文档。</p>
+
+<p>BootStrap 真是好东西，但是用多了之后，会不会有审美疲劳？</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Windows 平台上安装 xdebug 扩展]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/19/install-xdebug-on-windows/"/>
+    <updated>2014-02-19T20:18:27+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/19/install-xdebug-on-windows</id>
+    <content type="html"><![CDATA[<p><code>xdebug</code> 是一个非常非常好用的调试程序、追踪错误、性能分析的 PHP 扩展，可以在 <a href="http://xdebug.org/">http://xdebug.org/</a> 这里找到相关的文档。在 Ubuntu 下面安装 xdebug 非常简单，直接执行下面的命令即可。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install php5-xdebug
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!-- more -->
+
+
+<p>但是在 Windows 上安装 xdebug ，就有点小麻烦了。首先我们一般是在 <a href="http://windows.php.net/download/">http://windows.php.net/download/</a> 这里下载 PHP 环境，我用的 PHP 版本是 5.4.X 系列，只有 x86 架构的环境。</p>
+
+<p>首先配置好 PHP 环境，我使用的是 PHP 5.4.X Thread Safe 版本，所以在安装 xdebug 的时候，应该要用对应的文件是—— <a href="http://xdebug.org/files/php_xdebug-2.2.3-5.4-vc9.dll">php_xdebug-2.2.3-5.4-vc9.dll</a> ，千万不要选 64 位或者是 NTS 的版本，这样都无法正常启动 xdebug 。</p>
+
+<p>下载好 DLL 文件之后，在 php.ini 文件中写入：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ini'><span class='line'><span class="na">zend_extension</span><span class="o">=</span><span class="s">D:/PHP5.4/ext/php_xdebug-2.2.3-5.4-vc9.dll</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">[xdebug]</span>
+</span><span class='line'><span class="na">xdebug.auto_trace</span><span class="o">=</span><span class="s">on  </span>
+</span><span class='line'><span class="na">xdebug.collect_params</span><span class="o">=</span><span class="s">on </span>
+</span><span class='line'><span class="na">xdebug.collect_return</span><span class="o">=</span><span class="s">on </span>
+</span><span class='line'><span class="na">xdebug.profiler_enable</span><span class="o">=</span><span class="s">on </span>
+</span><span class='line'><span class="na">xdebug.trace_output_dir</span><span class="o">=</span><span class="s">&quot;D:/PHP5.4/xdebug/trace&quot;</span>
+</span><span class='line'><span class="na">xdebug.profiler_output_dir</span><span class="o">=</span><span class="s">&quot;D:/PHP5.4/xdebug/profiler&quot;</span>
+</span><span class='line'><span class="na">xdebug.remote_enable</span><span class="o">=</span><span class="s">on </span>
+</span><span class='line'><span class="na">xdebug.idekey</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+</span><span class='line'><span class="na">xdebug.remote_handler</span><span class="o">=</span><span class="s">dbgp </span>
+</span><span class='line'><span class="na">xdebug.remote_host</span><span class="o">=</span><span class="s">localhost</span>
+</span><span class='line'><span class="na">xdebug.remote_port</span><span class="o">=</span><span class="s">9000</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重启 Apache 之后，命令行下输入 <code>php -v</code>，就应该能看到如下的信息：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>PHP 5.4.23 <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Dec 11 2013 00:56:37<span class="o">)</span>
+</span><span class='line'>Copyright <span class="o">(</span>c<span class="o">)</span> 1997-2013 The PHP Group
+</span><span class='line'>Zend Engine v2.4.0, Copyright <span class="o">(</span>c<span class="o">)</span> 1998-2013 Zend Technologies
+</span><span class='line'>    with Xdebug v2.2.3, Copyright <span class="o">(</span>c<span class="o">)</span> 2002-2013, by Derick Rethans
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>今后，如果在程序中发生错误的话，就会出现经典的橙色背景，并且还有非常详细的 stack strace 信息，看看下面的图：</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/xdebug/1.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/xdebug/1.jpg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/xdebug/2.png" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/xdebug/2.png" alt="" /></a></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[递归与迭代]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/15/recursion-and-iteration/"/>
+    <updated>2014-02-15T12:01:21+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/15/recursion-and-iteration</id>
+    <content type="html"><![CDATA[<p>虽然题目写的是《递归与迭代》这么一个 <code>geek</code> 的标题，不过接下来的故事我其实是想写一个<code>文艺女与理工男</code>的故事。</p>
+
+<p>写这篇文章的动机来自 <a href="http://weibo.com/1649186337/AmLoK2Upy">http://weibo.com/1649186337/AmLoK2Upy</a> 。未来的社会，会写代码的人越来越多，编程就像今天的外语技能一样，会成为一项基本技能。</p>
+
+<!-- more -->
+
+
+<p>OK，先来设定一下故事背景：文艺女与理工男目前处在暧昧期，目前还没有确立关系，不过经常混在一起，理工男给文艺女普及一些电脑知识，文艺女教会理工男享受生活。</p>
+
+<p>这一天，理工男又给文艺女上编程课了，当然教她的语言是世界上最好的语言——PHP，文艺女已经了解了这门语言的基本语法，今天理工男就要教她<code>递归</code>。</p>
+
+<p>男：好，今天我们来学习递归。你知道递归是什么吗？</p>
+
+<p>女：不知道，那我先去 Google 一下～咦，怎么会是这个样子？</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/recursion/recursion.jpg" title="递归 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/recursion/recursion.jpg" alt="递归 " /></a></p>
+
+<p>男：哈哈，果然让你碰到了这个坑。其实递归是指在函数的定义中使用函数自身的方法。高中的时候学过 fibonacci 数列吧？</p>
+
+<p>女：嗯，这个我知道。f(x) = f(x-1) + f(x-2)，其中 f(1) = 1，f(2) = 1。</p>
+
+<p>男：很好，你从这个公式里就可以看到函数调用了自身，之前你已经学过了函数如何定义和调用，下面来试着自己写一下代码吧？</p>
+
+<p>女：好，我来试试。你看下面这个行不行？</p>
+
+<figure class='code'><figcaption><span>使用递归的 fibonacci 数列</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * 使用递归的 fibonacci 数列</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @param $n</span>
+</span><span class='line'><span class="sd"> * @return bool|int</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">fibonacci</span><span class="p">(</span><span class="nv">$n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">fibonacci</span><span class="p">(</span><span class="nv">$n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">echo</span> <span class="nx">fibonacci</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>男：哇，一下子就写对了，你是我见过最有编程天赋的女孩子，不如改行当程序员吧！你可以做 PHP 女神！</p>
+
+<p>女：哼，本姑娘冰雪聪明，这点小意思难不倒我。</p>
+
+<p>男：哦，那好吧，那你算一下 fibonacci 数列第 1000 个数字是多少？</p>
+
+<p>女：换个参数就行了，看我的～咦，怎么结果是这样？</p>
+
+<figure class='code'><figcaption><span>栈溢出了</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Fatal error: Maximum <span class="k">function </span>nesting level of <span class="s1">&#39;100&#39;</span> reached, aborting!
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>男：这牵涉到计算机系统中<code>栈</code>的概念和编程语言中使用<code>栈</code>来保存递归状态。你这个情况就是碰到栈溢出了。</p>
+
+<p>女：栈是什么？溢出又是什么意思？</p>
+
+<p>男：打个比方吧。你有一个瓶子和一堆小球，用来给递归的层数做一个计数器，每当递归的层数深入一层的时候，你就往瓶子里放一颗小球，直到把瓶子放满了……</p>
+
+<p>女：瓶子放满了，后面的小球就再也放不进去了，递归层数就没办法继续做计数了，所以计算机就报错了，对不对？</p>
+
+<p>男：Bingo！你真是太聪明了，一点就通啊，真的不考虑听我的建议转行当程序员？</p>
+
+<p>女：哼，才不要～原来递归就好像《盗梦空间》里的多层梦境，栈的溢出就好比进入了 limbo 层，诺兰导演原来是个程序员！</p>
+
+<p>男：你的这个解释很有新意……</p>
+
+<p>女：那有没有别的办法求出第 1000 项的数字呢？</p>
+
+<p>男：可以的，用迭代来代替递归即可。我之前教过你循环语句，你要不要试着改写一下代码，用循环来做？</p>
+
+<p>女：好，那我试试。</p>
+
+<figure class='code'><figcaption><span>使用迭代的 fibonacci 数列</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * 使用迭代的 fibonacci 数列</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @param $n</span>
+</span><span class='line'><span class="sd"> * @return bool|int</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">fibonacci_with_iteration</span><span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="nv">$fibo</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="nv">$n</span><span class="p">;</span> <span class="o">++</span><span class="nv">$i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$fibo</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$fibo</span><span class="p">[</span><span class="nv">$i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nv">$fibo</span><span class="p">[</span><span class="nv">$i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nv">$fibo</span><span class="p">[</span><span class="nv">$n</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">echo</span> <span class="nx">fibonacci_with_iteration</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>男：一点就通，果然很棒，不过你这个解法会造成大量内存空间的浪费，我重写一个版本给你吧。</p>
+
+<figure class='code'><figcaption><span>节省内存空间的做法</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * 节省内存空间的做法</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @param $n</span>
+</span><span class='line'><span class="sd"> * @return bool|int</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">list</span><span class="p">(</span><span class="nv">$f0</span><span class="p">,</span> <span class="nv">$f1</span><span class="p">,</span> <span class="nv">$result</span><span class="p">)</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="nv">$n</span><span class="p">;</span> <span class="o">++</span><span class="nv">$i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$f0</span> <span class="o">+</span> <span class="nv">$f1</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$f0</span> <span class="o">=</span> <span class="nv">$f1</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$f1</span> <span class="o">=</span> <span class="nv">$result</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">echo</span> <span class="nx">fibonacci</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>女：迭代这里看不懂啊……</p>
+
+<p>男：呵呵，看不懂那我下次解释给你听，下回我再教你用面向对象的方式重写 fibonacci 数列的解决方案。</p>
+
+<p>女：对象？你这么一个呆头呆脑的理工男还想有对象？</p>
+
+<p>男：人艰不拆……</p>
+
+<p>以上内容，纯属瞎掰，如有雷同，不胜荣幸。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ubuntu 下 Gnome 终端出现假透明]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/11/ubuntu-gnome-terminal-no-transparency/"/>
+    <updated>2014-02-11T14:28:56+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/11/ubuntu-gnome-terminal-no-transparency</id>
+    <content type="html"><![CDATA[<p>某次更新过 Ubuntu 之后，Gnome 终端就从真透明变成了假透明，使用起来非常不方便。</p>
+
+<p>今天，从 <a href="http://askubuntu.com/questions/266533/gnome-terminal-transparency-with-gnome-classic-no-effects">http://askubuntu.com/questions/266533/gnome-terminal-transparency-with-gnome-classic-no-effects</a> 找到了解决问题的方法。</p>
+
+<!-- more -->
+
+
+<p>按照图中的方法修改一下配置，终端又变回真透明了。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/terminal/config.png" title="Config " class="fancybox"><img src="http://caiknife.github.io/downloads/image/terminal/config.png" alt="Config " /></a></p>
+
+<p>下面是之前的假透明：</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/terminal/faketrans.png" title="Fake Transparency " class="fancybox"><img src="http://caiknife.github.io/downloads/image/terminal/faketrans.png" alt="Fake Transparency " /></a></p>
+
+<p>修改之后回到了真透明：</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/terminal/truetrans.png" title="True Transparency " class="fancybox"><img src="http://caiknife.github.io/downloads/image/terminal/truetrans.png" alt="True Transparency " /></a></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[段子]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/10/duanzi/"/>
+    <updated>2014-02-10T15:27:32+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/10/duanzi</id>
+    <content type="html"><![CDATA[<p>作为一个程序猿和理工男，要积极勇敢地开展批评与自我批评，不留余力地黑别人和自黑，于是，我想开始写点段子。</p>
+
+<p>这个段子系列就叫<code>文艺女与理工男</code>吧，当然还是不定期更新，至于好不好笑嘛，我也不知道……</p>
+
+<p>以下内容，纯属虚构，如有雷同，你咬我啊！</p>
+
+<!-- more -->
+
+
+<h3>Vol 1</h3>
+
+<p>女：“你知道《夜空中最亮的星》吗？”</p>
+
+<p>男：“哦，是金星。有些人说是天狼星，其实那是不对的，在地球上看到金星的星等是-4以上，比任何恒星都要明亮，天狼星的星等只有-1.5”</p>
+
+<p>女：“……你们理工男真没情调。”</p>
+
+<h3>Vol 2</h3>
+
+<p>女：“你知道《消失的光年》吗？”</p>
+
+<p>男：“光年是天文学上的长度单位，是指光在真空中用一年时间传播的距离，你看维基百科 <a href="http://zh.wikipedia.org/wiki/%E5%85%89%E5%B9%B4">http://zh.wikipedia.org/wiki/%E5%85%89%E5%B9%B4</a>，至于这个什么消失的光年吧，你确定这么说不是逻辑有问题？”</p>
+
+<p>女：“……你们理工男真没情调”</p>
+
+<h3>Vol 3</h3>
+
+<p>男：“你知道莱特币吗？”</p>
+
+<p>女：“知道啊，几十年前就有这首歌了。”</p>
+
+<p>男：“什么……？”</p>
+
+<p>女：“披头四乐队啊，他们有首歌叫《Let it be》，副歌部分就是这么唱的——let it be~ let it be~ let it be~ let it be~”</p>
+
+<p>男：“你让我冷静一下……”</p>
+
+<p>当程序猿不能太严肃了，得有点幽默感，嗯哼～ Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[新年]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/01/new-year/"/>
+    <updated>2014-02-01T09:11:55+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/01/new-year</id>
+    <content type="html"><![CDATA[<p>新！年！快！乐！</p>
+
+<!-- more -->
+
+
+<p>很久没更新了，主要是有两个原因：</p>
+
+<p>1、笔记本坏掉了。一台五年的 ThinkPad ，主板出了问题，送修了好长一段时间才解决。不知道啥时候可以用上 Macbook 啊？</p>
+
+<p>2、最近玩 <a href="http://segmentfault.com/">http://segmentfault.com/</a> 比较多，可以在这里碰到很多有意思的问题，找出了答案就直接写上去，很少更新在博客上了。</p>
+
+<p>当然还有找新工作的原因。过年前找的几个新机会用现在很流行的话说就是 —— “我喜欢的不喜欢我，喜欢我的我不喜欢”。</p>
+
+<p>呵！呵！呵！</p>
+
+<p>希望过年之后还能有更好的机会吧。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Windows 上安装 Python 包的时候会发生错误]]></title>
+    <link href="http://caiknife.github.io/blog/2013/12/31/a-bug-of-python-on-windows/"/>
+    <updated>2013-12-31T09:39:35+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/12/31/a-bug-of-python-on-windows</id>
+    <content type="html"><![CDATA[<p>昨天在公司的电脑上安装了 Python 环境，开始用 PyCharm 来做开发，不过在安装的过程中碰到了一些问题，顺利解决后来记录一下。</p>
+
+<p>公司的电脑是 Win7 64bit ，安装了 Python 2.7.6 之后，我需要再安装 setuptools 和 pip 来做包的管理。但是在安装这两个包的过程中，经常发生下面的警告：</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Upgrade packages failed.
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>The following <span class="nb">command </span>was executed:
+</span><span class='line'>
+</span><span class='line'>packaging_tool.py install --build-dir C:<span class="se">\U</span>sers<span class="se">\z</span>cai<span class="se">\A</span>ppData<span class="se">\L</span>ocal<span class="se">\T</span>emp<span class="se">\p</span>ycharm-packaging5243158917089453594.tmp -U setuptools
+</span><span class='line'>
+</span><span class='line'>The error output of the <span class="nb">command</span>:
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>Downloading/unpacking setuptools from https://pypi.python.org/packages/source/s/setuptools/setuptools-2.0.2.tar.gz#md5<span class="o">=</span>101b0829eca064fe47708039d66fc135
+</span><span class='line'>  Running setup.py egg_info <span class="k">for </span>package setuptools
+</span><span class='line'>    Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+</span><span class='line'>      File <span class="s2">&quot;&lt;string&gt;&quot;</span>, line 3, in &lt;module&gt;
+</span><span class='line'>      File <span class="s2">&quot;setuptools\__init__.py&quot;</span>, line 11, in &lt;module&gt;
+</span><span class='line'>        from setuptools.extension import Extension
+</span><span class='line'>      File <span class="s2">&quot;setuptools\extension.py&quot;</span>, line 5, in &lt;module&gt;
+</span><span class='line'>        from setuptools.dist import _get_unpatched
+</span><span class='line'>      File <span class="s2">&quot;setuptools\dist.py&quot;</span>, line 15, in &lt;module&gt;
+</span><span class='line'>        from setuptools.compat import numeric_types, basestring
+</span><span class='line'>      File <span class="s2">&quot;setuptools\compat.py&quot;</span>, line 19, in &lt;module&gt;
+</span><span class='line'>        from SimpleHTTPServer import SimpleHTTPRequestHandler
+</span><span class='line'>      File <span class="s2">&quot;C:\Python27\lib\SimpleHTTPServer.py&quot;</span>, line 27, in &lt;module&gt;
+</span><span class='line'>        class SimpleHTTPRequestHandler<span class="o">(</span>BaseHTTPServer.BaseHTTPRequestHandler<span class="o">)</span>:
+</span><span class='line'>      File <span class="s2">&quot;C:\Python27\lib\SimpleHTTPServer.py&quot;</span>, line 208, in SimpleHTTPRequestHandler
+</span><span class='line'>        mimetypes.init<span class="o">()</span> <span class="c"># try to read system mime.types</span>
+</span><span class='line'>      File <span class="s2">&quot;C:\Python27\lib\mimetypes.py&quot;</span>, line 358, in init
+</span><span class='line'>        db.read_windows_registry<span class="o">()</span>
+</span><span class='line'>      File <span class="s2">&quot;C:\Python27\lib\mimetypes.py&quot;</span>, line 258, in read_windows_registry
+</span><span class='line'>        <span class="k">for </span>subkeyname in enum_types<span class="o">(</span>hkcr<span class="o">)</span>:
+</span><span class='line'>      File <span class="s2">&quot;C:\Python27\lib\mimetypes.py&quot;</span>, line 249, in enum_types
+</span><span class='line'>        <span class="nv">ctype</span> <span class="o">=</span> ctype.encode<span class="o">(</span>default_encoding<span class="o">)</span> <span class="c"># omit in 3.x!</span>
+</span><span class='line'>    UnicodeDecodeError: <span class="s1">&#39;ascii&#39;</span> codec can<span class="s1">&#39;t decode byte 0xb0 in position 1: ordinal not in range(128)</span>
+</span><span class='line'><span class="s1">    Complete output from command python setup.py egg_info:</span>
+</span><span class='line'><span class="s1">    Traceback (most recent call last):</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">  File &quot;&lt;string&gt;&quot;, line 3, in &lt;module&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">  File &quot;setuptools\__init__.py&quot;, line 11, in &lt;module&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">    from setuptools.extension import Extension</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">  File &quot;setuptools\extension.py&quot;, line 5, in &lt;module&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">    from setuptools.dist import _get_unpatched</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">  File &quot;setuptools\dist.py&quot;, line 15, in &lt;module&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">    from setuptools.compat import numeric_types, basestring</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">  File &quot;setuptools\compat.py&quot;, line 19, in &lt;module&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">    from SimpleHTTPServer import SimpleHTTPRequestHandler</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">  File &quot;C:\Python27\lib\SimpleHTTPServer.py&quot;, line 27, in &lt;module&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">    class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">  File &quot;C:\Python27\lib\SimpleHTTPServer.py&quot;, line 208, in SimpleHTTPRequestHandler</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">    mimetypes.init() # try to read system mime.types</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">  File &quot;C:\Python27\lib\mimetypes.py&quot;, line 358, in init</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">    db.read_windows_registry()</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">  File &quot;C:\Python27\lib\mimetypes.py&quot;, line 258, in read_windows_registry</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">    for subkeyname in enum_types(hkcr):</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">  File &quot;C:\Python27\lib\mimetypes.py&quot;, line 249, in enum_types</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">    ctype = ctype.encode(default_encoding) # omit in 3.x!</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">UnicodeDecodeError: &#39;</span>ascii<span class="s1">&#39; codec can&#39;</span>t decode byte 0xb0 in position 1: ordinal not in range<span class="o">(</span>128<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>----------------------------------------
+</span><span class='line'>Cleaning up...
+</span><span class='line'>Command python setup.py egg_info failed with error code 1 in C:<span class="se">\U</span>sers<span class="se">\z</span>cai<span class="se">\A</span>ppData<span class="se">\L</span>ocal<span class="se">\T</span>emp<span class="se">\p</span>ycharm-packaging5243158917089453594.tmp<span class="se">\s</span>etuptools
+</span><span class='line'>Storing <span class="nb">complete </span>log in C:<span class="se">\U</span>sers<span class="se">\z</span>cai<span class="se">\p</span>ip<span class="se">\p</span>ip.log
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>根据错误信息，在 <code>C:\Python27\lib\mimetypes.py</code> 找到下面的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">try</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">ctype</span> <span class="o">=</span> <span class="n">ctype</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">default_encoding</span><span class="p">)</span> <span class="c"># omit in 3.x!</span>
+</span><span class='line'><span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注释掉这段代码，再重新安装就可以了。</p>
+
+<p>Windows 上开发真的好多坑啊，还是坚持在 Linux 下开发算了。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

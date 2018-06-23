@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: test | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/test/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[varnish 测试（2）]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/01/varnish-testing/"/>
+    <updated>2013-09-01T23:27:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/01/varnish-testing</id>
+    <content type="html"><![CDATA[<p>继续上次的话题。</p>
+
+<h3>加上了反向代理之后如何获取客户端 IP ？</h3>
+
+<p>由于 varnish 是处于 web 服务器之前的位置，所以 varnish 实际上可以看作是一个 reverse proxy 的服务器。后端的代码要获取客户端 IP 地址的话，如果不做设置，获取的实际上是 varnish 服务器的 IP 地址。比如在 PHP 中经常使用到的 <code>$_SERVER['REMOTE_ADDR']</code> 这个变量，如果没有 varnish 做代理，就是正确的客户端 IP ;如果在 varnish 之后使用的话，只能获得 varnish 服务器的 IP 地址。所以，我们得对 varnish 做一点特殊的处理。</p>
+
+<p>还好 varnish 的配置文件里已经给我们默认写出了这段代码，我们只需要在自己的代码中 copy 过来即可。直接在 <code>vcl_recv</code> 这里补充就行。</p>
+
+<!-- more -->
+
+
+<p>```
+sub vcl_recv {</p>
+
+<pre><code>if (req.restarts == 0) { # 不是重启转发
+    if (req.http.x-forwarded-for) { # 请求头里有 X-Forwarded-For 字段，就追加一个 IP 
+        set req.http.X-Forwarded-For = req.http.X-Forwarded-For + ", " + client.ip;
+    } else { # 请求头里没有有 X-Forwarded-For 字段，就设置 IP  
+        set req.http.X-Forwarded-For = client.ip;
+    }
+}
+if (req.request == "POST") { # POST 请求穿透
+    return (pass);
+}
+return (lookup); # 直接查询缓存
+</code></pre>
+
+<p>}
+```</p>
+
+<p>写一个phpinfo()的页面，分别访问没通过 varnish 和通过 varnish 做处理的页面，就能看到区别了——用 varnish 处理过的页面，就多了 <code>$_SERVER["HTTP_X_FORWARDED_FOR"]  127.0.0.1</code> 这个变量。当然我是在本机同时做了代理和 web 服务，所以这个变量是本地 IP 地址；如果把这两个服务放在不同的服务器上，后端服务器的 PHP 代码通过访问 <code>$_SERVER["HTTP_X_FORWARDED_FOR"]</code> 这个变量是可以得到客户端的正确 IP 地址。</p>
+
+<h3>如何清除缓存？</h3>
+
+<p>建立缓存已经成功了，但是还得会清除缓存。但是要清除缓存不能每次都 <code>sudo service varnish restart</code> 吧？这方法实在是太笨了。在 varnish 的命令行里，可以通过正则表达式来清除缓存。</p>
+
+<p>因为我机器上的 varnish 启动参数默认带了 <code>-S</code> ，所以这里只能通过超级用户进行管理，首先进入命令行：</p>
+
+<p>```
+$ sudo varnishadm</p>
+
+<h2>200        </h2>
+
+<h2>Varnish Cache CLI 1.0</h2>
+
+<p>Linux,3.2.0-52-generic,x86_64,-smalloc,-smalloc,-hcritbit</p>
+
+<p>Type &lsquo;help&rsquo; for command list.
+Type &lsquo;quit&rsquo; to close CLI session.</p>
+
+<p>varnish>
+```</p>
+
+<p>输入 <code>help</code> ，看看我们能使用哪些命令？</p>
+
+<p><code>
+varnish&gt; help
+200        
+help [command]
+ping [timestamp]
+auth response
+quit
+banner
+status
+start
+stop
+vcl.load &lt;configname&gt; &lt;filename&gt;
+vcl.inline &lt;configname&gt; &lt;quoted_VCLstring&gt;
+vcl.use &lt;configname&gt;
+vcl.discard &lt;configname&gt;
+vcl.list
+vcl.show &lt;configname&gt;
+param.show [-l] [&lt;param&gt;]
+param.set &lt;param&gt; &lt;value&gt;
+panic.show
+panic.clear
+storage.list
+ban.url &lt;regexp&gt;
+ban &lt;field&gt; &lt;operator&gt; &lt;arg&gt; [&amp;&amp; &lt;field&gt; &lt;oper&gt; &lt;arg&gt;]...
+ban.list
+</code></p>
+
+<p>一般情况下，清除缓存只需要用到 <code>ban.url</code> 这个命令就可以了。</p>
+
+<p>```
+varnish> ban.url .(css|js|jpg|jpeg|png)$ # 清除各种静态文件的缓存
+200</p>
+
+<p>varnish> ban.url ^/caketest # 清除 /caketest 开头 URL 的文件缓存
+200<br/>
+```</p>
+
+<p><code>ban.url</code> 这个命令是不能判断请求域名的，只能根据 URL 来进行正则匹配。所以需要根据域名来清除缓存的时候，就需要用到 <code>ban</code> 这个命令了。</p>
+
+<p>```
+varnish> ban req.http.host == &ldquo;example.com&rdquo; &amp;&amp; req.url ~ &ldquo;.png$&rdquo;</p>
+
+<h1>清除 example.com 域名下的 png 文件缓存</h1>
+
+<p>```</p>
+
+<p>上面这条命令来自 varnish 的手册<a href="https://www.varnish-cache.org/docs/3.0/tutorial/purging.html">https://www.varnish-cache.org/docs/3.0/tutorial/purging.html</a>，但是在我的机器上运行报了语法错误，是反斜杠的问题。是转义的问题还是 varnish 的正则表达式不支持 <code>.</code> 呢？看来还得再研究研究了。</p>
+
+<p>时候不早，早点休息。每天进步一小点，长久下去就能有很大的收获。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[varnish 测试（1）]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/31/varnish-testing/"/>
+    <updated>2013-08-31T12:50:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/31/varnish-testing</id>
+    <content type="html"><![CDATA[<p>前天安装配置了 varnish ，但是在生产环境下，还是有很多更复杂的情况会出现，有时候还是得多考虑一下可能会发生的问题，自己模拟一下，找到解决的办法。测试代码是用 CakePHP2.3.8 编写的，代码如下：</p>
+
+<p>``` php
+// controller
+class TestsController extends AppController {</p>
+
+<pre><code>public $uses = array();
+
+public $autoLayout = false;
+
+public function index() {
+    $content = "This is a text!";
+    $this-&gt;set("content", $content);
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>``` html
+// view</p>
+
+<div>
+    <h1>Hello, world!</h1>
+    <p><?= $content;?></p>
+</div>
+
+
+<p>```</p>
+
+<!-- more -->
+
+
+<h3>ALWAYS PIPE</h3>
+
+<p>首先模拟的状态是所有请求直接进行 PIPE 转发，不再经过 varnish 进行处理。测试的 URL 是 <code>http://localhost:6081/caketest/tests/index</code> 。</p>
+
+<p>```
+sub vcl_recv {</p>
+
+<pre><code>return (pipe); # 直接 pipe 转发
+</code></pre>
+
+<p>}
+```</p>
+
+<p>最后得到的 response header 如下：</p>
+
+<p>```</p>
+
+<h1>visit <a href="http://localhost:6081/caketest/tests/index">http://localhost:6081/caketest/tests/index</a></h1>
+
+<p>HTTP/1.1 200 OK
+Date: Sat, 31 Aug 2013 14:49:10 GMT
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Length: 74
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: text/html; charset=UTF-8
+```</p>
+
+<p>可以看到，这一次请求并没有经过 varnish 的处理， response header 中完全没有有关 varnish 的字段。</p>
+
+<h3>NO PASS NO CACHE</h3>
+
+<p>现在模拟的状态是所有请求一律不 PASS ，所有 fetch 到的后端数据一律不缓存，对应的 VCL 如下：</p>
+
+<p>```
+sub vcl_recv {</p>
+
+<pre><code>return (lookup); # 直接查询缓存
+</code></pre>
+
+<p>}</p>
+
+<p>sub vcl_fetch {</p>
+
+<pre><code>set beresp.ttl = 0s; # 直接转发给客户端，不做 cache
+return (deliver); 
+</code></pre>
+
+<p>}</p>
+
+<p>sub vcl_deliver {</p>
+
+<pre><code>set resp.http.X-Hits = obj.hits; # 击中次数
+if (obj.hits &gt; 0) {
+    set resp.http.X-Cache = "HIT"; # 击中标记
+} else {
+    set resp.http.X-Cache = "MISS"; # 未击中
+}
+return (deliver);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>刷新几次页面后，可以看到 response header 如下：</p>
+
+<p>```</p>
+
+<h1>first visit <a href="http://localhost:6081/caketest/tests/index">http://localhost:6081/caketest/tests/index</a></h1>
+
+<p>HTTP/1.1 200 OK
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 74
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 14:55:42 GMT
+X-Varnish: 1398451209
+Age: 0
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 0
+X-Cache: MISS</p>
+
+<h1>second visit <a href="http://localhost:6081/caketest/tests/index">http://localhost:6081/caketest/tests/index</a></h1>
+
+<p>HTTP/1.1 200 OK
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 74
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 14:57:06 GMT
+X-Varnish: 1398451211
+Age: 0
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 0
+X-Cache: MISS
+```</p>
+
+<p>可以从 header 里看到并没有击中缓存。然后再把缓存时间设置成 10 分钟试试看。</p>
+
+<h3>NO PASS CACHE FOR 10 MINUTES</h3>
+
+<p>```
+sub vcl_fetch {</p>
+
+<pre><code>set beresp.ttl = 600s; # 缓存 10 分钟
+return (deliver); 
+</code></pre>
+
+<p>}
+```</p>
+
+<p>```</p>
+
+<h1>first visit <a href="http://localhost:6081/caketest/tests/index">http://localhost:6081/caketest/tests/index</a></h1>
+
+<p>HTTP/1.1 200 OK
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 74
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 16:20:35 GMT
+X-Varnish: 284865991
+Age: 0
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 0
+X-Cache: MISS</p>
+
+<h1>second visit <a href="http://localhost:6081/caketest/tests/index">http://localhost:6081/caketest/tests/index</a></h1>
+
+<p>HTTP/1.1 200 OK
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 74
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 16:20:39 GMT
+X-Varnish: 284865992 284865991
+Age: 4
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 1
+X-Cache: HIT
+```</p>
+
+<p>缓存击中。</p>
+
+<h4>POST cached ？</h4>
+
+<p>之前的缓存都是针对 GET 请求的，但是一个 POST 请求也会被缓存吗？下面再测试一下：</p>
+
+<p>``` php
+public function search() {</p>
+
+<pre><code>$content = "";
+if ($this-&gt;request-&gt;is('post')) {
+    $query = $this-&gt;data['Search']['query'];
+    if (!empty($query)) {
+        $this-&gt;redirect(array('query' =&gt; $query));
+    } else {
+        $this-&gt;redirect(array('action' =&gt; $this-&gt;action));
+    }
+}
+$content = isset($this-&gt;request-&gt;named['query']) ? $this-&gt;request-&gt;named['query'] : null ;
+$this-&gt;set("content", $content);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>``` html</p>
+
+<div>
+    <h1>Hello, varnish!</h1>
+    <p>You query word is: <strong><?= $content?></strong></p>
+    <div>
+        <?= $this->Form->create('Search', 
+                array(
+                    'type' => 'post', 
+                    'url' => array(
+                        'controller' => $this->request->params['controller'],
+                        'action' => $this->request->params['action'],
+                    )
+                )
+            )?>
+        <?= $this->Form->text('query')?>
+        <?= $this->Form->submit('Search')?>
+        <?= $this->Form->end()?>
+    </div>
+</div>
+
+
+<p>```</p>
+
+<p>接着访问 <code>http://localhost:6081/caketest/tests/search</code> 。</p>
+
+<p>```</p>
+
+<h1>first visit <a href="http://localhost:6081/caketest/tests/search">http://localhost:6081/caketest/tests/search</a></h1>
+
+<p>HTTP/1.1 200 OK
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 279
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 16:39:36 GMT
+X-Varnish: 1956628660
+Age: 0
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 0
+X-Cache: MISS</p>
+
+<h1>POST request <a href="http://localhost:6081/caketest/tests/search">http://localhost:6081/caketest/tests/search</a></h1>
+
+<p>HTTP/1.1 200 OK
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 279
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 16:41:18 GMT
+X-Varnish: 1956628661 1956628660
+Age: 101
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 1
+X-Cache: HIT
+```</p>
+
+<p>很明显，这次 POST 的结果击中了缓存，将第一次访问 <code>http://localhost:6081/caketest/tests/search</code> 的结果返回了。按照程序的逻辑， POST 之后会有一次跳转，当前页面的 URL 是会改变的，可是明显看到这次请求并没有穿透 varnish 。于是我们又得修改配置文件能够让 POST 不被 varnish 缓存。</p>
+
+<h3>PASS POST CACHE GET</h3>
+
+<p>```
+sub vcl_recv {</p>
+
+<pre><code>if (req.request == "POST") { # POST 请求穿透
+    return (pass);
+}
+return (lookup); # 查询缓存
+</code></pre>
+
+<p>}
+```</p>
+
+<p>```</p>
+
+<h1>first visit <a href="http://localhost:6081/caketest/tests/search">http://localhost:6081/caketest/tests/search</a></h1>
+
+<p>HTTP/1.1 200 OK
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 279
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 17:15:56 GMT
+X-Varnish: 1605383887
+Age: 0
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 0
+X-Cache: MISS</p>
+
+<h1>POST request <a href="http://localhost:6081/caketest/tests/search">http://localhost:6081/caketest/tests/search</a></h1>
+
+<p>HTTP/1.1 302 Found
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Location: <a href="http://localhost:6081/caketest/tests/search/query:caiknife">http://localhost:6081/caketest/tests/search/query:caiknife</a>
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 20
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 17:16:18 GMT
+X-Varnish: 1605383888
+Age: 0
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 0
+X-Cache: MISS</p>
+
+<h1>302 redirect <a href="http://localhost:6081/caketest/tests/search/query:caiknife">http://localhost:6081/caketest/tests/search/query:caiknife</a></h1>
+
+<p>HTTP/1.1 200 OK
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 286
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 17:16:18 GMT
+X-Varnish: 1605383889
+Age: 0
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 0
+X-Cache: MISS</p>
+
+<h1>third visit <a href="http://localhost:6081/caketest/tests/search/query:caiknife">http://localhost:6081/caketest/tests/search/query:caiknife</a></h1>
+
+<p>HTTP/1.1 200 OK
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 286
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 17:17:30 GMT
+X-Varnish: 1605383890 1605383889
+Age: 72
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 1
+X-Cache: HIT</p>
+
+<h1>POST request <a href="http://localhost:6081/caketest/tests/search">http://localhost:6081/caketest/tests/search</a></h1>
+
+<p>HTTP/1.1 302 Found
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Location: <a href="http://localhost:6081/caketest/tests/search/query:caiknife">http://localhost:6081/caketest/tests/search/query:caiknife</a>
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 20
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 17:25:52 GMT
+X-Varnish: 1605383895
+Age: 0
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 0
+X-Cache: MISS</p>
+
+<h1>302 redirect <a href="http://localhost:6081/caketest/tests/search/query:caiknife">http://localhost:6081/caketest/tests/search/query:caiknife</a></h1>
+
+<p>HTTP/1.1 200 OK
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.7
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Type: text/html; charset=UTF-8
+Content-Length: 286
+Accept-Ranges: bytes
+Date: Sat, 31 Aug 2013 17:25:52 GMT
+X-Varnish: 1605383896 1605383889
+Age: 574
+Via: 1.1 varnish
+Connection: keep-alive
+X-Hits: 2
+X-Cache: HIT
+```</p>
+
+<p>从 response header 中可以看到，所有的 POST 请求都正常穿透到了后端服务器，没有被缓存起来。而所有的 GET 请求都被正常缓存，并且能从这正是我们想要的效果。</p>
+
+<p>今天只是第一步对 varnish 的测试，日后我会测试更多的例子，更加深入地研究 varnish 。</p>
+
+<p>最后再虚伪地做一下压力测试：</p>
+
+<p>``` bash
+caiknife@caiknife-ThinkPad-T400:~$ webbench -c 100 -t 10 <a href="http://localhost/caketest/tests/info">http://localhost/caketest/tests/info</a>
+Webbench &ndash; Simple Web Benchmark 1.5
+Copyright &copy; Radim Kolar 1997-2004, GPL Open Source Software.</p>
+
+<p>Benchmarking: GET <a href="http://localhost/caketest/tests/info">http://localhost/caketest/tests/info</a>
+100 clients, running 10 sec.</p>
+
+<p>Speed=138 pages/min, 343387 bytes/sec.
+Requests: 23 susceed, 0 failed.</p>
+
+<p>caiknife@caiknife-ThinkPad-T400:~$ webbench -c 100 -t 10 <a href="http://localhost:6081/caketest/tests/info">http://localhost:6081/caketest/tests/info</a>
+Webbench &ndash; Simple Web Benchmark 1.5
+Copyright &copy; Radim Kolar 1997-2004, GPL Open Source Software.</p>
+
+<p>Benchmarking: GET <a href="http://localhost:6081/caketest/tests/info">http://localhost:6081/caketest/tests/info</a>
+100 clients, running 10 sec.</p>
+
+<p>Speed=123384 pages/min, 172400768 bytes/sec.
+Requests: 20564 susceed, 0 failed.
+```</p>
+
+<p>看样子性能是提升了不少，看来 varnish 相当不错，我了个去啊，好好用的话，牛逼大发了啊。可惜我到现在都没有自己的服务器，妈蛋！</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

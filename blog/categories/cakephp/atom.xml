@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cakephp | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/cakephp/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[一句话 Shell 脚本（3）]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/26/happy-shell-script/"/>
+    <updated>2014-02-26T10:00:43+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/26/happy-shell-script</id>
+    <content type="html"><![CDATA[<p>CakePHP 会在自己的项目文件夹的 <code>app/tmp</code> 下建立缓存文件，用来保存数据库表结构。在开启 debug 的情况下，每次发起请求后都会刷新缓存，但是在生产环境下，一般都是关闭了 debug 的，如果某次功能升级修改了表结构的话，缓存并不会主动更新，如此一来就会产生 InternalError 。</p>
+
+<p>看来还是要写个脚本来手动删除这些缓存文件。</p>
+
+<!-- more -->
+
+
+<p>先看看缓存目录结构是什么样的：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>tree
+.
+├── cache
+│   ├── cake_toolbar_cache19c90b767c0870ceefeb6659d993da93
+│   ├── models
+│   │   ├── ccqo_cake_model_default_ccqo_accounts
+│   │   ├── ccqo_cake_model_default_ccqo_articles
+│   │   ├── ccqo_cake_model_default_ccqo_list
+│   │   ├── ccqo_cake_model_default_ccqo_train_divisions
+│   │   ├── ccqo_cake_model_default_ccqo_trainees
+│   │   ├── ccqo_cake_model_default_ccqo_trainers
+│   │   └── ccqo_cake_model_default_ccqo_train_infos
+│   └── persistent
+│       ├── ccqo_cake_core_cake_zh-cn
+│       ├── ccqo_cake_core_debug_kit_zh-cn
+│       ├── ccqo_cake_core_file_map
+│       └── ccqo_cake_core_method_cache
+└── logs
+```</p></blockquote>
+
+<p>要删除的是缓存文件，目录不用删除。 OK ，那么就写个脚本一次性全部搞定好了。</p>
+
+<p>先想到的是用 <code>find</code> 命令配合管道符来用：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>find . -type f | xargs rm -f
+```</p></blockquote>
+
+<p>结果报了权限错误：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>find . -type f | xargs rm -f
+rm: 无法删除"./cache/persistent/ccqo_cake_core_cake_zh-cn": 权限不够
+rm: 无法删除"./cache/persistent/ccqo_cake_core_file_map": 权限不够
+rm: 无法删除"./cache/persistent/ccqo_cake_core_debug_kit_zh-cn": 权限不够
+rm: 无法删除"./cache/persistent/ccqo_cake_core_method_cache": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_list": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_train_divisions": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_trainers": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_articles": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_train_infos": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_trainees": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_accounts": 权限不够
+```</p></blockquote>
+
+<p>这些文件是由 <code>www-data</code> 帐号生成的，所以我自然不能删除，所以加上 <code>sudo</code> 再删除吧。</p>
+
+<p>几分钟之后又想了想，其实不用管道符，完全可以用 <code>find</code> 自己就可以完成了：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>find . -type f -exec sudo rm -f {} +
+```</p></blockquote>
+
+<p>打完收工！</p>
+
+<p>最近越来越感觉随着年纪的增长，接触的事情越来越多，记忆力没有以前好了。高中时代特别自豪地过目不忘的本事也指望不上了，看来还是好记性不如烂笔头，得养成一个良好的记录和总结的习惯，才会对将来的工作有所帮助。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[给 CakePHP 的 Session Flash 做点小修改]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/25/hack-session-flash-for-cakephp/"/>
+    <updated>2014-02-25T11:59:36+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/25/hack-session-flash-for-cakephp</id>
+    <content type="html"><![CDATA[<p>在 CakePHP 的教程中，CRUD 操作结束后跳转到新页面时，一般会做一个提示框显示在页面上。这个做法在教程中是按照下面的这么个流程写的：</p>
+
+<!-- more -->
+
+
+<p>首先在 Controller 里面做跳转之前：</p>
+
+<p>``` php
+public function add() {</p>
+
+<pre><code>if ($this-&gt;request-&gt;is('post')) {
+    $this-&gt;Post-&gt;create();
+    if ($this-&gt;Post-&gt;save($this-&gt;request-&gt;data)) {
+        /**
+         * 跳转之前设置一条 Session 信息
+         */
+        $this-&gt;Session-&gt;setFlash(__('Your post has been saved.'));
+        return $this-&gt;redirect(array('action' =&gt; 'index'));
+    }
+    $this-&gt;Session-&gt;setFlash(__('Unable to add your post.'));
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>在 View 上要做下面修改：</p>
+
+<p>``` php</p>
+
+<div id="content">
+    <?php echo $this->Session->flash(); ?>
+    <?php echo $this->fetch('content'); ?>
+</div>
+
+
+<p>```</p>
+
+<p>上面代码中的 <code>&lt;?php echo $this-&gt;Session-&gt;flash(); ?&gt;</code> 的作用就是将前一次跳转中设置的 Session 跳转信息显示在页面上，随后删除 Session 中的跳转信息，以确保下一次不会再显示。</p>
+
+<p>但是，默认情况下，这段跳转信息的 HTML 结构是这样的：</p>
+
+<p>``` php</p>
+
+<div id="flashMessage" class="message">Hello, world!</div>
+
+
+<p>```</p>
+
+<p>那么，如果要配合 BootStrap 一起使用的话，应该如何设置呢？咱们先来看看 SessionComponent 和 SessionHelper 的部分源代码。</p>
+
+<p>``` php SessionComponent
+public function setFlash($message, $element = &lsquo;default&rsquo;, $params = array(), $key = &lsquo;flash&rsquo;) {</p>
+
+<pre><code>CakeSession::write('Message.' . $key, compact('message', 'element', 'params'));
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>很明显，在跳转之前调用 $this->Session->setFlash(__(&lsquo;Your post has been saved.&rsquo;)); ，会在 Session 中以 <code>Message{$key}</code> 作为 Key 写入对应的 <code>$message</code> ，<code>$element</code> ，<code>$params</code>。接着会在 SessionHelper 中调用：</p>
+
+<p>``` php SessionHelper
+public function flash($key = &lsquo;flash&rsquo;, $attrs = array()) {</p>
+
+<pre><code>$out = false;
+
+if (CakeSession::check('Message.' . $key)) {
+    $flash = CakeSession::read('Message.' . $key);
+    $message = $flash['message'];
+    unset($flash['message']);
+
+    if (!empty($attrs)) {
+        $flash = array_merge($flash, $attrs);
+    }
+
+    if ($flash['element'] === 'default') {
+        $class = 'message';
+        if (!empty($flash['params']['class'])) {
+            $class = $flash['params']['class'];
+        }
+        $out = '&lt;div id="' . $key . 'Message" class="' . $class . '"&gt;' . $message . '&lt;/div&gt;';
+    } elseif (!$flash['element']) {
+        $out = $message;
+    } else {
+        $options = array();
+        if (isset($flash['params']['plugin'])) {
+            $options['plugin'] = $flash['params']['plugin'];
+        }
+        $tmpVars = $flash['params'];
+        $tmpVars['message'] = $message;
+        $out = $this-&gt;_View-&gt;element($flash['element'], $tmpVars, $options);
+    }
+    CakeSession::delete('Message.' . $key);
+}
+return $out;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>从上面默认的代码可以看出，如果 <code>$element</code> 为 <code>default</code> 的话，就是之前默认的 HTML 结构；如果没设置的话，则直接显示 <code>$message</code> 文本信息；如果设置成其他的值，就会到 <code>View/Elements</code> 下调用相对应的模板文件。</p>
+
+<p>为此，我特别写了一个模板：</p>
+
+<p>``` php notify.ctp</p>
+
+<div id="flashMessage" class="alert <?php echo isset($status) ? 'alert-' . $status : ''; ?> <?php echo isset($block) && $block ? 'alert-block' : ''; ?> text-center">
+    <a class="close" data-dismiss="alert">×</a>
+    <?php echo h($message)?>
+</div>
+
+
+<p>```</p>
+
+<p>这样调用的时候，只需要在 Controller 里用下面的代码即可，View 中不需要更改。最终在显示的时候，就会呈现出一个通栏的提示框，当然你也可以把它放在特定的 DIV 里，让它的样式能够符合你的需求。</p>
+
+<p><code>php
+$this-&gt;Session-&gt;setFlash("Hello, world!", 'notify' , array('status'=&gt;'success'));
+</code></p>
+
+<p>第三个参数中的 <code>status</code> 就是用来定制显示信息的样式，具体有哪些配置可以参考 <a href="http://v2.bootcss.com/components.html#alerts">http://v2.bootcss.com/components.html#alerts</a> 。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CakePHP 的 Nginx 设置]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/30/nginx-configuration-for-cakephp/"/>
+    <updated>2013-09-30T10:01:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/30/nginx-configuration-for-cakephp</id>
+    <content type="html"><![CDATA[<p>在自己的笔记本上弄了个 CakePHP + Nginx 的组合，做了基本设置。</p>
+
+<p>由于 80 端口已经被 Apache 占用，因此我指定 Nginx 监听 81 端口。</p>
+
+<p>首先记得安装 Nginx 和 PHP5-FPM 模块：</p>
+
+<p><code>bash
+$ sudo apt-get install nginx php5-fpm
+</code></p>
+
+<p>然后记得编辑 <code>/etc/php/fpm/php.ini</code> ，并设置 <code>cgi.fix_pathinfo=0</code>，接着重启 <code>php-fpm</code> 。</p>
+
+<!-- more -->
+
+
+<h3>将 CakePHP 作为独立网站配置</h3>
+
+<p>下面是将 CakePHP 作为一个单独的主机进行配置的 Nginx 配置文件。</p>
+
+<p>``` nginx /etc/nginx/sites-available/cakestrap.conf
+server {</p>
+
+<pre><code># 监听 81 端口
+listen 81; 
+# 配置本地域名 cakestrap.local
+server_name cakestrap.local; 
+# 将这个域名下所有的请求重写到 www.cakestrap.local
+rewrite ^(.*) http://www.cakestrap.local:81$1 permanent; 
+</code></pre>
+
+<p>}</p>
+
+<p>server {</p>
+
+<pre><code>listen 81;
+# 配置本地域名 www.cakestrap.local
+server_name www.cakestrap.local;
+
+# 设置 $document_root
+root "/home/caiknife/source/cakestrap/app/webroot/";
+index index.php;
+access_log /var/log/nginx/cakestrap.local.access.log;
+error_log /var/log/nginx/cakestrap.local.error.log;
+
+# 解析根目录
+location / {
+    # 尝试将请求 $uri 解析为文件或者目录，如果都不是的话，重写到根目录下的 index.php 
+    try_files $uri $uri/ /index.php?$uri&amp;$args;
+}
+
+# 解析 PHP 文件
+location ~ \.php$ {
+    # 请求文件，如果失败的话，显示404。
+    try_files $uri =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    include fastcgi_params;
+    # 这里用 php fpm 模块比传统的 fast cgi 模块要快
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>接着建立软链接，并测试 Nginx 配置语法是否正确：
+<code>bash
+$ sudo ln -s /etc/nginx/sites-available/cakestrap.conf /etc/nginx/sites-enable/cakestrap.conf
+$ sudo nginx -t
+</code></p>
+
+<p>如果语法正常没有错误的话，就重启 Nginx ：</p>
+
+<p><code>bash
+$ sudo service nginx &lt;reload|restart&gt;
+</code></p>
+
+<p>编辑 <code>/etc/hosts</code> ，加入两行： <code>127.0.0.1   cakestrap.local</code> 和 <code>127.0.0.1   www.cakestrap.local</code> 。之后就可以在浏览器里直接访问了。</p>
+
+<h3>将CakePHP作为网站子目录配置。</h3>
+
+<p>如果要把 CakePHP 作为一个网站的子目录访问，应该如何设置呢？</p>
+
+<p>假设本机已经有网站 <code>localhost</code> ，我要把一个 CakePHP 项目配置到这个网站的 <code>cakestrap</code> 目录下，第一步就在 <code>localhost</code> 的根目录下建立一个软链接指向这个 CakePHP 项目。</p>
+
+<p><code>bash
+$ ln -s /home/caiknife/source/cakestrap/app/webroot /usr/share/nginx/html/cakestrap
+</code></p>
+
+<p>然后在 <code>localhost</code> 的配置文件里加入下面的代码：</p>
+
+<p>``` nginx
+location /cakestrap {</p>
+
+<pre><code># 目录浏览开启
+autoindex on;
+# 尝试将请求 $uri 解析为文件或者目录，如果都不是的话，重写到 $document_root/cakestrap/index.php 
+try_files $uri $uri/ /cakestrap/index.php?$uri&amp;$args;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>CakePHP 默认的 Apache 重写规则是：</p>
+
+<p>``` apache
+<IfModule mod_rewrite.c></p>
+
+<pre><code>RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]
+</code></pre>
+
+<p></IfModule>
+```</p>
+
+<p>和 Nginx 的 <code>try_files $uri $uri/ /cakestrap/index.php?$uri&amp;$args;</code> 有异曲同工之妙， Apache 的重写规则很容易就能迁移到 Nginx 上。</p>
+
+<p>Nginx 的基本配置就到这里，今后得研究研究它的反向代理、负载均衡和缓存功能。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一点废话]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/12/some-snippets/"/>
+    <updated>2013-09-12T23:25:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/12/some-snippets</id>
+    <content type="html"><![CDATA[<p>有几天没写博客了，最近这几天一直在看文档学习。 PHP 、Python 、Ruby 的各种微框架都在看—— Flask 、Sinatra 、 Padrino 、Silex 、Slim 、 Limonade 、 Flight，还有一个最近比较火的 Laravel 4 。看了这么多，却不知道自己能用上的能有多少，如此多的微框架，真正用起来的时候，还是要自己造轮子。用了很多年的 CakePHP ，还是感觉这个东西最好用，估计我这一辈子就和 CakePHP 一起活了，呵呵。</p>
+
+<!-- more -->
+
+
+<p>前两天把 Bootstrap 速查卡更新了一下，优化了一些东西，在老地址访问即可，旧版本直接覆盖，没有存档。过去的东西就应该被遗忘吧，呵呵。</p>
+
+<p>今天扫了一下前端的东西，发现两个比较好玩的， PhantomJS 和 CasperJS 。这两个结合起来是前端自动化测试的强力工具啊，在当前 NodeJS 开始火爆起来的情况下，用好这两个，能做点有意思的事情。</p>
+
+<p>``` js+php phantom.js
+var page = require(&lsquo;webpage&rsquo;).create(),</p>
+
+<pre><code>system = require('system'),
+t = (new Date()).toLocaleString(),
+address;
+</code></pre>
+
+<p>if (system.args.length === 1) {</p>
+
+<pre><code>console.log("Usage:phantomjs p.js &lt;url&gt;");
+phantom.exit();
+</code></pre>
+
+<p>}</p>
+
+<p>address = system.args[1];</p>
+
+<p>page.open(address, function() {</p>
+
+<pre><code>page.render(t + '.png');
+phantom.exit();
+</code></pre>
+
+<p>});
+```</p>
+
+<p>上面这段代码运行在 PhantomJS 里，就能从命令行读取一个 URL ，然后截图显示了，超级棒啊。而 CasperJS 更是可以当成爬虫一样来用。</p>
+
+<p>``` js+php casper.js
+var casper = require(&lsquo;casper&rsquo;).create();</p>
+
+<p>casper.start(&lsquo;<a href="http://casperjs.org/">http://casperjs.org/</a>&rsquo;, function() {</p>
+
+<pre><code>this.echo(this.getTitle());
+</code></pre>
+
+<p>});</p>
+
+<p>casper.thenOpen(&lsquo;<a href="http://phantomjs.org">http://phantomjs.org</a>&rsquo;, function() {</p>
+
+<pre><code>this.echo(this.getTitle());
+</code></pre>
+
+<p>});</p>
+
+<p>casper.run();
+```</p>
+
+<p>实在是太神奇了，我和我的小伙伴都惊呆了。</p>
+
+<p>现在真的感觉<code>学海无涯</code>这四个字是什么意思了。</p>
+
+<p>然后又理解了这句话的意思——<code>吾生也有涯，而知也无涯，以有涯随无涯，殆已。</code></p>
+
+<p>Have a nice day！</p>
+
+<p>最后再补充一点，在 Octopress 里面用代码高亮的时候，有时候会报错：</p>
+
+<p><code>bash
+pygments_code.rb:14:in `highlight': undefined method `[]' for nil:NilClass (NoMethodError)
+</code></p>
+
+<p>过去一直没找到原因，今天发现是在指定语言类型的时候用错了。比如，这片文章里的代码是 JavaScript ，但是代码块声明语言类型的时候不能写成下面这个样子 <code>js</code> ，正确的格式是 <code>js+php</code> 。</p>
+
+<p>详细的设置请看：<a href="http://pygments.org/docs/lexers/">http://pygments.org/docs/lexers/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CakePHP 事件机制]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/08/cakephp-events-system/"/>
+    <updated>2013-09-08T01:41:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/08/cakephp-events-system</id>
+    <content type="html"><![CDATA[<p>内置事件机制的编程语言不多，而绝大部分编程语言都是靠观察者设计模式来实现这一机制的。而引入事件机制的目的之一，就是要解耦，让代码能够更加容易维护，让一个对象只做自己该做的事情，不要去做别的对象应该做的事情。</p>
+
+<p>现在 CakePHP 中的 Controller 和 Model 中，都有 <code>getEventManager()</code> 方法，这就相当于观察者模式中的<code>被观察者</code>，而我们自己编写的事件就是<code>观察者</code>。在别的地方编写代码注册事件之后，在一个地方进行事件的广播，从而调用所有的观察者方法。</p>
+
+<!-- more -->
+
+
+<p>我们来看看怎么使用 CakePHP 的事件机制。首先你得创建一个 <code>CakeEvent</code> 对象：</p>
+
+<p>``` php
+class EventsController extends AppController {</p>
+
+<pre><code>public $uses = array();
+
+public function index() {
+    /**
+     * CakeEvent构造函数接受三个参数
+     * @param $name 事件名称，尽量全局唯一
+     * @param $subject 被观察者对象，一般都用 $this
+     * @param $data 保存参数，可以通过 $event-&gt;data 获得
+     * @type {CakeEvent}
+     */
+    $event = new CakeEvent(
+        'Controller.events.index', 
+        $this, 
+        array(
+            'profile' =&gt; array(
+                'name' =&gt; 'caiknife', 
+                'email' =&gt; 'caiknife@foxmail.com',
+            ),
+        )
+    );
+
+    /**
+     * 进行广播，调用观察者的方法
+     */
+    $this-&gt;getEventManager()-&gt;dispatch($event);
+
+    debug($event-&gt;result);
+}
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>我们先用一个匿名函数来测试一下，为了方便，统一在 Controller 的 <code>beforeFilter()</code> 方法里进行注册。</p>
+
+<p>``` php
+public function beforeFilter() {</p>
+
+<pre><code>parent::beforeFilter();
+
+$this-&gt;getEventManager()-&gt;attach(
+    function($profile){
+        pr('In an anonymous function.');
+        pr($profile);
+    }, 
+    'Controller.events.index', 
+    array(
+        'passParams' =&gt; true,
+        'priority' =&gt; 2,
+    )
+);
+</code></pre>
+
+<p>}
+```</p>
+
+<p><code>EventManager</code> 的 <code>attach</code> 方法接受三个参数，第一个是回调方法；第二个就是前面提到的事件名称，要求全局唯一；第三个参数是设置选项，传入的值不同可能会影响回调函数的动作。</p>
+
+<p><code>passParams</code> 这个参数设置为 <code>true</code>，会把 <code>$event-&gt;data</code> 的值作为回调函数的参数传入，而不设置的话，回调函数的参数就是 <code>$event</code> 对象。我个人觉得还是不要设置为 <code>true</code> ，直接操作 <code>$event</code> 对象能让程序更灵活。</p>
+
+<p><code>priority</code> 设置回调函数的优先级，默认情况下都是 10 ，数字越小则优先执行，数字相等的话则根据回调函数注册顺序执行。</p>
+
+<p>上面的代码按我个人的喜好风格，还可以写成：</p>
+
+<p>``` php
+public function beforeFilter() {</p>
+
+<pre><code>parent::beforeFilter();
+
+$this-&gt;getEventManager()-&gt;attach(
+    function($event){
+        pr('In an anonymous function.');
+        pr($event-&gt;data['profile']);
+    }, 
+    'Controller.events.index', 
+    array(
+        'priority' =&gt; 2,
+    )
+);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>同样在注册回调函数的时候，也可以用事先定义好的函数或者是类方法，就跟 <code>call_user_func()</code> 和 <code>call_user_func_array()</code> 的第一个参数一样，详细的代码我会在最后列出。</p>
+
+<p>除了使用函数之外，还可以通过实现 <code>CakeEventListener</code> 接口来注册回调函数。下面就是一个例子。</p>
+
+<p>``` php
+class ProfileListener implements CakeEventListener {</p>
+
+<pre><code>public function implementedEvents() {
+    return array(
+        'Controller.events.index' =&gt; array(
+            'callable' =&gt; 'profile', // 把 profile 方法注册为 Controller.events.index 这个事件的回调函数
+            'priority' =&gt; -2,
+        ),
+    );
+}
+
+public function profile($event) {
+    pr('In an class listener.');
+    pr($event-&gt;data);
+    $event-&gt;result[__METHOD__] = 'class method';
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>在进行注册的时候，直接调用：</p>
+
+<p><code>php
+$this-&gt;getEventManager()-&gt;attach(new ProfileListener());
+</code></p>
+
+<p>从上面的代码可以看出，实现 <code>CakeEventListener</code> 接口可以为多个事件回调函数，只需要实现 <code>implementedEvents()</code> 方法并在返回的数组中指明对应的调用关系即可。为了方便代码的维护，以后最好使用这种方法进行回调函数的注册。</p>
+
+<p>当然，事件是有返回值的。前面提到的 <code>passParams</code> 设置为 <code>true</code> 的情况下，回调函数的返回值就是事件的返回值，通过 <code>$event-&gt;result</code> 来获取，但是这样以来有个问题——如果我们注册了很多回调函数并且这些回调函数都有返回值的话，<code>$event-&gt;result</code> 这个值总是会被最后一个回调函数的返回值给覆盖掉，这样一来我们就无法知道所有回调函数的运行结果了。所以，我才会在前面并不推荐把 <code>passParams</code> 设置为 <code>true</code>，而是在上面的代码里使用了类似 <code>$event-&gt;result[__METHOD__] = 'class method';</code> 这样的方法来获取每一个回调函数的结果。</p>
+
+<p>关于 CakePHP 的事件机制，先研究了这么多。想要了解其中更深奥的内容，最好的办法就是阅读开源代码—— <a href="https://github.com/cakephp/debug_kit">https://github.com/cakephp/debug_kit</a> ，这个 CakePHP 的 Debug 工具就用到了事件机制，非常值得学习。</p>
+
+<p>除此之外，Zend Framework 2 中也实现了事件机制，我个人并不是太喜欢 ZF1 ，觉得它作为一个 MVC 框架来说太重太复杂，但是作为一个类库是非常棒的， ZF2 我还没有研究过，希望将来能有机会学习了解并用上它。关于 ZF2 的事件机制，可以从官方文档查阅—— <a href="http://framework.zend.com/manual/2.2/en/modules/zend.event-manager.event-manager.html">http://framework.zend.com/manual/2.2/en/modules/zend.event-manager.event-manager.html</a></p>
+
+<p>Have a nice day！</p>
+
+<p>最后，是这篇文章整理过的源代码。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (example.php)</span> <a href='/downloads/code/cakephp-event/example.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">EventsController</span> <span class="k">extends</span> <span class="nx">AppController</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$uses</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">beforeFilter</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">parent</span><span class="o">::</span><span class="na">beforeFilter</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span>
+</span><span class='line'>            <span class="k">function</span><span class="p">(</span><span class="nv">$profile</span><span class="p">){</span>
+</span><span class='line'>                <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an anonymous function with passParams set to true.&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="nx">pr</span><span class="p">(</span><span class="nv">$profile</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="p">},</span> <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;passParams&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">7</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span>
+</span><span class='line'>            <span class="k">function</span><span class="p">(</span><span class="nv">$event</span><span class="p">){</span>
+</span><span class='line'>                <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an anonymous with passParams set to true to false.&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="nx">pr</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="s1">&#39;profile&#39;</span><span class="p">]);</span>
+</span><span class='line'>            <span class="p">},</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span>
+</span><span class='line'>            <span class="s1">&#39;print_profile&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;passParams&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span>
+</span><span class='line'>            <span class="s1">&#39;print_profile_with_event&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="s1">&#39;_profile&#39;</span><span class="p">),</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span><span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">attach</span><span class="p">(</span><span class="k">new</span> <span class="nx">ProfileListener</span><span class="p">());</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="sd">/**</span>
+</span><span class='line'><span class="sd">         * CakeEvent构造函数接受三个参数</span>
+</span><span class='line'><span class="sd">         * @param $name 事件名称，尽量全局唯一</span>
+</span><span class='line'><span class="sd">         * @param $subject 被观察者对象，一般都用 $this</span>
+</span><span class='line'><span class="sd">         * @param $data 保存参数，可以通过 $event-&gt;data 获得</span>
+</span><span class='line'><span class="sd">         * @type {CakeEvent}</span>
+</span><span class='line'><span class="sd">         */</span>
+</span><span class='line'>        <span class="nv">$event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CakeEvent</span><span class="p">(</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="p">,</span>
+</span><span class='line'>            <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;profile&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;caiknife&#39;</span><span class="p">,</span>
+</span><span class='line'>                    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;caiknife@foxmail.com&#39;</span><span class="p">,</span>
+</span><span class='line'>                <span class="p">),</span>
+</span><span class='line'>            <span class="p">)</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>        <span class="sd">/**</span>
+</span><span class='line'><span class="sd">         * 进行广播，调用观察者的方法</span>
+</span><span class='line'><span class="sd">         */</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEventManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">dispatch</span><span class="p">(</span><span class="nv">$event</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">debug</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">result</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">_profile</span><span class="p">(</span><span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an class method.&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">result</span><span class="p">[</span><span class="nx">__METHOD__</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;class method&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">function</span> <span class="nf">print_profile</span><span class="p">(</span><span class="nv">$profile</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an pre-defined function with passParams set to true.&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">pr</span><span class="p">(</span><span class="nv">$profile</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">function</span> <span class="nf">print_profile_with_event</span><span class="p">(</span><span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an pre-defined function with passParams set to false.&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">pr</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">ProfileListener</span> <span class="k">implements</span> <span class="nx">CakeEventListener</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">implementedEvents</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>            <span class="s1">&#39;Controller.events.index&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>                <span class="s1">&#39;callable&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;profile&#39;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="o">-</span><span class="mi">2</span>
+</span><span class='line'>            <span class="p">),</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">profile</span><span class="p">(</span><span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="s1">&#39;In an class listener.&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">);</span>
+</span><span class='line'>        <span class="c1">// 被观察者是我们的 EventsController 对象的一个实例</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="nb">get_class</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">subject</span><span class="p">()));</span>
+</span><span class='line'>        <span class="c1">// 可以像平常一样调用 Controller 的各种方法</span>
+</span><span class='line'>        <span class="nx">pr</span><span class="p">(</span><span class="nv">$event</span><span class="o">-&gt;</span><span class="na">subject</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">result</span><span class="p">[</span><span class="nx">__METHOD__</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;class method&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

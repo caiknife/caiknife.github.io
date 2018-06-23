@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: bootstrap | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/bootstrap/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[给 CakePHP 的 Session Flash 做点小修改]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/25/hack-session-flash-for-cakephp/"/>
+    <updated>2014-02-25T11:59:36+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/25/hack-session-flash-for-cakephp</id>
+    <content type="html"><![CDATA[<p>在 CakePHP 的教程中，CRUD 操作结束后跳转到新页面时，一般会做一个提示框显示在页面上。这个做法在教程中是按照下面的这么个流程写的：</p>
+
+<!-- more -->
+
+
+<p>首先在 Controller 里面做跳转之前：</p>
+
+<p>``` php
+public function add() {</p>
+
+<pre><code>if ($this-&gt;request-&gt;is('post')) {
+    $this-&gt;Post-&gt;create();
+    if ($this-&gt;Post-&gt;save($this-&gt;request-&gt;data)) {
+        /**
+         * 跳转之前设置一条 Session 信息
+         */
+        $this-&gt;Session-&gt;setFlash(__('Your post has been saved.'));
+        return $this-&gt;redirect(array('action' =&gt; 'index'));
+    }
+    $this-&gt;Session-&gt;setFlash(__('Unable to add your post.'));
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>在 View 上要做下面修改：</p>
+
+<p>``` php</p>
+
+<div id="content">
+    <?php echo $this->Session->flash(); ?>
+    <?php echo $this->fetch('content'); ?>
+</div>
+
+
+<p>```</p>
+
+<p>上面代码中的 <code>&lt;?php echo $this-&gt;Session-&gt;flash(); ?&gt;</code> 的作用就是将前一次跳转中设置的 Session 跳转信息显示在页面上，随后删除 Session 中的跳转信息，以确保下一次不会再显示。</p>
+
+<p>但是，默认情况下，这段跳转信息的 HTML 结构是这样的：</p>
+
+<p>``` php</p>
+
+<div id="flashMessage" class="message">Hello, world!</div>
+
+
+<p>```</p>
+
+<p>那么，如果要配合 BootStrap 一起使用的话，应该如何设置呢？咱们先来看看 SessionComponent 和 SessionHelper 的部分源代码。</p>
+
+<p>``` php SessionComponent
+public function setFlash($message, $element = &lsquo;default&rsquo;, $params = array(), $key = &lsquo;flash&rsquo;) {</p>
+
+<pre><code>CakeSession::write('Message.' . $key, compact('message', 'element', 'params'));
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>很明显，在跳转之前调用 $this->Session->setFlash(__(&lsquo;Your post has been saved.&rsquo;)); ，会在 Session 中以 <code>Message{$key}</code> 作为 Key 写入对应的 <code>$message</code> ，<code>$element</code> ，<code>$params</code>。接着会在 SessionHelper 中调用：</p>
+
+<p>``` php SessionHelper
+public function flash($key = &lsquo;flash&rsquo;, $attrs = array()) {</p>
+
+<pre><code>$out = false;
+
+if (CakeSession::check('Message.' . $key)) {
+    $flash = CakeSession::read('Message.' . $key);
+    $message = $flash['message'];
+    unset($flash['message']);
+
+    if (!empty($attrs)) {
+        $flash = array_merge($flash, $attrs);
+    }
+
+    if ($flash['element'] === 'default') {
+        $class = 'message';
+        if (!empty($flash['params']['class'])) {
+            $class = $flash['params']['class'];
+        }
+        $out = '&lt;div id="' . $key . 'Message" class="' . $class . '"&gt;' . $message . '&lt;/div&gt;';
+    } elseif (!$flash['element']) {
+        $out = $message;
+    } else {
+        $options = array();
+        if (isset($flash['params']['plugin'])) {
+            $options['plugin'] = $flash['params']['plugin'];
+        }
+        $tmpVars = $flash['params'];
+        $tmpVars['message'] = $message;
+        $out = $this-&gt;_View-&gt;element($flash['element'], $tmpVars, $options);
+    }
+    CakeSession::delete('Message.' . $key);
+}
+return $out;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>从上面默认的代码可以看出，如果 <code>$element</code> 为 <code>default</code> 的话，就是之前默认的 HTML 结构；如果没设置的话，则直接显示 <code>$message</code> 文本信息；如果设置成其他的值，就会到 <code>View/Elements</code> 下调用相对应的模板文件。</p>
+
+<p>为此，我特别写了一个模板：</p>
+
+<p>``` php notify.ctp</p>
+
+<div id="flashMessage" class="alert <?php echo isset($status) ? 'alert-' . $status : ''; ?> <?php echo isset($block) && $block ? 'alert-block' : ''; ?> text-center">
+    <a class="close" data-dismiss="alert">×</a>
+    <?php echo h($message)?>
+</div>
+
+
+<p>```</p>
+
+<p>这样调用的时候，只需要在 Controller 里用下面的代码即可，View 中不需要更改。最终在显示的时候，就会呈现出一个通栏的提示框，当然你也可以把它放在特定的 DIV 里，让它的样式能够符合你的需求。</p>
+
+<p><code>php
+$this-&gt;Session-&gt;setFlash("Hello, world!", 'notify' , array('status'=&gt;'success'));
+</code></p>
+
+<p>第三个参数中的 <code>status</code> 就是用来定制显示信息的样式，具体有哪些配置可以参考 <a href="http://v2.bootcss.com/components.html#alerts">http://v2.bootcss.com/components.html#alerts</a> 。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BootStrap 的文件上传控件]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/24/bootstrap-filestyle/"/>
+    <updated>2014-02-24T10:21:34+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/24/bootstrap-filestyle</id>
+    <content type="html"><![CDATA[<p><code>input[type=file]</code> 的这个控件，在不同的浏览器上表现出的样式不同，尤其是在 Chrome 上，完全和 FF 、IE 的天差地别。为了让这个控件在不同的浏览器表现出统一的样式，需要有一个优秀的解决方案。</p>
+
+<!-- more -->
+
+
+<p>周末在家里做东西的时候，由于后台使用了 BootStrap 来做，于是就想找一个类似的插件来修改，在 Google 上搜了一下，找到了下面这个插件：</p>
+
+<p><a href="http://markusslima.github.io/bootstrap-filestyle/">http://markusslima.github.io/bootstrap-filestyle/</a></p>
+
+<p>导入该插件的库文件之后，</p>
+
+<p>``` js+php</p>
+
+<script type="text/javascript" src="js/bootstrap-filestyle.min.js"></script>
+
+
+<p>```</p>
+
+<p>配置起来异常简单：</p>
+
+<p><code>js+php
+$(":file").filestyle();
+</code></p>
+
+<p>当然如果只是想为单个控件做样式修改的话，可以通过 HTML5 的 data API 来完成：</p>
+
+<p><code>js+php
+&lt;input type="file" class="filestyle" data-classButton="btn btn-primary" data-input="false"&gt;
+</code></p>
+
+<p>这个插件还有一些配置选项和 API 可以满足各种定制，具体的内容可以查看源文档。</p>
+
+<p>BootStrap 真是好东西，但是用多了之后，会不会有审美疲劳？</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一点废话]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/12/some-snippets/"/>
+    <updated>2013-09-12T23:25:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/12/some-snippets</id>
+    <content type="html"><![CDATA[<p>有几天没写博客了，最近这几天一直在看文档学习。 PHP 、Python 、Ruby 的各种微框架都在看—— Flask 、Sinatra 、 Padrino 、Silex 、Slim 、 Limonade 、 Flight，还有一个最近比较火的 Laravel 4 。看了这么多，却不知道自己能用上的能有多少，如此多的微框架，真正用起来的时候，还是要自己造轮子。用了很多年的 CakePHP ，还是感觉这个东西最好用，估计我这一辈子就和 CakePHP 一起活了，呵呵。</p>
+
+<!-- more -->
+
+
+<p>前两天把 Bootstrap 速查卡更新了一下，优化了一些东西，在老地址访问即可，旧版本直接覆盖，没有存档。过去的东西就应该被遗忘吧，呵呵。</p>
+
+<p>今天扫了一下前端的东西，发现两个比较好玩的， PhantomJS 和 CasperJS 。这两个结合起来是前端自动化测试的强力工具啊，在当前 NodeJS 开始火爆起来的情况下，用好这两个，能做点有意思的事情。</p>
+
+<p>``` js+php phantom.js
+var page = require(&lsquo;webpage&rsquo;).create(),</p>
+
+<pre><code>system = require('system'),
+t = (new Date()).toLocaleString(),
+address;
+</code></pre>
+
+<p>if (system.args.length === 1) {</p>
+
+<pre><code>console.log("Usage:phantomjs p.js &lt;url&gt;");
+phantom.exit();
+</code></pre>
+
+<p>}</p>
+
+<p>address = system.args[1];</p>
+
+<p>page.open(address, function() {</p>
+
+<pre><code>page.render(t + '.png');
+phantom.exit();
+</code></pre>
+
+<p>});
+```</p>
+
+<p>上面这段代码运行在 PhantomJS 里，就能从命令行读取一个 URL ，然后截图显示了，超级棒啊。而 CasperJS 更是可以当成爬虫一样来用。</p>
+
+<p>``` js+php casper.js
+var casper = require(&lsquo;casper&rsquo;).create();</p>
+
+<p>casper.start(&lsquo;<a href="http://casperjs.org/">http://casperjs.org/</a>&rsquo;, function() {</p>
+
+<pre><code>this.echo(this.getTitle());
+</code></pre>
+
+<p>});</p>
+
+<p>casper.thenOpen(&lsquo;<a href="http://phantomjs.org">http://phantomjs.org</a>&rsquo;, function() {</p>
+
+<pre><code>this.echo(this.getTitle());
+</code></pre>
+
+<p>});</p>
+
+<p>casper.run();
+```</p>
+
+<p>实在是太神奇了，我和我的小伙伴都惊呆了。</p>
+
+<p>现在真的感觉<code>学海无涯</code>这四个字是什么意思了。</p>
+
+<p>然后又理解了这句话的意思——<code>吾生也有涯，而知也无涯，以有涯随无涯，殆已。</code></p>
+
+<p>Have a nice day！</p>
+
+<p>最后再补充一点，在 Octopress 里面用代码高亮的时候，有时候会报错：</p>
+
+<p><code>bash
+pygments_code.rb:14:in `highlight': undefined method `[]' for nil:NilClass (NoMethodError)
+</code></p>
+
+<p>过去一直没找到原因，今天发现是在指定语言类型的时候用错了。比如，这片文章里的代码是 JavaScript ，但是代码块声明语言类型的时候不能写成下面这个样子 <code>js</code> ，正确的格式是 <code>js+php</code> 。</p>
+
+<p>详细的设置请看：<a href="http://pygments.org/docs/lexers/">http://pygments.org/docs/lexers/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[bootstrap 初学习]]></title>
+    <link href="http://caiknife.github.io/blog/2013/09/05/start-bootstrap/"/>
+    <updated>2013-09-05T00:13:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/09/05/start-bootstrap</id>
+    <content type="html"><![CDATA[<p>花了一个下午的时间学习了 bootstrap ，用的版本是 2.3.2 ，暂时不用 bs3 还是想保守一点先用 2.x 这个比较成熟的框架做点东西出来。</p>
+
+<p>今天的成果就是一个页面 <a href="/bootstrap/" target="_blank">bootstrap 速查卡</a>。写得很简陋，列出了一些平常开发时会用到的元素，方便以后开发的时候可以很快就能利用起来。</p>
+
+<p>更详细的文档可以在 <a href="http://www.bootcss.com/scaffolding.html">http://www.bootcss.com/scaffolding.html</a> 查到。</p>
+
+<p>今天花了很多时间在学习 bootstrap 上，有些心得暂时来不及写了。过几天时间补上。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

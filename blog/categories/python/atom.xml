@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Windows 上安装 Python 包的时候会发生错误]]></title>
+    <link href="http://caiknife.github.io/blog/2013/12/31/a-bug-of-python-on-windows/"/>
+    <updated>2013-12-31T09:39:35+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/12/31/a-bug-of-python-on-windows</id>
+    <content type="html"><![CDATA[<p>昨天在公司的电脑上安装了 Python 环境，开始用 PyCharm 来做开发，不过在安装的过程中碰到了一些问题，顺利解决后来记录一下。</p>
+
+<p>公司的电脑是 Win7 64bit ，安装了 Python 2.7.6 之后，我需要再安装 setuptools 和 pip 来做包的管理。但是在安装这两个包的过程中，经常发生下面的警告：</p>
+
+<!-- more -->
+
+
+<p>``` bash
+Upgrade packages failed.</p>
+
+<p>The following command was executed:</p>
+
+<p>packaging_tool.py install &mdash;build-dir C:\Users\zcai\AppData\Local\Temp\pycharm-packaging5243158917089453594.tmp -U setuptools</p>
+
+<p>The error output of the command:</p>
+
+<p>Downloading/unpacking setuptools from <a href="https://pypi.python.org/packages/source/s/setuptools/setuptools-2.0.2.tar.gz#md5=101b0829eca064fe47708039d66fc135">https://pypi.python.org/packages/source/s/setuptools/setuptools-2.0.2.tar.gz#md5=101b0829eca064fe47708039d66fc135</a>
+  Running setup.py egg_info for package setuptools</p>
+
+<pre><code>Traceback (most recent call last):
+  File "&lt;string&gt;", line 3, in &lt;module&gt;
+  File "setuptools\__init__.py", line 11, in &lt;module&gt;
+    from setuptools.extension import Extension
+  File "setuptools\extension.py", line 5, in &lt;module&gt;
+    from setuptools.dist import _get_unpatched
+  File "setuptools\dist.py", line 15, in &lt;module&gt;
+    from setuptools.compat import numeric_types, basestring
+  File "setuptools\compat.py", line 19, in &lt;module&gt;
+    from SimpleHTTPServer import SimpleHTTPRequestHandler
+  File "C:\Python27\lib\SimpleHTTPServer.py", line 27, in &lt;module&gt;
+    class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+  File "C:\Python27\lib\SimpleHTTPServer.py", line 208, in SimpleHTTPRequestHandler
+    mimetypes.init() # try to read system mime.types
+  File "C:\Python27\lib\mimetypes.py", line 358, in init
+    db.read_windows_registry()
+  File "C:\Python27\lib\mimetypes.py", line 258, in read_windows_registry
+    for subkeyname in enum_types(hkcr):
+  File "C:\Python27\lib\mimetypes.py", line 249, in enum_types
+    ctype = ctype.encode(default_encoding) # omit in 3.x!
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xb0 in position 1: ordinal not in range(128)
+Complete output from command python setup.py egg_info:
+Traceback (most recent call last):
+</code></pre>
+
+<p>  File &ldquo;<string>&rdquo;, line 3, in <module></p>
+
+<p>  File &ldquo;setuptools__init__.py&rdquo;, line 11, in <module></p>
+
+<pre><code>from setuptools.extension import Extension
+</code></pre>
+
+<p>  File &ldquo;setuptools\extension.py&rdquo;, line 5, in <module></p>
+
+<pre><code>from setuptools.dist import _get_unpatched
+</code></pre>
+
+<p>  File &ldquo;setuptools\dist.py&rdquo;, line 15, in <module></p>
+
+<pre><code>from setuptools.compat import numeric_types, basestring
+</code></pre>
+
+<p>  File &ldquo;setuptools\compat.py&rdquo;, line 19, in <module></p>
+
+<pre><code>from SimpleHTTPServer import SimpleHTTPRequestHandler
+</code></pre>
+
+<p>  File &ldquo;C:\Python27\lib\SimpleHTTPServer.py&rdquo;, line 27, in <module></p>
+
+<pre><code>class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+</code></pre>
+
+<p>  File &ldquo;C:\Python27\lib\SimpleHTTPServer.py&rdquo;, line 208, in SimpleHTTPRequestHandler</p>
+
+<pre><code>mimetypes.init() # try to read system mime.types
+</code></pre>
+
+<p>  File &ldquo;C:\Python27\lib\mimetypes.py&rdquo;, line 358, in init</p>
+
+<pre><code>db.read_windows_registry()
+</code></pre>
+
+<p>  File &ldquo;C:\Python27\lib\mimetypes.py&rdquo;, line 258, in read_windows_registry</p>
+
+<pre><code>for subkeyname in enum_types(hkcr):
+</code></pre>
+
+<p>  File &ldquo;C:\Python27\lib\mimetypes.py&rdquo;, line 249, in enum_types</p>
+
+<pre><code>ctype = ctype.encode(default_encoding) # omit in 3.x!
+</code></pre>
+
+<p>UnicodeDecodeError: &lsquo;ascii&rsquo; codec can&rsquo;t decode byte 0xb0 in position 1: ordinal not in range(128)</p>
+
+<hr />
+
+<p>Cleaning up&hellip;
+Command python setup.py egg_info failed with error code 1 in C:\Users\zcai\AppData\Local\Temp\pycharm-packaging5243158917089453594.tmp\setuptools
+Storing complete log in C:\Users\zcai\pip\pip.log
+```</p>
+
+<p>根据错误信息，在 <code>C:\Python27\lib\mimetypes.py</code> 找到下面的代码：</p>
+
+<p>``` python
+try:</p>
+
+<pre><code>ctype = ctype.encode(default_encoding) # omit in 3.x!
+</code></pre>
+
+<p>except UnicodeEncodeError:</p>
+
+<pre><code>pass
+</code></pre>
+
+<p>```</p>
+
+<p>注释掉这段代码，再重新安装就可以了。</p>
+
+<p>Windows 上开发真的好多坑啊，还是坚持在 Linux 下开发算了。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[完美洗牌]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/26/perfect-shuffle/"/>
+    <updated>2013-08-26T11:20:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/26/perfect-shuffle</id>
+    <content type="html"><![CDATA[<p>在知乎上看到这么一个问题<a href="http://www.zhihu.com/question/21503093">http://www.zhihu.com/question/21503093</a>，里面提到了完美洗牌，就想想一副牌到底要经过多少次完美洗牌才能复原呢？写了个小程序测试一下。</p>
+
+<!-- more -->
+
+
+<p>``` python</p>
+
+<h1>coding: utf-8</h1>
+
+<p>&ldquo;&rdquo;&ldquo;
+<a href="http://www.zhihu.com/question/21503093">http://www.zhihu.com/question/21503093</a></p>
+
+<p>a set of cards including 52 cards tagged from 1 to 52, no joker cards
+&ldquo;&rdquo;"</p>
+
+<p>import copy</p>
+
+<p>def perfect_shuffle(cards):</p>
+
+<pre><code>size = len(cards)
+left, right = cards[0:size/2], cards[size/2:]
+new_cards = []
+
+for i in range(size/2):
+    new_cards.append(left[i])
+    new_cards.append(right[i])
+
+return new_cards
+</code></pre>
+
+<p>def main():</p>
+
+<pre><code>cards = range(1, 53)
+shuffle_times = 0
+old_cards = copy.deepcopy(cards)
+new_cards = []
+
+while True:
+    new_cards = perfect_shuffle(old_cards)
+    shuffle_times += 1
+
+    if new_cards == cards:
+        break
+
+    old_cards = copy.deepcopy(new_cards)
+
+print shuffle_times
+</code></pre>
+
+<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:</p>
+
+<pre><code>main()
+</code></pre>
+
+<p>```</p>
+
+<p>最终确定是8次。</p>
+
+<p>但是我这个完美洗牌算法不是最优解。正确的完美洗牌要求是：</p>
+
+<blockquote><p>输入a1, a2, &hellip;, an, b1, b2, &hellip;, bn，这是一个2n大小的数组。要求用O(n)的时间，用O(1)的空间，将这个序列顺序改为a1, b1, &hellip;, an, bn。</p></blockquote>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[类似Zend_Config_Ini风格的python parser]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/21/python-ini-parser/"/>
+    <updated>2013-08-21T18:13:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/21/python-ini-parser</id>
+    <content type="html"><![CDATA[<p>写完上一篇文章之后，做了一个类似Zend_Config_Ini的Python parser，可以用来解析标准和非标准格式的ini文件，但是不能写文件。如果只用来读取文件内容的话，还是挺方便的。</p>
+
+<p>ini文件内容如下：</p>
+
+<p>``` ini
+master.host                 = stats10.mezimedia.com
+master.username             = scltrk
+master.password             = Mhok8homL7
+master.dbname               = tracking</p>
+
+<p>slave.host                  = stats11.mezimedia.com
+slave.port                  = 3308
+slave.username              = scltrk
+slave.password              = Mhok8homL7
+slave.dbname                = tracking</p>
+
+<p>msgsite                     = smarter
+offset                      = 20000
+```</p>
+
+<!-- more -->
+
+
+<p>源代码：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (pyparseini.py)</span> <a href='/downloads/code/python-ini/pyparseini.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">ast</span> <span class="kn">import</span> <span class="n">literal_eval</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">re</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;parse_ini&#39;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">default</span> <span class="o">=</span> <span class="s">&#39;__default__&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># [ production ]</span>
+</span><span class='line'><span class="n">REGEX_SEC</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;\[\s?([\w]+)\s?\]&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+</span><span class='line'><span class="c"># [ dev : production ]</span>
+</span><span class='line'><span class="n">REGEX_I_SEC</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;\[\s?([\w]+)\s?:\s?([\w]+)\s?\]&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">parse_ini</span><span class="p">(</span><span class="n">ini_path</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">ini</span> <span class="o">=</span> <span class="n">_Obj</span><span class="p">({</span><span class="n">default</span><span class="p">:</span> <span class="n">_Obj</span><span class="p">()})</span>
+</span><span class='line'>    <span class="n">current_section</span> <span class="o">=</span> <span class="n">default</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ini_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span class='line'>            <span class="c"># empty line or a comment line</span>
+</span><span class='line'>            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span> <span class="ow">or</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s">&#39;;&#39;</span> <span class="ow">or</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s">&#39;#&#39;</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">continue</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c"># section</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s">&#39;[&#39;</span><span class="p">:</span>
+</span><span class='line'>                <span class="c"># a common section </span>
+</span><span class='line'>                <span class="n">result</span> <span class="o">=</span> <span class="n">REGEX_SEC</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>                    <span class="n">section</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>                    <span class="n">ini</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">ini</span><span class="p">[</span><span class="n">default</span><span class="p">])</span>
+</span><span class='line'>                <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                    <span class="c"># a inherited section </span>
+</span><span class='line'>                    <span class="n">result</span> <span class="o">=</span> <span class="n">REGEX_I_SEC</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><span class='line'>                    <span class="k">if</span> <span class="n">result</span> <span class="ow">in</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>                        <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s">&quot;Invalid section declaration&quot;</span><span class="p">)</span>
+</span><span class='line'>                    <span class="n">section</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>                    <span class="n">parent</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>                    <span class="c"># wrong parent section</span>
+</span><span class='line'>                    <span class="k">if</span> <span class="n">parent</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ini</span><span class="p">:</span>
+</span><span class='line'>                        <span class="k">raise</span> <span class="n">MissingSectionError</span><span class="p">(</span><span class="s">&quot;&#39;</span><span class="si">%s</span><span class="s">&#39; inherits from &#39;</span><span class="si">%s</span><span class="s">&#39; which hasn&#39;t been declared.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">parent</span><span class="p">))</span>
+</span><span class='line'>                    <span class="n">ini</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">ini</span><span class="p">[</span><span class="n">parent</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="n">current_section</span> <span class="o">=</span> <span class="n">section</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c"># option</span>
+</span><span class='line'>            <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">pieces</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;=&quot;</span><span class="p">)</span>
+</span><span class='line'>                <span class="c"># master.foo.bar</span>
+</span><span class='line'>                <span class="n">vals</span> <span class="o">=</span> <span class="n">pieces</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
+</span><span class='line'>                <span class="c"># [&#39;bar&#39;, &#39;foo&#39;, &#39;master&#39;]</span>
+</span><span class='line'>                <span class="n">vals</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+</span><span class='line'>                <span class="n">data</span> <span class="o">=</span> <span class="n">_cast</span><span class="p">(</span><span class="n">pieces</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span><span class='line'>                <span class="n">working_obj</span> <span class="o">=</span> <span class="n">ini</span><span class="p">[</span><span class="n">current_section</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="k">while</span> <span class="n">vals</span><span class="p">:</span>
+</span><span class='line'>                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+</span><span class='line'>                        <span class="n">working_obj</span><span class="p">[</span><span class="n">vals</span><span class="o">.</span><span class="n">pop</span><span class="p">()]</span> <span class="o">=</span> <span class="n">data</span>
+</span><span class='line'>                    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                        <span class="n">val</span> <span class="o">=</span> <span class="n">vals</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class='line'>                        <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">working_obj</span><span class="p">:</span>
+</span><span class='line'>                            <span class="n">working_obj</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="n">_Obj</span><span class="p">()</span>
+</span><span class='line'>                        <span class="n">working_obj</span> <span class="o">=</span> <span class="n">working_obj</span><span class="p">[</span><span class="n">val</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="n">env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">env</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ini</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">raise</span> <span class="n">MissingSectionError</span><span class="p">(</span><span class="s">&quot;The section being loaded does not exist.&quot;</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">ini</span><span class="p">[</span><span class="n">env</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">ini</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">_cast</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">val</span> <span class="o">=</span> <span class="n">literal_eval</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">except</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">pass</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">val</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">_Obj</span><span class="p">(</span><span class="n">OrderedDict</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    A dict that allows for object-like property access syntax.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">_Obj</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</span><span class='line'>        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">default</span><span class="p">][</span><span class="n">name</span><span class="p">]</span>
+</span><span class='line'>            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>            <span class="bp">self</span><span class="o">.</span><span class="n">__getattr__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">False</span>
+</span><span class='line'>        <span class="k">return</span> <span class="bp">True</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">MissingSectionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    Thrown when a section header inherits from a section that has yet been undeclared.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>测试代码：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (test_parseini.py)</span> <a href='/downloads/code/python-ini/test_parseini.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">unittest</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">os</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">..pyparseini</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">ParseIniTestCase</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">        master.host                 = stats10.mezimedia.com</span>
+</span><span class='line'><span class="sd">        master.username             = scltrk</span>
+</span><span class='line'><span class="sd">        master.password             = Mhok8homL7</span>
+</span><span class='line'><span class="sd">        master.dbname               = tracking</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">        slave.host                  = stats11.mezimedia.com</span>
+</span><span class='line'><span class="sd">        slave.port                  = 3308</span>
+</span><span class='line'><span class="sd">        slave.username              = scltrk</span>
+</span><span class='line'><span class="sd">        slave.password              = Mhok8homL7</span>
+</span><span class='line'><span class="sd">        slave.dbname                = tracking</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">        msgsite                     = smarter</span>
+</span><span class='line'><span class="sd">        offset                      = 20000</span>
+</span><span class='line'><span class="sd">        &quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s">&#39;files/smus.ini&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">parse_ini</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">test_master</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s">&#39;master&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="s">&#39;stats10.mezimedia.com&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="s">&#39;scltrk&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="s">&#39;Mhok8homL7&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">dbname</span><span class="p">,</span> <span class="s">&#39;tracking&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">test_slave</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s">&#39;slave&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">slave</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="s">&#39;stats11.mezimedia.com&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">slave</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="mi">3308</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">slave</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="s">&#39;scltrk&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">slave</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="s">&#39;Mhok8homL7&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">slave</span><span class="o">.</span><span class="n">dbname</span><span class="p">,</span> <span class="s">&#39;tracking&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">test_msgsite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">msgsite</span><span class="p">,</span> <span class="s">&#39;smarter&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">test_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="mi">20000</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>不知道把Python的东西写成Zend的风格是不是一种好习惯。对我来说，Python很轻巧，我很喜欢，Zend虽然很重，但是大气的架构和丰富的功能以及各种设计模式的运用都非常值得学习。艺不压身，努力学习才是关键。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Python读取ini文件]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/21/python-read-ini-files/"/>
+    <updated>2013-08-21T14:08:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/21/python-read-ini-files</id>
+    <content type="html"><![CDATA[<p>标准的ini文件中，应该有一个类似[section]的部分作为正文的开头，但是很多情况下，ini文件都是不标准的，比如下面这个格式：</p>
+
+<p>``` ini
+master.host                 = stats10.mezimedia.com
+master.username             = scltrk
+master.password             = Mhok8homL7
+master.dbname               = tracking</p>
+
+<p>slave.host                  = stats11.mezimedia.com
+slave.port                  = 3308
+slave.username              = scltrk
+slave.password              = Mhok8homL7
+slave.dbname                = tracking</p>
+
+<p>msgsite                     = smarter
+offset                      = 20000
+```</p>
+
+<p>在PHP中，对ini文件的格式容错率较高，不管是不是以[section]开头，PHP总能以正确的方式解析，不管是用原生的<code>parse_ini_file</code>函数还是<code>Zend_Config_Ini</code>类库，都可以非常方便无错地解析ini。</p>
+
+<!-- more -->
+
+
+<p>下面是用<code>parse_ini_file</code>解析文件的结果
+``` php
+require_once &lsquo;Zend/Loader.php&rsquo;;
+Zend_Loader::registerAutoload();</p>
+
+<p>$iniFile = &lsquo;./smus.ini&rsquo;;</p>
+
+<p>Zend_Debug::dump(parse_ini_file($iniFile));
+/<em>
+输出结果
+array(12) {
+  [&ldquo;master.host&rdquo;] => string(21) &ldquo;stats10.mezimedia.com&rdquo;
+  [&ldquo;master.username&rdquo;] => string(6) &ldquo;scltrk&rdquo;
+  [&ldquo;master.password&rdquo;] => string(10) &ldquo;Mhok8homL7&rdquo;
+  [&ldquo;master.dbname&rdquo;] => string(8) &ldquo;tracking&rdquo;
+  [&ldquo;slave.host&rdquo;] => string(21) &ldquo;stats11.mezimedia.com&rdquo;
+  [&ldquo;slave.port&rdquo;] => string(4) &ldquo;3308&rdquo;
+  [&ldquo;slave.username&rdquo;] => string(6) &ldquo;scltrk&rdquo;
+  [&ldquo;slave.password&rdquo;] => string(10) &ldquo;Mhok8homL7&rdquo;
+  [&ldquo;slave.dbname&rdquo;] => string(8) &ldquo;tracking&rdquo;
+  [&ldquo;msgsite&rdquo;] => string(7) &ldquo;smarter&rdquo;
+  [&ldquo;offset&rdquo;] => string(5) &ldquo;20000&rdquo;
+}
+ </em>/</p>
+
+<p>Zend_Debug::dump(parse_ini_file($iniFile, true));
+/<em>
+输出结果和上面的语句一样，但是如果ini文件中有[section]的话，输出数组的根key就是[&ldquo;section&rdquo;]
+ </em>/
+```</p>
+
+<p>而如果用<code>Zend_Config_Ini</code>来解析的话，输出的结构会更清晰：</p>
+
+<p>``` php
+$config = new Zend_Config_Ini($iniFile);
+Zend_Debug::dump($config->toArray());
+/*
+输出结果如下。同样如果ini文件中有[section]的话，输出数组的根key就是[&ldquo;section&rdquo;]
+array(5) {
+  [&ldquo;master&rdquo;] => array(4) {</p>
+
+<pre><code>["host"] =&gt; string(21) "stats10.mezimedia.com"
+["username"] =&gt; string(6) "scltrk"
+["password"] =&gt; string(10) "Mhok8homL7"
+["dbname"] =&gt; string(8) "tracking"
+</code></pre>
+
+<p>  }
+  [&ldquo;slave&rdquo;] => array(5) {</p>
+
+<pre><code>["host"] =&gt; string(21) "stats11.mezimedia.com"
+["port"] =&gt; string(4) "3308"
+["username"] =&gt; string(6) "scltrk"
+["password"] =&gt; string(10) "Mhok8homL7"
+["dbname"] =&gt; string(8) "tracking"
+</code></pre>
+
+<p>  }
+  [&ldquo;msgsite&rdquo;] => string(7) &ldquo;smarter&rdquo;
+  [&ldquo;offset&rdquo;] => string(5) &ldquo;20000&rdquo;
+}
+ */
+```</p>
+
+<p>但是在Python中用来解析ini文件的ConfigParser类，则对ini文件的格式有着非常严格的要求——必须在文件开头含有[section]部分，否则在读取时会抛出<code>ConfigParser.MissingSectionHeaderError</code>。为了能让Python解析ini也可以容错，有必要做一下hack。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (demo.py)</span> <a href='/downloads/code/python-ini/demo.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/python</span>
+</span><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">ConfigParser</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">FakeSectionHead</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    文件wrapper</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fp</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;如果没有section的话，默认添加一个叫[default]的section&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fp</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="s">&quot;[default]</span><span class="se">\n</span><span class="s">&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">readline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;第一次输出[default], 以后就输出文件的内容&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span>
+</span><span class='line'>            <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>                <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ini</span> <span class="o">=</span> <span class="s">&#39;./config/smus.ini&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">parse_ini_file</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">p</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;标准格式的ini文件，直接读取内容&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">ini</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">except</span> <span class="n">ConfigParser</span><span class="o">.</span><span class="n">MissingSectionHeaderError</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;非标准格式的ini文件，用FakeSectionHead类包装一下&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">error</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">        此处输出：</span>
+</span><span class='line'><span class="sd">        File contains no section headers.</span>
+</span><span class='line'><span class="sd">        file: ./config/smus.ini, line: 1</span>
+</span><span class='line'><span class="sd">        &#39;master.host                 = stats10.mezimedia.com\r\n&#39;</span>
+</span><span class='line'><span class="sd">        &quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="n">FakeSectionHead</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">ini</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">p</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span> <span class="o">=</span> <span class="n">parse_ini_file</span><span class="p">(</span><span class="n">ini</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">[(&#39;master.host&#39;, &#39;stats10.mezimedia.com&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.username&#39;, &#39;scltrk&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.password&#39;, &#39;Mhok8homL7&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.dbname&#39;, &#39;tracking&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.host&#39;, &#39;stats11.mezimedia.com&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.port&#39;, &#39;3308&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.username&#39;, &#39;scltrk&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.password&#39;, &#39;Mhok8homL7&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.dbname&#39;, &#39;tracking&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;msgsite&#39;, &#39;smarter&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;offset&#39;, &#39;20000&#39;)]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">sections</span><span class="p">()</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">[&#39;default&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如此一来就能正常工作了。部分内容参考自StackOverflow——<a href="http://stackoverflow.com/questions/2819696/parsing-properties-file-in-python/2819788#2819788">parsing .properties file in Python</a> 。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[redis实验（1）]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/20/redis-experiment/"/>
+    <updated>2013-08-20T21:30:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/20/redis-experiment</id>
+    <content type="html"><![CDATA[<p>研究了一下redis的常用技巧。</p>
+
+<p>除了SET方法之外，redis还有MSET方法可以批量设置，如果发现有同名的key存在，就会覆盖原有的key。如果不想覆盖已经存在的key，请使用MSETNX方法。</p>
+
+<p>用法：MSET key value [key value &hellip;]<br/>
+<code>
+redis&gt; MSET key1 "Hello" key2 "World"
+OK
+redis&gt; GET key1
+"Hello"
+redis&gt; GET key2
+"World"
+redis&gt;
+</code></p>
+
+<p>用法：MSETNX key value [key value &hellip;]<br/>
+<code>
+redis&gt; MSETNX key1 "Hello" key2 "there"
+(integer) 1
+redis&gt; MSETNX key2 "there" key3 "world"
+(integer) 0
+redis&gt; MGET key1 key2 key3
+1) "Hello"
+2) "there"
+3) (nil)
+redis&gt;
+</code></p>
+
+<!-- more -->
+
+
+<p>查讯key就要使用KEYS方法，文档中提到KEYS方法速度很快，虽然时间复杂度是O(N)，但是在一台入门级的笔记本电脑上，搜索100W条key，redis只需要40毫秒左右。但是在生产环境上，还是尽量不要使用KEYS命令，而是使用set来进行查询。</p>
+
+<blockquote><p><strong><em>Warning</em></strong>: consider KEYS as a command that should only be used in production environments with extreme care. It may ruin performance when it is executed against large databases. This command is intended for debugging and special operations, such as changing your keyspace layout. Don&rsquo;t use KEYS in your regular application code. If you&rsquo;re looking for a way to find keys in a subset of your keyspace, consider using sets.</p></blockquote>
+
+<p>用法：KEYS pattern <br/>
+<code>
+redis&gt; MSET one 1 two 2 three 3 four 4
+OK
+redis&gt; KEYS *o*
+1) "two"
+2) "one"
+3) "four"
+redis&gt; KEYS t??
+1) "two"
+redis&gt; KEYS *
+1) "two"
+2) "three"
+3) "one"
+4) "four"
+redis&gt;
+</code></p>
+
+<p>在redis里，排序是一件比较复杂的事情，<a href="http://redis.io/commands/sort">官方文档写得很详细</a> 。</p>
+
+<p>用法：SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern &hellip;]] [ASC|DESC] [ALPHA] [STORE destination]。正常排序还是很好理解的，直接<code>SORT key LIMIT offset count ASC|DESC ALPHA</code>即可，<code>LIMIT</code>和SQL语句中的含义一样，一般用来做分页用；<code>ASC|DESC</code>就是升序/降序排列；<code>ALPHA</code>表示将元素都当作字符串对待。</p>
+
+<p>不过在使用外部key进行排序的时候，就有点复杂了。</p>
+
+<p>举个例子，<code>SORT mylist BY weight_* GET object_*</code>。首先就要求你在mylist中存储是所有weight_*的id，而这句话的意思就是根据weight进行升序排序，并获得对应的id，并由此获得对应的排序完成的object值。用SQL来描述就是：<code>SELECT object FROM table ORDER BY weight ASC;</code>。同样还有用hashes来进行排序的——<code>SORT mylist BY weight_*-&gt;fieldname GET object_*-&gt;fieldname</code>，这就好比<code>SELECT b.fielname FROM weight a LEFT JOIN object b ON a.id=b.id ORDER BY a.fieldname ASC;</code>。更详细的内容，还是参考<a href="http://redis.io/commands/sort">文档</a> 。</p>
+
+<p>下面是一部分测试代码，里面有更详细的注释。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (demo.py)</span> <a href='/downloads/code/redis-py/demo.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">redis</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">random</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">string</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">gen_random_string</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="o">+</span><span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    生成指定长度的随机字符串</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)])</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="n">r</span><span class="o">.</span><span class="n">flushdb</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+</span><span class='line'>    <span class="n">caiknife</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">cai</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">zhi</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">jiang</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">knife</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">test</span><span class="o">=</span><span class="mi">6</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">r</span><span class="o">.</span><span class="n">mset</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">mget</span><span class="p">([</span><span class="s">&#39;cai&#39;</span><span class="p">,</span> <span class="s">&#39;caiknife&#39;</span><span class="p">])</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">获得key=cai和key=caiknife的值</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;1&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;*cai*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配包含cai的key</span>
+</span><span class='line'><span class="sd">[&#39;cai&#39;, &#39;caiknife&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;c??&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配以c开头，长度为3的key</span>
+</span><span class='line'><span class="sd">[&#39;cai&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;k[n]*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配k开头，包含0个或者多个n的key</span>
+</span><span class='line'><span class="sd">[&#39;knife&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配所有key</span>
+</span><span class='line'><span class="sd">[&#39;zhi&#39;, &#39;test&#39;, &#39;jiang&#39;, &#39;knife&#39;, &#39;cai&#39;, &#39;caiknife&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">r</span><span class="o">.</span><span class="n">flushdb</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">生成10个随机数据 id    name    score</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">gen_random_string</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">r</span><span class="o">.</span><span class="n">lpush</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;name:</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;score:</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;score&#39;</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s">&#39;score&#39;</span><span class="p">]):</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">d</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">按照score进行升序排序</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 7, &#39;name&#39;: &#39;Uir8Pfo27c&#39;, &#39;id&#39;: 2}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 17, &#39;name&#39;: &#39;oFhLHSu42X&#39;, &#39;id&#39;: 7}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 19, &#39;name&#39;: &#39;C3DWCos4wq&#39;, &#39;id&#39;: 10}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 56, &#39;name&#39;: &#39;I7JRymyPJ5&#39;, &#39;id&#39;: 9}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 58, &#39;name&#39;: &#39;gJPkpD1TGn&#39;, &#39;id&#39;: 6}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 63, &#39;name&#39;: &#39;Vzt7gy2349&#39;, &#39;id&#39;: 1}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 75, &#39;name&#39;: &#39;eRHfRbeWrW&#39;, &#39;id&#39;: 4}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 77, &#39;name&#39;: &#39;Kja64ofoP1&#39;, &#39;id&#39;: 3}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 85, &#39;name&#39;: &#39;VRRPhp5Vmz&#39;, &#39;id&#39;: 8}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 94, &#39;name&#39;: &#39;m5mKg1s7Ji&#39;, &#39;id&#39;: 5}</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">&#39;score:*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">根据score获得排序后的id</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;7&#39;, &#39;10&#39;, &#39;9&#39;, &#39;6&#39;, &#39;1&#39;, &#39;4&#39;, &#39;3&#39;, &#39;8&#39;, &#39;5&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">&#39;score:*&#39;</span><span class="p">,</span> <span class="n">get</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;#&#39;</span><span class="p">,</span> <span class="s">&#39;name:*&#39;</span><span class="p">,</span> <span class="s">&#39;score:*&#39;</span><span class="p">])</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">根据score获得排序后的id, name, score, 返回的是一个N*M的数组，N是id的数量，M是GET中所取属性的数量</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;7&#39;, &#39;10&#39;, &#39;9&#39;, &#39;6&#39;, &#39;1&#39;, &#39;4&#39;, &#39;3&#39;, &#39;8&#39;, &#39;5&#39;]</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;Uir8Pfo27c&#39;, &#39;7&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;7&#39;, &#39;oFhLHSu42X&#39;, &#39;17&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;10&#39;, &#39;C3DWCos4wq&#39;, &#39;19&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;9&#39;, &#39;I7JRymyPJ5&#39;, &#39;56&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;6&#39;, &#39;gJPkpD1TGn&#39;, &#39;58&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;1&#39;, &#39;Vzt7gy2349&#39;, &#39;63&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;4&#39;, &#39;eRHfRbeWrW&#39;, &#39;75&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;3&#39;, &#39;Kja64ofoP1&#39;, &#39;77&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;8&#39;, &#39;VRRPhp5Vmz&#39;, &#39;85&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;5&#39;, &#39;m5mKg1s7Ji&#39;, &#39;94&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

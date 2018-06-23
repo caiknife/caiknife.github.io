@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>弄了点 vim 插件 - 但行好事，莫问前程</title>
+  <meta name="author" content="CaiKnife">
+
+  
+  <meta name="description" content="说起来挺惭愧的，一直以来在 vim 下开发都是处于裸奔的状态，没有用插件来提高自己的效率，所以实际上 vim 对我来说只是相当于一个文本编辑器，只有在做小幅度修改的时候才会用到。绝大多数时间，我还是用 Zend Studio 和 Sublime Text 来写代码。 前两天 Google 了一下 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caiknife.github.io/blog/2013/12/05/my-vim-plugins">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="但行好事，莫问前程" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="/javascripts/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">但行好事，莫问前程</a></h1>
+  
+    <h2>挖了太多坑，一点点填回来</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caiknife.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">存档</a></li>
+  <li><a href="/about/">关于我</a></li>
+  <li><a href="/category/">所有分类</a></li>
+  <li><a href="/blog/2014/02/24/http-status-code/">HTTP状态码</a></li>
+  <li><a href="/blog/2013/10/18/git-memo/">Git 备忘</a></li>
+  <li><a href="/bootstrap/" target="_blank">BS 速查</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">弄了点 Vim 插件</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-05T08:51:36+08:00" pubdate data-updated="true">Dec 5<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-05T08:51:36+08:00" pubdate data-updated="true">Dec 5<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+<div class="entry-content"><p>说起来挺惭愧的，一直以来在 vim 下开发都是处于裸奔的状态，没有用插件来提高自己的效率，所以实际上 vim 对我来说只是相当于一个文本编辑器，只有在做小幅度修改的时候才会用到。绝大多数时间，我还是用 Zend Studio 和 Sublime Text 来写代码。</p>
+
+<p>前两天 Google 了一下 vim 的插件，在目前我这种还不能拿 vim 做主要开发工具的水平下，我找到了几个能对我有点帮助的插件。</p>
+
+<!-- more -->
+
+
+<h2>准备工作</h2>
+
+<p>备份之前的 vim 设置：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mv .vim<span class="o">{</span>,.bak<span class="o">}</span>
+</span><span class='line'><span class="nv">$ </span>mv .vimrc<span class="o">{</span>,.bak<span class="o">}</span>
+</span><span class='line'><span class="nv">$ </span>mkdir -pv .vim/bundle
+</span><span class='line'>mkdir: 已创建目录 <span class="s2">&quot;.vim&quot;</span>
+</span><span class='line'>mkdir: 已创建目录 <span class="s2">&quot;.vim/bundle/&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后把 .vim 目录变成一个 Git 仓库。做这一步非常简单，切换到 .vim 目录下，执行 <code>git init</code> 命令，Git 会创建一个 .git 目录：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd</span> .vim <span class="o">&amp;&amp;</span> git init
+</span><span class='line'>初始化空的 Git 版本库于 /home/caiknife/.vim/.git/
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面的命令，如果没有特别说明，都是在 .vim 目录下完成的。</p>
+
+<h2>安装Pathogen</h2>
+
+<p>我会采用 git submodule 的方式来管理 vim 插件，这里安装新插件的方法是：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git submodule add 插件的Git仓库地址 bundle/插件名字
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果要安装 Pathogen ，就采用下面的命令：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git submodule add https://github.com/tpope/vim-pathogen.git bundle/vim-pathogen
+</span><span class='line'>正克隆到 <span class="s1">&#39;bundle/vim-pathogen&#39;</span>...
+</span><span class='line'>remote: Counting objects: 414, <span class="k">done</span>.
+</span><span class='line'>remote: Compressing objects: 100% <span class="o">(</span>227/227<span class="o">)</span>, <span class="k">done</span>.
+</span><span class='line'>remote: Total 414 <span class="o">(</span>delta 112<span class="o">)</span>, reused 392 <span class="o">(</span>delta 93<span class="o">)</span>
+</span><span class='line'>接收对象中: 100% <span class="o">(</span>414/414<span class="o">)</span>, 56.45 KiB | 0 bytes/s, <span class="k">done</span>.
+</span><span class='line'>处理 delta 中: 100% <span class="o">(</span>112/112<span class="o">)</span>, <span class="k">done</span>.
+</span><span class='line'>检查连接... 完成。
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>通常来讲，一个插件下载完之后就已经可以使用了，但是对于 Pathogen 这个“插件中的插件”来说，还要创建一个非常简单的 .vimrc 文件，加载 Pathogen 。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">echo</span> -e <span class="s2">&quot;runtime bundle/vim-pathogen/autoload/pathogen.vim\ncall pathogen#infect()\nHelptags&quot;</span> &gt;&gt; .vimrc
+</span><span class='line'><span class="nv">$ </span>ln -sf <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/.vimrc <span class="nv">$HOME</span>/
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>安装其他插件</h2>
+
+<p>方法跟安装 Pathogen 是一样的，在 .vim 目录下执行：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git submodule add 插件的Git仓库地址 bundle/插件名字
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>安装 vim-powerline</h3>
+
+<p>第一步先安装这个很有用的 <code>vim-powerline</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; git submodule add https://github.com/Lokaltog/vim-powerline bundle/vim-powerline
+</span><span class='line'>正克隆到 <span class="s1">&#39;bundle/vim-powerline&#39;</span>...
+</span><span class='line'>remote: Counting objects: 1522, <span class="k">done</span>.
+</span><span class='line'>remote: Compressing objects: 100% <span class="o">(</span>1041/1041<span class="o">)</span>, <span class="k">done</span>.
+</span><span class='line'>remote: Total 1522 <span class="o">(</span>delta 555<span class="o">)</span>, reused 1293 <span class="o">(</span>delta 355<span class="o">)</span>
+</span><span class='line'>接收对象中: 100% <span class="o">(</span>1522/1522<span class="o">)</span>, 338.25 KiB | 199.00 KiB/s, <span class="k">done</span>.
+</span><span class='line'>处理 delta 中: 100% <span class="o">(</span>555/555<span class="o">)</span>, <span class="k">done</span>.
+</span><span class='line'>检查连接... 完成。
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后在 .vimrc 里加上下面的配置：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot;powerline</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">laststatus</span><span class="p">=</span><span class="m">2</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">t_Co</span><span class="p">=</span><span class="m">256</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:Powerline_symbols<span class="p">=</span><span class="s1">&#39;fancy&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>安装 neocomplcache</h3>
+
+<p>执行下面的命令：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git submodule add https://github.com/Shougo/neocomplcache.vim bundle/neocomplcache
+</span><span class='line'>正克隆到 <span class="s1">&#39;bundle/neocomplcache&#39;</span>...
+</span><span class='line'>remote: Counting objects: 13926, <span class="k">done</span>.
+</span><span class='line'>remote: Compressing objects: 100% <span class="o">(</span>7568/7568<span class="o">)</span>, <span class="k">done</span>.
+</span><span class='line'>remote: Total 13926 <span class="o">(</span>delta 5507<span class="o">)</span>, reused 13811 <span class="o">(</span>delta 5404<span class="o">)</span>
+</span><span class='line'>接收对象中: 100% <span class="o">(</span>13926/13926<span class="o">)</span>, 5.93 MiB | 1012.00 KiB/s, <span class="k">done</span>.
+</span><span class='line'>处理 delta 中: 100% <span class="o">(</span>5507/5507<span class="o">)</span>, <span class="k">done</span>.
+</span><span class='line'>检查连接... 完成。
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>配置上我用了官方提供的默认配置，可以在 <a href="https://github.com/Shougo/neocomplcache.vim/blob/master/README.md">https://github.com/Shougo/neocomplcache.vim/blob/master/README.md</a> 这里查询。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot;Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!</span>
+</span><span class='line'><span class="c">&quot; Disable AutoComplPop.</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:acp_enableAtStartup <span class="p">=</span> <span class="m">0</span>
+</span><span class='line'><span class="c">&quot; Use neocomplcache.</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:neocomplcache_enable_at_startup <span class="p">=</span> <span class="m">1</span>
+</span><span class='line'><span class="c">&quot; Use smartcase.</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:neocomplcache_enable_smart_case <span class="p">=</span> <span class="m">1</span>
+</span><span class='line'><span class="c">&quot; Set minimum syntax keyword length.</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:neocomplcache_min_syntax_length <span class="p">=</span> <span class="m">3</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:neocomplcache_lock_buffer_name_pattern <span class="p">=</span> <span class="s1">&#39;\*ku\*&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; Enable heavy features.</span>
+</span><span class='line'><span class="c">&quot; Use camel case completion.</span>
+</span><span class='line'><span class="c">&quot;let g:neocomplcache_enable_camel_case_completion = 1</span>
+</span><span class='line'><span class="c">&quot; Use underbar completion.</span>
+</span><span class='line'><span class="c">&quot;let g:neocomplcache_enable_underbar_completion = 1</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; Define dictionary.</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:neocomplcache_dictionary_filetype_lists <span class="p">=</span> {
+</span><span class='line'>    \ <span class="s1">&#39;default&#39;</span> : <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span><span class='line'>    \ <span class="s1">&#39;vimshell&#39;</span> : $HOME.<span class="s1">&#39;/.vimshell_hist&#39;</span><span class="p">,</span>
+</span><span class='line'>    \ <span class="s1">&#39;scheme&#39;</span> : $HOME.<span class="s1">&#39;/.gosh_completions&#39;</span>
+</span><span class='line'>        \ }
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; Define keyword.</span>
+</span><span class='line'><span class="k">if</span> <span class="p">!</span>exists<span class="p">(</span><span class="s1">&#39;g:neocomplcache_keyword_patterns&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">let</span> <span class="k">g</span>:neocomplcache_keyword_patterns <span class="p">=</span> {}
+</span><span class='line'><span class="k">endif</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:neocomplcache_keyword_patterns[<span class="s1">&#39;default&#39;</span>] <span class="p">=</span> <span class="s1">&#39;\h\w*&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; Plugin key-mappings.</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>expr<span class="p">&gt;&lt;</span>C<span class="p">-</span><span class="k">g</span><span class="p">&gt;</span>     neocomplcache#undo_completion<span class="p">()</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>expr<span class="p">&gt;&lt;</span>C<span class="p">-</span><span class="k">l</span><span class="p">&gt;</span>     neocomplcache#complete_common_string<span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; Recommended key-mappings.</span>
+</span><span class='line'><span class="c">&quot; &lt;CR&gt;: close popup and save indent.</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>CR<span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">r</span><span class="p">&gt;=&lt;</span>SID<span class="p">&gt;</span>my_cr_function<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+</span><span class='line'><span class="k">function</span><span class="p">!</span> <span class="k">s</span>:my_cr_function<span class="p">()</span>
+</span><span class='line'>  <span class="k">return</span> neocomplcache#smart_close_popup<span class="p">()</span> . <span class="s2">&quot;\&lt;CR&gt;&quot;</span>
+</span><span class='line'><span class="c">  &quot; For no inserting &lt;CR&gt; key.</span>
+</span><span class='line'><span class="c">  &quot;return pumvisible() ? neocomplcache#close_popup() : &quot;\&lt;CR&gt;&quot;</span>
+</span><span class='line'><span class="k">endfunction</span>
+</span><span class='line'><span class="c">&quot; &lt;TAB&gt;: completion.</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>expr<span class="p">&gt;&lt;</span>TAB<span class="p">&gt;</span>  pumvisible<span class="p">()</span> ? <span class="s2">&quot;\&lt;C-n&gt;&quot;</span> : <span class="s2">&quot;\&lt;TAB&gt;&quot;</span>
+</span><span class='line'><span class="c">&quot; &lt;C-h&gt;, &lt;BS&gt;: close popup and delete backword char.</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>expr<span class="p">&gt;&lt;</span>C<span class="p">-</span><span class="k">h</span><span class="p">&gt;</span> neocomplcache#smart_close_popup<span class="p">()</span>.<span class="s2">&quot;\&lt;C-h&gt;&quot;</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>expr<span class="p">&gt;&lt;</span>BS<span class="p">&gt;</span> neocomplcache#smart_close_popup<span class="p">()</span>.<span class="s2">&quot;\&lt;C-h&gt;&quot;</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>expr<span class="p">&gt;&lt;</span>C<span class="p">-</span><span class="k">y</span><span class="p">&gt;</span>  neocomplcache#close_popup<span class="p">()</span>
+</span><span class='line'><span class="nb">inoremap</span> <span class="p">&lt;</span>expr<span class="p">&gt;&lt;</span>C<span class="p">-</span><span class="k">e</span><span class="p">&gt;</span>  neocomplcache#cancel_popup<span class="p">()</span>
+</span><span class='line'><span class="c">&quot; Close popup by &lt;Space&gt;.</span>
+</span><span class='line'><span class="c">&quot;inoremap &lt;expr&gt;&lt;Space&gt; pumvisible() ? neocomplcache#close_popup() : &quot;\&lt;Space&gt;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; For cursor moving in insert mode(Not recommended)</span>
+</span><span class='line'><span class="c">&quot;inoremap &lt;expr&gt;&lt;Left&gt;  neocomplcache#close_popup() . &quot;\&lt;Left&gt;&quot;</span>
+</span><span class='line'><span class="c">&quot;inoremap &lt;expr&gt;&lt;Right&gt; neocomplcache#close_popup() . &quot;\&lt;Right&gt;&quot;</span>
+</span><span class='line'><span class="c">&quot;inoremap &lt;expr&gt;&lt;Up&gt;    neocomplcache#close_popup() . &quot;\&lt;Up&gt;&quot;</span>
+</span><span class='line'><span class="c">&quot;inoremap &lt;expr&gt;&lt;Down&gt;  neocomplcache#close_popup() . &quot;\&lt;Down&gt;&quot;</span>
+</span><span class='line'><span class="c">&quot; Or set this.</span>
+</span><span class='line'><span class="c">&quot;let g:neocomplcache_enable_cursor_hold_i = 1</span>
+</span><span class='line'><span class="c">&quot; Or set this.</span>
+</span><span class='line'><span class="c">&quot;let g:neocomplcache_enable_insert_char_pre = 1</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; AutoComplPop like behavior.</span>
+</span><span class='line'><span class="c">&quot;let g:neocomplcache_enable_auto_select = 1</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; Shell like behavior(not recommended).</span>
+</span><span class='line'><span class="c">&quot;set completeopt+=longest</span>
+</span><span class='line'><span class="c">&quot;let g:neocomplcache_enable_auto_select = 1</span>
+</span><span class='line'><span class="c">&quot;let g:neocomplcache_disable_auto_complete = 1</span>
+</span><span class='line'><span class="c">&quot;inoremap &lt;expr&gt;&lt;TAB&gt;  pumvisible() ? &quot;\&lt;Down&gt;&quot; : &quot;\&lt;C-x&gt;\&lt;C-u&gt;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; Enable omni completion.</span>
+</span><span class='line'>autocmd <span class="nb">FileType</span> css <span class="k">setlocal</span> <span class="nb">omnifunc</span><span class="p">=</span>csscomplete#CompleteCSS
+</span><span class='line'>autocmd <span class="nb">FileType</span> html<span class="p">,</span>markdown <span class="k">setlocal</span> <span class="nb">omnifunc</span><span class="p">=</span>htmlcomplete#CompleteTags
+</span><span class='line'>autocmd <span class="nb">FileType</span> javascript <span class="k">setlocal</span> <span class="nb">omnifunc</span><span class="p">=</span>javascriptcomplete#CompleteJS
+</span><span class='line'>autocmd <span class="nb">FileType</span> python <span class="k">setlocal</span> <span class="nb">omnifunc</span><span class="p">=</span>pythoncomplete#Complete
+</span><span class='line'>autocmd <span class="nb">FileType</span> xml <span class="k">setlocal</span> <span class="nb">omnifunc</span><span class="p">=</span>xmlcomplete#CompleteTags
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; Enable heavy omni completion.</span>
+</span><span class='line'><span class="k">if</span> <span class="p">!</span>exists<span class="p">(</span><span class="s1">&#39;g:neocomplcache_omni_patterns&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">let</span> <span class="k">g</span>:neocomplcache_omni_patterns <span class="p">=</span> {}
+</span><span class='line'><span class="k">endif</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:neocomplcache_omni_patterns.php <span class="p">=</span> <span class="s1">&#39;[^. \t]-&gt;\h\w*\|\h\w*::&#39;</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:neocomplcache_omni_patterns.<span class="k">c</span> <span class="p">=</span> <span class="s1">&#39;[^.[:digit:] *\t]\%(\.\|-&gt;\)&#39;</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:neocomplcache_omni_patterns.cpp <span class="p">=</span> <span class="s1">&#39;[^.[:digit:] *\t]\%(\.\|-&gt;\)\|\h\w*::&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&quot; For perlomni.vim setting.</span>
+</span><span class='line'><span class="c">&quot; https://github.com/c9s/perlomni.vim</span>
+</span><span class='line'><span class="k">let</span> <span class="k">g</span>:neocomplcache_omni_patterns.perl <span class="p">=</span> <span class="s1">&#39;\h\w*-&gt;\h\w*\|\h\w*::&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>vim 通用配置</h3>
+
+<p>除了插件的配置之外，还有 vim 的通用配置：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="c">&quot;common</span>
+</span><span class='line'><span class="nb">syntax</span> <span class="k">on</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">nocp</span>
+</span><span class='line'><span class="k">set</span> <span class="k">ru</span>
+</span><span class='line'><span class="c">&quot;set number</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">backspace</span><span class="p">=</span>indent<span class="p">,</span><span class="nb">eol</span><span class="p">,</span><span class="k">start</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">whichwrap</span><span class="p">=</span><span class="k">b</span><span class="p">,</span><span class="k">s</span><span class="p">,&lt;,&gt;,</span>[<span class="p">,</span>]
+</span><span class='line'><span class="k">set</span> <span class="k">sw</span><span class="p">=</span><span class="m">4</span>
+</span><span class='line'><span class="k">set</span> <span class="k">ts</span><span class="p">=</span><span class="m">4</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">et</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">lbr</span>
+</span><span class='line'><span class="k">set</span> <span class="nb">ai</span>
+</span><span class='line'><span class="c">&quot;set nobackup</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span>has<span class="p">(</span><span class="s2">&quot;gui_running&quot;</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">set</span> <span class="nb">nowrap</span>
+</span><span class='line'>    <span class="k">set</span> <span class="nb">guioptions</span><span class="p">+=</span><span class="k">b</span>
+</span><span class='line'>    <span class="k">colo</span> torte
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>    <span class="k">set</span> <span class="nb">wrap</span>
+</span><span class='line'>    <span class="k">colo</span> ron
+</span><span class='line'><span class="k">endif</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>升级插件</h2>
+
+<p>单独升级插件，只要先进入插件目录，然后执行：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git checkout master <span class="o">&amp;&amp;</span> git pull
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>通过 <code>git submodule foreach</code> 来可以一次性升级全部插件：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git submodule foreach <span class="s1">&#39;git checkout master &amp;&amp; git pull&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>删除插件</h2>
+
+<p>删除一个插件稍微繁琐了一点（相比较添加和升级），需要两条命令：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rm -rf bundle/插件名
+</span><span class='line'><span class="nv">$ </span>git rm -r bundle/插件名
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>发布 .vim 目录到 GitHub</h2>
+
+<p>首先在在 GitHub 上创建一个仓库，我的仓库是 <a href="https://github.com/caiknife/my-dot-vim">https://github.com/caiknife/my-dot-vim</a> 。</p>
+
+<p>添加远程仓库并提交：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git remote add origin https://github.com/caiknife/my-dot-vim
+</span><span class='line'><span class="nv">$ </span>git pull origin master
+</span><span class='line'><span class="nv">$ </span>git add .
+</span><span class='line'><span class="nv">$ </span>git ci -m <span class="s2">&quot;vim conf and plugins&quot;</span>
+</span><span class='line'><span class="nv">$ </span>git push origin master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>在其他机器进行同步</h2>
+
+<p>登录到其他机器后，先备份当前 vim 设置：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mv .vim<span class="o">{</span>,.bak<span class="o">}</span>
+</span><span class='line'><span class="nv">$ </span>mv .vimrc<span class="o">{</span>,.bak<span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>克隆远程仓库：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone https://github.com/caiknife/my-dot-vim ~/.vim
+</span><span class='line'><span class="nv">$ </span>ln -s ~/.vim/.vimrc ~/.vimrc
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> .vim
+</span><span class='line'><span class="nv">$ </span>git submodule init
+</span><span class='line'><span class="nv">$ </span>git submodule update
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如此一来就完成了同步。</p>
+
+<p>配置完成之后，在 vim 里的效果就是下面这个样子：</p>
+
+<p><a href="/downloads/image/vim/vim.png" title="Vim " class="fancybox"><img src="/downloads/image/vim/vim.png" alt="Vim " /></a></p>
+
+<p>不过听说还有个叫 <code>Vundle</code> 的工具比 <code>Pathogen</code> 更加智能化，不用 Git 来更新仓库，只用同步 vim 配置文件就可以了，这两天有空再研究一下。</p>
+
+<p>Have a nice day！</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-05T08:51:36+08:00" pubdate data-updated="true">Dec 5<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+    <!-- JiaThis Button BEGIN -->
+    <div class="jiathis_style_24x24">
+        <a class="jiathis_button_qzone"></a>
+        <a class="jiathis_button_tsina"></a>
+        <a class="jiathis_button_tqq"></a>
+        <a class="jiathis_button_weixin"></a>
+        <a class="jiathis_button_renren"></a>
+        <a href="http://www.jiathis.com/share?uid=1538386" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+        <a class="jiathis_counter_style"></a>
+    </div>
+    <script type="text/javascript">
+    var jiathis_config = {data_track_clickback:'true'};
+    </script>
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1538386" charset="utf-8"></script>
+    <!-- JiaThis Button END -->
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/02/php-spl-tips/" title="Previous Post: 有关 PHP  SPL 的小技巧">&laquo; 有关 PHP  SPL 的小技巧</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/12/05/using-vundle-for-vim-plugins/" title="Next Post: 使用 Vundle 来管理 vim 插件">使用 Vundle 来管理 vim 插件 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section imagesd="comment">
+    <h1>添加评论</h1>
+    <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-title="弄了点 vim 插件" data-url="http://caiknife.github.io/blog/2013/12/05/my-vim-plugins/" data-thread-key="http://caiknife.github.io/blog/2013/12/05/my-vim-plugins/"></div>
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- Duoshuo Comment END -->
+    </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/06/24/zhe-ge-bo-ke-fu-huo-liao/">这个博客复活了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/23/working-in-tencent/">入职腾讯一个月了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/23/love-music/">爱生活爱音乐</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/21/byebye-vcb-byebye-mezi/">再见，惠击；再见，满星！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/20/valueclick-brands-is-under-an-earthquake/">我司地震咧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/11/the-way-is-under-your-feet/">敢问路在何方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/07/linux-commands/">Linux 查看系统性能和配置的常用命令整理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/05/little-php-benchmark/">字符串拼接性能测试</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/03/cross-the-great-fire-wall/">越过长城，呼吸自由</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/02/something-about-artisan/">我也来谈谈「匠人」</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <div class="sf-usercard" id="sf-usercard-1030000000157336"></div>
+    <script>
+    (function() {
+    var sf = document.createElement('script'); sf.type = 'text/javascript'; sf.async = true;
+    sf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://w.segmentfault.com/card/1030000000157336.js?w=0&3rd=1&bg=0&bd=dddddd&cl=333333&btn=eaeaea';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf, s);
+    })();
+    </script>
+</section><section>
+    <ul class="ds-recent-comments" data-num-items="10" data-show-title="1"></ul>
+    <!--多说js加载开始，一个页面只需要加载一次 -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+
+<section>
+  <h1>GitHub项目</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/caiknife">@caiknife</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caiknife',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section>
+    <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1649186337&verifier=f479351c&dpc=1"></iframe>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F54c89ad841b193f6fbef6bde11681aed' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

@@ -1,0 +1,530 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>早先碰到的一个 PHP 问题，有关 curl 和 file_get_contents - 但行好事，莫问前程</title>
+  <meta name="author" content="CaiKnife">
+
+  
+  <meta name="description" content="最早在 SmarterUS 改版的时候，后台数据采用了 API 的方式来提供，当时我第一次想要获取 API 数据时，天真的使用了 file_get_contents 函数，结果在自己的机器上能正常获取 XML 数据，但是代码一上到公司的开发机，获取 API 时返回竟然是空白页面，实在是百思不得其解 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caiknife.github.io/blog/2013/12/01/a-php-issue-long-long-time-ago">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="但行好事，莫问前程" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="/javascripts/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">但行好事，莫问前程</a></h1>
+  
+    <h2>挖了太多坑，一点点填回来</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caiknife.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">存档</a></li>
+  <li><a href="/about/">关于我</a></li>
+  <li><a href="/category/">所有分类</a></li>
+  <li><a href="/blog/2014/02/24/http-status-code/">HTTP状态码</a></li>
+  <li><a href="/blog/2013/10/18/git-memo/">Git 备忘</a></li>
+  <li><a href="/bootstrap/" target="_blank">BS 速查</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">早先碰到的一个 PHP 问题，有关 Curl 和 File_get_contents</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-01T09:41:38+08:00" pubdate data-updated="true">Dec 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-01T09:41:38+08:00" pubdate data-updated="true">Dec 1<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+<div class="entry-content"><p>最早在 SmarterUS 改版的时候，后台数据采用了 API 的方式来提供，当时我第一次想要获取 API 数据时，天真的使用了 <code>file_get_contents</code> 函数，结果在自己的机器上能正常获取 XML 数据，但是代码一上到公司的开发机，获取 API 时返回竟然是空白页面，实在是百思不得其解。</p>
+
+<p>既然 <code>file_get_contents</code> 不能起作用，那就换个方式，用 <code>curl</code> 来获取远程数据好了。当然用 <code>curl</code> 能成功地获取数据，但是我还是有疑问——为什么 <code>file_get_contents</code> 就是不行呢？</p>
+
+<!-- more -->
+
+
+<p>当时没多想是什么原因，后来回家来查了一下， <code>file_get_contents</code> 有个参数设置叫 <code>allow_url_fopen</code>，如果设置为 <code>off</code> 的话，那么这个函数就不能获取远程 url 的内容，所以换成 <code>curl</code> 来获取远程内容才是正确的做法。但是原因不止这一个，还有更重要的原因应该选择 <code>curl</code> ，这就是这两者的效率问题。</p>
+
+<p>写段测试代码来看看到底这两者的效率到底有何差异：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="nb">error_reporting</span><span class="p">(</span><span class="k">E_ALL</span><span class="p">);</span>
+</span><span class='line'><span class="nb">ini_set</span><span class="p">(</span><span class="s1">&#39;display_errors&#39;</span><span class="p">,</span> <span class="s1">&#39;on&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">require_once</span> <span class="s1">&#39;Zend/Loader/Autoloader.php&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">Zend_Loader_Autoloader</span><span class="o">::</span><span class="na">getInstance</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Remote</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">const</span> <span class="no">FILE_GET_CONTENTS</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">const</span> <span class="no">CURL</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_startTime</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_endTime</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getMicroTime</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getContentByFileGetContents</span><span class="p">(</span><span class="nv">$url</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="nv">$url</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getContentByCurl</span><span class="p">(</span><span class="nv">$url</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+</span><span class='line'>        <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>            <span class="nx">CURLOPT_URL</span>            <span class="o">=&gt;</span> <span class="nv">$url</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">CURLOPT_HEADER</span>         <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>        <span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span><span class='line'>        <span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">remoteOpen</span><span class="p">(</span><span class="nv">$url</span><span class="p">,</span> <span class="nv">$type</span><span class="p">,</span> <span class="nv">$loop</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">switch</span> <span class="p">(</span><span class="nv">$type</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">case</span> <span class="nx">self</span><span class="o">::</span><span class="na">FILE_GET_CONTENTS</span><span class="o">:</span>
+</span><span class='line'>                <span class="nv">$method</span> <span class="o">=</span> <span class="s1">&#39;getContentByFileGetContents&#39;</span><span class="p">;</span>
+</span><span class='line'>                <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">case</span> <span class="nx">self</span><span class="o">::</span><span class="na">CURL</span><span class="o">:</span>
+</span><span class='line'>                <span class="nv">$method</span> <span class="o">=</span> <span class="s1">&#39;getContentByCurl&#39;</span><span class="p">;</span>
+</span><span class='line'>                <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>                <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s1">&#39;No such type!&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_startTime</span> <span class="o">=</span> <span class="nx">self</span><span class="o">::</span><span class="na">getMicroTime</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span><span class="o">&lt;</span><span class="nv">$loop</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// Zend_Debug::dump(&#39;calling method &#39; . __CLASS__ . &#39;::&#39; . $method . &#39;.&#39;);</span>
+</span><span class='line'>            <span class="nv">$result</span> <span class="o">=</span> <span class="nx">self</span><span class="o">::</span><span class="p">{</span><span class="nv">$method</span><span class="p">}(</span><span class="nv">$url</span><span class="p">);</span>
+</span><span class='line'>            <span class="c1">// Zend_Debug::dump($result);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_endTime</span> <span class="o">=</span> <span class="nx">self</span><span class="o">::</span><span class="na">getMicroTime</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">Zend_Debug</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_endTime</span> <span class="o">-</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_startTime</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$r</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Remote</span><span class="p">();</span>
+</span><span class='line'><span class="nv">$url</span> <span class="o">=</span> <span class="s1">&#39;http://ip.taobao.com/service/getIpInfo.php?ip=210.210.200.200&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$r</span><span class="o">-&gt;</span><span class="na">remoteOpen</span><span class="p">(</span><span class="nv">$url</span><span class="p">,</span> <span class="nx">Remote</span><span class="o">::</span><span class="na">FILE_GET_CONTENTS</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$r</span><span class="o">-&gt;</span><span class="na">remoteOpen</span><span class="p">(</span><span class="nv">$url</span><span class="p">,</span> <span class="nx">Remote</span><span class="o">::</span><span class="na">CURL</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>运行后看看输出结果：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; php curl.php
+</span><span class='line'>
+</span><span class='line'>double<span class="o">(</span>2.9429008960724<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>double<span class="o">(</span>2.1207449436188<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不过在多次运行这条程序的情况下，偶尔会出现用 <code>curl</code> 比 <code>file_get_contents</code> 要消耗更长的时间。不过由于 <code>curl</code> 有更强的定制性，因此还是推荐使用 <code>curl</code>。</p>
+
+<p>Google 了一下 <code>curl</code> 和 <code>file_get_contents</code> 的区别，主要有下面这几个点：</p>
+
+<p>1、<code>file_get_contents</code> 不会缓存 DNS ，但是 <code>curl</code> 会。</p>
+
+<p>2、<code>file_get_contents</code> 不能 keepalive ，但是 <code>curl</code> 可以。</p>
+
+<p>如此一来，在读取本地文件的场景下，应该使用 <code>file_get_contents</code> ；而在获取远程数据时，应该使用 <code>curl</code> 。</p>
+
+<p>Have a nice day！</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-01T09:41:38+08:00" pubdate data-updated="true">Dec 1<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+    <!-- JiaThis Button BEGIN -->
+    <div class="jiathis_style_24x24">
+        <a class="jiathis_button_qzone"></a>
+        <a class="jiathis_button_tsina"></a>
+        <a class="jiathis_button_tqq"></a>
+        <a class="jiathis_button_weixin"></a>
+        <a class="jiathis_button_renren"></a>
+        <a href="http://www.jiathis.com/share?uid=1538386" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+        <a class="jiathis_counter_style"></a>
+    </div>
+    <script type="text/javascript">
+    var jiathis_config = {data_track_clickback:'true'};
+    </script>
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1538386" charset="utf-8"></script>
+    <!-- JiaThis Button END -->
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/11/25/mysql-index/" title="Previous Post: MySQL 索引知识点">&laquo; MySQL 索引知识点</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/12/02/something-about-memcache/" title="Next Post: 聊聊 Memcache">聊聊 Memcache &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section imagesd="comment">
+    <h1>添加评论</h1>
+    <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-title="早先碰到的一个 PHP 问题，有关 curl 和 file_get_contents" data-url="http://caiknife.github.io/blog/2013/12/01/a-php-issue-long-long-time-ago/" data-thread-key="http://caiknife.github.io/blog/2013/12/01/a-php-issue-long-long-time-ago/"></div>
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- Duoshuo Comment END -->
+    </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/06/24/zhe-ge-bo-ke-fu-huo-liao/">这个博客复活了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/23/working-in-tencent/">入职腾讯一个月了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/23/love-music/">爱生活爱音乐</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/21/byebye-vcb-byebye-mezi/">再见，惠击；再见，满星！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/20/valueclick-brands-is-under-an-earthquake/">我司地震咧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/11/the-way-is-under-your-feet/">敢问路在何方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/07/linux-commands/">Linux 查看系统性能和配置的常用命令整理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/05/little-php-benchmark/">字符串拼接性能测试</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/03/cross-the-great-fire-wall/">越过长城，呼吸自由</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/02/something-about-artisan/">我也来谈谈「匠人」</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <div class="sf-usercard" id="sf-usercard-1030000000157336"></div>
+    <script>
+    (function() {
+    var sf = document.createElement('script'); sf.type = 'text/javascript'; sf.async = true;
+    sf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://w.segmentfault.com/card/1030000000157336.js?w=0&3rd=1&bg=0&bd=dddddd&cl=333333&btn=eaeaea';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf, s);
+    })();
+    </script>
+</section><section>
+    <ul class="ds-recent-comments" data-num-items="10" data-show-title="1"></ul>
+    <!--多说js加载开始，一个页面只需要加载一次 -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+
+<section>
+  <h1>GitHub项目</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/caiknife">@caiknife</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caiknife',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section>
+    <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1649186337&verifier=f479351c&dpc=1"></iframe>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F54c89ad841b193f6fbef6bde11681aed' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

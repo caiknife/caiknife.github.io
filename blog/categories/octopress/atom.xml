@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: octopress | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[给博客写了个 fancybox 的插件]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/02/fancybox-plugin-for-octopress/"/>
+    <updated>2013-10-02T17:37:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/02/fancybox-plugin-for-octopress</id>
+    <content type="html"><![CDATA[<p>octopress 默认没有放大图片的效果，今天用 fancybox 做了一个插件扩展。</p>
+
+<p>首先从 <a href="http://fancyapps.com/fancybox/#license">http://fancyapps.com/fancybox/#license</a> 下载最新版的 fancybox ，解压缩后复制 source 目录到 octopress 的 javascripts 目录下。</p>
+
+<p>打开文件 <code>/source/_includes/custom/head.html</code> ，在最后增加一条语句：</p>
+
+<p><code>erb /source/_includes/custom/head.html
+{% include fancybox.html %}
+</code></p>
+
+<!-- more -->
+
+
+<p>然后建立文件 <code>/source/_includes/fancybox.html</code> ，加入以下内容：</p>
+
+<p>``` html /source/_includes/fancybox.html</p>
+
+<script src="http://caiknife.github.io/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<p><link rel="stylesheet" type="text/css" href="http://caiknife.github.io/javascripts/fancybox/jquery.fancybox.css" /></p>
+
+<script type="text/javascript">
+(function($){
+    $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<p>```</p>
+
+<p>下面的重头戏就是增加一个 <code>fancybox</code> 的标签。创建文件 <code>/plugins/fancybox_tag.rb</code> ，详细代码如下：</p>
+
+<p>``` ruby /plugins/fancybox_tag.rb</p>
+
+<h1>coding: utf-8</h1>
+
+<p>module Jekyll</p>
+
+<p>  # Usage:
+  # {% fancybox @filename [thumb:@thumb] [@title] %}
+  # {% fancybox @filename [@title] %}</p>
+
+<p>  class FancyboxTag &lt; Liquid::Tag</p>
+
+<pre><code>def initialize(tag_name, markup, tokens)
+  #  /(?&lt;filename&gt;\S+)(?:\s+(?&lt;thumb&gt;\S+))?(?:\s+(?&lt;title&gt;.+))?/i
+  #  /(?&lt;filename&gt;\S+)(?:\s+(?&lt;title&gt;.+))?/i
+  if /(?&lt;filename&gt;\S+)(?:\s+thumb:(?&lt;thumb&gt;\S+))?(?:\s+(?&lt;title&gt;.+))?/i =~ markup
+    @filename = filename
+    @thumb = thumb
+    @title = title
+  end
+end
+
+def render(context)
+  if @filename
+    "&lt;a href=\"#{@filename}\" title=\"#{@title}\" class=\"fancybox\"&gt;&lt;img src=\"#{thumb_for(@filename, @thumb)}\" alt=\"#{@title}\" /&gt;&lt;/a&gt;"
+  else
+    "Error. Usage: {% fancybox @filename [thumb:@thumb] [@title] %}"
+  end
+end
+
+def thumb_for(filename, thumb)
+  if thumb.nil?
+    filename
+  else
+    thumb
+  end
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>end</p>
+
+<p>Liquid::Template.register_tag(&lsquo;fancybox&rsquo;, Jekyll::FancyboxTag)
+```</p>
+
+<p>使用方法在注释里有介绍，很简单。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

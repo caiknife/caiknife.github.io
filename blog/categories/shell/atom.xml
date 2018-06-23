@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: shell | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/shell/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[一句话 Shell 脚本（3）]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/26/happy-shell-script/"/>
+    <updated>2014-02-26T10:00:43+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/26/happy-shell-script</id>
+    <content type="html"><![CDATA[<p>CakePHP 会在自己的项目文件夹的 <code>app/tmp</code> 下建立缓存文件，用来保存数据库表结构。在开启 debug 的情况下，每次发起请求后都会刷新缓存，但是在生产环境下，一般都是关闭了 debug 的，如果某次功能升级修改了表结构的话，缓存并不会主动更新，如此一来就会产生 InternalError 。</p>
+
+<p>看来还是要写个脚本来手动删除这些缓存文件。</p>
+
+<!-- more -->
+
+
+<p>先看看缓存目录结构是什么样的：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>tree
+.
+├── cache
+│   ├── cake_toolbar_cache19c90b767c0870ceefeb6659d993da93
+│   ├── models
+│   │   ├── ccqo_cake_model_default_ccqo_accounts
+│   │   ├── ccqo_cake_model_default_ccqo_articles
+│   │   ├── ccqo_cake_model_default_ccqo_list
+│   │   ├── ccqo_cake_model_default_ccqo_train_divisions
+│   │   ├── ccqo_cake_model_default_ccqo_trainees
+│   │   ├── ccqo_cake_model_default_ccqo_trainers
+│   │   └── ccqo_cake_model_default_ccqo_train_infos
+│   └── persistent
+│       ├── ccqo_cake_core_cake_zh-cn
+│       ├── ccqo_cake_core_debug_kit_zh-cn
+│       ├── ccqo_cake_core_file_map
+│       └── ccqo_cake_core_method_cache
+└── logs
+```</p></blockquote>
+
+<p>要删除的是缓存文件，目录不用删除。 OK ，那么就写个脚本一次性全部搞定好了。</p>
+
+<p>先想到的是用 <code>find</code> 命令配合管道符来用：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>find . -type f | xargs rm -f
+```</p></blockquote>
+
+<p>结果报了权限错误：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>find . -type f | xargs rm -f
+rm: 无法删除"./cache/persistent/ccqo_cake_core_cake_zh-cn": 权限不够
+rm: 无法删除"./cache/persistent/ccqo_cake_core_file_map": 权限不够
+rm: 无法删除"./cache/persistent/ccqo_cake_core_debug_kit_zh-cn": 权限不够
+rm: 无法删除"./cache/persistent/ccqo_cake_core_method_cache": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_list": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_train_divisions": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_trainers": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_articles": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_train_infos": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_trainees": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_accounts": 权限不够
+```</p></blockquote>
+
+<p>这些文件是由 <code>www-data</code> 帐号生成的，所以我自然不能删除，所以加上 <code>sudo</code> 再删除吧。</p>
+
+<p>几分钟之后又想了想，其实不用管道符，完全可以用 <code>find</code> 自己就可以完成了：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>find . -type f -exec sudo rm -f {} +
+```</p></blockquote>
+
+<p>打完收工！</p>
+
+<p>最近越来越感觉随着年纪的增长，接触的事情越来越多，记忆力没有以前好了。高中时代特别自豪地过目不忘的本事也指望不上了，看来还是好记性不如烂笔头，得养成一个良好的记录和总结的习惯，才会对将来的工作有所帮助。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[awk 使用]]></title>
+    <link href="http://caiknife.github.io/blog/2013/11/01/awk-usage/"/>
+    <updated>2013-11-01T12:00:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/11/01/awk-usage</id>
+    <content type="html"><![CDATA[<p>Linux下的<code>sed</code>和<code>awk</code>是两个非常强大的文本处理工具，今天先总结一下<code>awk</code>的用法。</p>
+
+<p>首先看看<code>awk</code>的帮助文档：</p>
+
+<!-- more -->
+
+
+<p>``` bash awk help</p>
+
+<blockquote><p>awk &mdash;help
+用法: awk [POSIX 或 GNU 风格选项] -f 脚本文件 [&mdash;] 文件 &hellip;
+用法: awk [POSIX 或 GNU 风格选项] [&mdash;] &lsquo;程序&rsquo; 文件 &hellip;
+POSIX 选项:           GNU 长选项:</p>
+
+<pre><code>-f 脚本文件     --file=脚本文件
+-F fs           --field-separator=fs
+-v var=val      --assign=var=val
+-m[fr] val
+-O          --optimize
+-W compat       --compat
+-W copyleft     --copyleft
+-W copyright        --copyright
+-W dump-variables[=file]    --dump-variables[=file]
+-W exec=file        --exec=file
+-W gen-po       --gen-po
+-W help         --help
+-W lint[=fatal]     --lint[=fatal]
+-W lint-old     --lint-old
+-W non-decimal-data --non-decimal-data
+-W profile[=file]   --profile[=file]
+-W posix        --posix
+-W re-interval      --re-interval
+-W source=program-text  --source=program-text
+-W traditional      --traditional
+-W usage        --usage
+-W use-lc-numeric   --use-lc-numeric
+-W version      --version
+</code></pre></blockquote>
+
+<p>提交错误报告请参考“gawk.info”中的“Bugs”页，它位于打印版本中的“Reporting
+Problems and Bugs”一节</p>
+
+<p>翻译错误请发信至 <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x74;&#114;&#x61;&#x6e;&#115;&#x6c;&#x61;&#x74;&#x69;&#111;&#x6e;&#x2d;&#116;&#x65;&#x61;&#x6d;&#45;&#122;&#104;&#45;&#99;&#110;&#64;&#x6c;&#x69;&#x73;&#116;&#115;&#x2e;&#x73;&#111;&#x75;&#x72;&#x63;&#101;&#x66;&#111;&#x72;&#x67;&#x65;&#x2e;&#110;&#x65;&#116;">&#x74;&#114;&#x61;&#110;&#115;&#x6c;&#97;&#116;&#105;&#111;&#x6e;&#x2d;&#116;&#101;&#97;&#x6d;&#x2d;&#122;&#104;&#x2d;&#x63;&#110;&#64;&#x6c;&#105;&#x73;&#116;&#x73;&#46;&#x73;&#x6f;&#x75;&#x72;&#x63;&#x65;&#x66;&#111;&#114;&#x67;&#101;&#46;&#x6e;&#101;&#116;</a></p>
+
+<p>gawk 是一个模式扫描及处理语言。缺省情况下它从标准输入读入并写至标准输出。</p>
+
+<p>范例:</p>
+
+<pre><code>gawk '{ sum += $1 }; END { print sum }' file
+gawk -F: '{ print $1 }' /etc/passwd
+</code></pre>
+
+<p>```</p>
+
+<h2>上手起步</h2>
+
+<p>以<code>/etc/passwd</code>这个文件为例，这个文件保存了linux下所有用户的信息，字段之间用<code>:</code>分割。那么，如果我想看到所有的用户和对应的主目录，用下面的命令就可以完成：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>awk -F: &lsquo;{print $1, $6}&rsquo; /etc/passwd # 第一列是用户名，第六列是主目录
+```</p></blockquote>
+
+<p>输出结果：</p>
+
+<p><code>bash
+root /root
+daemon /usr/sbin
+bin /bin
+sys /dev
+sync /bin
+games /usr/games
+man /var/cache/man
+lp /var/spool/lpd
+mail /var/mail
+news /var/spool/news
+uucp /var/spool/uucp
+proxy /bin
+www-data /var/www
+...
+</code></p>
+
+<h2>过滤记录</h2>
+
+<p>如果想过滤记录的话，可以在语句中加上条件判断：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>awk -F: &lsquo;$3==$4 {print $1, $6}&rsquo; /etc/passwd # 显示uid==gid的记录</p>
+
+<p>awk -F: &lsquo;$3&lt;=100 {print $1, $6}&rsquo; /etc/passwd # 显示uid小于等于100的记录
+```</p></blockquote>
+
+<h2>指定分割符</h2>
+
+<p><code>awk</code>的<code>-F</code>参数可以指定输入时的分割符，同时设置<code>OFS</code>参数，可以指定输出分割符：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>awk -F: &lsquo;$3==$4 {print $1, $3, $6}&rsquo; OFS=&ldquo;\t&rdquo; /etc/passwd
+root    0   /root
+daemon  1   /usr/sbin
+bin 2   /bin
+sys 3   /dev
+lp  7   /var/spool/lpd
+mail    8   /var/mail
+news    9   /var/spool/news
+uucp    10  /var/spool/uucp
+proxy   13  /bin
+www-data    33  /var/www
+backup  34  /var/backups
+list    38  /var/list
+irc 39  /var/run/ircd
+gnats   41  /var/lib/gnats
+nobody  65534   /nonexistent
+caiknife    1000    /home/caiknife
+```</p></blockquote>
+
+<h2>字符串匹配</h2>
+
+<p><code>awk</code>还可以使用类似正则表达式的方式来进行字符串的匹配，比如：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>awk -F: &lsquo;$1 ~ /caiknife/ {print $1, $6}&rsquo; OFS=&ldquo;\t&rdquo; /etc/passwd
+```</p></blockquote>
+
+<p>使用<code>!</code>可以进行模式取反：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>awk -F: &lsquo;$1 !~ /caiknife/ {print $1, $6}&rsquo; OFS=&ldquo;\t&rdquo; /etc/passwd
+```</p></blockquote>
+
+<p>常用的方法就是这些，但是还有很重要的内建变量：</p>
+
+<table>
+    <tbody>
+        <tr><td>$0</td><td>当前记录（这个变量中存放着整个行的内容）</td></tr>
+        <tr><td>$1~$n</td><td>当前记录的第n个字段，字段间由FS分隔</td></tr>
+        <tr><td>FS</td><td>输入字段分隔符 默认是空格或Tab</td></tr>
+        <tr><td>NF</td><td>当前记录中的字段个数，就是有多少列</td></tr>
+        <tr><td>NR</td><td>已经读出的记录数，就是行号，从1开始，如果有多个文件话，这个值也是不断累加中。</td></tr>
+        <tr><td>FNR</td><td>当前记录数，与NR不同的是，这个值会是各个文件自己的行号</td></tr>
+        <tr><td>RS</td><td>输入的记录分隔符， 默认为换行符</td></tr>
+        <tr><td>OFS</td><td>输出字段分隔符， 默认也是空格</td></tr>
+        <tr><td>ORS</td><td>输出的记录分隔符，默认为换行符</td></tr>
+        <tr><td>FILENAME</td><td>当前输入文件的名字</td></tr>
+    </tbody>
+</table>
+
+
+<p><code>awk</code>是神器，务必一定要好好使用，深入了解。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[安装 zsh]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/01/install-zsh/"/>
+    <updated>2013-10-01T22:01:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/01/install-zsh</id>
+    <content type="html"><![CDATA[<p>前几天在看<a href="http://read.douban.com/ebook/1531222/">MacTalk·人生元编程</a>的时候谈到了 <code>zsh</code> 这个很有意思的 shell 。前两天安装好，用下来感觉相当不错，特别总结一下。</p>
+
+<p>安装 zsh 并设置为默认 shell:</p>
+
+<p>``` bash
+$ sudo apt-get install zsh</p>
+
+<p>$ chsh -s /bin/zsh
+```</p>
+
+<p>接着安装 <code>oh-my-zsh</code> 这个强大的扩展脚本：</p>
+
+<p><code>bash
+$ curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+</code></p>
+
+<p>或者：</p>
+
+<p><code>bash
+$ wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+</code></p>
+
+<!-- more -->
+
+
+<p>安装完成之后，就会在 home 目录下生成一个 <code>.zshrc</code> 文件，这里可以做很多的设置，比如设置插件、加载其他 bash 文件等等，<code>zsh</code> 是完全兼容 <code>bash</code> 的。我就在这个文件里加载了默认的 <code>.bash_aliases</code> 文件。</p>
+
+<p>在这个文件里还有一个叫做 <code>ZSH_THEME</code> 的设置，用来配置 shell 的外观。目前我的外观配置如下：</p>
+
+<p>``` bash ~/.oh-my-zsh/themes/caiknife.zsh-theme</p>
+
+<h1>Color shortcuts</h1>
+
+<p>RED=$fg[red]
+YELLOW=$fg[yellow]
+GREEN=$fg[green]
+WHITE=$fg[white]
+BLUE=$fg[blue]
+RED_BOLD=$fg_bold[red]
+YELLOW_BOLD=$fg_bold[yellow]
+GREEN_BOLD=$fg_bold[green]
+WHITE_BOLD=$fg_bold[white]
+BLUE_BOLD=$fg_bold[blue]
+RESET_COLOR=$reset_color</p>
+
+<h1>Format for git_prompt_info()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_PREFIX=&ldquo;&rdquo;
+ZSH_THEME_GIT_PROMPT_SUFFIX=&ldquo;&rdquo;</p>
+
+<h1>Format for parse_git_dirty()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_DIRTY=&ldquo; %{$RED%}(*)&rdquo;
+ZSH_THEME_GIT_PROMPT_CLEAN=&ldquo;&rdquo;</p>
+
+<h1>Format for git_prompt_status()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_UNMERGED=&ldquo; %{$RED%}unmerged&rdquo;
+ZSH_THEME_GIT_PROMPT_DELETED=&ldquo; %{$RED%}deleted&rdquo;
+ZSH_THEME_GIT_PROMPT_RENAMED=&ldquo; %{$YELLOW%}renamed&rdquo;
+ZSH_THEME_GIT_PROMPT_MODIFIED=&ldquo; %{$YELLOW%}modified&rdquo;
+ZSH_THEME_GIT_PROMPT_ADDED=&ldquo; %{$GREEN%}added&rdquo;
+ZSH_THEME_GIT_PROMPT_UNTRACKED=&ldquo; %{$WHITE%}untracked&rdquo;</p>
+
+<h1>Format for git_prompt_ahead()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_AHEAD=&ldquo; %{$RED%}(!)&rdquo;</p>
+
+<h1>Format for git_prompt_long_sha() and git_prompt_short_sha()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_SHA_BEFORE=&ldquo; %{$WHITE%}[%{$YELLOW%}&rdquo;
+ZSH_THEME_GIT_PROMPT_SHA_AFTER=&ldquo;%{$WHITE%}]&rdquo;</p>
+
+<h1>Prompt format</h1>
+
+<p>PROMPT=&lsquo;%{$fg_bold[blue]%}%D{[%H:%M]}%{$RESET_COLOR%} %{$GREEN%}%n%{$RESET_COLOR%}@%{$RED_BOLD%}%m%{$RESET_COLOR%}:%{$YELLOW%}%~%u$(parse_git_dirty)$(git_prompt_ahead)%{$RESET_COLOR%}
+%{$BLUE%}>%{$RESET_COLOR%} &rsquo;
+RPROMPT=&lsquo;%{$GREEN_BOLD%}$(current_branch)$(git_prompt_short_sha)$(git_prompt_status)%{$RESET_COLOR%}&rsquo;
+```</p>
+
+<p>来瞅瞅换成 <code>zsh</code> 之后变成什么样了。</p>
+
+<p><a href="/downloads/image/zsh/zsh.png" title="zsh demo " class="fancybox"><img src="/downloads/image/zsh/zsh.png" alt="zsh demo " /></a></p>
+
+<p>挺有意思的，是不？ Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一句话Shell脚本（2）]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/22/happy-shell-script/"/>
+    <updated>2013-08-22T21:04:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/22/happy-shell-script</id>
+    <content type="html"><![CDATA[<p>昨天玩octopress时出了问题，没有动任何东西的情况下，系统默认的ruby版本变成了1.8，导致本地的octopress既不能提交也不能本地预览。后来分别卸载了ruby1.8和ruby1.9，启用了新的PPA之后，重新安装ruby的两个版本，并通过update-alternatives把ruby版本默认设置成1.9。</p>
+
+<p>可惜octopress还是无法启动，出现了<a href="http://stackoverflow.com/questions/13778858/octopress-errors-rake-preview-watch-or-generate">http://stackoverflow.com/questions/13778858/octopress-errors-rake-preview-watch-or-generate</a>和<a href="http://stackoverflow.com/questions/16517144/why-the-pygments-code-rb-plugin-is-breaking">http://stackoverflow.com/questions/16517144/why-the-pygments-code-rb-plugin-is-breaking</a>中提到的问题。百思不得其解啊，为什么ruby版本明明是1.9，调用的gem库却是1.8下的呢？</p>
+
+<!-- more -->
+
+
+<p>后来想到脚本文件在开头都会有<code>#!/usr/bin/env ruby</code>之类的注释，用来标注脚本文件的解释器，那么这个问题的原因是不是就是因为某些应该使用ruby1.9进行解释的文件被写死成ruby1.8解释了呢？那么应该如何找到这些文件呢？</p>
+
+<p>可以用find来查找，下面是适合的shell命令：</p>
+
+<p><code>bash
+$ find / -type f -name "*.rb" -exec grep -m 1 "ruby1.8" {} + 2&gt;/dev/null | awk -F ":" '{print $1}'
+</code></p>
+
+<p>上面这条命令的含义：</p>
+
+<p>``` bash
+$ find / \ # 从根目录开始查找</p>
+
+<pre><code>-type f \ # 查找文件
+-name "*.rb" \ # ruby文件
+-exec grep -m 1 "ruby1.8" {} + \ # 找到文件内容里匹配ruby1.8一次的所有文件，和匹配内容一起输出 
+2&gt;/dev/null \ # 错误信息丢弃
+| \ # 管道
+awk -F ":" '{print $1}' \ # 分割符是:，输出第一列
+</code></pre>
+
+<p>```</p>
+
+<p>如此一来就能找到所有还默认以ruby1.8解释的文件了，然后修改一下就行。现在我的octopress又活过来了。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一句话Shell脚本（1）]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/17/happy-shell-script/"/>
+    <updated>2013-08-17T21:38:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/17/happy-shell-script</id>
+    <content type="html"><![CDATA[<p>公司里的中国项目包括DHB和SMCN两个。</p>
+
+<p>在DHB的SEM Search Landing页面上，会展示SMCN的产品，之前的Tracking是直接从DHB跳转到商家页面，从DHB到商家的跳转会记录一个Offer Outgoing Log。最近加入了新的逻辑，将DHB的跳转作为一个Affiliate Outoging Log，而Dest Url是SMCN的一个跳转脚本，这样就将以前的DHB->商家页面跳转变成了从DHB->SMCN->商家页面的跳转。</p>
+
+<!-- more -->
+
+
+<p>记录下所有的Affiliate Outoging Log和Offer Outgoing Log，最后会生成小时汇总的Outgoing Log，以<code>/mezi/tracking/data/dump/dahongbao.com/yyyy-mm-dd/hh/outgoing.dat</code>的格式保存。</p>
+
+<p>最近的一个需求是要求汇总从这个功能上线起，一天内的所有从DHB跳转到SMCN的数量。在Log文件中，所有字段以<code>\t</code>分隔，第七个字段是Business Type，第三十五个字段是Dest Url，从这两个字段入手，就能获取从DHB跳转到SMCN的数量了。</p>
+
+<p>下面是一个参考的脚本：</p>
+
+<p><code>bash
+$ awk -F'\t' '{if(($7 == "CPA" || $7=="CPC") &amp;&amp; $35 ~ /www.smarter.com.cn/){print $7,$35}}' /mezi/tracking/data/dump/dahongbao.com/2013-08-15/0[6789]/outgoing.dat /mezi/tracking/data/dump/dahongbao.com/2013-08-15/[12]*/outgoing.dat /mezi/tracking/data/dump/dahongbao.com/2013-08-16/*/outgoing.dat | wc -l
+</code></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

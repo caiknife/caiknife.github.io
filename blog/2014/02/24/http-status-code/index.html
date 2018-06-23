@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>HTTP 状态码 - 但行好事，莫问前程</title>
+  <meta name="author" content="CaiKnife">
+
+  
+  <meta name="description" content="好记性不如烂笔头。 做了这么多年的 Web 开发，经常和 HTTP 状态码打交道，经常碰到 200 、201 、301 、302 、304 、400 、404 、500 、502 、503 这些数字，但是我却从来没有把这些知识系统地做个总结，实在是不应该。今天特此把所有 HTTP 状态码列个单子， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caiknife.github.io/blog/2014/02/24/http-status-code">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="但行好事，莫问前程" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="/javascripts/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">但行好事，莫问前程</a></h1>
+  
+    <h2>挖了太多坑，一点点填回来</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caiknife.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">存档</a></li>
+  <li><a href="/about/">关于我</a></li>
+  <li><a href="/category/">所有分类</a></li>
+  <li><a href="/blog/2014/02/24/http-status-code/">HTTP状态码</a></li>
+  <li><a href="/blog/2013/10/18/git-memo/">Git 备忘</a></li>
+  <li><a href="/bootstrap/" target="_blank">BS 速查</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">HTTP 状态码</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-24T17:06:33+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2014</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-24T17:06:33+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/http/'>http</a>, <a class='category' href='/blog/categories/web/'>web</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+<div class="entry-content"><p>好记性不如烂笔头。</p>
+
+<p>做了这么多年的 Web 开发，经常和 HTTP 状态码打交道，经常碰到 200 、201 、301 、302 、304 、400 、404 、500 、502 、503 这些数字，但是我却从来没有把这些知识系统地做个总结，实在是不应该。今天特此把所有 HTTP 状态码列个单子，背也要背下来。</p>
+
+<!-- more -->
+
+
+<h3>1xx —— 继续响应</h3>
+
+<p>表示临时响应并需要请求者继续执行操作的状态码。</p>
+
+<ul>
+<li>100（继续） 请求者应当继续提出请求。服务器返回此代码表示已收到请求的第一部分，正在等待其余部分。</li>
+<li>101（切换协议） 请求者已要求服务器切换协议，服务器已确认并准备切换。</li>
+</ul>
+
+
+<h3>2xx —— 成功</h3>
+
+<p>表示成功处理了请求的状态码。</p>
+
+<ul>
+<li>200（成功） 服务器已成功处理了请求。通常，这表示服务器提供了请求的网页。如果是对您的 robots.txt 文件显示此状态码，则表示 Googlebot 已成功检索到该文件。</li>
+<li>201（已创建） 请求成功并且服务器创建了新的资源。</li>
+<li>202（已接受） 服务器已接受请求，但尚未处理。</li>
+<li>203（非授权信息） 服务器已成功处理了请求，但返回的信息可能来自另一来源。</li>
+<li>204（无内容） 服务器成功处理了请求，但没有返回任何内容。</li>
+<li>205（重置内容） 服务器成功处理了请求，但没有返回任何内容。与 204 响应不同，此响应要求请求者重置文档视图（例如，清除表单内容以输入新内容）。</li>
+<li>206（部分内容） 服务器成功处理了部分 GET 请求。</li>
+</ul>
+
+
+<h3>3xx —— 重定向</h3>
+
+<p>要完成请求，需要进一步操作。通常，这些状态码用来重定向。Google 建议您在每次请求中使用重定向不要超过 5 次。您可以使用网站管理员工具查看一下 Googlebot 在抓取重定向网页时是否遇到问题。诊断下的网络抓取页列出了由于重定向错误导致 Googlebot 无法抓取的网址。</p>
+
+<ul>
+<li>300（多种选择） 针对请求，服务器可执行多种操作。服务器可根据请求者 (user agent) 选择一项操作，或提供操作列表供请求者选择。</li>
+<li>301（永久移动） 请求的网页已永久移动到新位置。服务器返回此响应（对 GET 或 HEAD 请求的响应）时，会自动将请求者转到新位置。您应使用此代码告诉 Googlebot 某个网页或网站已永久移动到新位置。</li>
+<li>302（临时移动） 服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来响应以后的请求。此代码与响应 GET 和 HEAD 请求的 301 代码类似，会自动将请求者转到不同的位置，但您不应使用此代码来告诉 Googlebot 某个网页或网站已经移动，因为 Googlebot 会继续抓取原有位置并编制索引。</li>
+<li>303（查看其他位置） 请求者应当对不同的位置使用单独的 GET 请求来检索响应时，服务器返回此代码。对于除 HEAD 之外的所有请求，服务器会自动转到其他位置。</li>
+<li>304（未修改） 自从上次请求后，请求的网页未修改过。服务器返回此响应时，不会返回网页内容。如果网页自请求者上次请求后再也没有更改过，您应将服务器配置为返回此响应（称为 If-Modified-Since HTTP 标头）。服务器可以告诉 Googlebot 自从上次抓取后网页没有变更，进而节省带宽和开销。</li>
+<li>305（使用代理） 请求者只能使用代理访问请求的网页。如果服务器返回此响应，还表示请求者应使用代理。</li>
+<li>307（临时重定向） 服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来响应以后的请求。此代码与响应 GET 和 HEAD 请求的 <a href=answer.py?answer=>301</a> 代码类似，会自动将请求者转到不同的位置，但您不应使用此代码来告诉 Googlebot 某个页面或网站已经移动，因为 Googlebot 会继续抓取原有位置并编制索引。</li>
+</ul>
+
+
+<h3>4xx —— 请求错误</h3>
+
+<p>这些状态码表示请求可能出错，妨碍了服务器的处理。</p>
+
+<ul>
+<li>400（错误请求） 服务器不理解请求的语法。</li>
+<li>401（未授权） 请求要求身份验证。对于登录后请求的网页，服务器可能返回此响应。</li>
+<li>403（禁止） 服务器拒绝请求。如果您在 Googlebot 尝试抓取您网站上的有效网页时看到此状态码（您可以在 Google 网站管理员工具诊断下的网络抓取页面上看到此信息），可能是您的服务器或主机拒绝了 Googlebot 访问。</li>
+<li>404（未找到） 服务器找不到请求的网页。例如，对于服务器上不存在的网页经常会返回此代码。如果您的网站上没有 robots.txt 文件，而您在 Google 网站管理员工具“诊断”标签的 robots.txt 页上看到此状态码，则这是正确的状态码。但是，如果您有 robots.txt 文件而又看到此状态码，则说明您的 robots.txt 文件可能命名错误或位于错误的位置（该文件应当位于顶级域，名为 robots.txt）。如果对于 Googlebot 抓取的网址看到此状态码（在”诊断”标签的 HTTP 错误页面上），则表示 Googlebot 跟随的可能是另一个页面的无效链接（是旧链接或输入有误的链接）。</li>
+<li>405（方法禁用） 禁用请求中指定的方法。</li>
+<li>406（不接受） 无法使用请求的内容特性响应请求的网页。</li>
+<li>407（需要代理授权） 此状态码与 <a href=answer.py?answer=35128>401（未授权）</a>类似，但指定请求者应当授权使用代理。如果服务器返回此响应，还表示请求者应当使用代理。</li>
+<li>408（请求超时） 服务器等候请求时发生超时。</li>
+<li>409（冲突） 服务器在完成请求时发生冲突。服务器必须在响应中包含有关冲突的信息。服务器在响应与前一个请求相冲突的 PUT 请求时可能会返回此代码，以及两个请求的差异列表。</li>
+<li>410（已删除） 如果请求的资源已永久删除，服务器就会返回此响应。该代码与 404（未找到）代码类似，但在资源以前存在而现在不存在的情况下，有时会用来替代 404 代码。如果资源已永久移动，您应使用 301 指定资源的新位置。</li>
+<li>411（需要有效长度） 服务器不接受不含有效内容长度标头字段的请求。</li>
+<li>412（未满足前提条件） 服务器未满足请求者在请求中设置的其中一个前提条件。</li>
+<li>413（请求实体过大） 服务器无法处理请求，因为请求实体过大，超出服务器的处理能力。</li>
+<li>414（请求的 URI 过长） 请求的 URI（通常为网址）过长，服务器无法处理。</li>
+<li>415（不支持的媒体类型） 请求的格式不受请求页面的支持。</li>
+<li>416（请求范围不符合要求） 如果页面无法提供请求的范围，则服务器会返回此状态码。</li>
+<li>417（未满足期望值） 服务器未满足”期望”请求标头字段的要求。</li>
+</ul>
+
+
+<h3>5xx —— 服务器错误</h3>
+
+<p>这些状态码表示服务器在处理请求时发生内部错误。这些错误可能是服务器本身的错误，而不是请求出错。</p>
+
+<ul>
+<li>500（服务器内部错误） 服务器遇到错误，无法完成请求。</li>
+<li>501（尚未实施） 服务器不具备完成请求的功能。例如，服务器无法识别请求方法时可能会返回此代码。</li>
+<li>502（错误网关） 服务器作为网关或代理，从上游服务器收到无效响应。</li>
+<li>503（服务不可用） 服务器目前无法使用（由于超载或停机维护）。通常，这只是暂时状态。</li>
+<li>504（网关超时） 服务器作为网关或代理，但是没有及时从上游服务器收到请求。</li>
+<li>505（HTTP 版本不受支持） 服务器不支持请求中所用的 HTTP 协议版本。</li>
+</ul>
+
+
+<p>争取做到每周一阅，温故而知新。</p>
+
+<p>Have a nice day！</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-24T17:06:33+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/http/'>http</a>, <a class='category' href='/blog/categories/web/'>web</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+    <!-- JiaThis Button BEGIN -->
+    <div class="jiathis_style_24x24">
+        <a class="jiathis_button_qzone"></a>
+        <a class="jiathis_button_tsina"></a>
+        <a class="jiathis_button_tqq"></a>
+        <a class="jiathis_button_weixin"></a>
+        <a class="jiathis_button_renren"></a>
+        <a href="http://www.jiathis.com/share?uid=1538386" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+        <a class="jiathis_counter_style"></a>
+    </div>
+    <script type="text/javascript">
+    var jiathis_config = {data_track_clickback:'true'};
+    </script>
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1538386" charset="utf-8"></script>
+    <!-- JiaThis Button END -->
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/24/bootstrap-filestyle/" title="Previous Post: BootStrap 的文件上传控件">&laquo; BootStrap 的文件上传控件</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/02/25/hack-session-flash-for-cakephp/" title="Next Post: 给 CakePHP 的 Session Flash 做点小修改">给 CakePHP 的 Session Flash 做点小修改 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section imagesd="comment">
+    <h1>添加评论</h1>
+    <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-title="HTTP 状态码" data-url="http://caiknife.github.io/blog/2014/02/24/http-status-code/" data-thread-key="http://caiknife.github.io/blog/2014/02/24/http-status-code/"></div>
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- Duoshuo Comment END -->
+    </section>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/06/24/zhe-ge-bo-ke-fu-huo-liao/">这个博客复活了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/23/working-in-tencent/">入职腾讯一个月了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/23/love-music/">爱生活爱音乐</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/21/byebye-vcb-byebye-mezi/">再见，惠击；再见，满星！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/20/valueclick-brands-is-under-an-earthquake/">我司地震咧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/11/the-way-is-under-your-feet/">敢问路在何方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/07/linux-commands/">Linux 查看系统性能和配置的常用命令整理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/05/little-php-benchmark/">字符串拼接性能测试</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/03/cross-the-great-fire-wall/">越过长城，呼吸自由</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/02/something-about-artisan/">我也来谈谈「匠人」</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <div class="sf-usercard" id="sf-usercard-1030000000157336"></div>
+    <script>
+    (function() {
+    var sf = document.createElement('script'); sf.type = 'text/javascript'; sf.async = true;
+    sf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://w.segmentfault.com/card/1030000000157336.js?w=0&3rd=1&bg=0&bd=dddddd&cl=333333&btn=eaeaea';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf, s);
+    })();
+    </script>
+</section><section>
+    <ul class="ds-recent-comments" data-num-items="10" data-show-title="1"></ul>
+    <!--多说js加载开始，一个页面只需要加载一次 -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+
+<section>
+  <h1>GitHub项目</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/caiknife">@caiknife</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caiknife',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section>
+    <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1649186337&verifier=f479351c&dpc=1"></iframe>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F54c89ad841b193f6fbef6bde11681aed' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

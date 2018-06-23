@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: script | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/script/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[一句话 Shell 脚本（3）]]></title>
+    <link href="http://caiknife.github.io/blog/2014/02/26/happy-shell-script/"/>
+    <updated>2014-02-26T10:00:43+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/02/26/happy-shell-script</id>
+    <content type="html"><![CDATA[<p>CakePHP 会在自己的项目文件夹的 <code>app/tmp</code> 下建立缓存文件，用来保存数据库表结构。在开启 debug 的情况下，每次发起请求后都会刷新缓存，但是在生产环境下，一般都是关闭了 debug 的，如果某次功能升级修改了表结构的话，缓存并不会主动更新，如此一来就会产生 InternalError 。</p>
+
+<p>看来还是要写个脚本来手动删除这些缓存文件。</p>
+
+<!-- more -->
+
+
+<p>先看看缓存目录结构是什么样的：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>tree
+.
+├── cache
+│   ├── cake_toolbar_cache19c90b767c0870ceefeb6659d993da93
+│   ├── models
+│   │   ├── ccqo_cake_model_default_ccqo_accounts
+│   │   ├── ccqo_cake_model_default_ccqo_articles
+│   │   ├── ccqo_cake_model_default_ccqo_list
+│   │   ├── ccqo_cake_model_default_ccqo_train_divisions
+│   │   ├── ccqo_cake_model_default_ccqo_trainees
+│   │   ├── ccqo_cake_model_default_ccqo_trainers
+│   │   └── ccqo_cake_model_default_ccqo_train_infos
+│   └── persistent
+│       ├── ccqo_cake_core_cake_zh-cn
+│       ├── ccqo_cake_core_debug_kit_zh-cn
+│       ├── ccqo_cake_core_file_map
+│       └── ccqo_cake_core_method_cache
+└── logs
+```</p></blockquote>
+
+<p>要删除的是缓存文件，目录不用删除。 OK ，那么就写个脚本一次性全部搞定好了。</p>
+
+<p>先想到的是用 <code>find</code> 命令配合管道符来用：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>find . -type f | xargs rm -f
+```</p></blockquote>
+
+<p>结果报了权限错误：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>find . -type f | xargs rm -f
+rm: 无法删除"./cache/persistent/ccqo_cake_core_cake_zh-cn": 权限不够
+rm: 无法删除"./cache/persistent/ccqo_cake_core_file_map": 权限不够
+rm: 无法删除"./cache/persistent/ccqo_cake_core_debug_kit_zh-cn": 权限不够
+rm: 无法删除"./cache/persistent/ccqo_cake_core_method_cache": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_list": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_train_divisions": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_trainers": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_articles": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_train_infos": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_trainees": 权限不够
+rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_accounts": 权限不够
+```</p></blockquote>
+
+<p>这些文件是由 <code>www-data</code> 帐号生成的，所以我自然不能删除，所以加上 <code>sudo</code> 再删除吧。</p>
+
+<p>几分钟之后又想了想，其实不用管道符，完全可以用 <code>find</code> 自己就可以完成了：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>find . -type f -exec sudo rm -f {} +
+```</p></blockquote>
+
+<p>打完收工！</p>
+
+<p>最近越来越感觉随着年纪的增长，接触的事情越来越多，记忆力没有以前好了。高中时代特别自豪地过目不忘的本事也指望不上了，看来还是好记性不如烂笔头，得养成一个良好的记录和总结的习惯，才会对将来的工作有所帮助。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一句话Shell脚本（2）]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/22/happy-shell-script/"/>
+    <updated>2013-08-22T21:04:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/22/happy-shell-script</id>
+    <content type="html"><![CDATA[<p>昨天玩octopress时出了问题，没有动任何东西的情况下，系统默认的ruby版本变成了1.8，导致本地的octopress既不能提交也不能本地预览。后来分别卸载了ruby1.8和ruby1.9，启用了新的PPA之后，重新安装ruby的两个版本，并通过update-alternatives把ruby版本默认设置成1.9。</p>
+
+<p>可惜octopress还是无法启动，出现了<a href="http://stackoverflow.com/questions/13778858/octopress-errors-rake-preview-watch-or-generate">http://stackoverflow.com/questions/13778858/octopress-errors-rake-preview-watch-or-generate</a>和<a href="http://stackoverflow.com/questions/16517144/why-the-pygments-code-rb-plugin-is-breaking">http://stackoverflow.com/questions/16517144/why-the-pygments-code-rb-plugin-is-breaking</a>中提到的问题。百思不得其解啊，为什么ruby版本明明是1.9，调用的gem库却是1.8下的呢？</p>
+
+<!-- more -->
+
+
+<p>后来想到脚本文件在开头都会有<code>#!/usr/bin/env ruby</code>之类的注释，用来标注脚本文件的解释器，那么这个问题的原因是不是就是因为某些应该使用ruby1.9进行解释的文件被写死成ruby1.8解释了呢？那么应该如何找到这些文件呢？</p>
+
+<p>可以用find来查找，下面是适合的shell命令：</p>
+
+<p><code>bash
+$ find / -type f -name "*.rb" -exec grep -m 1 "ruby1.8" {} + 2&gt;/dev/null | awk -F ":" '{print $1}'
+</code></p>
+
+<p>上面这条命令的含义：</p>
+
+<p>``` bash
+$ find / \ # 从根目录开始查找</p>
+
+<pre><code>-type f \ # 查找文件
+-name "*.rb" \ # ruby文件
+-exec grep -m 1 "ruby1.8" {} + \ # 找到文件内容里匹配ruby1.8一次的所有文件，和匹配内容一起输出 
+2&gt;/dev/null \ # 错误信息丢弃
+| \ # 管道
+awk -F ":" '{print $1}' \ # 分割符是:，输出第一列
+</code></pre>
+
+<p>```</p>
+
+<p>如此一来就能找到所有还默认以ruby1.8解释的文件了，然后修改一下就行。现在我的octopress又活过来了。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一句话Shell脚本（1）]]></title>
+    <link href="http://caiknife.github.io/blog/2013/08/17/happy-shell-script/"/>
+    <updated>2013-08-17T21:38:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/08/17/happy-shell-script</id>
+    <content type="html"><![CDATA[<p>公司里的中国项目包括DHB和SMCN两个。</p>
+
+<p>在DHB的SEM Search Landing页面上，会展示SMCN的产品，之前的Tracking是直接从DHB跳转到商家页面，从DHB到商家的跳转会记录一个Offer Outgoing Log。最近加入了新的逻辑，将DHB的跳转作为一个Affiliate Outoging Log，而Dest Url是SMCN的一个跳转脚本，这样就将以前的DHB->商家页面跳转变成了从DHB->SMCN->商家页面的跳转。</p>
+
+<!-- more -->
+
+
+<p>记录下所有的Affiliate Outoging Log和Offer Outgoing Log，最后会生成小时汇总的Outgoing Log，以<code>/mezi/tracking/data/dump/dahongbao.com/yyyy-mm-dd/hh/outgoing.dat</code>的格式保存。</p>
+
+<p>最近的一个需求是要求汇总从这个功能上线起，一天内的所有从DHB跳转到SMCN的数量。在Log文件中，所有字段以<code>\t</code>分隔，第七个字段是Business Type，第三十五个字段是Dest Url，从这两个字段入手，就能获取从DHB跳转到SMCN的数量了。</p>
+
+<p>下面是一个参考的脚本：</p>
+
+<p><code>bash
+$ awk -F'\t' '{if(($7 == "CPA" || $7=="CPC") &amp;&amp; $35 ~ /www.smarter.com.cn/){print $7,$35}}' /mezi/tracking/data/dump/dahongbao.com/2013-08-15/0[6789]/outgoing.dat /mezi/tracking/data/dump/dahongbao.com/2013-08-15/[12]*/outgoing.dat /mezi/tracking/data/dump/dahongbao.com/2013-08-16/*/outgoing.dat | wc -l
+</code></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>

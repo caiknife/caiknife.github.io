@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: work | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/work/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-06-24T04:22:41+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[入职腾讯一个月了]]></title>
+    <link href="http://caiknife.github.io/blog/2014/04/23/working-in-tencent/"/>
+    <updated>2014-04-23T17:24:11+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/04/23/working-in-tencent</id>
+    <content type="html"><![CDATA[<p>3月24日，我正式加入腾讯。掐指一算，今天正好是一个月了。一个月以来，工作还是比较轻松的，部门内的工作气氛不错，同事们也都挺有意思的。</p>
+
+<!-- more -->
+
+
+<p>这边的工作气氛还是挺自由的。我的作息之间和之前在 VCB 差不多，早上坐班车过来一般 9 点半到公司，晚上下班没有别的事情的话 6 点半就下班了；不过我其他的同事们一般都会在公司里解决晚餐，加一会儿班之后再回家。</p>
+
+<p>工作流程上比较严格，制度规范也很多。有专门的开发网，只能访问腾讯旗下的网站。所以这边的人一般都有两台电脑，一台连接开发网，另外一台连接体验网。我的体验机都已经等了一个月了，还是没下来，唉，我等得花儿都谢了。</p>
+
+<p>版本管理用的是 SVN ，比之前在 VCB 用 CVS 真的是方便很多。开发方式是将远程 Linux 服务器的家目录映射为本地 Windows 的网络驱动盘，也就是 Samba ，当然这种方式比之前在 VCB 把修改过的文件一个个用 SFTP 上传到服务器上好。</p>
+
+<p>发布项目的时候，方式又非常不同了。测试服务器完全是和外界隔离的，要上传文件的话，只能通过 Web 界面上传，异常蛋疼……好吧，看看将来有什么解决方案。</p>
+
+<p>在新的环境里，得比以往更加努力工作。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[再见，惠击；再见，满星！]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/21/byebye-vcb-byebye-mezi/"/>
+    <updated>2014-03-21T22:47:45+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/21/byebye-vcb-byebye-mezi</id>
+    <content type="html"><![CDATA[<p>Bye bye，ValueClick Brands！</p>
+
+<p>Bye bye，Mezi Media！</p>
+
+<!-- more -->
+
+
+<p><a href="/downloads/image/byebye/1.jpg" title="" class="fancybox"><img src="/downloads/image/byebye/1.jpg" alt="" /></a></p>
+
+<p><a href="/downloads/image/byebye/2.jpg" title="" class="fancybox"><img src="/downloads/image/byebye/2.jpg" alt="" /></a></p>
+
+<p>I will never come back again！</p>
+
+<p>Have a nice day and have a nice life！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[我司地震咧]]></title>
+    <link href="http://caiknife.github.io/blog/2014/03/20/valueclick-brands-is-under-an-earthquake/"/>
+    <updated>2014-03-20T11:05:53+08:00</updated>
+    <id>http://caiknife.github.io/blog/2014/03/20/valueclick-brands-is-under-an-earthquake</id>
+    <content type="html"><![CDATA[<p>最近发生的事情实在是太多了，我深深地感受到了什么叫做——“计划不如变化”。</p>
+
+<!-- more -->
+
+
+<p>昨天下午，SMKR 和 SMCN 的运营妹纸们都统统被叫了出去，开了一个集体会议。我当时看到她们一下子走光的时候，顿时就有感觉——妈蛋估计又没有好事儿了！</p>
+
+<p>果然，南希开完会回来之后，就宣布了—— SMKR 和 SMCN 全部砍掉，运营岗位全部 N + 1，技术岗位全部内部转岗消化。</p>
+
+<p>老员工得到的赔偿非常到位，新员工虽然赔偿少，但是现在这个时间段找工作还算方便，拿了赔偿去找工作，还算幸福。</p>
+
+<p>不过技术岗位的话，内部转岗之后还有试用期，这又是一个深坑。</p>
+
+<p>不过我已经要离开了，只能拍几张照片怀念一下。</p>
+
+<p><a href="/downloads/image/vcb/1.jpg" title="" class="fancybox"><img src="/downloads/image/vcb/1.jpg" alt="" /></a></p>
+
+<p><a href="/downloads/image/vcb/2.jpg" title="" class="fancybox"><img src="/downloads/image/vcb/2.jpg" alt="" /></a></p>
+
+<p><a href="/downloads/image/vcb/3.jpg" title="" class="fancybox"><img src="/downloads/image/vcb/3.jpg" alt="" /></a></p>
+
+<p>这两个项目一被砍掉，我之前做过的项目和交接的文档基本就是无用功……</p>
+
+<p>妈蛋，真是坑爹！</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[早先碰到的一个 PHP 问题，有关 curl 和 file_get_contents]]></title>
+    <link href="http://caiknife.github.io/blog/2013/12/01/a-php-issue-long-long-time-ago/"/>
+    <updated>2013-12-01T09:41:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/12/01/a-php-issue-long-long-time-ago</id>
+    <content type="html"><![CDATA[<p>最早在 SmarterUS 改版的时候，后台数据采用了 API 的方式来提供，当时我第一次想要获取 API 数据时，天真的使用了 <code>file_get_contents</code> 函数，结果在自己的机器上能正常获取 XML 数据，但是代码一上到公司的开发机，获取 API 时返回竟然是空白页面，实在是百思不得其解。</p>
+
+<p>既然 <code>file_get_contents</code> 不能起作用，那就换个方式，用 <code>curl</code> 来获取远程数据好了。当然用 <code>curl</code> 能成功地获取数据，但是我还是有疑问——为什么 <code>file_get_contents</code> 就是不行呢？</p>
+
+<!-- more -->
+
+
+<p>当时没多想是什么原因，后来回家来查了一下， <code>file_get_contents</code> 有个参数设置叫 <code>allow_url_fopen</code>，如果设置为 <code>off</code> 的话，那么这个函数就不能获取远程 url 的内容，所以换成 <code>curl</code> 来获取远程内容才是正确的做法。但是原因不止这一个，还有更重要的原因应该选择 <code>curl</code> ，这就是这两者的效率问题。</p>
+
+<p>写段测试代码来看看到底这两者的效率到底有何差异：</p>
+
+<p>``` php
+&lt;?php
+error_reporting(E_ALL);
+ini_set(&lsquo;display_errors&rsquo;, &lsquo;on&rsquo;);</p>
+
+<p>require_once &lsquo;Zend/Loader/Autoloader.php&rsquo;;
+Zend_Loader_Autoloader::getInstance();</p>
+
+<p>class Remote {</p>
+
+<pre><code>const FILE_GET_CONTENTS = 1;
+const CURL = 2;
+
+protected $_startTime;
+protected $_endTime;
+
+public static function getMicroTime() {
+    return microtime(true);
+}
+
+public static function getContentByFileGetContents($url) {
+    $result = file_get_contents($url);
+    return $result;
+}
+
+public static function getContentByCurl($url) {
+    $ch = curl_init();
+    $options = array(
+        CURLOPT_URL            =&gt; $url,
+        CURLOPT_RETURNTRANSFER =&gt; true,  
+        CURLOPT_HEADER         =&gt; false,  
+    ); 
+    curl_setopt_array($ch, $options);
+    $result = curl_exec($ch);
+    curl_close($ch); 
+    return $result;
+}
+
+public function remoteOpen($url, $type, $loop=10) {
+    switch ($type) {
+        case self::FILE_GET_CONTENTS:
+            $method = 'getContentByFileGetContents';
+            break;
+        case self::CURL:
+            $method = 'getContentByCurl';
+            break;
+        default:
+            throw new Exception('No such type!');
+            break;
+    }
+    $this-&gt;_startTime = self::getMicroTime();
+    for ($i=0; $i&lt;$loop; $i++) {
+        // Zend_Debug::dump('calling method ' . __CLASS__ . '::' . $method . '.');
+        $result = self::{$method}($url);
+        // Zend_Debug::dump($result);
+    }
+    $this-&gt;_endTime = self::getMicroTime();
+
+    Zend_Debug::dump($this-&gt;_endTime - $this-&gt;_startTime);
+}
+</code></pre>
+
+<p>}</p>
+
+<p>$r = new Remote();
+$url = &lsquo;<a href="http://ip.taobao.com/service/getIpInfo.php?ip=210.210.200.200">http://ip.taobao.com/service/getIpInfo.php?ip=210.210.200.200</a>&rsquo;;</p>
+
+<p>$r->remoteOpen($url, Remote::FILE_GET_CONTENTS);</p>
+
+<p>$r->remoteOpen($url, Remote::CURL);
+```</p>
+
+<p>运行后看看输出结果：</p>
+
+<p>``` bash</p>
+
+<blockquote><p>php curl.php</p></blockquote>
+
+<p>double(2.9429008960724)</p>
+
+<p>double(2.1207449436188)
+```</p>
+
+<p>不过在多次运行这条程序的情况下，偶尔会出现用 <code>curl</code> 比 <code>file_get_contents</code> 要消耗更长的时间。不过由于 <code>curl</code> 有更强的定制性，因此还是推荐使用 <code>curl</code>。</p>
+
+<p>Google 了一下 <code>curl</code> 和 <code>file_get_contents</code> 的区别，主要有下面这几个点：</p>
+
+<p>1、<code>file_get_contents</code> 不会缓存 DNS ，但是 <code>curl</code> 会。</p>
+
+<p>2、<code>file_get_contents</code> 不能 keepalive ，但是 <code>curl</code> 可以。</p>
+
+<p>如此一来，在读取本地文件的场景下，应该使用 <code>file_get_contents</code> ；而在获取远程数据时，应该使用 <code>curl</code> 。</p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[git 备忘]]></title>
+    <link href="http://caiknife.github.io/blog/2013/10/18/git-memo/"/>
+    <updated>2013-10-18T09:47:00+08:00</updated>
+    <id>http://caiknife.github.io/blog/2013/10/18/git-memo</id>
+    <content type="html"><![CDATA[<p>之前做了 git 的设置，今天总结一下它的常用命令。</p>
+
+<!-- more -->
+
+
+<h2>git 文件操作</h2>
+
+<p>查看、添加、提交、删除、找回、重置修改文件</p>
+
+<p>``` bash 查看、添加、提交、删除、找回、重置修改文件
+git help <command>  # 显示command的help
+git show            # 显示某次提交的内容
+git show $id</p>
+
+<p>git co  &mdash; <file>   # 抛弃工作区修改
+git co  .           # 抛弃工作区修改</p>
+
+<p>git add <file>      # 将工作文件修改提交到本地暂存区
+git add .           # 将所有修改过的工作文件提交暂存区</p>
+
+<p>git rm <file>       # 从版本库中删除文件
+git rm <file> &mdash;cached  # 从版本库中删除文件，但不删除文件</p>
+
+<p>git reset <file>    # 从暂存区恢复到工作文件
+git reset &mdash; .      # 从暂存区恢复到工作文件
+git reset &mdash;hard    # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改</p>
+
+<p>git ci <file>
+git ci .
+git ci -a           # 将git add, git rm和git ci等操作都合并在一起做
+git ci -am &ldquo;some comments&rdquo;
+git ci &mdash;amend      # 修改最后一次提交记录</p>
+
+<p>git revert &lt;$id>    # 恢复某次提交的状态，恢复动作本身也创建了一次提交对象
+git revert HEAD     # 恢复最后一次提交的状态
+```</p>
+
+<p>查看文件 diff</p>
+
+<p><code>bash 查看文件 diff
+git diff &lt;file&gt;     # 比较当前文件和暂存区文件差异
+git diff
+git diff &lt;$id1&gt; &lt;$id2&gt;   # 比较两次提交之间的差异
+git diff &lt;branch1&gt;..&lt;branch2&gt; # 在两个分支之间比较
+git diff --staged   # 比较暂存区和版本库差异
+git diff --cached   # 比较暂存区和版本库差异
+git diff --stat     # 仅仅比较统计信息
+</code></p>
+
+<p>查看提交记录</p>
+
+<p><code>bash 查看提交记录
+git log
+git log &lt;file&gt;      # 查看该文件每次提交记录
+git log -p &lt;file&gt;   # 查看每次详细修改内容的diff
+git log -p -2       # 查看最近两次详细修改内容的diff
+</code></p>
+
+<h2>git 本地分支管理</h2>
+
+<p>查看、切换、创建和删除分支</p>
+
+<p>``` bash 查看、切换、创建和删除分支
+git br -r           # 查看远程分支
+git br &lt;new_branch> # 创建新的分支
+git br -v           # 查看各个分支最后提交信息
+git br &mdash;merged     # 查看已经被合并到当前分支的分支
+git br &mdash;no-merged  # 查看尚未被合并到当前分支的分支</p>
+
+<p>git co <branch>     # 切换到某个分支
+git co -b &lt;new_branch> # 创建新的分支，并且切换过去
+git co -b &lt;new_branch> <branch>  # 基于branch创建新的new_branch</p>
+
+<p>git co $id          # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除
+git co $id -b &lt;new_branch>  # 把某次历史提交记录checkout出来，创建成一个分支</p>
+
+<p>git br -d <branch>  # 删除某个分支
+git br -D <branch>  # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)
+```</p>
+
+<p>打标签</p>
+
+<p><code>bash 打标签
+git tag                         # 列出已有标签
+git tag -l 'v1.4.2.*'           # 列出 1.4.2 系列的标签
+git tag &lt;tag&gt;                   # 为当前提交打上轻量标签
+git tag -a &lt;tag&gt; -m "&lt;comment&gt;" # 为当前提交打上附注标签
+git tag -a &lt;tag&gt; &lt;$id&gt;          # 为指定提交打上标签
+git push origin &lt;tag&gt;           # 将指定标签推送到远程服务器
+git push origin --tags          # 所有标签推送到远程服务器
+</code></p>
+
+<p>分支合并和 rebase</p>
+
+<p>``` bash 分支合并和 rebase
+git merge <branch>               # 将branch分支合并到当前分支
+git merge origin/master &mdash;no-ff  # 不要Fast-Foward合并，这样可以生成merge提交</p>
+
+<p>git rebase master <branch>       # 将master rebase到branch，相当于：
+git co <branch> &amp;&amp; git rebase master &amp;&amp; git co master &amp;&amp; git merge <branch>
+```</p>
+
+<h2>git 远程分支管理</h2>
+
+<p>``` bash git 远程分支管理
+git pull                         # 抓取远程仓库所有分支更新并合并到本地
+git pull &mdash;no-ff                 # 抓取远程仓库所有分支更新并合并到本地，不要快进合并
+git fetch origin                 # 抓取远程仓库更新
+git merge origin/master          # 将远程主分支合并到本地当前分支
+git co &mdash;track origin/branch     # 跟踪某个远程分支创建相应的本地分支
+git co -b &lt;local_branch> origin/&lt;remote_branch>  # 基于远程分支创建本地分支，功能同上</p>
+
+<p>git push                         # push所有分支
+git push origin master           # 将本地主分支推到远程主分支
+git push -u origin master        # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)
+git push origin &lt;local_branch>   # 创建远程分支， origin是远程仓库名
+git push origin &lt;local_branch>:&lt;remote_branch>  # 创建远程分支
+git push origin :&lt;remote_branch>  #先删除本地分支(git br -d <branch>)，然后再push删除远程分支
+```</p>
+
+<h2>git 远程仓库管理</h2>
+
+<p><code>bash git 远程仓库管理
+git remote -v                    # 查看远程服务器地址和仓库名称
+git remote show origin           # 查看远程服务器仓库状态
+git remote add origin &lt;url&gt;      # 添加远程仓库地址
+git remote set-url origin &lt;url&gt;  # 设置远程仓库地址(用于修改远程仓库地址)
+git remote rm &lt;repository&gt;       # 删除远程仓库
+</code></p>
+
+<p>Have a nice day！</p>
+]]></content>
+  </entry>
+  
+</feed>
