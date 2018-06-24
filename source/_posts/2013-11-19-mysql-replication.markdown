@@ -22,8 +22,7 @@ MySQL 复制的基本过程如下:
 
 2. Master 接收到来自 Slave 的 IO 线程的请求后，通过负责复制的 IO 线程根据请求信息读取指定日志指定位置之后的日志信息,返回给 Slave 端的 IO 线程。返回信息中除了日志所包含的信息之外，还包括本次返回的信息在 Master 端的 Binary Log 文件的名称以及在 Binary Log 中的位置；
 
-3. Slave 的 IO 线程接收到信息后，将接收到的日志内容依次写入到 Slave 端的 Relay Log 文件（mysql-relay-bin.xxxxxx）的最末端，并将读取到的 Master 端的 bin-log 的文件名和位置记录到 master-info 文件中，以便在下一次读取的时候能够清楚的
-高速 Master “我需要从某个 bin-log 的哪个位置开始往后的日志内容,请发给我”；
+3. Slave 的 IO 线程接收到信息后，将接收到的日志内容依次写入到 Slave 端的 Relay Log 文件（mysql-relay-bin.xxxxxx）的最末端，并将读取到的 Master 端的 bin-log 的文件名和位置记录到 master-info 文件中，以便在下一次读取的时候能够清楚地告诉 Master “我需要从某个 bin-log 的哪个位置开始往后的日志内容,请发给我”；
 
 4. Slave 的 SQL 线程检测到 Relay Log 中新增加了内容后，会马上解析该 Log 文件中的内容成为在 Master 端真实执行时候的那些可执行的 Query 语句，并在自身执行这些 Query。这样，实际上就是在 Master 端和 Slave 端执行了同样的 Query，所以两端的数据是完全一样的。
 
@@ -45,7 +44,7 @@ MySQL Replicaion 本身是一个比较简单的架构，就是一台 MySQL 服�
 
 MySQL 不支持一个 Slave 节点从多个 Master 节点来进行复制的架构，主要是为了避免冲突的问题，防止多个数据源之间的数据出现冲突，而造成最后数据的不一致性。不过听说已经有人开发了相关的 patch ，让 MySQL 支持一个 Slave 节点从多个 Master 结点作为数据源来进行复制，这也正是 MySQL 开源的性质所带来的好处。
 
-###Dual Master 复制架构 Master - Master 
+###Dual Master 复制架构 Master - Master
 
 有些时候，简单的从一个 MySQL 复制到另外一个 MySQL 的基本 Replication 架构，可能还会需要在一些特定的场景下进行 Master 的切换。如在 Master 端需要进行一些特别的维护操作的时候，可能需要停 MySQL 的服务。这时候，为了尽可能减少应用系统写服务的停机时间，最佳的做法就是将我们的 Slave 节点切换成 Master 来提供写入的服务。
 
