@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mysql | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/mysql/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-06-24T04:40:53+08:00</updated>
+  <updated>2018-06-24T21:26:02+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -101,8 +101,7 @@ WHERE MATCH(column1, column2) AGAINST('word1', 'word2', 'word3');
 <ol>
 <li><p>Slave 上面的 IO 线程连接上 Master，并请求从指定日志文件的指定位置（或者从最开始的日志）之后的日志内容；</p></li>
 <li><p>Master 接收到来自 Slave 的 IO 线程的请求后，通过负责复制的 IO 线程根据请求信息读取指定日志指定位置之后的日志信息,返回给 Slave 端的 IO 线程。返回信息中除了日志所包含的信息之外，还包括本次返回的信息在 Master 端的 Binary Log 文件的名称以及在 Binary Log 中的位置；</p></li>
-<li><p>Slave 的 IO 线程接收到信息后，将接收到的日志内容依次写入到 Slave 端的 Relay Log 文件（mysql-relay-bin.xxxxxx）的最末端，并将读取到的 Master 端的 bin-log 的文件名和位置记录到 master-info 文件中，以便在下一次读取的时候能够清楚的
-高速 Master “我需要从某个 bin-log 的哪个位置开始往后的日志内容,请发给我”；</p></li>
+<li><p>Slave 的 IO 线程接收到信息后，将接收到的日志内容依次写入到 Slave 端的 Relay Log 文件（mysql-relay-bin.xxxxxx）的最末端，并将读取到的 Master 端的 bin-log 的文件名和位置记录到 master-info 文件中，以便在下一次读取的时候能够清楚地告诉 Master “我需要从某个 bin-log 的哪个位置开始往后的日志内容,请发给我”；</p></li>
 <li><p>Slave 的 SQL 线程检测到 Relay Log 中新增加了内容后，会马上解析该 Log 文件中的内容成为在 Master 端真实执行时候的那些可执行的 Query 语句，并在自身执行这些 Query。这样，实际上就是在 Master 端和 Slave 端执行了同样的 Query，所以两端的数据是完全一样的。</p></li>
 </ol>
 
