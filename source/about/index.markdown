@@ -18,13 +18,13 @@ footer: true
 
 最喜欢的吉他手是 Paul Gilbert 和 John Mayer。
 
-{% fancybox http://www.dimarzio.com/sites/default/files/imagecache/player_page_image/player/paul_gilbert5_l.jpg Paul Gilbert %}
+{% fancybox http://www.paradiseartists.com/wp-content/uploads/2016/03/paul-gilbert-photo02.jpg Paul Gilbert %}
 
-{% fancybox http://userserve-ak.last.fm/serve/500/24020631/John%252BMayer.jpg John Mayer %}
+{% fancybox http://www.thesnipenews.com/thegutter/wp-content/uploads/2017/04/john-mayer-12.jpg John Mayer %}
 
 ##常用工具汇总
 
-<http://git-scm.com/book/zh> —— 在 Git 流行的年代，用 SVN 还能理解，如果还在用 CVS 的话，一点都不高大上啊！赶紧开始学 Git ！
+<http://git-scm.com/book/zh> —— 在 Git 流行的年代，这门手艺不能缺
 
 <http://raveren.github.io/kint/> —— PHP 调试工具
 
