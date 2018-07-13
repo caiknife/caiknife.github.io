@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="MySQL Replication 是 MySQL 非常有特色的一个功能，他能够将一个 MySQL Server 的 Instance 中的数据完整的复制到另外一个 MySQL Server 的 Instance 中。虽然复制过程并不是实时而是异步进行的，但是由于其高效的性能设计，延时非常之少。 &hellip;">
+  <meta name="description" content="什么是 Dog Pile Effect？ 在缓存系统中，缓存总有失效的时候，比如我们经常使用的 Memcache 和 Redis ，都会设置超时时间；而一旦缓存到了超时时间失效之后，如果此时再有大量的并发向数据库发起请求，就会造成服务器卡顿甚至是系统当机。这就是 Dog Pile Effect 。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/20/how-to-deal-with-dog-pile-effect/">如何处理 Dog Pile Effect</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-20T16:02:00+08:00" pubdate data-updated="true">Nov 20<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-20T16:02:00+08:00" pubdate data-updated="true">Nov 20<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/memcache/'>memcache</a>, <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/redis/'>redis</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>什么是 Dog Pile Effect？</p>
+
+<p>在缓存系统中，缓存总有失效的时候，比如我们经常使用的 Memcache 和 Redis ，都会设置超时时间；而一旦缓存到了超时时间失效之后，如果此时再有大量的并发向数据库发起请求，就会造成服务器卡顿甚至是系统当机。这就是 Dog Pile Effect 。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/11/20/how-to-deal-with-dog-pile-effect/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -751,89 +823,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/14/php-note/">PHP 笔记</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-14T22:35:00+08:00" pubdate data-updated="true">Oct 14<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-14T22:35:00+08:00" pubdate data-updated="true">Oct 14<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/she-ji-mo-shi/'>设计模式</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>写了这么多年的 PHP ，还真没好好记过笔记什么的，说起来挺惭愧的。现在年纪也越来越大了，记忆力开始下降，俗话说“好记性不如烂笔头”，知识通过白纸黑字记下来，要比一直用脑子记好得多，还方便查漏补缺。</p>
-
-<p>先从最基本的开始吧。</p>
-
-<h2>PHP 访问权限</h2>
-
-<p>PHP 的类有 <code>public</code> 、<code>protected</code> 、<code>private</code> 三种权限修饰符。这三种修饰符的作用如下：</p>
-
-<ul>
-<li>public (公有的)：类中的成员将没有访问限制，所有的外部成员都可以访问（读和写）这个类成员(包括成员属性和成员方法)。如果类的成员没有指定成员访问修饰符，将被视为 public 。</li>
-<li>protected (受保护的)：被定义为 protected 的成员不能被该类的外部代码访问，但该类的子类具有访问权限。</li>
-<li>private (私有的)：被定义为 private 的成员，允许同一个类里的所有成员访问，但对于该类的外部代码和子类都不允许访问。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/10/14/php-note/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; 向前</a>
@@ -849,6 +838,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/07/13/sshconfigbei-wang/">SSHConfig备忘</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/06/24/zhe-ge-bo-ke-fu-huo-liao/">这个博客复活了</a>
@@ -884,10 +877,6 @@
     
       <li class="post">
         <a href="/blog/2014/03/03/cross-the-great-fire-wall/">越过长城，呼吸自由</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/02/something-about-artisan/">我也来谈谈「匠人」</a>
       </li>
     
   </ul>

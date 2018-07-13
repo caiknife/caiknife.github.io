@@ -4,7 +4,7 @@
   <title><![CDATA[Category: linux | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-07-11T09:36:11+08:00</updated>
+  <updated>2018-07-13T12:10:08+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SSHConfig备忘]]></title>
+    <link href="http://caiknife.github.io/blog/2018/07/13/sshconfigbei-wang/"/>
+    <updated>2018-07-13T12:05:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/07/13/sshconfigbei-wang</id>
+    <content type="html"><![CDATA[<p>记录一下我机器上的SSHConfig，防止将来忘记了。</p>
+
+<!-- more -->
+
+
+<p>```
+Host jserver</p>
+
+<pre><code>HostName j.qutoutiao.net
+User caizhijiang
+</code></pre>
+
+<p>Host j2server</p>
+
+<pre><code>HostName j2.qutoutiao.net
+User caizhijiang
+StrictHostKeyChecking no
+Port 2222
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Linux 查看系统性能和配置的常用命令整理]]></title>
@@ -308,109 +337,6 @@ rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_accounts": 权限�
 <p>修改之后回到了真透明：</p>
 
 <p><a href="/downloads/image/terminal/truetrans.png" title="True Transparency " class="fancybox"><img src="/downloads/image/terminal/truetrans.png" alt="True Transparency " /></a></p>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[使用 Vundle 来管理 vim 插件]]></title>
-    <link href="http://caiknife.github.io/blog/2013/12/05/using-vundle-for-vim-plugins/"/>
-    <updated>2013-12-05T14:00:23+08:00</updated>
-    <id>http://caiknife.github.io/blog/2013/12/05/using-vundle-for-vim-plugins</id>
-    <content type="html"><![CDATA[<p>刚用 <code>Pathogen</code> 配置好了 vim 的插件，马上就去看了 <code>Vundle</code> ，了解之后顿时觉得——哇塞这玩意儿太给力了！</p>
-
-<p>比起 <code>Pathogen</code> 用 git submodule 来手动管理插件，<code>Vundle</code> 则是使用 git 做了完全自动化的操作，只需要很少的配置就能管理 vim 插件了。</p>
-
-<!-- more -->
-
-
-<h2>安装 Vundle</h2>
-
-<p>使用下面的命令来安装 <code>Vundle</code> ，并把主目录下面的 <code>~/.vimrc</code> 文件指向 <code>～/.vim/.vimrc</code> ：</p>
-
-<p><code>bash
-$ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-$ ln -s ～/.vim/.vimrc ~/.vimrc
-</code></p>
-
-<h2>配置 .vimrc</h2>
-
-<p>在 <code>Vundle</code> 的官方网站 <a href="https://github.com/gmarik/vundle">https://github.com/gmarik/vundle</a> 上有默认的配置，只需要做一下修改就行了：</p>
-
-<p>``` vim
-set nocompatible              &ldquo; be iMproved
-filetype off                  &rdquo; required!</p>
-
-<p>set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()</p>
-
-<p>&ldquo; let Vundle manage Vundle
-&rdquo; required!
-Bundle &lsquo;gmarik/vundle&rsquo;</p>
-
-<p>&ldquo; My bundles here:
-&rdquo;
-&ldquo; original repos on GitHub
-Bundle &lsquo;tpope/vim-fugitive&rsquo;
-Bundle &lsquo;Lokaltog/vim-powerline&rsquo;
-Bundle &lsquo;Shougo/neocomplcache.vim&rsquo;
-Bundle &lsquo;rstacruz/sparkup&rsquo;, {&lsquo;rtp&rsquo;: &lsquo;vim/&rsquo;}
-Bundle &lsquo;tpope/vim-rails.git&rsquo;
-&rdquo; vim-scripts repos
-Bundle &lsquo;L9&rsquo;
-Bundle &lsquo;FuzzyFinder&rsquo;</p>
-
-<p>filetype plugin indent on     &ldquo; required!
-&rdquo;
-&ldquo; Brief help
-&rdquo; :BundleList          &ndash; list configured bundles
-&ldquo; :BundleInstall(!)    &ndash; install (update) bundles
-&rdquo; :BundleSearch(!) foo &ndash; search (or refresh cache first) for foo
-&ldquo; :BundleClean(!)      &ndash; confirm (or auto-approve) removal of unused bundles
-&rdquo;
-&ldquo; see :h vundle for more details or wiki for FAQ
-&rdquo; NOTE: comments after Bundle commands are not allowed.
-```</p>
-
-<h2>安装插件</h2>
-
-<p>配置完 <code>.vimrc</code> 之后，推出 vim 并重新进入，在命令模式下输入 <code>:BundleInstall</code> ，系统就会自动开始安装插件。在 <code>bundle</code> 目录下生成下面的目录结构：</p>
-
-<p>``` bash
-$ tree -L 1
-.
-├── FuzzyFinder
-├── L9
-├── neocomplcache.vim
-├── sparkup
-├── vim-fugitive
-├── vim-powerline
-├── vim-rails
-└── vundle</p>
-
-<p>8 directories, 0 files
-```</p>
-
-<p>别的插件我用不上，只用到了 <code>neocomplcache.vim</code> 和 <code>vim-powerline</code> 这两个。配置文件内容和上一篇文章里的提到的一样：</p>
-
-<h2>更新插件</h2>
-
-<p>使用 <code>Vundle</code> 更新插件非常简单，只用打开一个 vim ，然后输入命令 <code>:BundleInstall!</code> 。</p>
-
-<h2>删除插件</h2>
-
-<p>使用 <code>Vundle</code> 卸载插件也很简单，只需在 .vimrc 去掉绑定插件的命令及插件的配置（注释掉即可，以免以后会使用），假如需要卸载 <code>vim-powerline</code> 这个插件，首先在 .vimrc 中注释掉以下内容：</p>
-
-<p>``` vim
-Bundle &lsquo;Lokaltog/vim-powerline&rsquo;</p>
-
-<p>set laststatus=2
-set t_Co=256
-let g:Powline_symbols=&lsquo;fancy&rsquo;
-```</p>
-
-<p>保存 .vimrc 文件，重新打开一个 vim ，输入命令 <code>:BundleClean</code> ，打开 <code>~/.vim/bundle</code> 已经看不到插件 <code>vim-powerline</code> 的相关文件。</p>
 
 <p>Have a nice day！</p>
 ]]></content>

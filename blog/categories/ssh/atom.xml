@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ssh | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/ssh/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-07-13T12:10:08+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SSHConfig备忘]]></title>
+    <link href="http://caiknife.github.io/blog/2018/07/13/sshconfigbei-wang/"/>
+    <updated>2018-07-13T12:05:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/07/13/sshconfigbei-wang</id>
+    <content type="html"><![CDATA[<p>记录一下我机器上的SSHConfig，防止将来忘记了。</p>
+
+<!-- more -->
+
+
+<p>```
+Host jserver</p>
+
+<pre><code>HostName j.qutoutiao.net
+User caizhijiang
+</code></pre>
+
+<p>Host j2server</p>
+
+<pre><code>HostName j2.qutoutiao.net
+User caizhijiang
+StrictHostKeyChecking no
+Port 2222
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>

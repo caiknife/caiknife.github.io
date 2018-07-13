@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-07-11T09:36:11+08:00</updated>
+  <updated>2018-07-13T12:10:08+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SSHConfig备忘]]></title>
+    <link href="http://caiknife.github.io/blog/2018/07/13/sshconfigbei-wang/"/>
+    <updated>2018-07-13T12:05:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/07/13/sshconfigbei-wang</id>
+    <content type="html"><![CDATA[<p>记录一下我机器上的SSHConfig，防止将来忘记了。</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Host jserver
+</span><span class='line'>    HostName j.qutoutiao.net
+</span><span class='line'>    User caizhijiang
+</span><span class='line'>
+</span><span class='line'>Host j2server
+</span><span class='line'>    HostName j2.qutoutiao.net
+</span><span class='line'>    User caizhijiang
+</span><span class='line'>    StrictHostKeyChecking no
+</span><span class='line'>    Port 2222</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[这个博客复活了]]></title>
@@ -1758,204 +1792,6 @@
 <p>呵！呵！呵！</p>
 
 <p>希望过年之后还能有更好的机会吧。</p>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Windows 上安装 Python 包的时候会发生错误]]></title>
-    <link href="http://caiknife.github.io/blog/2013/12/31/a-bug-of-python-on-windows/"/>
-    <updated>2013-12-31T09:39:35+08:00</updated>
-    <id>http://caiknife.github.io/blog/2013/12/31/a-bug-of-python-on-windows</id>
-    <content type="html"><![CDATA[<p>昨天在公司的电脑上安装了 Python 环境，开始用 PyCharm 来做开发，不过在安装的过程中碰到了一些问题，顺利解决后来记录一下。</p>
-
-<p>公司的电脑是 Win7 64bit ，安装了 Python 2.7.6 之后，我需要再安装 setuptools 和 pip 来做包的管理。但是在安装这两个包的过程中，经常发生下面的警告：</p>
-
-<!-- more -->
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Upgrade packages failed.
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>The following <span class="nb">command </span>was executed:
-</span><span class='line'>
-</span><span class='line'>packaging_tool.py install --build-dir C:<span class="se">\U</span>sers<span class="se">\z</span>cai<span class="se">\A</span>ppData<span class="se">\L</span>ocal<span class="se">\T</span>emp<span class="se">\p</span>ycharm-packaging5243158917089453594.tmp -U setuptools
-</span><span class='line'>
-</span><span class='line'>The error output of the <span class="nb">command</span>:
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>Downloading/unpacking setuptools from https://pypi.python.org/packages/source/s/setuptools/setuptools-2.0.2.tar.gz#md5<span class="o">=</span>101b0829eca064fe47708039d66fc135
-</span><span class='line'>  Running setup.py egg_info <span class="k">for </span>package setuptools
-</span><span class='line'>    Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-</span><span class='line'>      File <span class="s2">&quot;&lt;string&gt;&quot;</span>, line 3, in &lt;module&gt;
-</span><span class='line'>      File <span class="s2">&quot;setuptools\__init__.py&quot;</span>, line 11, in &lt;module&gt;
-</span><span class='line'>        from setuptools.extension import Extension
-</span><span class='line'>      File <span class="s2">&quot;setuptools\extension.py&quot;</span>, line 5, in &lt;module&gt;
-</span><span class='line'>        from setuptools.dist import _get_unpatched
-</span><span class='line'>      File <span class="s2">&quot;setuptools\dist.py&quot;</span>, line 15, in &lt;module&gt;
-</span><span class='line'>        from setuptools.compat import numeric_types, basestring
-</span><span class='line'>      File <span class="s2">&quot;setuptools\compat.py&quot;</span>, line 19, in &lt;module&gt;
-</span><span class='line'>        from SimpleHTTPServer import SimpleHTTPRequestHandler
-</span><span class='line'>      File <span class="s2">&quot;C:\Python27\lib\SimpleHTTPServer.py&quot;</span>, line 27, in &lt;module&gt;
-</span><span class='line'>        class SimpleHTTPRequestHandler<span class="o">(</span>BaseHTTPServer.BaseHTTPRequestHandler<span class="o">)</span>:
-</span><span class='line'>      File <span class="s2">&quot;C:\Python27\lib\SimpleHTTPServer.py&quot;</span>, line 208, in SimpleHTTPRequestHandler
-</span><span class='line'>        mimetypes.init<span class="o">()</span> <span class="c"># try to read system mime.types</span>
-</span><span class='line'>      File <span class="s2">&quot;C:\Python27\lib\mimetypes.py&quot;</span>, line 358, in init
-</span><span class='line'>        db.read_windows_registry<span class="o">()</span>
-</span><span class='line'>      File <span class="s2">&quot;C:\Python27\lib\mimetypes.py&quot;</span>, line 258, in read_windows_registry
-</span><span class='line'>        <span class="k">for </span>subkeyname in enum_types<span class="o">(</span>hkcr<span class="o">)</span>:
-</span><span class='line'>      File <span class="s2">&quot;C:\Python27\lib\mimetypes.py&quot;</span>, line 249, in enum_types
-</span><span class='line'>        <span class="nv">ctype</span> <span class="o">=</span> ctype.encode<span class="o">(</span>default_encoding<span class="o">)</span> <span class="c"># omit in 3.x!</span>
-</span><span class='line'>    UnicodeDecodeError: <span class="s1">&#39;ascii&#39;</span> codec can<span class="s1">&#39;t decode byte 0xb0 in position 1: ordinal not in range(128)</span>
-</span><span class='line'><span class="s1">    Complete output from command python setup.py egg_info:</span>
-</span><span class='line'><span class="s1">    Traceback (most recent call last):</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  File &quot;&lt;string&gt;&quot;, line 3, in &lt;module&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  File &quot;setuptools\__init__.py&quot;, line 11, in &lt;module&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">    from setuptools.extension import Extension</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  File &quot;setuptools\extension.py&quot;, line 5, in &lt;module&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">    from setuptools.dist import _get_unpatched</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  File &quot;setuptools\dist.py&quot;, line 15, in &lt;module&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">    from setuptools.compat import numeric_types, basestring</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  File &quot;setuptools\compat.py&quot;, line 19, in &lt;module&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">    from SimpleHTTPServer import SimpleHTTPRequestHandler</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  File &quot;C:\Python27\lib\SimpleHTTPServer.py&quot;, line 27, in &lt;module&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">    class SimpleHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  File &quot;C:\Python27\lib\SimpleHTTPServer.py&quot;, line 208, in SimpleHTTPRequestHandler</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">    mimetypes.init() # try to read system mime.types</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  File &quot;C:\Python27\lib\mimetypes.py&quot;, line 358, in init</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">    db.read_windows_registry()</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  File &quot;C:\Python27\lib\mimetypes.py&quot;, line 258, in read_windows_registry</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">    for subkeyname in enum_types(hkcr):</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">  File &quot;C:\Python27\lib\mimetypes.py&quot;, line 249, in enum_types</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">    ctype = ctype.encode(default_encoding) # omit in 3.x!</span>
-</span><span class='line'>
-</span><span class='line'><span class="s1">UnicodeDecodeError: &#39;</span>ascii<span class="s1">&#39; codec can&#39;</span>t decode byte 0xb0 in position 1: ordinal not in range<span class="o">(</span>128<span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>----------------------------------------
-</span><span class='line'>Cleaning up...
-</span><span class='line'>Command python setup.py egg_info failed with error code 1 in C:<span class="se">\U</span>sers<span class="se">\z</span>cai<span class="se">\A</span>ppData<span class="se">\L</span>ocal<span class="se">\T</span>emp<span class="se">\p</span>ycharm-packaging5243158917089453594.tmp<span class="se">\s</span>etuptools
-</span><span class='line'>Storing <span class="nb">complete </span>log in C:<span class="se">\U</span>sers<span class="se">\z</span>cai<span class="se">\p</span>ip<span class="se">\p</span>ip.log
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>根据错误信息，在 <code>C:\Python27\lib\mimetypes.py</code> 找到下面的代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">try</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">ctype</span> <span class="o">=</span> <span class="n">ctype</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">default_encoding</span><span class="p">)</span> <span class="c"># omit in 3.x!</span>
-</span><span class='line'><span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span>
-</span><span class='line'>    <span class="k">pass</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注释掉这段代码，再重新安装就可以了。</p>
-
-<p>Windows 上开发真的好多坑啊，还是坚持在 Linux 下开发算了。</p>
 
 <p>Have a nice day！</p>
 ]]></content>
