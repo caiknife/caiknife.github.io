@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="标准的ini文件中，应该有一个类似[section]的部分作为正文的开头，但是很多情况下，ini文件都是不标准的，比如下面这个格式： 1
+  <meta name="description" content="写完上一篇文章之后，做了一个类似Zend_Config_Ini的Python parser，可以用来解析标准和非标准格式的ini文件，但是不能写文件。如果只用来读取文件内容的话，还是挺方便的。 ini文件内容如下： 1
 2
 3
 4
@@ -22,8 +22,7 @@
 11
 12
 13
-master.host = stats10.mezimedia.com
-master.username &hellip;">
+master.host &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,6 +89,109 @@ master.username &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/21/python-ini-parser/">类似Zend_Config_Ini风格的python Parser</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-21T18:13:00+08:00" pubdate data-updated="true">Aug 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-21T18:13:00+08:00" pubdate data-updated="true">Aug 21<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ini/'>ini</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>写完上一篇文章之后，做了一个类似Zend_Config_Ini的Python parser，可以用来解析标准和非标准格式的ini文件，但是不能写文件。如果只用来读取文件内容的话，还是挺方便的。</p>
+
+<p>ini文件内容如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ini'><span class='line'><span class="na">master.host</span>                 <span class="o">=</span> <span class="s">stats10.mezimedia.com</span>
+</span><span class='line'><span class="na">master.username</span>             <span class="o">=</span> <span class="s">scltrk</span>
+</span><span class='line'><span class="na">master.password</span>             <span class="o">=</span> <span class="s">Mhok8homL7</span>
+</span><span class='line'><span class="na">master.dbname</span>               <span class="o">=</span> <span class="s">tracking</span>
+</span><span class='line'>
+</span><span class='line'><span class="na">slave.host</span>                  <span class="o">=</span> <span class="s">stats11.mezimedia.com</span>
+</span><span class='line'><span class="na">slave.port</span>                  <span class="o">=</span> <span class="s">3308</span>
+</span><span class='line'><span class="na">slave.username</span>              <span class="o">=</span> <span class="s">scltrk</span>
+</span><span class='line'><span class="na">slave.password</span>              <span class="o">=</span> <span class="s">Mhok8homL7</span>
+</span><span class='line'><span class="na">slave.dbname</span>                <span class="o">=</span> <span class="s">tracking</span>
+</span><span class='line'>
+</span><span class='line'><span class="na">msgsite</span>                     <span class="o">=</span> <span class="s">smarter</span>
+</span><span class='line'><span class="na">offset</span>                      <span class="o">=</span> <span class="s">20000</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/21/python-ini-parser/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -991,76 +1093,6 @@ foosbar!</p></blockquote>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/08/install-redis-extension-for-php/">安装phpredis扩展</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-08T14:41:00+08:00" pubdate data-updated="true">Aug 8<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-08T14:41:00+08:00" pubdate data-updated="true">Aug 8<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/redis/'>redis</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>redis官方推荐的PHP扩展有两个——<a href="https://github.com/nrk/predis">Predis</a>和<a href="https://github.com/nicolasff/phpredis">phpredis</a>。phpredis是使用 C 编写的 PHP module ，速度应该会比较快，而且 CakePHP 使用的 redis 库默认就是 phpredis ，先安装这个试试看。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/08/install-redis-extension-for-php/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; 向前</a>
@@ -1076,6 +1108,10 @@ foosbar!</p></blockquote>
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/07/27/zhi-de-ji-ta-dan-de-zen-yao-yang-%3F/">知乎回答【谢霆锋的吉他弹得怎么样？】</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/07/13/sshconfigbei-wang/">SSHConfig备忘</a>
@@ -1111,10 +1147,6 @@ foosbar!</p></blockquote>
     
       <li class="post">
         <a href="/blog/2014/03/05/little-php-benchmark/">字符串拼接性能测试</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/03/cross-the-great-fire-wall/">越过长城，呼吸自由</a>
       </li>
     
   </ul>
