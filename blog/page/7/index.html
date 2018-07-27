@@ -9,20 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="写完上一篇文章之后，做了一个类似Zend_Config_Ini的Python parser，可以用来解析标准和非标准格式的ini文件，但是不能写文件。如果只用来读取文件内容的话，还是挺方便的。 ini文件内容如下： 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-master.host &hellip;">
+  <meta name="description" content="昨天玩octopress时出了问题，没有动任何东西的情况下，系统默认的ruby版本变成了1.8，导致本地的octopress既不能提交也不能本地预览。后来分别卸载了ruby1.8和ruby1.9，启用了新的PPA之后，重新安装ruby的两个版本，并通过update- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +76,78 @@ master.host &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/22/happy-shell-script/">一句话Shell脚本（2）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-22T21:04:00+08:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-22T21:04:00+08:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/script/'>script</a>, <a class='category' href='/blog/categories/shell/'>shell</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>昨天玩octopress时出了问题，没有动任何东西的情况下，系统默认的ruby版本变成了1.8，导致本地的octopress既不能提交也不能本地预览。后来分别卸载了ruby1.8和ruby1.9，启用了新的PPA之后，重新安装ruby的两个版本，并通过update-alternatives把ruby版本默认设置成1.9。</p>
+
+<p>可惜octopress还是无法启动，出现了<a href="http://stackoverflow.com/questions/13778858/octopress-errors-rake-preview-watch-or-generate">http://stackoverflow.com/questions/13778858/octopress-errors-rake-preview-watch-or-generate</a>和<a href="http://stackoverflow.com/questions/16517144/why-the-pygments-code-rb-plugin-is-breaking">http://stackoverflow.com/questions/16517144/why-the-pygments-code-rb-plugin-is-breaking</a>中提到的问题。百思不得其解啊，为什么ruby版本明明是1.9，调用的gem库却是1.8下的呢？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/22/happy-shell-script/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1014,85 +1073,6 @@ foosbar!</p></blockquote>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/12/ubuntu-change-default-version-for-commands/">Ubuntu切换系统默认命令</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-12T23:01:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-12T23:01:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/trick/'>trick</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>在Ubuntu中由于环境需要，可能需要共存某个软件的多个版本，比如Python2和Python3，以及Ruby1.8和Ruby1.9。这两者有virtualenv和homebrew可以用来做版本的管理，不过从Ubuntu系统层面上，有一个命令可以直接切换软件的版本——update-alternatives。</p>
-
-<p>命令用起来很简单。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo update-alternatives --config <span class="nb">command</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/12/ubuntu-change-default-version-for-commands/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; 向前</a>
@@ -1108,6 +1088,10 @@ foosbar!</p></blockquote>
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/07/27/da-lu-yin-le-zhen-ren-xiu-shi-san-nian/">大陆音乐真人秀十三年</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/07/27/zhi-de-ji-ta-dan-de-zen-yao-yang-%3F/">知乎回答【谢霆锋的吉他弹得怎么样？】</a>
@@ -1143,10 +1127,6 @@ foosbar!</p></blockquote>
     
       <li class="post">
         <a href="/blog/2014/03/07/linux-commands/">Linux 查看系统性能和配置的常用命令整理</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/05/little-php-benchmark/">字符串拼接性能测试</a>
       </li>
     
   </ul>
