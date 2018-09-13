@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-07-27T16:23:44+08:00</updated>
+  <updated>2018-09-13T10:14:28+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[PHP知识体系]]></title>
+    <link href="http://caiknife.github.io/blog/2018/09/13/phpzhi-shi-ti-xi/"/>
+    <updated>2018-09-13T10:06:52+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/09/13/phpzhi-shi-ti-xi</id>
+    <content type="html"><![CDATA[<p>最近花了几天时间写了一个有关PHP的思维导图。</p>
+
+<!-- more -->
+
+
+<p>虽然已经工作了很多年了，但是之前一直很少静下来给自己做一次深刻的总结。</p>
+
+<p>这一次，就当写了一次给自己的My Back Pages。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/php/php.png" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/php/php.png" alt="" /></a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[大陆音乐真人秀十三年]]></title>
@@ -1827,34 +1845,6 @@
 <p>男：人艰不拆……</p>
 
 <p>以上内容，纯属瞎掰，如有雷同，不胜荣幸。</p>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ubuntu 下 Gnome 终端出现假透明]]></title>
-    <link href="http://caiknife.github.io/blog/2014/02/11/ubuntu-gnome-terminal-no-transparency/"/>
-    <updated>2014-02-11T14:28:56+08:00</updated>
-    <id>http://caiknife.github.io/blog/2014/02/11/ubuntu-gnome-terminal-no-transparency</id>
-    <content type="html"><![CDATA[<p>某次更新过 Ubuntu 之后，Gnome 终端就从真透明变成了假透明，使用起来非常不方便。</p>
-
-<p>今天，从 <a href="http://askubuntu.com/questions/266533/gnome-terminal-transparency-with-gnome-classic-no-effects">http://askubuntu.com/questions/266533/gnome-terminal-transparency-with-gnome-classic-no-effects</a> 找到了解决问题的方法。</p>
-
-<!-- more -->
-
-
-<p>按照图中的方法修改一下配置，终端又变回真透明了。</p>
-
-<p><a href="http://caiknife.github.io/downloads/image/terminal/config.png" title="Config " class="fancybox"><img src="http://caiknife.github.io/downloads/image/terminal/config.png" alt="Config " /></a></p>
-
-<p>下面是之前的假透明：</p>
-
-<p><a href="http://caiknife.github.io/downloads/image/terminal/faketrans.png" title="Fake Transparency " class="fancybox"><img src="http://caiknife.github.io/downloads/image/terminal/faketrans.png" alt="Fake Transparency " /></a></p>
-
-<p>修改之后回到了真透明：</p>
-
-<p><a href="http://caiknife.github.io/downloads/image/terminal/truetrans.png" title="True Transparency " class="fancybox"><img src="http://caiknife.github.io/downloads/image/terminal/truetrans.png" alt="True Transparency " /></a></p>
 
 <p>Have a nice day！</p>
 ]]></content>

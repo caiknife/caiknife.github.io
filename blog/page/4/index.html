@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="索引是一种特殊的文件，InnoDB 数据表上的索引是表空间的一个组成部分。它们包含着对数据表里所有记录的引用指针。 从理论上讲，完全可以为数据表里的每一个字段分别创建一个索引，但是 MySQL 把同一个数据表里的索引总数限制为 16 个。MySQL 还允许为多个字段的组合创建索引， &hellip;">
+  <meta name="description" content="最早在 SmarterUS 改版的时候，后台数据采用了 API 的方式来提供，当时我第一次想要获取 API 数据时，天真的使用了 file_get_contents 函数，结果在自己的机器上能正常获取 XML 数据，但是代码一上到公司的开发机，获取 API 时返回竟然是空白页面，实在是百思不得其解 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/01/a-php-issue-long-long-time-ago/">早先碰到的一个 PHP 问题，有关 Curl 和 File_get_contents</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-01T09:41:38+08:00" pubdate data-updated="true">Dec 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-01T09:41:38+08:00" pubdate data-updated="true">Dec 1<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>最早在 SmarterUS 改版的时候，后台数据采用了 API 的方式来提供，当时我第一次想要获取 API 数据时，天真的使用了 <code>file_get_contents</code> 函数，结果在自己的机器上能正常获取 XML 数据，但是代码一上到公司的开发机，获取 API 时返回竟然是空白页面，实在是百思不得其解。</p>
+
+<p>既然 <code>file_get_contents</code> 不能起作用，那就换个方式，用 <code>curl</code> 来获取远程数据好了。当然用 <code>curl</code> 能成功地获取数据，但是我还是有疑问——为什么 <code>file_get_contents</code> 就是不行呢？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/12/01/a-php-issue-long-long-time-ago/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -740,93 +812,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/22/jquery-return-false-and-event-prevent-default/">jQuery 中 Return False 和 event.preventDefault() 的区别</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-22T15:21:00+08:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-22T15:21:00+08:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/jquery/'>jquery</a>, <a class='category' href='/blog/categories/js/'>js</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>以前，我在用 jQuery 写链接的点击事件时，一般都是用的 <code>return false</code> 来阻止它默认的行为，就像下面这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='js+php'><span class='line'><span class="err">$</span><span class="p">(</span><span class="k">function</span><span class="p">(){</span>
-</span><span class='line'>    <span class="err">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">click</span><span class="p">(</span><span class="k">function</span><span class="p">(){</span>
-</span><span class='line'>        <span class="c1">// bla... bla... bla..</span>
-</span><span class='line'>        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/10/22/jquery-return-false-and-event-prevent-default/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; 向前</a>
@@ -842,6 +827,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/09/13/phpzhi-shi-ti-xi/">PHP知识体系</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/07/27/da-lu-yin-le-zhen-ren-xiu-shi-san-nian/">大陆音乐真人秀十三年</a>
@@ -877,10 +866,6 @@
     
       <li class="post">
         <a href="/blog/2014/03/11/the-way-is-under-your-feet/">敢问路在何方</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/07/linux-commands/">Linux 查看系统性能和配置的常用命令整理</a>
       </li>
     
   </ul>

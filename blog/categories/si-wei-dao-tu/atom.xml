@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 思维导图 | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/si-wei-dao-tu/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-09-13T10:14:28+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[PHP知识体系]]></title>
+    <link href="http://caiknife.github.io/blog/2018/09/13/phpzhi-shi-ti-xi/"/>
+    <updated>2018-09-13T10:06:52+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/09/13/phpzhi-shi-ti-xi</id>
+    <content type="html"><![CDATA[<p>最近花了几天时间写了一个有关PHP的思维导图。</p>
+
+<!-- more -->
+
+
+<p>虽然已经工作了很多年了，但是之前一直很少静下来给自己做一次深刻的总结。</p>
+
+<p>这一次，就当写了一次给自己的My Back Pages。</p>
+
+<p><a href="/downloads/image/php/php.png" title="" class="fancybox"><img src="/downloads/image/php/php.png" alt="" /></a></p>
+]]></content>
+  </entry>
+  
+</feed>
