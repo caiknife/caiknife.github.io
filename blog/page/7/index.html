@@ -9,7 +9,11 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="在知乎上看到这么一个问题http://www.zhihu.com/question/21503093，里面提到了完美洗牌，就想想一副牌到底要经过多少次完美洗牌才能复原呢？写了个小程序测试一下。 ">
+  <meta name="description" content="很早之前就做过跨域设置 cookie 的项目了，但是以前没有做好积累，今晚花了点时间重新复习一下。 OK ，有两个域名， www.a.com 和 www.b.com ，现在要通过 a 网站来设置 b 网站下的 cookie 。 a 网站下 setcookie.php 的代码： 1
+2
+3
+4
+5 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +80,115 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/26/cross-domain-cookie/">老生常谈cookie跨域</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-26T18:00:00+08:00" pubdate data-updated="true">Aug 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-26T18:00:00+08:00" pubdate data-updated="true">Aug 26<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cookie/'>cookie</a>, <a class='category' href='/blog/categories/jquery/'>jquery</a>, <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>很早之前就做过跨域设置 cookie 的项目了，但是以前没有做好积累，今晚花了点时间重新复习一下。</p>
+
+<p>OK ，有两个域名， www.a.com 和 www.b.com ，现在要通过 a 网站来设置 b 网站下的 cookie 。</p>
+
+<p>a 网站下 setcookie.php 的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="nx">meta</span> <span class="nx">charset</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span> <span class="o">/&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">Cookie</span> <span class="nx">Cross</span> <span class="nx">Domain</span><span class="o">&lt;/</span><span class="nx">title</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;!--</span>
+</span><span class='line'>    <span class="o">--&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;http://www.b.com/cookie/setcookie.php?name=world&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">head</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">test</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;!--</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="nx">iframe</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;http://www.b.com/cookie/setcookie.php?name=hello&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">iframe</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">--&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">body</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>用 JavaScript 来调用或者用 iframe 调用都是没有问题的。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/26/cross-domain-cookie/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -904,173 +1017,6 @@ foosbar!</p></blockquote>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/13/python-singleton-design-pattern/">Python单例模式</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-13T09:58:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-13T09:58:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/she-ji-mo-shi/'>设计模式</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>设计模式，单例模式，老生常谈。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/python</span>
-</span><span class='line'><span class="c">#coding: UTF-8</span>
-</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
-</span><span class='line'><span class="sd">@author: CaiKnife</span>
-</span><span class='line'>
-</span><span class='line'><span class="sd">Singleton</span>
-</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 使用__new__方法构造单例类</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">Singleton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;_instance&#39;</span><span class="p">):</span>
-</span><span class='line'>            <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Singleton</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">print</span> <span class="n">Singleton</span><span class="p">()</span>
-</span><span class='line'><span class="k">print</span> <span class="n">Singleton</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 使用单例装饰器构造单例类</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">singleton</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">instances</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>    <span class="nd">@wraps</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">if</span> <span class="n">cls</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">:</span>
-</span><span class='line'>            <span class="n">instances</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">instances</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">wrapper</span>
-</span><span class='line'>
-</span><span class='line'><span class="nd">@singleton</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">pass</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">print</span> <span class="n">MyClass</span><span class="p">()</span>
-</span><span class='line'><span class="k">print</span> <span class="n">MyClass</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 使用getInstance方法构造单例对象，非线程安全</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">MySingleton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-</span><span class='line'>    <span class="nd">@classmethod</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">getInstance</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;_instance&#39;</span><span class="p">):</span>
-</span><span class='line'>            <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="n">cls</span><span class="p">()</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_instance</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">print</span> <span class="n">MySingleton</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span>
-</span><span class='line'><span class="k">print</span> <span class="n">MySingleton</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/13/python-singleton-design-pattern/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; 向前</a>
@@ -1086,6 +1032,10 @@ foosbar!</p></blockquote>
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/09/14/deng-zhu-ke-lu-ge-xiao-ying/">邓宁-克鲁格效应</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/09/13/phpzhi-shi-ti-xi/">PHP知识体系</a>
@@ -1121,10 +1071,6 @@ foosbar!</p></blockquote>
     
       <li class="post">
         <a href="/blog/2014/03/20/valueclick-brands-is-under-an-earthquake/">我司地震咧</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/11/the-way-is-under-your-feet/">敢问路在何方</a>
       </li>
     
   </ul>
