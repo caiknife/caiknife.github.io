@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-09-14T15:24:32+08:00</updated>
+  <updated>2018-09-30T17:36:36+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[入手了一个新玩具]]></title>
+    <link href="http://caiknife.github.io/blog/2018/09/30/ru-shou-liao-yi-ge-xin-wan-ju/"/>
+    <updated>2018-09-30T17:08:57+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/09/30/ru-shou-liao-yi-ge-xin-wan-ju</id>
+    <content type="html"><![CDATA[<p>今天是2018年9月30日，按照常理，我们应该都会听一首歌。</p>
+
+<p><embed src="https://imgcache.qq.com/tencentvideo_v1/playerv3/TPout.swf?max_age=86400&v=20161117&vid=c0668elhqi3&auto=0" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed></p>
+
+<!-- more -->
+
+
+<p>同时在今天，我也给自己准备了一件礼物。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/clarinet/1.jpeg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/clarinet/1.jpeg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/clarinet/2.jpeg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/clarinet/2.jpeg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/clarinet/3.jpeg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/clarinet/3.jpeg" alt="" /></a></p>
+
+<p><a href="http://caiknife.github.io/downloads/image/clarinet/4.jpeg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/clarinet/4.jpeg" alt="" /></a></p>
+
+<p><strong>Buffet Crampon Prodige Clarinet</strong></p>
+
+<p>在知乎的这篇回答里<a href="https://www.zhihu.com/question/39718466/answer/83423060">https://www.zhihu.com/question/39718466/answer/83423060</a>我提到了我中学时代在学校的铜管乐团里的经历，那个时候我吹的是Tenor Saxphone。</p>
+
+<p>现在我已经30多岁了，出于对中学时代的这段经历的怀念，今天我给自己送了这件礼物，也算是今年生日的补偿——今年的生日我被需求方折腾到凌晨1点多才下班，呵呵呵。</p>
+
+<p>年龄摆在这里，我从小练习萨克斯的基础也并没有打好，所以肯定还是要找老师学习的。学习单簧管只是想让自己开心开心，吹古典曲子我就不指望了，只希望能打好基础，积累足够的语汇，好好练习一下即兴技巧，也许过几年可以在爵士乐队中JAM一下。</p>
+
+<p>希望将来有一天真的可以办到。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[邓宁-克鲁格效应]]></title>
@@ -1640,83 +1674,6 @@
 <p>这个插件还有一些配置选项和 API 可以满足各种定制，具体的内容可以查看源文档。</p>
 
 <p>BootStrap 真是好东西，但是用多了之后，会不会有审美疲劳？</p>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Windows 平台上安装 xdebug 扩展]]></title>
-    <link href="http://caiknife.github.io/blog/2014/02/19/install-xdebug-on-windows/"/>
-    <updated>2014-02-19T20:18:27+08:00</updated>
-    <id>http://caiknife.github.io/blog/2014/02/19/install-xdebug-on-windows</id>
-    <content type="html"><![CDATA[<p><code>xdebug</code> 是一个非常非常好用的调试程序、追踪错误、性能分析的 PHP 扩展，可以在 <a href="http://xdebug.org/">http://xdebug.org/</a> 这里找到相关的文档。在 Ubuntu 下面安装 xdebug 非常简单，直接执行下面的命令即可。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install php5-xdebug
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<!-- more -->
-
-
-<p>但是在 Windows 上安装 xdebug ，就有点小麻烦了。首先我们一般是在 <a href="http://windows.php.net/download/">http://windows.php.net/download/</a> 这里下载 PHP 环境，我用的 PHP 版本是 5.4.X 系列，只有 x86 架构的环境。</p>
-
-<p>首先配置好 PHP 环境，我使用的是 PHP 5.4.X Thread Safe 版本，所以在安装 xdebug 的时候，应该要用对应的文件是—— <a href="http://xdebug.org/files/php_xdebug-2.2.3-5.4-vc9.dll">php_xdebug-2.2.3-5.4-vc9.dll</a> ，千万不要选 64 位或者是 NTS 的版本，这样都无法正常启动 xdebug 。</p>
-
-<p>下载好 DLL 文件之后，在 php.ini 文件中写入：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='ini'><span class='line'><span class="na">zend_extension</span><span class="o">=</span><span class="s">D:/PHP5.4/ext/php_xdebug-2.2.3-5.4-vc9.dll</span>
-</span><span class='line'>
-</span><span class='line'><span class="err">[xdebug]</span>
-</span><span class='line'><span class="na">xdebug.auto_trace</span><span class="o">=</span><span class="s">on  </span>
-</span><span class='line'><span class="na">xdebug.collect_params</span><span class="o">=</span><span class="s">on </span>
-</span><span class='line'><span class="na">xdebug.collect_return</span><span class="o">=</span><span class="s">on </span>
-</span><span class='line'><span class="na">xdebug.profiler_enable</span><span class="o">=</span><span class="s">on </span>
-</span><span class='line'><span class="na">xdebug.trace_output_dir</span><span class="o">=</span><span class="s">&quot;D:/PHP5.4/xdebug/trace&quot;</span>
-</span><span class='line'><span class="na">xdebug.profiler_output_dir</span><span class="o">=</span><span class="s">&quot;D:/PHP5.4/xdebug/profiler&quot;</span>
-</span><span class='line'><span class="na">xdebug.remote_enable</span><span class="o">=</span><span class="s">on </span>
-</span><span class='line'><span class="na">xdebug.idekey</span><span class="o">=</span><span class="s">&quot;&quot;</span>
-</span><span class='line'><span class="na">xdebug.remote_handler</span><span class="o">=</span><span class="s">dbgp </span>
-</span><span class='line'><span class="na">xdebug.remote_host</span><span class="o">=</span><span class="s">localhost</span>
-</span><span class='line'><span class="na">xdebug.remote_port</span><span class="o">=</span><span class="s">9000</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>重启 Apache 之后，命令行下输入 <code>php -v</code>，就应该能看到如下的信息：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>PHP 5.4.23 <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Dec 11 2013 00:56:37<span class="o">)</span>
-</span><span class='line'>Copyright <span class="o">(</span>c<span class="o">)</span> 1997-2013 The PHP Group
-</span><span class='line'>Zend Engine v2.4.0, Copyright <span class="o">(</span>c<span class="o">)</span> 1998-2013 Zend Technologies
-</span><span class='line'>    with Xdebug v2.2.3, Copyright <span class="o">(</span>c<span class="o">)</span> 2002-2013, by Derick Rethans
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>今后，如果在程序中发生错误的话，就会出现经典的橙色背景，并且还有非常详细的 stack strace 信息，看看下面的图：</p>
-
-<p><a href="http://caiknife.github.io/downloads/image/xdebug/1.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/xdebug/1.jpg" alt="" /></a></p>
-
-<p><a href="http://caiknife.github.io/downloads/image/xdebug/2.png" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/xdebug/2.png" alt="" /></a></p>
 
 <p>Have a nice day！</p>
 ]]></content>
