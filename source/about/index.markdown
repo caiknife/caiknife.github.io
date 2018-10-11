@@ -18,9 +18,9 @@ footer: true
 
 最喜欢的吉他手是 Paul Gilbert 和 John Mayer。
 
-{% fancybox /downloads/image/pg.jpg Paul Gilbert %}
+{% fancybox /downloads/image/about/pg.jpg Paul Gilbert %}
 
-{% fancybox /downloads/image/jm.jpg John Mayer %}
+{% fancybox /downloads/image/about/jm.jpg John Mayer %}
 
 ##常用工具汇总
 
