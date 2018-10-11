@@ -15,4 +15,4 @@ categories: PHP 思维导图 方法论
 
 <embed src="https://imgcache.qq.com/tencentvideo_v1/playerv3/TPout.swf?max_age=86400&v=20161117&vid=x01784z0bba&auto=0" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
 
-{% fancybox /downloads/image/php/php.png %}
+{% fancybox /downloads/image/php/php.png PHP知识体系 %}

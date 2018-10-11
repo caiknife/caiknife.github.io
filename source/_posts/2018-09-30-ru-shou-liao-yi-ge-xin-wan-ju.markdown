@@ -13,13 +13,13 @@ categories: 音乐 管乐 兴趣 爱好
 
 同时在今天，我也给自己准备了一件礼物。
 
-{% fancybox /downloads/image/clarinet/1.jpeg %}
+{% fancybox /downloads/image/clarinet/1.jpeg Buffet Crampon Prodige Clarinet %}
 
-{% fancybox /downloads/image/clarinet/2.jpeg %}
+{% fancybox /downloads/image/clarinet/2.jpeg Buffet Crampon Prodige Clarinet %}
 
-{% fancybox /downloads/image/clarinet/3.jpeg %}
+{% fancybox /downloads/image/clarinet/3.jpeg Buffet Crampon Prodige Clarinet %}
 
-{% fancybox /downloads/image/clarinet/4.jpeg %}
+{% fancybox /downloads/image/clarinet/4.jpeg Buffet Crampon Prodige Clarinet %}
 
 **Buffet Crampon Prodige Clarinet**
 

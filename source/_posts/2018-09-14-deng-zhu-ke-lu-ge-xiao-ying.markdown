@@ -5,7 +5,7 @@ date: 2018-09-14 12:32:27 +0800
 comments: true
 categories: 心理学 自我认知
 ---
-{% fancybox /downloads/image/dk/1.jpg %}
+{% fancybox /downloads/image/dk/1.jpg Dunning–Kruger effect %}
 
 达克效应（英语：D-K effect），全称为邓宁-克鲁格效应（英语：Dunning–Kruger effect），是一种认知偏差，能力欠缺的人有一种虚幻的自我优越感，错误地认为自己比真实情况更加优秀。Kruger和Dunning将其归咎于元认知上的缺陷，能力欠缺的人无法认识到自身的无能，不能准确评估自身的能力。他们的研究还表明，反之，非常能干的人会低估自己的能力，错误地假定他们自己能够很容易完成的任务，别人也能够很容易地完成。
 
