@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-11T14:55:35+08:00</updated>
+  <updated>2018-10-12T15:56:42+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,105 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[修改了一下zsh主题]]></title>
+    <link href="http://caiknife.github.io/blog/2018/10/12/xiu-gai-liao-%5B%3F%5D-xia-zshzhu-ti/"/>
+    <updated>2018-10-12T15:41:19+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/10/12/xiu-gai-liao-[?]-xia-zshzhu-ti</id>
+    <content type="html"><![CDATA[<p>把原来的 zsh 主题做了一下修改。</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># Color shortcuts</span>
+</span><span class='line'><span class="nv">RED</span><span class="o">=</span><span class="nv">$fg</span><span class="o">[</span>red<span class="o">]</span>
+</span><span class='line'><span class="nv">YELLOW</span><span class="o">=</span><span class="nv">$fg</span><span class="o">[</span>yellow<span class="o">]</span>
+</span><span class='line'><span class="nv">GREEN</span><span class="o">=</span><span class="nv">$fg</span><span class="o">[</span>green<span class="o">]</span>
+</span><span class='line'><span class="nv">WHITE</span><span class="o">=</span><span class="nv">$fg</span><span class="o">[</span>white<span class="o">]</span>
+</span><span class='line'><span class="nv">BLUE</span><span class="o">=</span><span class="nv">$fg</span><span class="o">[</span>blue<span class="o">]</span>
+</span><span class='line'><span class="nv">RED_BOLD</span><span class="o">=</span><span class="nv">$fg_bold</span><span class="o">[</span>red<span class="o">]</span>
+</span><span class='line'><span class="nv">YELLOW_BOLD</span><span class="o">=</span><span class="nv">$fg_bold</span><span class="o">[</span>yellow<span class="o">]</span>
+</span><span class='line'><span class="nv">GREEN_BOLD</span><span class="o">=</span><span class="nv">$fg_bold</span><span class="o">[</span>green<span class="o">]</span>
+</span><span class='line'><span class="nv">WHITE_BOLD</span><span class="o">=</span><span class="nv">$fg_bold</span><span class="o">[</span>white<span class="o">]</span>
+</span><span class='line'><span class="nv">BLUE_BOLD</span><span class="o">=</span><span class="nv">$fg_bold</span><span class="o">[</span>blue<span class="o">]</span>
+</span><span class='line'><span class="nv">RESET_COLOR</span><span class="o">=</span><span class="nv">$reset_color</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Format for git_prompt_info()</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_PREFIX</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_SUFFIX</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Format for parse_git_dirty()</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_DIRTY</span><span class="o">=</span><span class="s2">&quot; %{$RED%}(*)&quot;</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_CLEAN</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Format for git_prompt_status()</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_UNMERGED</span><span class="o">=</span><span class="s2">&quot; %{$RED%}unmerged&quot;</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_DELETED</span><span class="o">=</span><span class="s2">&quot; %{$RED%}deleted&quot;</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_RENAMED</span><span class="o">=</span><span class="s2">&quot; %{$YELLOW%}renamed&quot;</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_MODIFIED</span><span class="o">=</span><span class="s2">&quot; %{$YELLOW%}modified&quot;</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_ADDED</span><span class="o">=</span><span class="s2">&quot; %{$GREEN%}added&quot;</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_UNTRACKED</span><span class="o">=</span><span class="s2">&quot; %{$WHITE%}untracked&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Format for git_prompt_ahead()</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_AHEAD</span><span class="o">=</span><span class="s2">&quot; %{$RED%}(!)&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Format for git_prompt_long_sha() and git_prompt_short_sha()</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_SHA_BEFORE</span><span class="o">=</span><span class="s2">&quot; %{$WHITE%}[%{$YELLOW%}&quot;</span>
+</span><span class='line'><span class="nv">ZSH_THEME_GIT_PROMPT_SHA_AFTER</span><span class="o">=</span><span class="s2">&quot;%{$WHITE%}]&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Prompt format</span>
+</span><span class='line'><span class="nv">PROMPT</span><span class="o">=</span><span class="s1">&#39;%{$BLUE_BOLD%}%D{[%H:%M]}%{$RESET_COLOR%} %{$GREEN_BOLD%}%n%{$RESET_COLOR%}@%{$RED_BOLD%}%m%{$RESET_COLOR%}:%{$YELLOW_BOLD%}%~%u$(parse_git_dirty)$(git_prompt_ahead)%{$RESET_COLOR%}</span>
+</span><span class='line'><span class="s1">%{$GREEN_BOLD%}-&gt;%{$RESET_COLOR%}&#39;</span>
+</span><span class='line'><span class="nv">RPROMPT</span><span class="o">=</span><span class="s1">&#39;%{$GREEN_BOLD%}$(current_branch)$(git_prompt_short_sha)$(git_prompt_status)%{$RESET_COLOR%}&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意不要留最后一行。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[入手了一个新玩具]]></title>
@@ -1631,49 +1730,6 @@
 
 
 <p>争取做到每周一阅，温故而知新。</p>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[BootStrap 的文件上传控件]]></title>
-    <link href="http://caiknife.github.io/blog/2014/02/24/bootstrap-filestyle/"/>
-    <updated>2014-02-24T10:21:34+08:00</updated>
-    <id>http://caiknife.github.io/blog/2014/02/24/bootstrap-filestyle</id>
-    <content type="html"><![CDATA[<p><code>input[type=file]</code> 的这个控件，在不同的浏览器上表现出的样式不同，尤其是在 Chrome 上，完全和 FF 、IE 的天差地别。为了让这个控件在不同的浏览器表现出统一的样式，需要有一个优秀的解决方案。</p>
-
-<!-- more -->
-
-
-<p>周末在家里做东西的时候，由于后台使用了 BootStrap 来做，于是就想找一个类似的插件来修改，在 Google 上搜了一下，找到了下面这个插件：</p>
-
-<p><a href="http://markusslima.github.io/bootstrap-filestyle/">http://markusslima.github.io/bootstrap-filestyle/</a></p>
-
-<p>导入该插件的库文件之后，</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js+php'><span class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;js/bootstrap-filestyle.min.js&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>配置起来异常简单：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js+php'><span class='line'><span class="err">$</span><span class="p">(</span><span class="s2">&quot;:file&quot;</span><span class="p">)</span><span class="o">.</span><span class="nx">filestyle</span><span class="p">();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>当然如果只是想为单个控件做样式修改的话，可以通过 HTML5 的 data API 来完成：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js+php'><span class='line'><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;filestyle&quot;</span> <span class="nx">data</span><span class="o">-</span><span class="nx">classButton</span><span class="o">=</span><span class="s2">&quot;btn btn-primary&quot;</span> <span class="nx">data</span><span class="o">-</span><span class="nx">input</span><span class="o">=</span><span class="s2">&quot;false&quot;</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个插件还有一些配置选项和 API 可以满足各种定制，具体的内容可以查看源文档。</p>
-
-<p>BootStrap 真是好东西，但是用多了之后，会不会有审美疲劳？</p>
 
 <p>Have a nice day！</p>
 ]]></content>

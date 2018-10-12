@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: zsh | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/zsh/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-10-12T15:56:42+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[修改了一下zsh主题]]></title>
+    <link href="http://caiknife.github.io/blog/2018/10/12/xiu-gai-liao-%5B%3F%5D-xia-zshzhu-ti/"/>
+    <updated>2018-10-12T15:41:19+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/10/12/xiu-gai-liao-[?]-xia-zshzhu-ti</id>
+    <content type="html"><![CDATA[<p>把原来的 zsh 主题做了一下修改。</p>
+
+<!-- more -->
+
+
+<p>``` bash</p>
+
+<h1>Color shortcuts</h1>
+
+<p>RED=$fg[red]
+YELLOW=$fg[yellow]
+GREEN=$fg[green]
+WHITE=$fg[white]
+BLUE=$fg[blue]
+RED_BOLD=$fg_bold[red]
+YELLOW_BOLD=$fg_bold[yellow]
+GREEN_BOLD=$fg_bold[green]
+WHITE_BOLD=$fg_bold[white]
+BLUE_BOLD=$fg_bold[blue]
+RESET_COLOR=$reset_color</p>
+
+<h1>Format for git_prompt_info()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_PREFIX=&ldquo;&rdquo;
+ZSH_THEME_GIT_PROMPT_SUFFIX=&ldquo;&rdquo;</p>
+
+<h1>Format for parse_git_dirty()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_DIRTY=&ldquo; %{$RED%}(*)&rdquo;
+ZSH_THEME_GIT_PROMPT_CLEAN=&ldquo;&rdquo;</p>
+
+<h1>Format for git_prompt_status()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_UNMERGED=&ldquo; %{$RED%}unmerged&rdquo;
+ZSH_THEME_GIT_PROMPT_DELETED=&ldquo; %{$RED%}deleted&rdquo;
+ZSH_THEME_GIT_PROMPT_RENAMED=&ldquo; %{$YELLOW%}renamed&rdquo;
+ZSH_THEME_GIT_PROMPT_MODIFIED=&ldquo; %{$YELLOW%}modified&rdquo;
+ZSH_THEME_GIT_PROMPT_ADDED=&ldquo; %{$GREEN%}added&rdquo;
+ZSH_THEME_GIT_PROMPT_UNTRACKED=&ldquo; %{$WHITE%}untracked&rdquo;</p>
+
+<h1>Format for git_prompt_ahead()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_AHEAD=&ldquo; %{$RED%}(!)&rdquo;</p>
+
+<h1>Format for git_prompt_long_sha() and git_prompt_short_sha()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_SHA_BEFORE=&ldquo; %{$WHITE%}[%{$YELLOW%}&rdquo;
+ZSH_THEME_GIT_PROMPT_SHA_AFTER=&ldquo;%{$WHITE%}]&rdquo;</p>
+
+<h1>Prompt format</h1>
+
+<p>PROMPT=&lsquo;%{$BLUE_BOLD%}%D{[%H:%M]}%{$RESET_COLOR%} %{$GREEN_BOLD%}%n%{$RESET_COLOR%}@%{$RED_BOLD%}%m%{$RESET_COLOR%}:%{$YELLOW_BOLD%}%~%u$(parse_git_dirty)$(git_prompt_ahead)%{$RESET_COLOR%}
+%{$GREEN_BOLD%}&ndash;>%{$RESET_COLOR%}&rsquo;
+RPROMPT=&lsquo;%{$GREEN_BOLD%}$(current_branch)$(git_prompt_short_sha)$(git_prompt_status)%{$RESET_COLOR%}&rsquo;
+```</p>
+
+<p>注意不要留最后一行。</p>
+]]></content>
+  </entry>
+  
+</feed>

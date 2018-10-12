@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-11T14:55:35+08:00</updated>
+  <updated>2018-10-12T15:56:42+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[修改了一下zsh主题]]></title>
+    <link href="http://caiknife.github.io/blog/2018/10/12/xiu-gai-liao-%5B%3F%5D-xia-zshzhu-ti/"/>
+    <updated>2018-10-12T15:41:19+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/10/12/xiu-gai-liao-[?]-xia-zshzhu-ti</id>
+    <content type="html"><![CDATA[<p>把原来的 zsh 主题做了一下修改。</p>
+
+<!-- more -->
+
+
+<p>``` bash</p>
+
+<h1>Color shortcuts</h1>
+
+<p>RED=$fg[red]
+YELLOW=$fg[yellow]
+GREEN=$fg[green]
+WHITE=$fg[white]
+BLUE=$fg[blue]
+RED_BOLD=$fg_bold[red]
+YELLOW_BOLD=$fg_bold[yellow]
+GREEN_BOLD=$fg_bold[green]
+WHITE_BOLD=$fg_bold[white]
+BLUE_BOLD=$fg_bold[blue]
+RESET_COLOR=$reset_color</p>
+
+<h1>Format for git_prompt_info()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_PREFIX=&ldquo;&rdquo;
+ZSH_THEME_GIT_PROMPT_SUFFIX=&ldquo;&rdquo;</p>
+
+<h1>Format for parse_git_dirty()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_DIRTY=&ldquo; %{$RED%}(*)&rdquo;
+ZSH_THEME_GIT_PROMPT_CLEAN=&ldquo;&rdquo;</p>
+
+<h1>Format for git_prompt_status()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_UNMERGED=&ldquo; %{$RED%}unmerged&rdquo;
+ZSH_THEME_GIT_PROMPT_DELETED=&ldquo; %{$RED%}deleted&rdquo;
+ZSH_THEME_GIT_PROMPT_RENAMED=&ldquo; %{$YELLOW%}renamed&rdquo;
+ZSH_THEME_GIT_PROMPT_MODIFIED=&ldquo; %{$YELLOW%}modified&rdquo;
+ZSH_THEME_GIT_PROMPT_ADDED=&ldquo; %{$GREEN%}added&rdquo;
+ZSH_THEME_GIT_PROMPT_UNTRACKED=&ldquo; %{$WHITE%}untracked&rdquo;</p>
+
+<h1>Format for git_prompt_ahead()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_AHEAD=&ldquo; %{$RED%}(!)&rdquo;</p>
+
+<h1>Format for git_prompt_long_sha() and git_prompt_short_sha()</h1>
+
+<p>ZSH_THEME_GIT_PROMPT_SHA_BEFORE=&ldquo; %{$WHITE%}[%{$YELLOW%}&rdquo;
+ZSH_THEME_GIT_PROMPT_SHA_AFTER=&ldquo;%{$WHITE%}]&rdquo;</p>
+
+<h1>Prompt format</h1>
+
+<p>PROMPT=&lsquo;%{$BLUE_BOLD%}%D{[%H:%M]}%{$RESET_COLOR%} %{$GREEN_BOLD%}%n%{$RESET_COLOR%}@%{$RED_BOLD%}%m%{$RESET_COLOR%}:%{$YELLOW_BOLD%}%~%u$(parse_git_dirty)$(git_prompt_ahead)%{$RESET_COLOR%}
+%{$GREEN_BOLD%}&ndash;>%{$RESET_COLOR%}&rsquo;
+RPROMPT=&lsquo;%{$GREEN_BOLD%}$(current_branch)$(git_prompt_short_sha)$(git_prompt_status)%{$RESET_COLOR%}&rsquo;
+```</p>
+
+<p>注意不要留最后一行。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[一句话 Shell 脚本（3）]]></title>
@@ -140,7 +205,7 @@ POSIX 选项:           GNU 长选项:</p>
 <p>提交错误报告请参考“gawk.info”中的“Bugs”页，它位于打印版本中的“Reporting
 Problems and Bugs”一节</p>
 
-<p>翻译错误请发信至 <a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#116;&#114;&#97;&#110;&#115;&#x6c;&#x61;&#x74;&#x69;&#x6f;&#110;&#x2d;&#116;&#101;&#x61;&#x6d;&#x2d;&#122;&#104;&#45;&#x63;&#x6e;&#x40;&#108;&#105;&#x73;&#116;&#x73;&#46;&#x73;&#111;&#117;&#x72;&#x63;&#x65;&#102;&#111;&#114;&#x67;&#x65;&#x2e;&#x6e;&#101;&#x74;">&#116;&#114;&#97;&#x6e;&#115;&#108;&#x61;&#x74;&#105;&#111;&#x6e;&#45;&#x74;&#101;&#x61;&#x6d;&#x2d;&#122;&#104;&#x2d;&#x63;&#x6e;&#x40;&#x6c;&#x69;&#115;&#116;&#115;&#46;&#115;&#x6f;&#117;&#114;&#x63;&#x65;&#102;&#111;&#x72;&#x67;&#101;&#x2e;&#x6e;&#101;&#x74;</a></p>
+<p>翻译错误请发信至 <a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#58;&#x74;&#114;&#97;&#110;&#x73;&#x6c;&#x61;&#x74;&#105;&#111;&#110;&#x2d;&#x74;&#101;&#x61;&#x6d;&#x2d;&#122;&#104;&#x2d;&#99;&#110;&#64;&#108;&#x69;&#x73;&#116;&#x73;&#x2e;&#x73;&#x6f;&#117;&#x72;&#99;&#x65;&#102;&#x6f;&#114;&#x67;&#101;&#46;&#x6e;&#x65;&#x74;">&#116;&#114;&#x61;&#x6e;&#115;&#x6c;&#97;&#116;&#x69;&#111;&#110;&#x2d;&#x74;&#x65;&#97;&#109;&#45;&#122;&#x68;&#x2d;&#99;&#110;&#x40;&#x6c;&#105;&#115;&#x74;&#x73;&#46;&#115;&#111;&#117;&#114;&#x63;&#x65;&#102;&#111;&#114;&#103;&#101;&#46;&#x6e;&#x65;&#116;</a></p>
 
 <p>gawk 是一个模式扫描及处理语言。缺省情况下它从标准输入读入并写至标准输出。</p>
 
@@ -385,32 +450,6 @@ awk -F ":" '{print $1}' \ # 分割符是:，输出第一列
 <p>```</p>
 
 <p>如此一来就能找到所有还默认以ruby1.8解释的文件了，然后修改一下就行。现在我的octopress又活过来了。</p>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[一句话Shell脚本（1）]]></title>
-    <link href="http://caiknife.github.io/blog/2013/08/17/happy-shell-script/"/>
-    <updated>2013-08-17T21:38:00+08:00</updated>
-    <id>http://caiknife.github.io/blog/2013/08/17/happy-shell-script</id>
-    <content type="html"><![CDATA[<p>公司里的中国项目包括DHB和SMCN两个。</p>
-
-<p>在DHB的SEM Search Landing页面上，会展示SMCN的产品，之前的Tracking是直接从DHB跳转到商家页面，从DHB到商家的跳转会记录一个Offer Outgoing Log。最近加入了新的逻辑，将DHB的跳转作为一个Affiliate Outoging Log，而Dest Url是SMCN的一个跳转脚本，这样就将以前的DHB->商家页面跳转变成了从DHB->SMCN->商家页面的跳转。</p>
-
-<!-- more -->
-
-
-<p>记录下所有的Affiliate Outoging Log和Offer Outgoing Log，最后会生成小时汇总的Outgoing Log，以<code>/mezi/tracking/data/dump/dahongbao.com/yyyy-mm-dd/hh/outgoing.dat</code>的格式保存。</p>
-
-<p>最近的一个需求是要求汇总从这个功能上线起，一天内的所有从DHB跳转到SMCN的数量。在Log文件中，所有字段以<code>\t</code>分隔，第七个字段是Business Type，第三十五个字段是Dest Url，从这两个字段入手，就能获取从DHB跳转到SMCN的数量了。</p>
-
-<p>下面是一个参考的脚本：</p>
-
-<p><code>bash
-$ awk -F'\t' '{if(($7 == "CPA" || $7=="CPC") &amp;&amp; $35 ~ /www.smarter.com.cn/){print $7,$35}}' /mezi/tracking/data/dump/dahongbao.com/2013-08-15/0[6789]/outgoing.dat /mezi/tracking/data/dump/dahongbao.com/2013-08-15/[12]*/outgoing.dat /mezi/tracking/data/dump/dahongbao.com/2013-08-16/*/outgoing.dat | wc -l
-</code></p>
 
 <p>Have a nice day！</p>
 ]]></content>
