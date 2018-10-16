@@ -4,7 +4,7 @@
   <title><![CDATA[Category: life | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/life/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-12T15:56:42+08:00</updated>
+  <updated>2018-10-16T16:54:02+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -43,23 +43,23 @@
 
 <p>周六下午在延安西路碰到了 <a href="http://weibo.com/p/1005051599598742">@JAMMALA</a> 鼓聚活动，于是就和他们度过了一个开心地下午。</p>
 
-<p><a href="/downloads/image/jammala/1.jpg" title="" class="fancybox"><img src="/downloads/image/jammala/1.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/jammala/1.jpg %}</p>
 
-<p><a href="/downloads/image/jammala/2.jpg" title="" class="fancybox"><img src="/downloads/image/jammala/2.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/jammala/2.jpg %}</p>
 
-<p><a href="/downloads/image/jammala/3.jpg" title="" class="fancybox"><img src="/downloads/image/jammala/3.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/jammala/3.jpg %}</p>
 
-<p><a href="/downloads/image/jammala/4.jpg" title="" class="fancybox"><img src="/downloads/image/jammala/4.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/jammala/4.jpg %}</p>
 
-<p><a href="/downloads/image/jammala/5.jpg" title="" class="fancybox"><img src="/downloads/image/jammala/5.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/jammala/5.jpg %}</p>
 
-<p><a href="/downloads/image/jammala/6.jpg" title="" class="fancybox"><img src="/downloads/image/jammala/6.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/jammala/6.jpg %}</p>
 
-<p><a href="/downloads/image/jammala/7.jpg" title="" class="fancybox"><img src="/downloads/image/jammala/7.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/jammala/7.jpg %}</p>
 
-<p><a href="/downloads/image/jammala/8.jpg" title="" class="fancybox"><img src="/downloads/image/jammala/8.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/jammala/8.jpg %}</p>
 
-<p><a href="/downloads/image/jammala/9.jpg" title="" class="fancybox"><img src="/downloads/image/jammala/9.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/jammala/9.jpg %}</p>
 
 <p>和大家在一起玩音乐，才是最开心的！</p>
 
@@ -83,9 +83,9 @@
 <!-- more -->
 
 
-<p><a href="/downloads/image/byebye/1.jpg" title="" class="fancybox"><img src="/downloads/image/byebye/1.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/byebye/1.jpg %}</p>
 
-<p><a href="/downloads/image/byebye/2.jpg" title="" class="fancybox"><img src="/downloads/image/byebye/2.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/byebye/2.jpg %}</p>
 
 <p>I will never come back again！</p>
 
@@ -105,9 +105,9 @@
 
 <p>最近不光是新工作确定了，在音乐上我又找到了新的小伙伴，上周日下午做了第一次排练，还是在熟悉的大杨浦左摇排练房，感觉非常好！！！</p>
 
-<p><a href="/downloads/image/way/1.jpg" title="左摇排练房 " class="fancybox"><img src="/downloads/image/way/1.jpg" alt="左摇排练房 " /></a></p>
+<p>{% fancybox /downloads/image/way/1.jpg 左摇排练房 %}</p>
 
-<p><a href="/downloads/image/way/2.jpg" title="前级、合唱、延时 " class="fancybox"><img src="/downloads/image/way/2.jpg" alt="前级、合唱、延时 " /></a></p>
+<p>{% fancybox /downloads/image/way/2.jpg 前级、合唱、延时 %}</p>
 
 <p>这周日会进行第二次排练，到时会进行更深入的磨合。玩了这么多年的音乐，还是跟大家一起玩最有意思，一个人闷在家里是绝对得不到提高的！交流沟通更能提升你的视野，帮助别人成长的同时，自己也能获得更多的回报。That&rsquo;s teamwork！</p>
 
@@ -115,7 +115,7 @@
 
 <p>新买了《黑客与画家》和《人生元编程》，学习学习前辈的经验，提升一下视野。</p>
 
-<p><a href="/downloads/image/way/3.jpg" title="黑客与画家、人生元编程 " class="fancybox"><img src="/downloads/image/way/3.jpg" alt="黑客与画家、人生元编程 " /></a></p>
+<p>{% fancybox /downloads/image/way/3.jpg 黑客与画家、人生元编程 %}</p>
 
 <p>未来的工作估计会充满了挑战，敢问路在何方？</p>
 
@@ -143,21 +143,21 @@
 
 <p>上周花了 2000 大洋买到了梦寐以求的箱琴拾音器—— LR Baggs Anthem ，接着周末就去金陵东路的石桥乐器把它给装好了。晚上回来后，给琴做了一次指板保养。</p>
 
-<p><a href="/downloads/image/artisan/1.jpg" title="" class="fancybox"><img src="/downloads/image/artisan/1.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/artisan/1.jpg %}</p>
 
-<p><a href="/downloads/image/artisan/2.jpg" title="" class="fancybox"><img src="/downloads/image/artisan/2.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/artisan/2.jpg %}</p>
 
-<p><a href="/downloads/image/artisan/3.jpg" title="" class="fancybox"><img src="/downloads/image/artisan/3.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/artisan/3.jpg %}</p>
 
-<p><a href="/downloads/image/artisan/4.jpg" title="" class="fancybox"><img src="/downloads/image/artisan/4.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/artisan/4.jpg %}</p>
 
-<p><a href="/downloads/image/artisan/5.jpg" title="" class="fancybox"><img src="/downloads/image/artisan/5.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/artisan/5.jpg %}</p>
 
-<p><a href="/downloads/image/artisan/6.jpg" title="" class="fancybox"><img src="/downloads/image/artisan/6.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/artisan/6.jpg %}</p>
 
-<p><a href="/downloads/image/artisan/7.jpg" title="" class="fancybox"><img src="/downloads/image/artisan/7.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/artisan/7.jpg %}</p>
 
-<p><a href="/downloads/image/artisan/8.jpg" title="" class="fancybox"><img src="/downloads/image/artisan/8.jpg" alt="" /></a></p>
+<p>{% fancybox /downloads/image/artisan/8.jpg %}</p>
 
 <p>当时石桥乐器接待我的师傅叫「张雄」，看起来是专门的吉他保养技师。这套拾音器在他手上只用了一个小时左右就安装好了，而且还带打磨琴桥和调节弦高，手艺非常好。</p>
 

@@ -9,10 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="前几天在看MacTalk·人生元编程的时候谈到了 zsh 这个很有意思的 shell 。前两天安装好，用下来感觉相当不错，特别总结一下。 安装 zsh 并设置为默认 shell: 1
-2
-3
-$ sudo apt-get install zsh $ chsh -s /bin/zsh 接着安装 oh &hellip;">
+  <meta name="description" content="octopress 默认没有放大图片的效果，今天用 fancybox 做了一个插件扩展。 首先从 http://fancyapps.com/fancybox/#license 下载最新版的 fancybox ，解压缩后复制 source 目录到 octopress 的 javascripts &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +76,87 @@ $ sudo apt-get install zsh $ chsh -s /bin/zsh 接着安装 oh &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/02/fancybox-plugin-for-octopress/">给博客写了个 Fancybox 的插件</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-02T17:37:00+08:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-02T17:37:00+08:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/jquery/'>jquery</a>, <a class='category' href='/blog/categories/js/'>js</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>octopress 默认没有放大图片的效果，今天用 fancybox 做了一个插件扩展。</p>
+
+<p>首先从 <a href="http://fancyapps.com/fancybox/#license">http://fancyapps.com/fancybox/#license</a> 下载最新版的 fancybox ，解压缩后复制 source 目录到 octopress 的 javascripts 目录下。</p>
+
+<p>打开文件 <code>/source/_includes/custom/head.html</code> ，在最后增加一条语句：</p>
+
+<figure class='code'><figcaption><span>/source/_includes/custom/head.html</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">{% include fancybox.html %}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/10/02/fancybox-plugin-for-octopress/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -782,118 +860,6 @@ $ sudo apt-get install zsh $ chsh -s /bin/zsh 接着安装 oh &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/31/varnish-testing/">Varnish 测试（1）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-31T12:50:00+08:00" pubdate data-updated="true">Aug 31<span>st</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-31T12:50:00+08:00" pubdate data-updated="true">Aug 31<span>st</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/test/'>test</a>, <a class='category' href='/blog/categories/varnish/'>varnish</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>前天安装配置了 varnish ，但是在生产环境下，还是有很多更复杂的情况会出现，有时候还是得多考虑一下可能会发生的问题，自己模拟一下，找到解决的办法。测试代码是用 CakePHP2.3.8 编写的，代码如下：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="c1">// controller</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">TestsController</span> <span class="k">extends</span> <span class="nx">AppController</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nv">$uses</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="nv">$autoLayout</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$content</span> <span class="o">=</span> <span class="s2">&quot;This is a text!&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>// view
-</span><span class='line'><span class="nt">&lt;div&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;h1&gt;</span>Hello, world!<span class="nt">&lt;/h1&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span><span class="cp">&lt;?= $content;?&gt;</span><span class="nt">&lt;/p&gt;</span>
-</span><span class='line'><span class="nt">&lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/31/varnish-testing/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; 向前</a>
@@ -909,6 +875,10 @@ $ sudo apt-get install zsh $ chsh -s /bin/zsh 接着安装 oh &hellip;">
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/10/16/rvmshi-yong/">RVM使用</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/10/12/xiu-gai-liao-%5B%3F%5D-xia-zshzhu-ti/">修改了一下zsh主题</a>
@@ -944,10 +914,6 @@ $ sudo apt-get install zsh $ chsh -s /bin/zsh 接着安装 oh &hellip;">
     
       <li class="post">
         <a href="/blog/2014/04/23/working-in-tencent/">入职腾讯一个月了</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/23/love-music/">爱生活爱音乐</a>
       </li>
     
   </ul>

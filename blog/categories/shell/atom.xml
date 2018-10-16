@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-12T15:56:42+08:00</updated>
+  <updated>2018-10-16T16:54:02+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,113 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RVM使用]]></title>
+    <link href="http://caiknife.github.io/blog/2018/10/16/rvmshi-yong/"/>
+    <updated>2018-10-16T16:07:18+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/10/16/rvmshi-yong</id>
+    <content type="html"><![CDATA[<p>之前因为 Ruby 版本的问题，博客一直用不了。前段时间使用了 RVM 来管理 Ruby 的版本，所以博客又复活了。</p>
+
+<p>所以今天就来总结一下如何用 RVM 来管理不同的 Ruby 版本。</p>
+
+<!-- more -->
+
+
+<h2>RVM 的安装</h2>
+
+<p>先安装 RVM
+``` bash
+gpg &mdash;keyserver hkp://keys.gnupg.net &mdash;recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB</p>
+
+<p>\curl -sSL <a href="https://get.rvm.io">https://get.rvm.io</a> | bash -s stable
+```</p>
+
+<h2>Ruby 的安装和切换</h2>
+
+<p>列出已知的 Ruby 版本
+<code>bash
+rvm list known
+</code></p>
+
+<p>安装一个 Ruby 版本
+<code>bash
+rvm install 2.2.0
+</code></p>
+
+<p>切换 Ruby 版本
+<code>bash
+rvm use 2.2.0
+</code></p>
+
+<p>如果想设置为默认版本，这样一来以后新打开的控制台默认的 Ruby 就是这个版本
+<code>bash
+rvm use 2.2.0 --default
+</code></p>
+
+<p>查询已经安装的ruby
+<code>bash
+rvm list
+</code></p>
+
+<p>卸载一个已安装版本
+<code>bash
+rvm remove 1.8.7
+</code></p>
+
+<h2>gemset 的使用</h2>
+
+<p>RVM 不仅可以提供一个多 Ruby 版本共存的环境，还可以根据项目管理不同的 gemset。gemset 可以理解为是一个独立的虚拟 gem 环境，每一个 gemset 都是相互独立的。</p>
+
+<p>比如你有两个项目，一个是 Rails 2.3 一个是 rails3. gemset 可以帮你便捷的建立两套 gem 开发环境，并且方便的切换。gemset 是附加在 Ruby 语言版本下面的，例如你用了 1.9.2, 建立了一个叫 rails3 的 gemset,当切换到 1.8.7 的时候，rails3 这个 gemset 并不存在。</p>
+
+<p>建立 gemset
+<code>bash
+rvm use 1.8.7
+rvm gemset create rails23
+</code></p>
+
+<p>然后可以设定已建立的 gemset 做为当前环境.use 可以用来切换语言或者 gemset，前提是他们已经被安装(或者建立)。并可以在 list 命令中看到。
+<code>bash
+rvm use 1.8.7
+rvm use 1.8.7@rails23
+</code>
+然后所有安装的 gem 都是安装在这个 gemset 之下。</p>
+
+<p>列出当前 Ruby 的 gemset
+<code>bash
+rvm gemset list
+</code></p>
+
+<p>如果你想清空一个 gemset 的所有 gem， 想重新安装所有 gem，可以这样
+<code>bash
+rvm gemset empty 1.8.7@rails23
+</code></p>
+
+<p>删除一个 gemset
+<code>bash
+rvm gemset delete rails2-3
+</code></p>
+
+<p>RVM 还可以自动加载 gemset。 例如我们有一个 Rails 3.1.3 项目，需要 1.9.3 版本 Ruby，整个流程可以这样。
+<code>bash
+rvm install 1.9.3
+rvm use 1.9.3
+rvm gemset create rails313
+rvm use 1.9.3@rails313
+</code></p>
+
+<p>下面进入到项目目录，建立一个 .rvmrc 文件。在这个文件里可以很简单的加一个命令：
+<code>bash
+rvm use 1.9.3@rails313
+</code>
+然后无论你当前 Ruby 设置是什么，cd 到这个项目的时候，RVM 会帮你加载 Ruby 1.9.3 和 rails313 gemset.</p>
+
+<h2>使用 .ruby-gemset 和 .ruby-version</h2>
+
+<p>在项目目录下创建这两个文件 <code>.ruby-gemset</code> 和 <code>.ruby-version</code>，在 <code>.ruby-gemset</code> 中填入 gemset 的名称，在 <code>.ruby-version</code> 填入 Ruby 版本的名称，当 cd 到这个目录的时候，就会自动加载。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[修改了一下zsh主题]]></title>
@@ -205,7 +312,7 @@ POSIX 选项:           GNU 长选项:</p>
 <p>提交错误报告请参考“gawk.info”中的“Bugs”页，它位于打印版本中的“Reporting
 Problems and Bugs”一节</p>
 
-<p>翻译错误请发信至 <a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#58;&#x74;&#114;&#97;&#110;&#x73;&#x6c;&#x61;&#x74;&#105;&#111;&#110;&#x2d;&#x74;&#101;&#x61;&#x6d;&#x2d;&#122;&#104;&#x2d;&#99;&#110;&#64;&#108;&#x69;&#x73;&#116;&#x73;&#x2e;&#x73;&#x6f;&#117;&#x72;&#99;&#x65;&#102;&#x6f;&#114;&#x67;&#101;&#46;&#x6e;&#x65;&#x74;">&#116;&#114;&#x61;&#x6e;&#115;&#x6c;&#97;&#116;&#x69;&#111;&#110;&#x2d;&#x74;&#x65;&#97;&#109;&#45;&#122;&#x68;&#x2d;&#99;&#110;&#x40;&#x6c;&#105;&#115;&#x74;&#x73;&#46;&#115;&#111;&#117;&#114;&#x63;&#x65;&#102;&#111;&#114;&#103;&#101;&#46;&#x6e;&#x65;&#116;</a></p>
+<p>翻译错误请发信至 <a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#116;&#114;&#97;&#110;&#115;&#x6c;&#x61;&#116;&#105;&#x6f;&#110;&#x2d;&#x74;&#101;&#x61;&#x6d;&#45;&#x7a;&#x68;&#45;&#x63;&#110;&#x40;&#x6c;&#105;&#115;&#x74;&#115;&#x2e;&#115;&#111;&#x75;&#114;&#99;&#x65;&#102;&#x6f;&#x72;&#x67;&#101;&#46;&#x6e;&#x65;&#x74;">&#x74;&#114;&#97;&#x6e;&#x73;&#x6c;&#x61;&#116;&#105;&#111;&#x6e;&#45;&#116;&#101;&#97;&#109;&#x2d;&#x7a;&#x68;&#x2d;&#x63;&#x6e;&#64;&#x6c;&#105;&#x73;&#x74;&#115;&#46;&#115;&#x6f;&#x75;&#114;&#x63;&#101;&#x66;&#x6f;&#x72;&#x67;&#x65;&#x2e;&#110;&#x65;&#116;</a></p>
 
 <p>gawk 是一个模式扫描及处理语言。缺省情况下它从标准输入读入并写至标准输出。</p>
 
@@ -408,50 +515,9 @@ RPROMPT=&lsquo;%{$GREEN_BOLD%}$(current_branch)$(git_prompt_short_sha)$(git_prom
 
 <p>来瞅瞅换成 <code>zsh</code> 之后变成什么样了。</p>
 
-<p><a href="/downloads/image/zsh/zsh.png" title="zsh demo " class="fancybox"><img src="/downloads/image/zsh/zsh.png" alt="zsh demo " /></a></p>
+<p>{% fancybox /downloads/image/zsh/zsh.png zsh demo %}</p>
 
 <p>挺有意思的，是不？ Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[一句话Shell脚本（2）]]></title>
-    <link href="http://caiknife.github.io/blog/2013/08/22/happy-shell-script/"/>
-    <updated>2013-08-22T21:04:00+08:00</updated>
-    <id>http://caiknife.github.io/blog/2013/08/22/happy-shell-script</id>
-    <content type="html"><![CDATA[<p>昨天玩octopress时出了问题，没有动任何东西的情况下，系统默认的ruby版本变成了1.8，导致本地的octopress既不能提交也不能本地预览。后来分别卸载了ruby1.8和ruby1.9，启用了新的PPA之后，重新安装ruby的两个版本，并通过update-alternatives把ruby版本默认设置成1.9。</p>
-
-<p>可惜octopress还是无法启动，出现了<a href="http://stackoverflow.com/questions/13778858/octopress-errors-rake-preview-watch-or-generate">http://stackoverflow.com/questions/13778858/octopress-errors-rake-preview-watch-or-generate</a>和<a href="http://stackoverflow.com/questions/16517144/why-the-pygments-code-rb-plugin-is-breaking">http://stackoverflow.com/questions/16517144/why-the-pygments-code-rb-plugin-is-breaking</a>中提到的问题。百思不得其解啊，为什么ruby版本明明是1.9，调用的gem库却是1.8下的呢？</p>
-
-<!-- more -->
-
-
-<p>后来想到脚本文件在开头都会有<code>#!/usr/bin/env ruby</code>之类的注释，用来标注脚本文件的解释器，那么这个问题的原因是不是就是因为某些应该使用ruby1.9进行解释的文件被写死成ruby1.8解释了呢？那么应该如何找到这些文件呢？</p>
-
-<p>可以用find来查找，下面是适合的shell命令：</p>
-
-<p><code>bash
-$ find / -type f -name "*.rb" -exec grep -m 1 "ruby1.8" {} + 2&gt;/dev/null | awk -F ":" '{print $1}'
-</code></p>
-
-<p>上面这条命令的含义：</p>
-
-<p>``` bash
-$ find / \ # 从根目录开始查找</p>
-
-<pre><code>-type f \ # 查找文件
--name "*.rb" \ # ruby文件
--exec grep -m 1 "ruby1.8" {} + \ # 找到文件内容里匹配ruby1.8一次的所有文件，和匹配内容一起输出 
-2&gt;/dev/null \ # 错误信息丢弃
-| \ # 管道
-awk -F ":" '{print $1}' \ # 分割符是:，输出第一列
-</code></pre>
-
-<p>```</p>
-
-<p>如此一来就能找到所有还默认以ruby1.8解释的文件了，然后修改一下就行。现在我的octopress又活过来了。</p>
-
-<p>Have a nice day！</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-12T15:56:42+08:00</updated>
+  <updated>2018-10-16T16:54:02+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -25,7 +25,7 @@
 <p>打开文件 <code>/source/_includes/custom/head.html</code> ，在最后增加一条语句：</p>
 
 <p><code>erb /source/_includes/custom/head.html
-{% include fancybox.html %}
+{% raw %}{% include fancybox.html %}{% endraw %}
 </code></p>
 
 <!-- more -->
@@ -58,8 +58,8 @@
 <p>module Jekyll</p>
 
 <p>  # Usage:
-  # {% fancybox @filename [thumb:@thumb] [@title] %}
-  # {% fancybox @filename [@title] %}</p>
+  # {% raw %}{% fancybox @filename [thumb:@thumb] [@title] %}{% endraw %}
+  # {% raw %}{% fancybox @filename [@title] %}{% endraw %}</p>
 
 <p>  class FancyboxTag &lt; Liquid::Tag</p>
 
@@ -77,7 +77,7 @@ def render(context)
   if @filename
     "&lt;a href=\"#{@filename}\" title=\"#{@title}\" class=\"fancybox\"&gt;&lt;img src=\"#{thumb_for(@filename, @thumb)}\" alt=\"#{@title}\" /&gt;&lt;/a&gt;"
   else
-    "Error. Usage: {% fancybox @filename [thumb:@thumb] [@title] %}"
+    "Error. Usage: {% raw %}{% fancybox @filename [thumb:@thumb] [@title] %}{% endraw %}"
   end
 end
 

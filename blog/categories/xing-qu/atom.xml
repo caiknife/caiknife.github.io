@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 兴趣 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/xing-qu/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-12T15:56:42+08:00</updated>
+  <updated>2018-10-16T16:54:02+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -27,13 +27,13 @@
 
 <p>同时在今天，我也给自己准备了一件礼物。</p>
 
-<p><a href="/downloads/image/clarinet/1.jpeg" title="Buffet Crampon Prodige Clarinet " class="fancybox"><img src="/downloads/image/clarinet/1.jpeg" alt="Buffet Crampon Prodige Clarinet " /></a></p>
+<p>{% fancybox /downloads/image/clarinet/1.jpeg Buffet Crampon Prodige Clarinet %}</p>
 
-<p><a href="/downloads/image/clarinet/2.jpeg" title="Buffet Crampon Prodige Clarinet " class="fancybox"><img src="/downloads/image/clarinet/2.jpeg" alt="Buffet Crampon Prodige Clarinet " /></a></p>
+<p>{% fancybox /downloads/image/clarinet/2.jpeg Buffet Crampon Prodige Clarinet %}</p>
 
-<p><a href="/downloads/image/clarinet/3.jpeg" title="Buffet Crampon Prodige Clarinet " class="fancybox"><img src="/downloads/image/clarinet/3.jpeg" alt="Buffet Crampon Prodige Clarinet " /></a></p>
+<p>{% fancybox /downloads/image/clarinet/3.jpeg Buffet Crampon Prodige Clarinet %}</p>
 
-<p><a href="/downloads/image/clarinet/4.jpeg" title="Buffet Crampon Prodige Clarinet " class="fancybox"><img src="/downloads/image/clarinet/4.jpeg" alt="Buffet Crampon Prodige Clarinet " /></a></p>
+<p>{% fancybox /downloads/image/clarinet/4.jpeg Buffet Crampon Prodige Clarinet %}</p>
 
 <p><strong>Buffet Crampon Prodige Clarinet</strong></p>
 
