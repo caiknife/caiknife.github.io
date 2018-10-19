@@ -9,6 +9,8 @@ categories: php composer
 
 {% fancybox /downloads/image/composer/1.png Composer Issue %}
 
+图不是我的电脑出现的问题，是搜到的图片，我们碰到了一样的问题。
+
 <!-- more -->
 
 查了半天没找到原因是什么，后来在查当前代码库的时候，composer.json 文件里的配置是这样的：
