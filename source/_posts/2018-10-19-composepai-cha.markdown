@@ -9,7 +9,7 @@ categories: php composer
 
 {% fancybox /downloads/image/composer/1.png Composer Issue %}
 
-图不是我的电脑出现的问题，是搜到的图片，我们碰到了一样的问题。
+上图不是我的电脑出现的问题，是通过搜索引擎搜到的图片，我和提出这个问题的题主碰到了一样的问题。
 
 <!-- more -->
 
