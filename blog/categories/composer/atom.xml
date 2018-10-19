@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: composer | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/composer/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-10-19T15:06:52+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[composer问题排查]]></title>
+    <link href="http://caiknife.github.io/blog/2018/10/19/composepai-cha/"/>
+    <updated>2018-10-19T14:48:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/10/19/composepai-cha</id>
+    <content type="html"><![CDATA[<p>今天更新 composer 库的时候出现了一个问题：</p>
+
+<p><a href="/downloads/image/composer/1.png" title="Composer Issue " class="fancybox"><img src="/downloads/image/composer/1.png" alt="Composer Issue " /></a></p>
+
+<!-- more -->
+
+
+<p>查了半天没找到原因是什么，后来在查当前代码库的时候，composer.json 文件里的配置是这样的：</p>
+
+<p>``` json
+{
+  &ldquo;repositories&rdquo;: {</p>
+
+<pre><code>"packagist": {
+  "type": "composer",
+  "url": "packagist.phpcomposer.com"
+}
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>搜索了问题之后，发现 packagist.phpcomposer.com 这个景象已经很久没有更新了，所以就造成了目前的问题。只需要把仓库换个镜像源就可以了。</p>
+
+<p>用下面的命令将镜像地址替换为 <a href="https://packagist.laravel-china.org">https://packagist.laravel-china.org</a> 即可。</p>
+
+<p>``` bash
+composer config -g repo.packagist composer <a href="https://packagist.laravel-china.org">https://packagist.laravel-china.org</a></p>
+
+<p>composer config repo.packagist composer <a href="https://packagist.laravel-china.org">https://packagist.laravel-china.org</a>
+```</p>
+
+<p>Problem resolved.</p>
+]]></content>
+  </entry>
+  
+</feed>

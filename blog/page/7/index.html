@@ -9,19 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="前天安装配置了 varnish ，但是在生产环境下，还是有很多更复杂的情况会出现，有时候还是得多考虑一下可能会发生的问题，自己模拟一下，找到解决的办法。测试代码是用 CakePHP2.3.8 编写的，代码如下： 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-// controller
-class &hellip;">
+  <meta name="description" content="继续上次的话题。 加上了反向代理之后如何获取客户端 IP ？ 由于 varnish 是处于 web 服务器之前的位置，所以 varnish 实际上可以看作是一个 reverse proxy 的服务器。后端的代码要获取客户端 IP 地址的话，如果不做设置，获取的实际上是 varnish 服务器的 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +76,82 @@ class &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/01/varnish-testing/">Varnish 测试（2）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-01T23:27:00+08:00" pubdate data-updated="true">Sep 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-01T23:27:00+08:00" pubdate data-updated="true">Sep 1<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/test/'>test</a>, <a class='category' href='/blog/categories/varnish/'>varnish</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>继续上次的话题。</p>
+
+<h3>加上了反向代理之后如何获取客户端 IP ？</h3>
+
+<p>由于 varnish 是处于 web 服务器之前的位置，所以 varnish 实际上可以看作是一个 reverse proxy 的服务器。后端的代码要获取客户端 IP 地址的话，如果不做设置，获取的实际上是 varnish 服务器的 IP 地址。比如在 PHP 中经常使用到的 <code>$_SERVER['REMOTE_ADDR']</code> 这个变量，如果没有 varnish 做代理，就是正确的客户端 IP ;如果在 varnish 之后使用的话，只能获得 varnish 服务器的 IP 地址。所以，我们得对 varnish 做一点特殊的处理。</p>
+
+<p>还好 varnish 的配置文件里已经给我们默认写出了这段代码，我们只需要在自己的代码中 copy 过来即可。直接在 <code>vcl_recv</code> 这里补充就行。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/01/varnish-testing/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -949,78 +1013,6 @@ class &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/17/happy-shell-script/">一句话Shell脚本（1）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-17T21:38:00+08:00" pubdate data-updated="true">Aug 17<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-17T21:38:00+08:00" pubdate data-updated="true">Aug 17<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/script/'>script</a>, <a class='category' href='/blog/categories/shell/'>shell</a>, <a class='category' href='/blog/categories/work/'>work</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>公司里的中国项目包括DHB和SMCN两个。</p>
-
-<p>在DHB的SEM Search Landing页面上，会展示SMCN的产品，之前的Tracking是直接从DHB跳转到商家页面，从DHB到商家的跳转会记录一个Offer Outgoing Log。最近加入了新的逻辑，将DHB的跳转作为一个Affiliate Outoging Log，而Dest Url是SMCN的一个跳转脚本，这样就将以前的DHB->商家页面跳转变成了从DHB->SMCN->商家页面的跳转。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/17/happy-shell-script/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; 向前</a>
@@ -1036,6 +1028,10 @@ class &hellip;">
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/10/19/composepai-cha/">Composer问题排查</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/10/16/rvmshi-yong/">RVM使用</a>
@@ -1071,10 +1067,6 @@ class &hellip;">
     
       <li class="post">
         <a href="/blog/2018/06/24/zhe-ge-bo-ke-fu-huo-liao/">这个博客复活了</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/23/working-in-tencent/">入职腾讯一个月了</a>
       </li>
     
   </ul>

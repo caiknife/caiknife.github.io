@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-16T16:53:51+08:00</updated>
+  <updated>2018-10-19T15:06:52+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[composer问题排查]]></title>
+    <link href="http://caiknife.github.io/blog/2018/10/19/composepai-cha/"/>
+    <updated>2018-10-19T14:48:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/10/19/composepai-cha</id>
+    <content type="html"><![CDATA[<p>今天更新 composer 库的时候出现了一个问题：</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/composer/1.png" title="Composer Issue " class="fancybox"><img src="http://caiknife.github.io/downloads/image/composer/1.png" alt="Composer Issue " /></a></p>
+
+<!-- more -->
+
+
+<p>查了半天没找到原因是什么，后来在查当前代码库的时候，composer.json 文件里的配置是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;repositories&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nt">&quot;packagist&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;composer&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;packagist.phpcomposer.com&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>搜索了问题之后，发现 packagist.phpcomposer.com 这个景象已经很久没有更新了，所以就造成了目前的问题。只需要把仓库换个镜像源就可以了。</p>
+
+<p>用下面的命令将镜像地址替换为 <a href="https://packagist.laravel-china.org">https://packagist.laravel-china.org</a> 即可。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>composer config -g repo.packagist composer https://packagist.laravel-china.org
+</span><span class='line'>
+</span><span class='line'>composer config repo.packagist composer https://packagist.laravel-china.org
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Problem resolved.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RVM使用]]></title>
@@ -1604,179 +1654,6 @@
 <p>打完收工！</p>
 
 <p>最近越来越感觉随着年纪的增长，接触的事情越来越多，记忆力没有以前好了。高中时代特别自豪地过目不忘的本事也指望不上了，看来还是好记性不如烂笔头，得养成一个良好的记录和总结的习惯，才会对将来的工作有所帮助。</p>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[给 CakePHP 的 Session Flash 做点小修改]]></title>
-    <link href="http://caiknife.github.io/blog/2014/02/25/hack-session-flash-for-cakephp/"/>
-    <updated>2014-02-25T11:59:36+08:00</updated>
-    <id>http://caiknife.github.io/blog/2014/02/25/hack-session-flash-for-cakephp</id>
-    <content type="html"><![CDATA[<p>在 CakePHP 的教程中，CRUD 操作结束后跳转到新页面时，一般会做一个提示框显示在页面上。这个做法在教程中是按照下面的这么个流程写的：</p>
-
-<!-- more -->
-
-
-<p>首先在 Controller 里面做跳转之前：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">is</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">))</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Post</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">();</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Post</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">))</span> <span class="p">{</span>
-</span><span class='line'>            <span class="sd">/**</span>
-</span><span class='line'><span class="sd">             * 跳转之前设置一条 Session 信息</span>
-</span><span class='line'><span class="sd">             */</span>
-</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Session</span><span class="o">-&gt;</span><span class="na">setFlash</span><span class="p">(</span><span class="nx">__</span><span class="p">(</span><span class="s1">&#39;Your post has been saved.&#39;</span><span class="p">));</span>
-</span><span class='line'>            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;index&#39;</span><span class="p">));</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Session</span><span class="o">-&gt;</span><span class="na">setFlash</span><span class="p">(</span><span class="nx">__</span><span class="p">(</span><span class="s1">&#39;Unable to add your post.&#39;</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在 View 上要做下面修改：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>    <span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Session</span><span class="o">-&gt;</span><span class="na">flash</span><span class="p">();</span> <span class="cp">?&gt;</span><span class="x"></span>
-</span><span class='line'><span class="x">    </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
-</span><span class='line'><span class="x">&lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>上面代码中的 <code>&lt;?php echo $this-&gt;Session-&gt;flash(); ?&gt;</code> 的作用就是将前一次跳转中设置的 Session 跳转信息显示在页面上，随后删除 Session 中的跳转信息，以确保下一次不会再显示。</p>
-
-<p>但是，默认情况下，这段跳转信息的 HTML 结构是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;flashMessage&quot;</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;message&quot;</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="nx">world</span><span class="o">!&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>那么，如果要配合 BootStrap 一起使用的话，应该如何设置呢？咱们先来看看 SessionComponent 和 SessionHelper 的部分源代码。</p>
-
-<figure class='code'><figcaption><span>SessionComponent</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">setFlash</span><span class="p">(</span><span class="nv">$message</span><span class="p">,</span> <span class="nv">$element</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">(),</span> <span class="nv">$key</span> <span class="o">=</span> <span class="s1">&#39;flash&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">CakeSession</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;Message.&#39;</span> <span class="o">.</span> <span class="nv">$key</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="s1">&#39;element&#39;</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">));</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>很明显，在跳转之前调用 $this->Session->setFlash(__(&lsquo;Your post has been saved.&rsquo;)); ，会在 Session 中以 <code>Message{$key}</code> 作为 Key 写入对应的 <code>$message</code> ，<code>$element</code> ，<code>$params</code>。接着会在 SessionHelper 中调用：</p>
-
-<figure class='code'><figcaption><span>SessionHelper</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">flash</span><span class="p">(</span><span class="nv">$key</span> <span class="o">=</span> <span class="s1">&#39;flash&#39;</span><span class="p">,</span> <span class="nv">$attrs</span> <span class="o">=</span> <span class="k">array</span><span class="p">())</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nv">$out</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">CakeSession</span><span class="o">::</span><span class="na">check</span><span class="p">(</span><span class="s1">&#39;Message.&#39;</span> <span class="o">.</span> <span class="nv">$key</span><span class="p">))</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$flash</span> <span class="o">=</span> <span class="nx">CakeSession</span><span class="o">::</span><span class="na">read</span><span class="p">(</span><span class="s1">&#39;Message.&#39;</span> <span class="o">.</span> <span class="nv">$key</span><span class="p">);</span>
-</span><span class='line'>        <span class="nv">$message</span> <span class="o">=</span> <span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">];</span>
-</span><span class='line'>        <span class="nb">unset</span><span class="p">(</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$attrs</span><span class="p">))</span> <span class="p">{</span>
-</span><span class='line'>            <span class="nv">$flash</span> <span class="o">=</span> <span class="nb">array_merge</span><span class="p">(</span><span class="nv">$flash</span><span class="p">,</span> <span class="nv">$attrs</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="nv">$class</span> <span class="o">=</span> <span class="s1">&#39;message&#39;</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;class&#39;</span><span class="p">]))</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nv">$class</span> <span class="o">=</span> <span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;class&#39;</span><span class="p">];</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="nv">$out</span> <span class="o">=</span> <span class="s1">&#39;&lt;div id=&quot;&#39;</span> <span class="o">.</span> <span class="nv">$key</span> <span class="o">.</span> <span class="s1">&#39;Message&quot; class=&quot;&#39;</span> <span class="o">.</span> <span class="nv">$class</span> <span class="o">.</span> <span class="s1">&#39;&quot;&gt;&#39;</span> <span class="o">.</span> <span class="nv">$message</span> <span class="o">.</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="o">!</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>            <span class="nv">$out</span> <span class="o">=</span> <span class="nv">$message</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>            <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;plugin&#39;</span><span class="p">]))</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nv">$options</span><span class="p">[</span><span class="s1">&#39;plugin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;plugin&#39;</span><span class="p">];</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="nv">$tmpVars</span> <span class="o">=</span> <span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">];</span>
-</span><span class='line'>            <span class="nv">$tmpVars</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$message</span><span class="p">;</span>
-</span><span class='line'>            <span class="nv">$out</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_View</span><span class="o">-&gt;</span><span class="na">element</span><span class="p">(</span><span class="nv">$flash</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">],</span> <span class="nv">$tmpVars</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="nx">CakeSession</span><span class="o">::</span><span class="na">delete</span><span class="p">(</span><span class="s1">&#39;Message.&#39;</span> <span class="o">.</span> <span class="nv">$key</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nv">$out</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>从上面默认的代码可以看出，如果 <code>$element</code> 为 <code>default</code> 的话，就是之前默认的 HTML 结构；如果没设置的话，则直接显示 <code>$message</code> 文本信息；如果设置成其他的值，就会到 <code>View/Elements</code> 下调用相对应的模板文件。</p>
-
-<p>为此，我特别写了一个模板：</p>
-
-<figure class='code'><figcaption><span>notify.ctp</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;flashMessage&quot;</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;alert &lt;?php echo isset(</span><span class="si">$status</span><span class="s2">) ? &#39;alert-&#39; . </span><span class="si">$status</span><span class="s2"> : &#39;&#39;; ?&gt; &lt;?php echo isset(</span><span class="si">$block</span><span class="s2">) &amp;&amp; </span><span class="si">$block</span><span class="s2"> ? &#39;alert-block&#39; : &#39;&#39;; ?&gt; text-center&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>    <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;close&quot;</span> <span class="nx">data</span><span class="o">-</span><span class="nx">dismiss</span><span class="o">=</span><span class="s2">&quot;alert&quot;</span><span class="o">&gt;</span><span class="err">×</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
-</span><span class='line'>    <span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span> <span class="nx">h</span><span class="p">(</span><span class="nv">$message</span><span class="p">)</span><span class="cp">?&gt;</span><span class="x"></span>
-</span><span class='line'><span class="x">&lt;/div&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样调用的时候，只需要在 Controller 里用下面的代码即可，View 中不需要更改。最终在显示的时候，就会呈现出一个通栏的提示框，当然你也可以把它放在特定的 DIV 里，让它的样式能够符合你的需求。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Session</span><span class="o">-&gt;</span><span class="na">setFlash</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">,</span> <span class="s1">&#39;notify&#39;</span> <span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;success&#39;</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>第三个参数中的 <code>status</code> 就是用来定制显示信息的样式，具体有哪些配置可以参考 <a href="http://v2.bootcss.com/components.html#alerts">http://v2.bootcss.com/components.html#alerts</a> 。</p>
 
 <p>Have a nice day！</p>
 ]]></content>
