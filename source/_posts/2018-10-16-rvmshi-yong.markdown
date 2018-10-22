@@ -37,7 +37,7 @@ rvm install 2.2.0
 rvm use 2.2.0
 ```
 
-如果想设置为默认版本，这样一来以后新打开的控制台默认的 Ruby 就是这个版本
+如果想设置为默认版本，这样一来以后新打开的控制台默认的 Ruby 就是这个版本。
 ``` bash
 rvm use 2.2.0 --default
 ```
@@ -56,7 +56,7 @@ rvm remove 1.8.7
 
 RVM 不仅可以提供一个多 Ruby 版本共存的环境，还可以根据项目管理不同的 gemset。gemset 可以理解为是一个独立的虚拟 gem 环境，每一个 gemset 都是相互独立的。
 
-比如你有两个项目，一个是 Rails 2.3 一个是 rails3. gemset 可以帮你便捷的建立两套 gem 开发环境，并且方便的切换。gemset 是附加在 Ruby 语言版本下面的，例如你用了 1.9.2, 建立了一个叫 rails3 的 gemset,当切换到 1.8.7 的时候，rails3 这个 gemset 并不存在。
+比如你有两个项目，一个是 Rails 2.3 一个是 Rails3。gemset 可以帮你便捷的建立两套 gem 开发环境，并且方便的切换。gemset 是附加在 Ruby 语言版本下面的，例如你用了 1.9.2, 建立了一个叫 rails3 的 gemset,当切换到 1.8.7 的时候，rails3 这个 gemset 并不存在。
 
 建立 gemset
 ``` bash
@@ -64,7 +64,7 @@ rvm use 1.8.7
 rvm gemset create rails23
 ```
 
-然后可以设定已建立的 gemset 做为当前环境.use 可以用来切换语言或者 gemset，前提是他们已经被安装(或者建立)。并可以在 list 命令中看到。
+然后可以设定已建立的 gemset 做为当前环境。use 可以用来切换语言或者 gemset，前提是他们已经被安装(或者建立)，并可以在 list 命令中看到。
 ``` bash
 rvm use 1.8.7
 rvm use 1.8.7@rails23
