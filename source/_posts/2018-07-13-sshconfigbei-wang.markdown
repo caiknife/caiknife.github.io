@@ -11,11 +11,11 @@ categories: linux ssh
 
 ```
 Host jserver
-    HostName j.qutoutiao.net
+    HostName ********
     User caizhijiang
 
 Host j2server
-    HostName j2.qutoutiao.net
+    HostName ********
     User caizhijiang
     StrictHostKeyChecking no
     Port 2222
