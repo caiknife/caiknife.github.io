@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-22T14:41:26+08:00</updated>
+  <updated>2018-10-22T19:41:07+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -603,11 +603,11 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>Host jserver
-</span><span class='line'>    HostName j.qutoutiao.net
+</span><span class='line'>    HostName ********
 </span><span class='line'>    User caizhijiang
 </span><span class='line'>
 </span><span class='line'>Host j2server
-</span><span class='line'>    HostName j2.qutoutiao.net
+</span><span class='line'>    HostName ********
 </span><span class='line'>    User caizhijiang
 </span><span class='line'>    StrictHostKeyChecking no
 </span><span class='line'>    Port 2222</span></code></pre></td></tr></table></div></figure>
