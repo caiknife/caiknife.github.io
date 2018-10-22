@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-22T19:42:46+08:00</updated>
+  <updated>2018-10-22T19:47:41+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SSH配置备忘]]></title>
+    <link href="http://caiknife.github.io/blog/2018/10/22/zhi-bei-wang/"/>
+    <updated>2018-10-22T19:46:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/10/22/zhi-bei-wang</id>
+    <content type="html"><![CDATA[<p>记录一下我机器上的SSHConfig，防止将来忘记了。</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Host jserver
+</span><span class='line'>    HostName ********
+</span><span class='line'>    User caiknife
+</span><span class='line'>
+</span><span class='line'>Host j2server
+</span><span class='line'>    HostName ********
+</span><span class='line'>    User caiknife
+</span><span class='line'>    StrictHostKeyChecking no
+</span><span class='line'>    Port 2222</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[composer问题排查]]></title>
@@ -578,40 +612,6 @@
 <p>很多人真的是连“若批评无自由，则赞美无意义”的道理都不懂，只会为了杠而杠。</p>
 
 <p>看来还是要扩大自己的影响力，确立自身的权威，这样才不会有那么多的人来瞎抬杠，也能进一步正面影响到更多的人。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[SSHConfig备忘]]></title>
-    <link href="http://caiknife.github.io/blog/2018/07/13/sshconfigbei-wang/"/>
-    <updated>2018-07-13T12:05:38+08:00</updated>
-    <id>http://caiknife.github.io/blog/2018/07/13/sshconfigbei-wang</id>
-    <content type="html"><![CDATA[<p>记录一下我机器上的SSHConfig，防止将来忘记了。</p>
-
-<!-- more -->
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Host jserver
-</span><span class='line'>    HostName ********
-</span><span class='line'>    User caiknife
-</span><span class='line'>
-</span><span class='line'>Host j2server
-</span><span class='line'>    HostName ********
-</span><span class='line'>    User caiknife
-</span><span class='line'>    StrictHostKeyChecking no
-</span><span class='line'>    Port 2222</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

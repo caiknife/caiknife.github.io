@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ssh | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/ssh/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-22T19:42:46+08:00</updated>
+  <updated>2018-10-22T19:47:41+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[SSHConfig备忘]]></title>
-    <link href="http://caiknife.github.io/blog/2018/07/13/sshconfigbei-wang/"/>
-    <updated>2018-07-13T12:05:38+08:00</updated>
-    <id>http://caiknife.github.io/blog/2018/07/13/sshconfigbei-wang</id>
+    <title type="html"><![CDATA[SSH配置备忘]]></title>
+    <link href="http://caiknife.github.io/blog/2018/10/22/zhi-bei-wang/"/>
+    <updated>2018-10-22T19:46:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/10/22/zhi-bei-wang</id>
     <content type="html"><![CDATA[<p>记录一下我机器上的SSHConfig，防止将来忘记了。</p>
 
 <!-- more -->

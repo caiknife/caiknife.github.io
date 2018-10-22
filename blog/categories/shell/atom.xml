@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-22T19:42:46+08:00</updated>
+  <updated>2018-10-22T19:47:41+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SSH配置备忘]]></title>
+    <link href="http://caiknife.github.io/blog/2018/10/22/zhi-bei-wang/"/>
+    <updated>2018-10-22T19:46:38+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/10/22/zhi-bei-wang</id>
+    <content type="html"><![CDATA[<p>记录一下我机器上的SSHConfig，防止将来忘记了。</p>
+
+<!-- more -->
+
+
+<p>```
+Host jserver</p>
+
+<pre><code>HostName ********
+User caiknife
+</code></pre>
+
+<p>Host j2server</p>
+
+<pre><code>HostName ********
+User caiknife
+StrictHostKeyChecking no
+Port 2222
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RVM使用]]></title>
@@ -312,7 +341,7 @@ POSIX 选项:           GNU 长选项:</p>
 <p>提交错误报告请参考“gawk.info”中的“Bugs”页，它位于打印版本中的“Reporting
 Problems and Bugs”一节</p>
 
-<p>翻译错误请发信至 <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#116;&#x72;&#97;&#x6e;&#115;&#108;&#97;&#116;&#x69;&#x6f;&#x6e;&#x2d;&#116;&#101;&#97;&#x6d;&#45;&#122;&#104;&#x2d;&#99;&#x6e;&#64;&#108;&#x69;&#115;&#x74;&#x73;&#46;&#x73;&#111;&#117;&#x72;&#99;&#x65;&#x66;&#x6f;&#x72;&#x67;&#101;&#x2e;&#x6e;&#x65;&#x74;">&#x74;&#x72;&#97;&#x6e;&#x73;&#108;&#x61;&#x74;&#105;&#x6f;&#x6e;&#x2d;&#x74;&#x65;&#97;&#x6d;&#45;&#x7a;&#x68;&#x2d;&#x63;&#110;&#x40;&#108;&#105;&#115;&#116;&#x73;&#x2e;&#x73;&#111;&#x75;&#114;&#x63;&#101;&#x66;&#x6f;&#x72;&#x67;&#x65;&#x2e;&#110;&#x65;&#116;</a></p>
+<p>翻译错误请发信至 <a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x74;&#x72;&#x61;&#x6e;&#115;&#108;&#x61;&#x74;&#x69;&#111;&#x6e;&#45;&#x74;&#x65;&#97;&#109;&#45;&#x7a;&#x68;&#x2d;&#x63;&#x6e;&#64;&#108;&#x69;&#x73;&#x74;&#115;&#46;&#115;&#111;&#x75;&#114;&#x63;&#101;&#102;&#x6f;&#x72;&#103;&#101;&#46;&#x6e;&#101;&#x74;">&#116;&#x72;&#x61;&#110;&#115;&#108;&#x61;&#116;&#105;&#x6f;&#110;&#x2d;&#116;&#x65;&#97;&#x6d;&#45;&#122;&#104;&#45;&#x63;&#x6e;&#64;&#108;&#105;&#115;&#116;&#115;&#x2e;&#115;&#x6f;&#x75;&#x72;&#99;&#x65;&#102;&#x6f;&#114;&#103;&#x65;&#46;&#110;&#101;&#116;</a></p>
 
 <p>gawk 是一个模式扫描及处理语言。缺省情况下它从标准输入读入并写至标准输出。</p>
 
@@ -425,99 +454,6 @@ caiknife    1000    /home/caiknife
 <p><code>awk</code>是神器，务必一定要好好使用，深入了解。</p>
 
 <p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[安装 zsh]]></title>
-    <link href="http://caiknife.github.io/blog/2013/10/01/install-zsh/"/>
-    <updated>2013-10-01T22:01:00+08:00</updated>
-    <id>http://caiknife.github.io/blog/2013/10/01/install-zsh</id>
-    <content type="html"><![CDATA[<p>前几天在看<a href="http://read.douban.com/ebook/1531222/">MacTalk·人生元编程</a>的时候谈到了 <code>zsh</code> 这个很有意思的 shell 。前两天安装好，用下来感觉相当不错，特别总结一下。</p>
-
-<p>安装 zsh 并设置为默认 shell:</p>
-
-<p>``` bash
-$ sudo apt-get install zsh</p>
-
-<p>$ chsh -s /bin/zsh
-```</p>
-
-<p>接着安装 <code>oh-my-zsh</code> 这个强大的扩展脚本：</p>
-
-<p><code>bash
-$ curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-</code></p>
-
-<p>或者：</p>
-
-<p><code>bash
-$ wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
-</code></p>
-
-<!-- more -->
-
-
-<p>安装完成之后，就会在 home 目录下生成一个 <code>.zshrc</code> 文件，这里可以做很多的设置，比如设置插件、加载其他 bash 文件等等，<code>zsh</code> 是完全兼容 <code>bash</code> 的。我就在这个文件里加载了默认的 <code>.bash_aliases</code> 文件。</p>
-
-<p>在这个文件里还有一个叫做 <code>ZSH_THEME</code> 的设置，用来配置 shell 的外观。目前我的外观配置如下：</p>
-
-<p>``` bash ~/.oh-my-zsh/themes/caiknife.zsh-theme</p>
-
-<h1>Color shortcuts</h1>
-
-<p>RED=$fg[red]
-YELLOW=$fg[yellow]
-GREEN=$fg[green]
-WHITE=$fg[white]
-BLUE=$fg[blue]
-RED_BOLD=$fg_bold[red]
-YELLOW_BOLD=$fg_bold[yellow]
-GREEN_BOLD=$fg_bold[green]
-WHITE_BOLD=$fg_bold[white]
-BLUE_BOLD=$fg_bold[blue]
-RESET_COLOR=$reset_color</p>
-
-<h1>Format for git_prompt_info()</h1>
-
-<p>ZSH_THEME_GIT_PROMPT_PREFIX=&ldquo;&rdquo;
-ZSH_THEME_GIT_PROMPT_SUFFIX=&ldquo;&rdquo;</p>
-
-<h1>Format for parse_git_dirty()</h1>
-
-<p>ZSH_THEME_GIT_PROMPT_DIRTY=&ldquo; %{$RED%}(*)&rdquo;
-ZSH_THEME_GIT_PROMPT_CLEAN=&ldquo;&rdquo;</p>
-
-<h1>Format for git_prompt_status()</h1>
-
-<p>ZSH_THEME_GIT_PROMPT_UNMERGED=&ldquo; %{$RED%}unmerged&rdquo;
-ZSH_THEME_GIT_PROMPT_DELETED=&ldquo; %{$RED%}deleted&rdquo;
-ZSH_THEME_GIT_PROMPT_RENAMED=&ldquo; %{$YELLOW%}renamed&rdquo;
-ZSH_THEME_GIT_PROMPT_MODIFIED=&ldquo; %{$YELLOW%}modified&rdquo;
-ZSH_THEME_GIT_PROMPT_ADDED=&ldquo; %{$GREEN%}added&rdquo;
-ZSH_THEME_GIT_PROMPT_UNTRACKED=&ldquo; %{$WHITE%}untracked&rdquo;</p>
-
-<h1>Format for git_prompt_ahead()</h1>
-
-<p>ZSH_THEME_GIT_PROMPT_AHEAD=&ldquo; %{$RED%}(!)&rdquo;</p>
-
-<h1>Format for git_prompt_long_sha() and git_prompt_short_sha()</h1>
-
-<p>ZSH_THEME_GIT_PROMPT_SHA_BEFORE=&ldquo; %{$WHITE%}[%{$YELLOW%}&rdquo;
-ZSH_THEME_GIT_PROMPT_SHA_AFTER=&ldquo;%{$WHITE%}]&rdquo;</p>
-
-<h1>Prompt format</h1>
-
-<p>PROMPT=&lsquo;%{$fg_bold[blue]%}%D{[%H:%M]}%{$RESET_COLOR%} %{$GREEN%}%n%{$RESET_COLOR%}@%{$RED_BOLD%}%m%{$RESET_COLOR%}:%{$YELLOW%}%~%u$(parse_git_dirty)$(git_prompt_ahead)%{$RESET_COLOR%}
-%{$BLUE%}>%{$RESET_COLOR%} &rsquo;
-RPROMPT=&lsquo;%{$GREEN_BOLD%}$(current_branch)$(git_prompt_short_sha)$(git_prompt_status)%{$RESET_COLOR%}&rsquo;
-```</p>
-
-<p>来瞅瞅换成 <code>zsh</code> 之后变成什么样了。</p>
-
-<p><a href="/downloads/image/zsh/zsh.png" title="zsh demo " class="fancybox"><img src="/downloads/image/zsh/zsh.png" alt="zsh demo " /></a></p>
-
-<p>挺有意思的，是不？ Have a nice day！</p>
 ]]></content>
   </entry>
   
