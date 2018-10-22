@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ssh | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/ssh/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-22T19:41:07+08:00</updated>
+  <updated>2018-10-22T19:42:46+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -27,13 +27,13 @@
 Host jserver</p>
 
 <pre><code>HostName ********
-User caizhijiang
+User caiknife
 </code></pre>
 
 <p>Host j2server</p>
 
 <pre><code>HostName ********
-User caizhijiang
+User caiknife
 StrictHostKeyChecking no
 Port 2222
 </code></pre>
