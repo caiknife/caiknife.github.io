@@ -16,7 +16,9 @@ footer: true
 
 会弹点破吉他。
 
-最喜欢的吉他手是 Paul Gilbert 和 John Mayer。
+最喜欢的吉他手是 Eric Clapton， Paul Gilbert 和 John Mayer。
+
+{% fancybox /downloads/image/about/ec.jpg Eric Clapton %}
 
 {% fancybox /downloads/image/about/pg.jpg Paul Gilbert %}
 
