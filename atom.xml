@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-10-30T12:20:32+08:00</updated>
+  <updated>2018-11-01T10:54:19+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[摇摆舞者乐感入门指南]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/01/yao-bai-wu-zhe-le-gan-ru-men-zhi-nan/"/>
+    <updated>2018-11-01T10:24:18+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/01/yao-bai-wu-zhe-le-gan-ru-men-zhi-nan</id>
+    <content type="html"><![CDATA[<p>很久以前，我想成为一个牛逼的吉他手；多年以后，我致力于做音乐的传播者，提高身边朋友们的音乐素养，告诉大家如何去欣赏音乐。</p>
+
+<p>自从 2017 年开始学习摇摆舞以来，我一直都把之前学习吉他的经验应用到学习摇摆舞中，进步还算明显，跳舞之余，还给大家分享了一些有关乐理和乐感的知识。</p>
+
+<!-- more -->
+
+
+<p>最终，我写出了一张摇摆舞者可以用得上的有关乐理和乐感的思维导图：</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/about/swing.png" title="摇摆舞者乐感入门指南 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/about/swing.png" alt="摇摆舞者乐感入门指南 " /></a></p>
+
+<p>配合几次分享的录音，加上这张图，我相信会对各位舞者的乐感有所帮助。</p>
+
+<p>20180819乐感讲座（1）-打拍子 <a href="https://music.163.com/program?id=1370712472">https://music.163.com/program?id=1370712472</a></p>
+
+<p>20180909乐感讲座（2）-听乐器 <a href="https://music.163.com/program?id=2056478909">https://music.163.com/program?id=2056478909</a></p>
+
+<p>20180916乐感讲座（3）-识风格 <a href="https://music.163.com/program?id=2056582052">https://music.163.com/program?id=2056582052</a></p>
+
+<p>20180925乐感讲座浓缩版-打拍子&amp;听乐器 <a href="https://music.163.com/#/program?id=2056693131">https://music.163.com/#/program?id=2056693131</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SSH配置备忘]]></title>
@@ -1548,114 +1576,6 @@
 <p>不积跬步，无以至千里。</p>
 
 <p>以上我所说的，都是错的。</p>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[一句话 Shell 脚本（3）]]></title>
-    <link href="http://caiknife.github.io/blog/2014/02/26/happy-shell-script/"/>
-    <updated>2014-02-26T10:00:43+08:00</updated>
-    <id>http://caiknife.github.io/blog/2014/02/26/happy-shell-script</id>
-    <content type="html"><![CDATA[<p>CakePHP 会在自己的项目文件夹的 <code>app/tmp</code> 下建立缓存文件，用来保存数据库表结构。在开启 debug 的情况下，每次发起请求后都会刷新缓存，但是在生产环境下，一般都是关闭了 debug 的，如果某次功能升级修改了表结构的话，缓存并不会主动更新，如此一来就会产生 InternalError 。</p>
-
-<p>看来还是要写个脚本来手动删除这些缓存文件。</p>
-
-<!-- more -->
-
-
-<p>先看看缓存目录结构是什么样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; tree
-</span><span class='line'>.
-</span><span class='line'>├── cache
-</span><span class='line'>│   ├── cake_toolbar_cache19c90b767c0870ceefeb6659d993da93
-</span><span class='line'>│   ├── models
-</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_accounts
-</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_articles
-</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_list
-</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_train_divisions
-</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_trainees
-</span><span class='line'>│   │   ├── ccqo_cake_model_default_ccqo_trainers
-</span><span class='line'>│   │   └── ccqo_cake_model_default_ccqo_train_infos
-</span><span class='line'>│   └── persistent
-</span><span class='line'>│       ├── ccqo_cake_core_cake_zh-cn
-</span><span class='line'>│       ├── ccqo_cake_core_debug_kit_zh-cn
-</span><span class='line'>│       ├── ccqo_cake_core_file_map
-</span><span class='line'>│       └── ccqo_cake_core_method_cache
-</span><span class='line'>└── logs
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>要删除的是缓存文件，目录不用删除。 OK ，那么就写个脚本一次性全部搞定好了。</p>
-
-<p>先想到的是用 <code>find</code> 命令配合管道符来用：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; find . -type f | xargs rm -f
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>结果报了权限错误：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; find . -type f | xargs rm -f
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/persistent/ccqo_cake_core_cake_zh-cn&quot;</span>: 权限不够
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/persistent/ccqo_cake_core_file_map&quot;</span>: 权限不够
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/persistent/ccqo_cake_core_debug_kit_zh-cn&quot;</span>: 权限不够
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/persistent/ccqo_cake_core_method_cache&quot;</span>: 权限不够
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_list&quot;</span>: 权限不够
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_train_divisions&quot;</span>: 权限不够
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_trainers&quot;</span>: 权限不够
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_articles&quot;</span>: 权限不够
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_train_infos&quot;</span>: 权限不够
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_trainees&quot;</span>: 权限不够
-</span><span class='line'>rm: 无法删除<span class="s2">&quot;./cache/models/ccqo_cake_model_default_ccqo_accounts&quot;</span>: 权限不够
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这些文件是由 <code>www-data</code> 帐号生成的，所以我自然不能删除，所以加上 <code>sudo</code> 再删除吧。</p>
-
-<p>几分钟之后又想了想，其实不用管道符，完全可以用 <code>find</code> 自己就可以完成了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>&gt; find . -type f -exec sudo rm -f <span class="o">{}</span> +
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>打完收工！</p>
-
-<p>最近越来越感觉随着年纪的增长，接触的事情越来越多，记忆力没有以前好了。高中时代特别自豪地过目不忘的本事也指望不上了，看来还是好记性不如烂笔头，得养成一个良好的记录和总结的习惯，才会对将来的工作有所帮助。</p>
 
 <p>Have a nice day！</p>
 ]]></content>
