@@ -16,6 +16,10 @@ footer: true
 
 会弹点破吉他。
 
+有一个聊音乐的公众号——**蔡老湿陪你弹棉花**
+
+{% fancybox /downloads/image/about/qr.jpg 蔡老湿陪你弹棉花 %}
+
 最喜欢的吉他手是 Eric Clapton， Paul Gilbert 和 John Mayer。
 
 {% fancybox /downloads/image/about/ec.jpg Eric Clapton %}
