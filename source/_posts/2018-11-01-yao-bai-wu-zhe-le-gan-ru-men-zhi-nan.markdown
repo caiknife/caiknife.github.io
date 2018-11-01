@@ -24,3 +24,5 @@ categories: 音乐 摇摆舞 Swing Music
 20180916乐感讲座（3）-识风格 <https://music.163.com/program?id=2056582052>
 
 20180925乐感讲座浓缩版-打拍子&听乐器 <https://music.163.com/#/program?id=2056693131>
+
+为了音乐，我实在是付出了不少，回报也微乎其微，苦中作乐不容易啊。
