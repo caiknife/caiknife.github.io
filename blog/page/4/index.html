@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="一直以来都在用 Zend Studio 8 ，但是 ZS 的 Git 插件总是安装不上，实在是太坑爹了。前几天开始试用了 PHPStorm ，感觉真不错，接下来就应该开始迁移到这个新玩具上。 强大的插件功能也非常适合功能的扩展，现在我已经安装了 Markdown ，CakeStorm ， &hellip;">
+  <meta name="description" content="昨天在公司的电脑上安装了 Python 环境，开始用 PyCharm 来做开发，不过在安装的过程中碰到了一些问题，顺利解决后来记录一下。 公司的电脑是 Win7 64bit ，安装了 Python 2.7.6 之后，我需要再安装 setuptools 和 pip 来做包的管理。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/31/a-bug-of-python-on-windows/">Windows 上安装 Python 包的时候会发生错误</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-31T09:39:35+08:00" pubdate data-updated="true">Dec 31<span>st</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-31T09:39:35+08:00" pubdate data-updated="true">Dec 31<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>昨天在公司的电脑上安装了 Python 环境，开始用 PyCharm 来做开发，不过在安装的过程中碰到了一些问题，顺利解决后来记录一下。</p>
+
+<p>公司的电脑是 Win7 64bit ，安装了 Python 2.7.6 之后，我需要再安装 setuptools 和 pip 来做包的管理。但是在安装这两个包的过程中，经常发生下面的警告：</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/12/31/a-bug-of-python-on-windows/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -725,78 +797,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/11/20/how-to-deal-with-dog-pile-effect/">如何处理 Dog Pile Effect</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-20T16:02:00+08:00" pubdate data-updated="true">Nov 20<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-20T16:02:00+08:00" pubdate data-updated="true">Nov 20<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/memcache/'>memcache</a>, <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/redis/'>redis</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>什么是 Dog Pile Effect？</p>
-
-<p>在缓存系统中，缓存总有失效的时候，比如我们经常使用的 Memcache 和 Redis ，都会设置超时时间；而一旦缓存到了超时时间失效之后，如果此时再有大量的并发向数据库发起请求，就会造成服务器卡顿甚至是系统当机。这就是 Dog Pile Effect 。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/11/20/how-to-deal-with-dog-pile-effect/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; 向前</a>
@@ -812,6 +812,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/14/cli-improvement/">CLI 环境高级配置</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/11/01/yao-bai-wu-zhe-le-gan-ru-men-zhi-nan/">摇摆舞者乐感入门指南</a>
@@ -847,10 +851,6 @@
     
       <li class="post">
         <a href="/blog/2018/07/27/da-lu-yin-le-zhen-ren-xiu-shi-san-nian/">大陆音乐真人秀十三年</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/07/27/zhi-de-ji-ta-dan-de-zen-yao-yang-%3F/">知乎回答【谢霆锋的吉他弹得怎么样？】</a>
       </li>
     
   </ul>
