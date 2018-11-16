@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: glide | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/glide/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-11-16T19:34:42+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用glide进行Go的包管理]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/16/shi-yong-glidejin-xing-gode-bao-guan-li/"/>
+    <updated>2018-11-16T19:05:17+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/16/shi-yong-glidejin-xing-gode-bao-guan-li</id>
+    <content type="html"><![CDATA[<p>长话短说，一切从简。</p>
+
+<p>今天开始使用 <code>glide</code> 进行 <code>Golang</code> 的包管理。</p>
+
+<!-- more -->
+
+
+<p>先安装 <code>glide</code> ：</p>
+
+<p><code>bash
+brew install glide
+</code></p>
+
+<p>然后进入工作目录，使用 <code>glide</code> 进行初始化：</p>
+
+<p><code>bash
+glide init
+</code></p>
+
+<p>由于有些库放在 golang.org 上，不能直接下载，所以需要使用代理。我自己本身用了 <code>ShadowSocks</code> 作为翻墙工具，所以使用 <code>SS</code> 代理即可。</p>
+
+<p>把下面的代码写到一个脚本里，命名为 <code>proxy</code> ，位置是 <code>/usr/local/bin/</code> 。</p>
+
+<p>``` bash</p>
+
+<h1>!/usr/bin/env bash</h1>
+
+<p>export http_proxy=socks5://127.0.0.1:1080
+export https_proxy=socks5://127.0.0.1:1080
+$*
+```</p>
+
+<p>然后执行：</p>
+
+<p><code>bash
+proxy glide install
+</code></p>
+
+<p>就可以顺利下载库了。</p>
+]]></content>
+  </entry>
+  
+</feed>
