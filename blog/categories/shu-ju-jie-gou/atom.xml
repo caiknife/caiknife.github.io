@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 数据结构 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/shu-ju-jie-gou/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-17T18:45:00+08:00</updated>
+  <updated>2018-11-17T19:14:00+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,173 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[趣味题：求字符串的全排列]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/17/qu-wei-ti-qiu-zi-fu-chuan-de-quan-pai-lie/"/>
+    <updated>2018-11-17T18:47:57+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/17/qu-wei-ti-qiu-zi-fu-chuan-de-quan-pai-lie</id>
+    <content type="html"><![CDATA[<p>这是一个面试题。</p>
+
+<blockquote><p>给定一个字符串，输出这个字符串的全排列。比如给定了字符串abc，那么输出结果就是
+abc acb bac bca cab cba</p></blockquote>
+
+<p>如果用Python来解决这个问题的话，那真的是非常非常简单的了，因为Python有个<code>itertools</code>工具包，这个包下有个工具类叫<code>permutations</code>。</p>
+
+<p>几行代码就可以实现功能：</p>
+
+<!-- more -->
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (perm.py)</span> <a href='/downloads/code/quiz/perm.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c"># coding:utf8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">permutations</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="n">permutations</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">v</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>当然我们不能这么赖皮地使用Python的内置库来解决这个问题，更重要的是，我们需要了解全排列的算法。</p>
+
+<p>所谓全排列，就是打印出字符串中所有字符的所有排列。例如输入字符串abc，则打印出 a、b、c 所能排列出来的所有字符串 abc、acb、bac、bca、cab 和 cba 。</p>
+
+<p>一般最先想到的方法是暴力循环法，即对于每一位，遍历集合中可能的元素，如果在这一位之前出现过了该元素，跳过该元素。例如对于abc，第一位可以是 a 或 b 或 c 。当第一位为 a 时，第二位再遍历集合，发现 a 不行，因为前面已经出现 a 了，而 b 和 c 可以。当第二位为 b 时 ， 再遍历集合，发现 a 和 b 都不行，c 可以。可以用递归或循环来实现，但是复杂度为 O(n<sup>n</sup>) 。有没有更优雅的解法呢。</p>
+
+<p>首先考虑bac和cba这二个字符串是如何得出的。显然这二个都是abc中的 a 与后面两字符交换得到的。然后可以将abc的第二个字符和第三个字符交换得到acb。同理可以根据bac和cba来得bca和cab。</p>
+
+<p>因此可以知道，全排列就是从第一个数字起每个数分别与它后面的数字交换，也可以得出这种解法每次得到的结果都是正确结果，所以复杂度为 O(n!)。</p>
+
+<p>最后我写了一个PHP版本的实现：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (perm.php)</span> <a href='/downloads/code/quiz/perm.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/11/17</span>
+</span><span class='line'><span class="sd"> * Time: 15:09</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">StringPlace</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">stringPlace</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">stringPlace</span><span class="p">(</span><span class="nv">$stringSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$tmpString</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$stringSize</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$tmpString</span><span class="p">[]</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nx">rand</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span> <span class="mi">122</span><span class="p">));</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Origin string is &quot;</span> <span class="o">.</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$tmpString</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">perm</span><span class="p">(</span><span class="nv">$tmpString</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">sizeof</span><span class="p">(</span><span class="nv">$tmpString</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">perm</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$arr</span><span class="p">,</span> <span class="nv">$k</span><span class="p">,</span> <span class="nv">$m</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$k</span> <span class="o">==</span> <span class="nv">$m</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">echo</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="nv">$k</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="nv">$m</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_swap</span><span class="p">(</span><span class="nv">$arr</span><span class="p">[</span><span class="nv">$k</span><span class="p">],</span> <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+</span><span class='line'>                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">perm</span><span class="p">(</span><span class="nv">$arr</span><span class="p">,</span> <span class="nv">$k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">$m</span><span class="p">);</span>
+</span><span class='line'>                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_swap</span><span class="p">(</span><span class="nv">$arr</span><span class="p">[</span><span class="nv">$k</span><span class="p">],</span> <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">function</span> <span class="nf">_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$a</span><span class="p">,</span> <span class="o">&amp;</span><span class="nv">$b</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">list</span><span class="p">(</span><span class="nv">$b</span><span class="p">,</span> <span class="nv">$a</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>全排列就是这样，代码看起来还是有点点难懂，需要深入了解才能融会贯通。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[趣味题：找出N个数字中最大的K个]]></title>
