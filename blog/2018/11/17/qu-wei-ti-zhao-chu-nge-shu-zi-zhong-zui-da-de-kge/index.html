@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>趣味题：找出N个数字中最大的K个 - 但行好事，莫问前程</title>
+  <meta name="author" content="CaiKnife">
+
+  
+  <meta name="description" content="算是一个面试题吧，内容就是如标题所写的一样： 给定N个指定的数字，输出前K个最大的数字，比如给出了1，2，3，4，5，6，7，8，要求输出前3个最大的数字，那么就输出8，7，6 其实这个题目，看起来很简单，其实只需要从大到小排序之后，输出前K个数字就可以了，只是排序有很多种算法—— &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caiknife.github.io/blog/2018/11/17/qu-wei-ti-zhao-chu-nge-shu-zi-zhong-zui-da-de-kge">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="但行好事，莫问前程" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="/javascripts/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">但行好事，莫问前程</a></h1>
+  
+    <h2>挖了太多坑，一点点填回来</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caiknife.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">存档</a></li>
+  <li><a href="/about/">关于我</a></li>
+  <li><a href="/category/">所有分类</a></li>
+  <li><a href="/blog/2014/02/24/http-status-code/">HTTP状态码</a></li>
+  <li><a href="/blog/2013/10/18/git-memo/">Git 备忘</a></li>
+  <li><a href="/bootstrap/" target="_blank">BS 速查</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">趣味题：找出N个数字中最大的K个</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-17T17:58:40+08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2018</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-17T17:58:40+08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/shi-zhan/'>实战</a>, <a class='category' href='/blog/categories/shu-ju-jie-gou/'>数据结构</a>, <a class='category' href='/blog/categories/suan-fa/'>算法</a>, <a class='category' href='/blog/categories/bian-cheng/'>编程</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+<div class="entry-content"><p>算是一个面试题吧，内容就是如标题所写的一样：</p>
+
+<blockquote><p>给定N个指定的数字，输出前K个最大的数字，比如给出了1，2，3，4，5，6，7，8，要求输出前3个最大的数字，那么就输出8，7，6</p></blockquote>
+
+<p>其实这个题目，看起来很简单，其实只需要从大到小排序之后，输出前K个数字就可以了，只是排序有很多种算法——常用的就有冒泡排序、选择排序、插入排序、归并排序、快速排序等等，冒泡、选择、插入的时间复杂度是O(n<sup>2</sup>)，归并、快速的时间复杂度是O(n*lgn)。如果需要自己手动实现排序算法的话，那么使用快速排序和归并排序的效果肯定是最好的。</p>
+
+<!-- more -->
+
+
+<p>不过这道题里，我选择了PHP中自带的数据结构 <code>SplMaxHeap</code> 来完成这个问题，也就是用了堆排序。</p>
+
+<p>其实源码很简单：</p>
+
+<figure class='code'><figcaption><span> (heap.php)</span> <a href='/downloads/code/quiz/heap.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/11/17</span>
+</span><span class='line'><span class="sd"> * Time: 14:54</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Number</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">printKMaxFromN</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">printKMaxFromN</span><span class="p">(</span><span class="nv">$n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">$k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="nv">$k</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">echo</span> <span class="s2">&quot;BOTH n k must be positive.&quot;</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">exit</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;</span> <span class="nv">$k</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">echo</span> <span class="s2">&quot;n MUST geq k.&quot;</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">exit</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$tmpHeap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\SplMaxHeap</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$n</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$tmpHeap</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nx">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">));</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$k</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">echo</span> <span class="nv">$tmpHeap</span><span class="o">-&gt;</span><span class="na">current</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$tmpHeap</span><span class="o">-&gt;</span><span class="na">next</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的代码就是给定了10个0到50的随机数，每生成一个就放入到SplMaxHeap中。</p>
+
+<p>堆分为大根堆和小根堆，是完全二叉树。大根堆的要求是每个节点的值都不大于其父节点的值，即A[PARENT[i]] >= A[i]。在数组的非降序排序中，需要使用的就是大根堆，因为根据大根堆的要求可知，最大的值一定在堆顶。</p>
+
+<p><em>总结</em></p>
+
+<p>在找出前K个最小(或最大)的元素时，如果元素个数较少，可以采用简单选择排序；如果元素较多，可以采用堆排序；如果元素基本有序，可以采用冒泡排序。本文采用的是堆排序，时间复杂度是O(n*lgk)。</p>
+
+<p>虽然PHP的数组几乎是万能的，但是也别忘了PHP还是提供了更多更强大的数据结构可以让我们使用，在特定的场景下使用合适的数据结构，不要一股脑儿地只使用PHP的数组，这对于技术人员才是最重要的——要学会思考，要有自己的想法。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-17T17:58:40+08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/shi-zhan/'>实战</a>, <a class='category' href='/blog/categories/shu-ju-jie-gou/'>数据结构</a>, <a class='category' href='/blog/categories/suan-fa/'>算法</a>, <a class='category' href='/blog/categories/bian-cheng/'>编程</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/11/16/shi-yong-glidejin-xing-gode-bao-guan-li/" title="Previous Post: 使用glide进行Go的包管理">&laquo; 使用glide进行Go的包管理</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/17/qu-wei-ti-zhao-chu-nge-shu-zi-zhong-zui-da-de-kge/">趣味题：找出N个数字中最大的K个</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/16/shi-yong-glidejin-xing-gode-bao-guan-li/">使用glide进行Go的包管理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/15/shi-yong-pythonjiao-ben-zhua-qu-zao-qi-zhi-hu-ye-mian-li-de-tu-pian/">使用Python脚本抓取早期知乎页面里的图片</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/14/cli-improvement/">CLI 环境高级配置</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/01/yao-bai-wu-zhe-le-gan-ru-men-zhi-nan/">摇摆舞者乐感入门指南</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/10/22/zhi-bei-wang/">SSH配置备忘</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/10/19/composepai-cha/">Composer问题排查</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/10/16/rvmshi-yong/">RVM使用</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/10/12/xiu-gai-liao-%5B%3F%5D-xia-zshzhu-ti/">修改了一下zsh主题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/09/30/ru-shou-liao-yi-ge-xin-wan-ju/">入手了一个新玩具</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <div class="sf-usercard" id="sf-usercard-1030000000157336"></div>
+    <script>
+    (function() {
+    var sf = document.createElement('script'); sf.type = 'text/javascript'; sf.async = true;
+    sf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://w.segmentfault.com/card/1030000000157336.js?w=0&3rd=1&bg=0&bd=dddddd&cl=333333&btn=eaeaea';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf, s);
+    })();
+    </script>
+</section><section>
+    <ul class="ds-recent-comments" data-num-items="10" data-show-title="1"></ul>
+    <!--多说js加载开始，一个页面只需要加载一次 -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+<section>
+    <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1649186337&verifier=f479351c&dpc=1"></iframe>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F54c89ad841b193f6fbef6bde11681aed' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>
