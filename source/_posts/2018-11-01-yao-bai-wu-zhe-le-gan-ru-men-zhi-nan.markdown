@@ -3,7 +3,7 @@ layout: post
 title: "摇摆舞者乐感入门指南"
 date: 2018-11-01 10:24:18 +0800
 comments: true
-categories: 音乐 摇摆舞 Swing Music
+categories: 音乐 摇摆舞 swing music
 ---
 很久以前，我想成为一个牛逼的吉他手；多年以后，我致力于做音乐的传播者，提高身边朋友们的音乐素养，告诉大家如何去欣赏音乐。
 
