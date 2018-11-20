@@ -3,7 +3,7 @@ layout: post
 title: "PHP知识体系"
 date: 2018-09-13 10:06:52 +0800
 comments: true
-categories: PHP 思维导图 方法论
+categories: php 思维导图 方法论
 ---
 最近花了几天时间写了一个有关PHP的思维导图。
 
