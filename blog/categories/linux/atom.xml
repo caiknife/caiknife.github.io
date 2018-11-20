@@ -4,7 +4,7 @@
   <title><![CDATA[Category: linux | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-17T19:14:00+08:00</updated>
+  <updated>2018-11-20T14:17:13+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,28 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[思维导图两张]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/20/si-wei-dao-tu-liang-zhang/"/>
+    <updated>2018-11-20T14:03:41+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/20/si-wei-dao-tu-liang-zhang</id>
+    <content type="html"><![CDATA[<p>更新两张思维导图，有关于数据结构和算法，以及Linux性能优化的知识框架。</p>
+
+<!-- more -->
+
+
+<p><a href="/downloads/image/composer/ds.png" title="数据结构与算法 " class="fancybox"><img src="/downloads/image/composer/ds.png" alt="数据结构与算法 " /></a></p>
+
+<p><a href="/downloads/image/composer/linux.png" title="Linux性能优化 " class="fancybox"><img src="/downloads/image/composer/linux.png" alt="Linux性能优化 " /></a></p>
+
+<p>一时偷懒造成的问题可能花数十倍的时间精力去善后。</p>
+
+<p>人生艰难。</p>
+
+<p>人间不值得，我自己最值得。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CLI 环境高级配置]]></title>
@@ -289,86 +311,6 @@ $ cat /proc/swaps               # 查看所有swap分区的信息
 <p>安装方法和配置方法都有图文介绍，挺方便的。翻墙之后速度挺快，一般的浏览没啥问题，不过如果要是看 YouTube 之类的网站的话就有点捉襟见肘了。</p>
 
 <p>虽然身在长城内，但是心还是向往自由的。</p>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[一句话 Shell 脚本（3）]]></title>
-    <link href="http://caiknife.github.io/blog/2014/02/26/happy-shell-script/"/>
-    <updated>2014-02-26T10:00:43+08:00</updated>
-    <id>http://caiknife.github.io/blog/2014/02/26/happy-shell-script</id>
-    <content type="html"><![CDATA[<p>CakePHP 会在自己的项目文件夹的 <code>app/tmp</code> 下建立缓存文件，用来保存数据库表结构。在开启 debug 的情况下，每次发起请求后都会刷新缓存，但是在生产环境下，一般都是关闭了 debug 的，如果某次功能升级修改了表结构的话，缓存并不会主动更新，如此一来就会产生 InternalError 。</p>
-
-<p>看来还是要写个脚本来手动删除这些缓存文件。</p>
-
-<!-- more -->
-
-
-<p>先看看缓存目录结构是什么样的：</p>
-
-<p>``` bash</p>
-
-<blockquote><p>tree
-.
-├── cache
-│   ├── cake_toolbar_cache19c90b767c0870ceefeb6659d993da93
-│   ├── models
-│   │   ├── ccqo_cake_model_default_ccqo_accounts
-│   │   ├── ccqo_cake_model_default_ccqo_articles
-│   │   ├── ccqo_cake_model_default_ccqo_list
-│   │   ├── ccqo_cake_model_default_ccqo_train_divisions
-│   │   ├── ccqo_cake_model_default_ccqo_trainees
-│   │   ├── ccqo_cake_model_default_ccqo_trainers
-│   │   └── ccqo_cake_model_default_ccqo_train_infos
-│   └── persistent
-│       ├── ccqo_cake_core_cake_zh-cn
-│       ├── ccqo_cake_core_debug_kit_zh-cn
-│       ├── ccqo_cake_core_file_map
-│       └── ccqo_cake_core_method_cache
-└── logs
-```</p></blockquote>
-
-<p>要删除的是缓存文件，目录不用删除。 OK ，那么就写个脚本一次性全部搞定好了。</p>
-
-<p>先想到的是用 <code>find</code> 命令配合管道符来用：</p>
-
-<p>``` bash</p>
-
-<blockquote><p>find . -type f | xargs rm -f
-```</p></blockquote>
-
-<p>结果报了权限错误：</p>
-
-<p>``` bash</p>
-
-<blockquote><p>find . -type f | xargs rm -f
-rm: 无法删除"./cache/persistent/ccqo_cake_core_cake_zh-cn": 权限不够
-rm: 无法删除"./cache/persistent/ccqo_cake_core_file_map": 权限不够
-rm: 无法删除"./cache/persistent/ccqo_cake_core_debug_kit_zh-cn": 权限不够
-rm: 无法删除"./cache/persistent/ccqo_cake_core_method_cache": 权限不够
-rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_list": 权限不够
-rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_train_divisions": 权限不够
-rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_trainers": 权限不够
-rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_articles": 权限不够
-rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_train_infos": 权限不够
-rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_trainees": 权限不够
-rm: 无法删除"./cache/models/ccqo_cake_model_default_ccqo_accounts": 权限不够
-```</p></blockquote>
-
-<p>这些文件是由 <code>www-data</code> 帐号生成的，所以我自然不能删除，所以加上 <code>sudo</code> 再删除吧。</p>
-
-<p>几分钟之后又想了想，其实不用管道符，完全可以用 <code>find</code> 自己就可以完成了：</p>
-
-<p>``` bash</p>
-
-<blockquote><p>find . -type f -exec sudo rm -f {} +
-```</p></blockquote>
-
-<p>打完收工！</p>
-
-<p>最近越来越感觉随着年纪的增长，接触的事情越来越多，记忆力没有以前好了。高中时代特别自豪地过目不忘的本事也指望不上了，看来还是好记性不如烂笔头，得养成一个良好的记录和总结的习惯，才会对将来的工作有所帮助。</p>
 
 <p>Have a nice day！</p>
 ]]></content>

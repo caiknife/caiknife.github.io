@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 思维导图 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/si-wei-dao-tu/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-17T19:14:00+08:00</updated>
+  <updated>2018-11-20T14:17:13+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,28 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[思维导图两张]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/20/si-wei-dao-tu-liang-zhang/"/>
+    <updated>2018-11-20T14:03:41+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/20/si-wei-dao-tu-liang-zhang</id>
+    <content type="html"><![CDATA[<p>更新两张思维导图，有关于数据结构和算法，以及Linux性能优化的知识框架。</p>
+
+<!-- more -->
+
+
+<p><a href="/downloads/image/composer/ds.png" title="数据结构与算法 " class="fancybox"><img src="/downloads/image/composer/ds.png" alt="数据结构与算法 " /></a></p>
+
+<p><a href="/downloads/image/composer/linux.png" title="Linux性能优化 " class="fancybox"><img src="/downloads/image/composer/linux.png" alt="Linux性能优化 " /></a></p>
+
+<p>一时偷懒造成的问题可能花数十倍的时间精力去善后。</p>
+
+<p>人生艰难。</p>
+
+<p>人间不值得，我自己最值得。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[PHP知识体系]]></title>

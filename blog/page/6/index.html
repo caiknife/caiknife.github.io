@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="Linux下的sed和awk是两个非常强大的文本处理工具，今天先总结一下awk的用法。 首先看看awk的帮助文档： ">
+  <meta name="description" content="在PHP脚本的生命周期中，包含四个阶段，如下图左侧所示： ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/08/php-apc-cache-and-opcode/">PHP APC Cache</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-08T14:46:00+08:00" pubdate data-updated="true">Nov 8<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-08T14:46:00+08:00" pubdate data-updated="true">Nov 8<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>在PHP脚本的生命周期中，包含四个阶段，如下图左侧所示：</p>
+
+<p><a href="/downloads/image/apc/apc.png" title="PHP APC cache " class="fancybox"><img src="/downloads/image/apc/apc.png" alt="PHP APC cache " /></a></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/11/08/php-apc-cache-and-opcode/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -783,87 +855,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/30/nginx-configuration-for-cakephp/">CakePHP 的 Nginx 设置</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-30T10:01:00+08:00" pubdate data-updated="true">Sep 30<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-30T10:01:00+08:00" pubdate data-updated="true">Sep 30<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/cakephp/'>cakephp</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/nginx/'>nginx</a>, <a class='category' href='/blog/categories/php/'>php</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>在自己的笔记本上弄了个 CakePHP + Nginx 的组合，做了基本设置。</p>
-
-<p>由于 80 端口已经被 Apache 占用，因此我指定 Nginx 监听 81 端口。</p>
-
-<p>首先记得安装 Nginx 和 PHP5-FPM 模块：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install nginx php5-fpm
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后记得编辑 <code>/etc/php/fpm/php.ini</code> ，并设置 <code>cgi.fix_pathinfo=0</code>，接着重启 <code>php-fpm</code> 。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/09/30/nginx-configuration-for-cakephp/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; 向前</a>
@@ -879,6 +870,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/20/si-wei-dao-tu-liang-zhang/">思维导图两张</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/11/17/qu-wei-ti-qiu-zi-fu-chuan-de-quan-pai-lie/">趣味题：求字符串的全排列</a>
@@ -914,10 +909,6 @@
     
       <li class="post">
         <a href="/blog/2018/10/16/rvmshi-yong/">RVM使用</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/10/12/xiu-gai-liao-%5B%3F%5D-xia-zshzhu-ti/">修改了一下zsh主题</a>
       </li>
     
   </ul>
