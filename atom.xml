@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-21T19:28:29+08:00</updated>
+  <updated>2018-11-21T20:57:16+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,109 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[PHP安装IMAP扩展]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/21/phpan-zhuang-imapkuo-zhan/"/>
+    <updated>2018-11-21T20:43:49+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/21/phpan-zhuang-imapkuo-zhan</id>
+    <content type="html"><![CDATA[<p>在经历了MacOS上的homebrew升级之后，imap就不再是homebrew的PHP里默认安装的扩展了，这样如果你在composer.json中引用了一个需要用到imap扩展的库，那么久没有办法更新composer库，这样着实让人内伤。</p>
+
+<p>所以今天就来解决这个问题。</p>
+
+<!-- more -->
+
+
+<h3>第一步</h3>
+
+<p>你需要通过brew安装imap-uw</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install imap-uw
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注：在完成第一步之后，你需要安装openssl，不管通过何种方式。这里简单介绍一下通过brew安装openssl，非常的简单。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install openssl
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这就是安装拓展的准备工作，接下来才开始：</p>
+
+<h3>第二步</h3>
+
+<p>你需要去官网下载跟你现在环境所对应的PHP版本，我的是7.1的，所以我下载了PHP7.1的，然后解压。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>tar -zxvf ~/Downloads/php-7.1.24.tar.gz
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>解压之后进入到当前PHP文件的ext/imap文件当中。注意，解压是解压到当前目录下，当然，你也可以指定目录。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>php-7.1.19/ext/imap
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>进入到该目录后，第一个命令就是：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo phpize
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你不执行该命令，是无法在这个目录下进行编译安装的。接下来就是编译安装了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>./configure --with-imap<span class="o">=</span>/usr/local/Cellar/imap-uw/2007f --with-kerberos --with-imap-ssl<span class="o">=</span>/usr/local/opt/openssl
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注：imap的目录就是imap-uw的安装目录，凡是通过brew安装的都是在/usr/local/Cellar目录下，ssl的目录就是你之前的openssl的目录。这些都要改为自己的。然后再是执行之前的编译。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>make
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>执行完成之后，会在imap目录下生成许多的文件，此时需要创建一个文件夹。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir /usr/local/opt/php71-imap
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个文件夹用来存放刚才执行编译生成的imap.so文件。当前你所在的目录还是在imap里面，需要把imap.so文件拷贝到刚才创建的文件夹中。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mv modules/imap.so /usr/local/opt/php71-imap/imap.so
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后你需要在你的/usr/local/etc/php/7.1/conf.d/imap.ini里面添加这样一句话即可：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ini'><span class='line'><span class="k">[imap]</span>
+</span><span class='line'><span class="na">extension</span><span class="o">=</span><span class="s">&quot;/usr/local/opt/php71-imap/imap.so&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>第三步</h3>
+
+<p>检查是否安装好:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>php -m | grep imap
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果出现了imap，那么大功告成。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[思维导图两张]]></title>
@@ -1379,28 +1482,6 @@ abc acb bac bca cab cba</p></blockquote>
 <p>不要宅在家里！Enjoy MUSIC！</p>
 
 <p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[再见，惠击；再见，满星！]]></title>
-    <link href="http://caiknife.github.io/blog/2014/03/21/byebye-vcb-byebye-mezi/"/>
-    <updated>2014-03-21T22:47:45+08:00</updated>
-    <id>http://caiknife.github.io/blog/2014/03/21/byebye-vcb-byebye-mezi</id>
-    <content type="html"><![CDATA[<p>Bye bye，ValueClick Brands！</p>
-
-<p>Bye bye，Mezi Media！</p>
-
-<!-- more -->
-
-
-<p><a href="http://caiknife.github.io/downloads/image/byebye/1.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/byebye/1.jpg" alt="" /></a></p>
-
-<p><a href="http://caiknife.github.io/downloads/image/byebye/2.jpg" title="" class="fancybox"><img src="http://caiknife.github.io/downloads/image/byebye/2.jpg" alt="" /></a></p>
-
-<p>I will never come back again！</p>
-
-<p>Have a nice day and have a nice life！</p>
 ]]></content>
   </entry>
   

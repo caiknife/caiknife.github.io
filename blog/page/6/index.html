@@ -9,7 +9,12 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="在PHP脚本的生命周期中，包含四个阶段，如下图左侧所示： ">
+  <meta name="description" content="安装了 Ubuntu 12.04 之后，我就一直在 PHP 5.3.10 的环境下一直工作了。前段时间，通过 PPA 把 PHP 升级到了 5.4 。 1
+2
+3
+4
+5
+sudo apt-add-repository ppa:ondrej/php5-oldstable sudo apt-get &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +81,91 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/10/php-5-dot-4-new-features/">PHP 5.4 新特性</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-10T20:09:00+08:00" pubdate data-updated="true">Nov 10<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-10T20:09:00+08:00" pubdate data-updated="true">Nov 10<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>安装了 Ubuntu 12.04 之后，我就一直在 PHP 5.3.10 的环境下一直工作了。前段时间，通过 PPA 把 PHP 升级到了 5.4 。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-add-repository ppa:ondrej/php5-oldstable
+</span><span class='line'>
+</span><span class='line'>sudo apt-get update
+</span><span class='line'>
+</span><span class='line'>sudo apt-get upgrade
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个源和 PHP 5.4 的官方 release 同步更新。目前，我机器上的 PHP 版本已经升级到了 PHP 5.4.21。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/11/10/php-5-dot-4-new-features/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -758,103 +848,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/01/install-zsh/">安装 Zsh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-01T22:01:00+08:00" pubdate data-updated="true">Oct 1<span>st</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-01T22:01:00+08:00" pubdate data-updated="true">Oct 1<span>st</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/shell/'>shell</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>前几天在看<a href="http://read.douban.com/ebook/1531222/">MacTalk·人生元编程</a>的时候谈到了 <code>zsh</code> 这个很有意思的 shell 。前两天安装好，用下来感觉相当不错，特别总结一下。</p>
-
-<p>安装 zsh 并设置为默认 shell:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install zsh
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>chsh -s /bin/zsh
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接着安装 <code>oh-my-zsh</code> 这个强大的扩展脚本：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>或者：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/10/01/install-zsh/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; 向前</a>
@@ -870,6 +863,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/21/phpan-zhuang-imapkuo-zhan/">PHP安装IMAP扩展</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/11/20/si-wei-dao-tu-liang-zhang/">思维导图两张</a>
@@ -905,10 +902,6 @@
     
       <li class="post">
         <a href="/blog/2018/10/19/composepai-cha/">Composer问题排查</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/10/16/rvmshi-yong/">RVM使用</a>
       </li>
     
   </ul>

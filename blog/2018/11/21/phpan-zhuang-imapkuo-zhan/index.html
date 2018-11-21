@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHP安装IMAP扩展 - 但行好事，莫问前程</title>
+  <meta name="author" content="CaiKnife">
+
+  
+  <meta name="description" content="在经历了MacOS上的homebrew升级之后，imap就不再是homebrew的PHP里默认安装的扩展了，这样如果你在composer.json中引用了一个需要用到imap扩展的库，那么久没有办法更新composer库，这样着实让人内伤。 所以今天就来解决这个问题。 第一步 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caiknife.github.io/blog/2018/11/21/phpan-zhuang-imapkuo-zhan">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="但行好事，莫问前程" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="/javascripts/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">但行好事，莫问前程</a></h1>
+  
+    <h2>挖了太多坑，一点点填回来</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caiknife.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">存档</a></li>
+  <li><a href="/about/">关于我</a></li>
+  <li><a href="/category/">所有分类</a></li>
+  <li><a href="/blog/2014/02/24/http-status-code/">HTTP状态码</a></li>
+  <li><a href="/blog/2013/10/18/git-memo/">Git 备忘</a></li>
+  <li><a href="/bootstrap/" target="_blank">BS 速查</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PHP安装IMAP扩展</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-21T20:43:49+08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2018</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-21T20:43:49+08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/brew/'>brew</a>, <a class='category' href='/blog/categories/imap/'>imap</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+<div class="entry-content"><p>在经历了MacOS上的homebrew升级之后，imap就不再是homebrew的PHP里默认安装的扩展了，这样如果你在composer.json中引用了一个需要用到imap扩展的库，那么久没有办法更新composer库，这样着实让人内伤。</p>
+
+<p>所以今天就来解决这个问题。</p>
+
+<!-- more -->
+
+
+<h3>第一步</h3>
+
+<p>你需要通过brew安装imap-uw</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install imap-uw
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注：在完成第一步之后，你需要安装openssl，不管通过何种方式。这里简单介绍一下通过brew安装openssl，非常的简单。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install openssl
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这就是安装拓展的准备工作，接下来才开始：</p>
+
+<h3>第二步</h3>
+
+<p>你需要去官网下载跟你现在环境所对应的PHP版本，我的是7.1的，所以我下载了PHP7.1的，然后解压。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>tar -zxvf ~/Downloads/php-7.1.24.tar.gz
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>解压之后进入到当前PHP文件的ext/imap文件当中。注意，解压是解压到当前目录下，当然，你也可以指定目录。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>php-7.1.19/ext/imap
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>进入到该目录后，第一个命令就是：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo phpize
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你不执行该命令，是无法在这个目录下进行编译安装的。接下来就是编译安装了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>./configure --with-imap<span class="o">=</span>/usr/local/Cellar/imap-uw/2007f --with-kerberos --with-imap-ssl<span class="o">=</span>/usr/local/opt/openssl
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注：imap的目录就是imap-uw的安装目录，凡是通过brew安装的都是在/usr/local/Cellar目录下，ssl的目录就是你之前的openssl的目录。这些都要改为自己的。然后再是执行之前的编译。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>make
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>执行完成之后，会在imap目录下生成许多的文件，此时需要创建一个文件夹。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir /usr/local/opt/php71-imap
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个文件夹用来存放刚才执行编译生成的imap.so文件。当前你所在的目录还是在imap里面，需要把imap.so文件拷贝到刚才创建的文件夹中。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mv modules/imap.so /usr/local/opt/php71-imap/imap.so
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后你需要在你的/usr/local/etc/php/7.1/conf.d/imap.ini里面添加这样一句话即可：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ini'><span class='line'><span class="k">[imap]</span>
+</span><span class='line'><span class="na">extension</span><span class="o">=</span><span class="s">&quot;/usr/local/opt/php71-imap/imap.so&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>第三步</h3>
+
+<p>检查是否安装好:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>php -m | grep imap
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果出现了imap，那么大功告成。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-21T20:43:49+08:00" pubdate data-updated="true">Nov 21<span>st</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/brew/'>brew</a>, <a class='category' href='/blog/categories/imap/'>imap</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/11/20/si-wei-dao-tu-liang-zhang/" title="Previous Post: 思维导图两张">&laquo; 思维导图两张</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/21/phpan-zhuang-imapkuo-zhan/">PHP安装IMAP扩展</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/20/si-wei-dao-tu-liang-zhang/">思维导图两张</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/17/qu-wei-ti-qiu-zi-fu-chuan-de-quan-pai-lie/">趣味题：求字符串的全排列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/17/qu-wei-ti-zhao-chu-nge-shu-zi-zhong-zui-da-de-kge/">趣味题：找出N个数字中最大的K个</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/16/shi-yong-glidejin-xing-gode-bao-guan-li/">使用glide进行Go的包管理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/15/shi-yong-pythonjiao-ben-zhua-qu-zao-qi-zhi-hu-ye-mian-li-de-tu-pian/">使用Python脚本抓取早期知乎页面里的图片</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/14/cli-improvement/">CLI 环境高级配置</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/01/yao-bai-wu-zhe-le-gan-ru-men-zhi-nan/">摇摆舞者乐感入门指南</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/10/22/zhi-bei-wang/">SSH配置备忘</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/10/19/composepai-cha/">Composer问题排查</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <div class="sf-usercard" id="sf-usercard-1030000000157336"></div>
+    <script>
+    (function() {
+    var sf = document.createElement('script'); sf.type = 'text/javascript'; sf.async = true;
+    sf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://w.segmentfault.com/card/1030000000157336.js?w=0&3rd=1&bg=0&bd=dddddd&cl=333333&btn=eaeaea';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf, s);
+    })();
+    </script>
+</section><section>
+    <ul class="ds-recent-comments" data-num-items="10" data-show-title="1"></ul>
+    <!--多说js加载开始，一个页面只需要加载一次 -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+<section>
+    <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1649186337&verifier=f479351c&dpc=1"></iframe>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F54c89ad841b193f6fbef6bde11681aed' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>
