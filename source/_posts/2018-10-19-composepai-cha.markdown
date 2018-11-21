@@ -26,7 +26,7 @@ categories: php composer
 }
 ```
 
-搜索了问题之后，发现 packagist.phpcomposer.com 这个景象已经很久没有更新了，所以就造成了目前的问题。只需要把仓库换个镜像源就可以了。
+搜索了问题之后，发现 packagist.phpcomposer.com 这个镜像已经很久没有更新了，所以就造成了目前的问题。只需要把仓库换个镜像源就可以了。
 
 用下面的命令将镜像地址替换为 https://packagist.laravel-china.org 即可。
 
