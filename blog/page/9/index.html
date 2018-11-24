@@ -9,32 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="在PHP里，根据字符串动态调用方法是一件很简单的事情。 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-class Foo { // static method public static function &hellip;">
+  <meta name="description" content="公司里的中国项目包括DHB和SMCN两个。 在DHB的SEM Search Landing页面上，会展示SMCN的产品，之前的Tracking是直接从DHB跳转到商家页面，从DHB到商家的跳转会记录一个Offer Outgoing Log。最近加入了新的逻辑， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,6 +76,78 @@ class Foo { // static method public static function &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/17/happy-shell-script/">一句话Shell脚本（1）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-17T21:38:00+08:00" pubdate data-updated="true">Aug 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-17T21:38:00+08:00" pubdate data-updated="true">Aug 17<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/script/'>script</a>, <a class='category' href='/blog/categories/shell/'>shell</a>, <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>公司里的中国项目包括DHB和SMCN两个。</p>
+
+<p>在DHB的SEM Search Landing页面上，会展示SMCN的产品，之前的Tracking是直接从DHB跳转到商家页面，从DHB到商家的跳转会记录一个Offer Outgoing Log。最近加入了新的逻辑，将DHB的跳转作为一个Affiliate Outoging Log，而Dest Url是SMCN的一个跳转脚本，这样就将以前的DHB->商家页面跳转变成了从DHB->SMCN->商家页面的跳转。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/17/happy-shell-script/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -936,82 +983,6 @@ foosbar!</p></blockquote>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/02/print-site-log-in-vcb/">一个用来打印log的脚本</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-02T00:48:00+08:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-02T00:48:00+08:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/shell/'>shell</a>, <a class='category' href='/blog/categories/vcb/'>vcb</a>, <a class='category' href='/blog/categories/work/'>work</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>现在在公司里做Tracking的工作，在开发环境下，Tracking的log文件保存在服务器的/mezi/sites/apache/logs下，然后又根据网站的不同有着下面这样的格式：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{site_name}_{machine_name}_YYYY_MM_DD_HH_xx.tracking.log</span></code></pre></td></tr></table></div></figure>
-
-
-<p>从文件格式来看，是每小时生成一个log文件，但是有些站点会每10分钟生成一个log文件，而服务器上又是UTC时间，但是在我的机器上却是北京时间，这样就很不方便看到最新的log。每次要看log，还得脑子里计算一下时差来确认最新的log文件名，实在太不方便了，于是就写了个脚本来看最新的log文件内容。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/02/print-site-log-in-vcb/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; 向前</a>
@@ -1027,6 +998,10 @@ foosbar!</p></blockquote>
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/24/goyu-yan-ji-zhi-shi/">思维导图：Go语言基础知识</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/11/24/ru-he-she-ji-ge-miao-sha-xi-tong/">思维导图：如何设计一个秒杀系统</a>
@@ -1062,10 +1037,6 @@ foosbar!</p></blockquote>
     
       <li class="post">
         <a href="/blog/2018/11/01/yao-bai-wu-zhe-le-gan-ru-men-zhi-nan/">摇摆舞者乐感入门指南</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/10/22/zhi-bei-wang/">SSH配置备忘</a>
       </li>
     
   </ul>

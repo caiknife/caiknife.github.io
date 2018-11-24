@@ -4,7 +4,7 @@
   <title><![CDATA[Category: go | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/go/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-24T12:26:47+08:00</updated>
+  <updated>2018-11-24T18:50:51+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[思维导图：Go语言基础知识]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/24/goyu-yan-ji-zhi-shi/"/>
+    <updated>2018-11-24T18:37:37+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/24/goyu-yan-ji-zhi-shi</id>
+    <content type="html"><![CDATA[<p>工作以来一直都是用的PHP，不过其实我还会写Python，Ruby，就是没有用在公司的项目上。</p>
+
+<p>没关系，我一样写得很溜。</p>
+
+<p>最近又开始接触Go了，应该是很早就已经开始接触Go了，看了一些教程之后，我真的想说：真的很棒！</p>
+
+<!-- more -->
+
+
+<p><a href="/downloads/image/go/go.png" title="Go语言基础知识 " class="fancybox"><img src="/downloads/image/go/go.png" alt="Go语言基础知识 " /></a></p>
+
+<p>我现在只想尽快成为一个优秀的Go工程师。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[使用glide进行Go的包管理]]></title>

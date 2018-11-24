@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-24T12:26:47+08:00</updated>
+  <updated>2018-11-24T18:50:51+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[思维导图：Go语言基础知识]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/24/goyu-yan-ji-zhi-shi/"/>
+    <updated>2018-11-24T18:37:37+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/24/goyu-yan-ji-zhi-shi</id>
+    <content type="html"><![CDATA[<p>工作以来一直都是用的PHP，不过其实我还会写Python，Ruby，就是没有用在公司的项目上。</p>
+
+<p>没关系，我一样写得很溜。</p>
+
+<p>最近又开始接触Go了，应该是很早就已经开始接触Go了，看了一些教程之后，我真的想说：真的很棒！</p>
+
+<!-- more -->
+
+
+<p><a href="http://caiknife.github.io/downloads/image/go/go.png" title="Go语言基础知识 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/go/go.png" alt="Go语言基础知识 " /></a></p>
+
+<p>我现在只想尽快成为一个优秀的Go工程师。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[思维导图：如何设计一个秒杀系统]]></title>
@@ -1440,30 +1460,6 @@ abc acb bac bca cab cba</p></blockquote>
 <p>今晚突然心血来潮，在 Mac 上安装了 rvm 来管理 Ruby 的版本，重新安装了 Ruby 1.9.3，这样这个博客总算是复活能用了，挺不容易的。</p>
 
 <p>以后又有可以写东西的地方了，不在乎有没有人看，反正我自己能坚持写就行。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[入职腾讯一个月了]]></title>
-    <link href="http://caiknife.github.io/blog/2014/04/23/working-in-tencent/"/>
-    <updated>2014-04-23T17:24:11+08:00</updated>
-    <id>http://caiknife.github.io/blog/2014/04/23/working-in-tencent</id>
-    <content type="html"><![CDATA[<p>3月24日，我正式加入腾讯。掐指一算，今天正好是一个月了。一个月以来，工作还是比较轻松的，部门内的工作气氛不错，同事们也都挺有意思的。</p>
-
-<!-- more -->
-
-
-<p>这边的工作气氛还是挺自由的。我的作息之间和之前在 VCB 差不多，早上坐班车过来一般 9 点半到公司，晚上下班没有别的事情的话 6 点半就下班了；不过我其他的同事们一般都会在公司里解决晚餐，加一会儿班之后再回家。</p>
-
-<p>工作流程上比较严格，制度规范也很多。有专门的开发网，只能访问腾讯旗下的网站。所以这边的人一般都有两台电脑，一台连接开发网，另外一台连接体验网。我的体验机都已经等了一个月了，还是没下来，唉，我等得花儿都谢了。</p>
-
-<p>版本管理用的是 SVN ，比之前在 VCB 用 CVS 真的是方便很多。开发方式是将远程 Linux 服务器的家目录映射为本地 Windows 的网络驱动盘，也就是 Samba ，当然这种方式比之前在 VCB 把修改过的文件一个个用 SFTP 上传到服务器上好。</p>
-
-<p>发布项目的时候，方式又非常不同了。测试服务器完全是和外界隔离的，要上传文件的话，只能通过 Web 界面上传，异常蛋疼……好吧，看看将来有什么解决方案。</p>
-
-<p>在新的环境里，得比以往更加努力工作。</p>
-
-<p>Have a nice day！</p>
 ]]></content>
   </entry>
   
