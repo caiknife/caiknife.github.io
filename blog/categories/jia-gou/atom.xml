@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 架构 | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/jia-gou/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-11-24T12:26:47+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[思维导图：如何设计一个秒杀系统]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/24/ru-he-she-ji-ge-miao-sha-xi-tong/"/>
+    <updated>2018-11-24T12:13:21+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/24/ru-he-she-ji-ge-miao-sha-xi-tong</id>
+    <content type="html"><![CDATA[<p>秒杀是一个非常常见的应用场景了，我也做过一些秒杀类的需求。</p>
+
+<p>做过这么多同类型的需求之后，我查阅了一些资料，总结了一下在设计一个秒杀系统中，可能会用到的一些知识点。</p>
+
+<!-- more -->
+
+
+<p><a href="/downloads/image/miaosha/miaosha.png" title="如何设计一个秒杀系统 " class="fancybox"><img src="/downloads/image/miaosha/miaosha.png" alt="如何设计一个秒杀系统 " /></a></p>
+
+<p>这个思维导图我还会不断完善，不断迭代。</p>
+
+<p>无规矩不成方圆，方法论就是规矩，动手实操才能成方圆。</p>
+
+<p>这就是知识带来的力量。</p>
+]]></content>
+  </entry>
+  
+</feed>
