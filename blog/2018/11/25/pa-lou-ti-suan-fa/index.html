@@ -286,7 +286,7 @@
 
 <p>参照上例思路，我们可以在递归里分为两大部分，一部分是steps > maxStep时，参照f(s,m) = f(s-1) + f(s-2) + f(s-3) + &hellip; + f(s-m)进行累加。</p>
 
-<p>我们现在看steps &lt;= maxStep时，怎么给出类似上例里f(2)，f(3)的返回值。其实，上例中的f(3)，就是台阶一共3级，最大可以跨三步的值，即f(2) 就是g(2,2)，f(3)就是g(3,3)。分析一下就得出下面的图解：</p>
+<p>我们现在看steps &lt;= maxStep时，怎么给出类似上例里f(2)，f(3)的返回值。其实，上例中的f(3)，就是台阶一共3级，最大可以跨三步的值，即f(2) 就是f(2,2)，f(3)就是f(3,3)。分析一下就得出下面的图解：</p>
 
 <p><a href="/downloads/image/go/stair.jpg" title="爬楼梯算法 " class="fancybox"><img src="/downloads/image/go/stair.jpg" alt="爬楼梯算法 " /></a></p>
 
@@ -297,7 +297,7 @@
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>steps &gt; maxStep 时，f(s,m) = f(s-1) + f(s-2) + f(s-3) + ··· + f(s-m);
-</span><span class='line'>steps &lt;= maxStep时，f(m,m) = f(m,m-1) +1;
+</span><span class='line'>steps &lt;= maxStep时，f(s,s) = f(s,s-1) +1;
 </span><span class='line'>steps = 1时，return 1;
 </span><span class='line'>steps = 0时，return 0;</span></code></pre></td></tr></table></div></figure>
 
@@ -341,7 +341,7 @@
 </span><span class='line'>
 </span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>  <span class="c1">// 默认走10阶，每次最多2阶</span>
-</span><span class='line'>  <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStairWithSM</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</span><span class='line'>  <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStairWithSM</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">func</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">m</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
@@ -360,7 +360,7 @@
 </span><span class='line'>          <span class="nx">result</span> <span class="o">+=</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">s</span><span class="o">-</span><span class="nx">i</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
 </span><span class='line'>      <span class="p">}</span>
 </span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">result</span> <span class="p">=</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="nx">m</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="nx">result</span> <span class="p">=</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">s</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="k">return</span> <span class="nx">result</span>
