@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-26T02:05:00+08:00</updated>
+  <updated>2018-11-26T02:08:36+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -252,7 +252,7 @@
 
 <p>参照上例思路，我们可以在递归里分为两大部分，一部分是steps > maxStep时，参照f(s,m) = f(s-1) + f(s-2) + f(s-3) + &hellip; + f(s-m)进行累加。</p>
 
-<p>我们现在看steps &lt;= maxStep时，怎么给出类似上例里f(2)，f(3)的返回值。其实，上例中的f(3)，就是台阶一共3级，最大可以跨三步的值，即f(2) 就是f(2,2)，f(3)就是f(3,3)。分析一下就得出下面的图解：</p>
+<p>我们现在看steps &lt;= maxStep时，怎么给出类似上例里f(2)，f(3)的返回值。其实，上例中的f(3)，就是台阶一共3级，最大可以跨2步的值，即f(2) 就是f(2,2)，f(3)就是f(3,2)。分析一下就得出下面的图解：</p>
 
 <p><a href="http://caiknife.github.io/downloads/image/go/stair.jpg" title="爬楼梯算法 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/go/stair.jpg" alt="爬楼梯算法 " /></a></p>
 
