@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	// 默认走10阶，每次最多2阶
-	fmt.Println(GoStairWithSM(10, 2))
+	fmt.Println(GoStairWithSM(3, 4))
 }
 
 func GoStairWithSM(s int, m int) int {
@@ -23,7 +23,7 @@ func GoStairWithSM(s int, m int) int {
 			result += GoStairWithSM(s-i, m)
 		}
 	} else {
-		result = GoStairWithSM(m, m-1) + 1
+		result = GoStairWithSM(s, s-1) + 1
 	}
 
 	return result

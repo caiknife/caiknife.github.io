@@ -35,7 +35,7 @@ categories: 算法 编程 实战 递归
 
 参照上例思路，我们可以在递归里分为两大部分，一部分是steps > maxStep时，参照f(s,m) = f(s-1) + f(s-2) + f(s-3) + ... + f(s-m)进行累加。
 
-我们现在看steps <= maxStep时，怎么给出类似上例里f(2)，f(3)的返回值。其实，上例中的f(3)，就是台阶一共3级，最大可以跨三步的值，即f(2) 就是g(2,2)，f(3)就是g(3,3)。分析一下就得出下面的图解：
+我们现在看steps <= maxStep时，怎么给出类似上例里f(2)，f(3)的返回值。其实，上例中的f(3)，就是台阶一共3级，最大可以跨三步的值，即f(2) 就是f(2,2)，f(3)就是f(3,3)。分析一下就得出下面的图解：
 
 {% fancybox /downloads/image/go/stair.jpg 爬楼梯算法 %}
 
@@ -43,7 +43,7 @@ categories: 算法 编程 实战 递归
 
 ```
 steps > maxStep 时，f(s,m) = f(s-1) + f(s-2) + f(s-3) + ··· + f(s-m);
-steps <= maxStep时，f(m,m) = f(m,m-1) +1;
+steps <= maxStep时，f(s,s) = f(s,s-1) +1;
 steps = 1时，return 1;
 steps = 0时，return 0;
 ```
