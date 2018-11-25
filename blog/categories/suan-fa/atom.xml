@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 算法 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/suan-fa/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-26T02:15:31+08:00</updated>
+  <updated>2018-11-26T03:39:35+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -222,7 +222,7 @@ steps = 0时，return 0;
 </span><span class='line'>
 </span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>	<span class="c1">// 默认走10阶，每次最多2阶</span>
-</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStairWithSM</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStairWithSM</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">func</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">m</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
