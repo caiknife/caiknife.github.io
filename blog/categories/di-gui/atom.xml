@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 递归 | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/di-gui/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-11-25T20:00:12+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[算法题：爬楼梯算法]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/25/pa-lou-ti-suan-fa/"/>
+    <updated>2018-11-25T18:16:40+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/25/pa-lou-ti-suan-fa</id>
+    <content type="html"><![CDATA[<p>有这样一个题目：应该是大学时代的经典算法题了——小孩上楼梯。</p>
+
+<blockquote><p>有个小孩正在上楼梯，楼梯有s阶台阶，小孩一次可以上1阶或2阶。实现一个算法，计算小孩有多少种上楼梯的方式。输入n，返回一个整数。</p></blockquote>
+
+<p>稍微想了一下，这个题目可以用递归来解决。根据题目的规则，最后一步只有两种走法：要么走1阶，要么走2阶。所以可以得出这么一个递归公式：<code>f(s) = f(s-1) + f(s-2)</code>。好像就是一个斐波那契数列公式？</p>
+
+<!-- more -->
+
+
+<p>这个问题的边界值就是在只有1阶的情况下，只有1种方式(1)；在只有2阶的情况下，有两种方式(1,1)、(2)。</p>
+
+<p>编写程序如下：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (stair.go)</span> <a href='/downloads/code/stair/stair.go'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="c1">// 默认走10阶</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStair</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">GoStair</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="p">&lt;</span> <span class="mi">1</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">return</span> <span class="mi">0</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="p">&lt;</span> <span class="mi">3</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">return</span> <span class="nx">s</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">return</span> <span class="nx">GoStair</span><span class="p">(</span><span class="nx">s</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">GoStair</span><span class="p">(</span><span class="nx">s</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>使用正常的递归，在递归层数过多的情况下，可能会有stack overflow的风险，所以可以改写为用循环处理的方式：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (stair_with_loop.go)</span> <a href='/downloads/code/stair/stair_with_loop.go'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="c1">// 默认走10阶</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStairWithLoop</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">GoStairWithLoop</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span><span class='line'>	<span class="c1">// f(1) = 1</span>
+</span><span class='line'>	<span class="c1">// f(2) = 2</span>
+</span><span class='line'>	<span class="c1">// result是f(1)的值 tmp是f(2)-f(1)的值</span>
+</span><span class='line'>	<span class="nx">result</span><span class="p">,</span> <span class="nx">tmp</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">for</span> <span class="p">;</span> <span class="nx">s</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">{</span>
+</span><span class='line'>		<span class="nx">tmp</span> <span class="p">=</span> <span class="nx">result</span> <span class="o">+</span> <span class="nx">tmp</span>
+</span><span class='line'>		<span class="nx">result</span> <span class="p">=</span> <span class="nx">tmp</span> <span class="o">-</span> <span class="nx">result</span>
+</span><span class='line'>		<span class="nx">s</span><span class="o">--</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">return</span> <span class="nx">result</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>将循环中使用到的变量提取出来作为函数的参数使用，就成了尾递归。在方法最后被调用时，线程栈里面的临时变量与参数此时已经没任何用了，可以被GC回收，所以理论上就是同上面的循环方法是一致的，无论有多深，都不会发生内存异常。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (stair_with_tail.go)</span> <a href='/downloads/code/stair/stair_with_tail.go'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="c1">// 默认走10阶</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStairWithTail</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">GoStairWithTail</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">result</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">tmp</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="p">&lt;</span> <span class="mi">1</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">return</span> <span class="nx">result</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">return</span> <span class="nx">GoStairWithTail</span><span class="p">(</span><span class="nx">s</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">tmp</span><span class="p">,</span> <span class="nx">result</span><span class="o">+</span><span class="nx">tmp</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>下面扩展一下思路：</p>
+
+<blockquote><p>这小屁孩的老师作业留少了，闲着没事爬楼梯，楼梯有s阶台阶(steps)，小孩一次可以上m阶（maxStep）。计算小孩有多少种上楼梯的方式。输入s,m，返回一个整数。</p></blockquote>
+
+<p>一样分析可以得到公式：<code>f(s) = f(s-1) + f(s-2) + ... + f(s-m)</code>。</p>
+
+<p>参照上例思路，我们可以在递归里分为两大部分，一部分是steps > maxStep时，参照f(s,m) = f(s-1) + f(s-2) + f(s-3) + &hellip; + f(s-m)进行累加。</p>
+
+<p>我们现在看steps &lt;= maxStep时，怎么给出类似上例里f(2)，f(3)的返回值。其实，上例中的f(3)，就是台阶一共3级，最大可以跨三步的值，即f(2) 就是g(2,2)，f(3)就是g(3,3)。分析一下就得出下面的图解：</p>
+
+<p><a href="/downloads/image/go/stair.jpg" title="爬楼梯算法 " class="fancybox"><img src="/downloads/image/go/stair.jpg" alt="爬楼梯算法 " /></a></p>
+
+<p>根据以上图解，分析如下：</p>
+
+<p><code>
+steps &gt; maxStep 时，f(s,m) = f(s-1) + f(s-2) + f(s-3) + ··· + f(s-m);
+steps &lt;= maxStep时，f(m,m) = f(m,m-1) +1;
+steps = 1时，return 1;
+steps = 0时，return 0;
+</code></p>
+
+<p>编码如下：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (stair_with_s_m.go)</span> <a href='/downloads/code/stair/stair_with_s_m.go'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="c1">// 默认走10阶，每次最多2阶</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStairWithSM</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">m</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">return</span> <span class="mi">0</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">return</span> <span class="mi">1</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="nx">result</span> <span class="o">:=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="p">&gt;</span> <span class="nx">m</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">m</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span><span class='line'>			<span class="nx">result</span> <span class="o">+=</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">s</span><span class="o">-</span><span class="nx">i</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>		<span class="nx">result</span> <span class="p">=</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="nx">m</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">return</span> <span class="nx">result</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>打完收工。</p>
+]]></content>
+  </entry>
+  
+</feed>

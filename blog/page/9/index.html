@@ -9,7 +9,11 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="公司里的中国项目包括DHB和SMCN两个。 在DHB的SEM Search Landing页面上，会展示SMCN的产品，之前的Tracking是直接从DHB跳转到商家页面，从DHB到商家的跳转会记录一个Offer Outgoing Log。最近加入了新的逻辑， &hellip;">
+  <meta name="description" content="研究了一下redis的常用技巧。 除了SET方法之外，redis还有MSET方法可以批量设置，如果发现有同名的key存在，就会覆盖原有的key。如果不想覆盖已经存在的key，请使用MSETNX方法。 用法：MSET key value [key value &hellip;] 1
+2
+3
+4
+5 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +80,120 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/20/redis-experiment/">Redis实验（1）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-20T21:30:00+08:00" pubdate data-updated="true">Aug 20<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-20T21:30:00+08:00" pubdate data-updated="true">Aug 20<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/redis/'>redis</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>研究了一下redis的常用技巧。</p>
+
+<p>除了SET方法之外，redis还有MSET方法可以批量设置，如果发现有同名的key存在，就会覆盖原有的key。如果不想覆盖已经存在的key，请使用MSETNX方法。</p>
+
+<p>用法：MSET key value [key value &hellip;]</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>redis&gt; MSET key1 "Hello" key2 "World"
+</span><span class='line'>OK
+</span><span class='line'>redis&gt; GET key1
+</span><span class='line'>"Hello"
+</span><span class='line'>redis&gt; GET key2
+</span><span class='line'>"World"
+</span><span class='line'>redis&gt; </span></code></pre></td></tr></table></div></figure>
+
+
+<p>用法：MSETNX key value [key value &hellip;]</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>redis&gt; MSETNX key1 "Hello" key2 "there"
+</span><span class='line'>(integer) 1
+</span><span class='line'>redis&gt; MSETNX key2 "there" key3 "world"
+</span><span class='line'>(integer) 0
+</span><span class='line'>redis&gt; MGET key1 key2 key3
+</span><span class='line'>1) "Hello"
+</span><span class='line'>2) "there"
+</span><span class='line'>3) (nil)
+</span><span class='line'>redis&gt; </span></code></pre></td></tr></table></div></figure>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/20/redis-experiment/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -902,87 +1020,6 @@ foosbar!</p></blockquote>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/07/update-redis-for-ubuntu/">更新Ubuntu Redis</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-07T20:59:00+08:00" pubdate data-updated="true">Aug 7<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-07T20:59:00+08:00" pubdate data-updated="true">Aug 7<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/redis/'>redis</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>Ubuntu下的redis默认版本是2.2.x，现在需要更新到最新的版本2.6.14。不采用从源码编译的方式进行更新，直接更新PPA源进行升级。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-add-repository ppa:chris-lea/redis-server
-</span><span class='line'><span class="nv">$ </span>sudo apt-get update
-</span><span class='line'><span class="nv">$ </span>sudo apt-get install redis-server
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/07/update-redis-for-ubuntu/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; 向前</a>
@@ -998,6 +1035,10 @@ foosbar!</p></blockquote>
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/25/pa-lou-ti-suan-fa/">算法题：爬楼梯算法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/11/24/goyu-yan-ji-zhi-shi/">思维导图：Go语言基础知识</a>
@@ -1033,10 +1074,6 @@ foosbar!</p></blockquote>
     
       <li class="post">
         <a href="/blog/2018/11/14/cli-improvement/">CLI 环境高级配置</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/01/yao-bai-wu-zhe-le-gan-ru-men-zhi-nan/">摇摆舞者乐感入门指南</a>
       </li>
     
   </ul>
