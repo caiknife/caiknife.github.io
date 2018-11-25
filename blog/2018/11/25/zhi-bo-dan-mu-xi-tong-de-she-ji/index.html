@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>思考题：直播弹幕系统的设计 - 但行好事，莫问前程</title>
+  <meta name="author" content="CaiKnife">
+
+  
+  <meta name="description" content="从来没有开发过弹幕系统，今天在被问到这个问题的时候有点不知所措，以为是传统的像 BiliBili 这样的弹幕视频网站一样，从存储系统中拉取已有弹幕数据交付给前端按时间顺序显示就好，但是事后重新思考这个的问题的时候，发现不对——绝对不是这么简单。当时我应该误解了对方的意思，没有及时作出沟通， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caiknife.github.io/blog/2018/11/25/zhi-bo-dan-mu-xi-tong-de-she-ji">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="但行好事，莫问前程" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="/javascripts/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">但行好事，莫问前程</a></h1>
+  
+    <h2>挖了太多坑，一点点填回来</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caiknife.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">存档</a></li>
+  <li><a href="/about/">关于我</a></li>
+  <li><a href="/category/">所有分类</a></li>
+  <li><a href="/blog/2014/02/24/http-status-code/">HTTP状态码</a></li>
+  <li><a href="/blog/2013/10/18/git-memo/">Git 备忘</a></li>
+  <li><a href="/bootstrap/" target="_blank">BS 速查</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">思考题：直播弹幕系统的设计</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-25T20:45:36+08:00" pubdate data-updated="true">Nov 25<span>th</span>, 2018</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-25T20:45:36+08:00" pubdate data-updated="true">Nov 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dan-mu-xi-tong/'>弹幕系统</a>, <a class='category' href='/blog/categories/jia-gou/'>架构</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+<div class="entry-content"><p>从来没有开发过弹幕系统，今天在被问到这个问题的时候有点不知所措，以为是传统的像 BiliBili 这样的弹幕视频网站一样，从存储系统中拉取已有弹幕数据交付给前端按时间顺序显示就好，但是事后重新思考这个的问题的时候，发现不对——绝对不是这么简单。当时我应该误解了对方的意思，没有及时作出沟通，一下子就懵了。</p>
+
+<p>面试官想考察我的真正场景是——<strong><em>如何设计一个直播平台的弹幕系统</em></strong>。</p>
+
+<p>晚上回来赶紧再复盘一下这个问题。</p>
+
+<!-- more -->
+
+
+<p>我依稀记得面试官的问题是这样的：</p>
+
+<blockquote><p>不使用PUSH方式，不使用长连接的方案下，如何设计一个（直播平台的）弹幕系统，并且能够突出显示我自己发的弹幕。</p></blockquote>
+
+<p>在B站这样的弹幕网站里，除开直播频道之外，每个单独的视频应该都是把已有的弹幕都存储起来，而且由于B站每个视频的弹幕是有上限的，这样就保证了数据不会超载，所以最简单的方式就是可以直接使用 redis 的 list 来实现，单条数据存储的可能是像下面这样的数据结构：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;member_id&quot;</span><span class="p">,</span> <span class="c1">// 用户ID</span>
+</span><span class='line'>    <span class="s2">&quot;content&quot;</span><span class="p">,</span> <span class="c1">// 弹幕内容</span>
+</span><span class='line'>    <span class="s2">&quot;offset_time&quot;</span><span class="p">,</span> <span class="c1">// 相对于视频时长的偏移时间，用于确定弹幕出现的位置</span>
+</span><span class='line'>    <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="c1">// 用户真正发表弹幕的时间</span>
+</span><span class='line'>    <span class="s2">&quot;extra&quot;</span> <span class="c1">// 扩展字段，比如弹幕的效果（顶端，底端）、样式（颜色，字体大小）等等</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当然如果稍做一些修改的话，也可以用 redis 的 sorted set 来实现。在这样的场景下，只需要在后端从存储中获取到每个视频对应的弹幕数据，排序好之后交给前端处理就好，甚至还可以不用后端做排序，让前端根据偏移时间自行做排序减少服务器的资源消耗。而要突出显示我自己的弹幕的话，只需要写完弹幕发送的时候，直接由前端处理先实时显示在屏幕上，然后再上报给后端接口存储起来就好。</p>
+
+<p><strong><em>但是，直播系统的弹幕和这上面的思路完全不一样！！！</em></strong></p>
+
+<p>直播间消息，相对于 IM 的场景，有其几个特点：1、消息要求及时，过时的消息对于用户来说不重要；2、松散的群聊，用户随时进群，随时退群；3、用户进群后，离线期间的消息不需要重发。</p>
+
+<p>对于用户来说，在直播间有三个典型的操作：1、进入直播间，拉取正在观看直播的用户列表；2、接收直播间持续接收弹幕消息；3、自己发消息。</p>
+
+<p>在这样的场景下，初步的设计可以做成这样——选择了 redis 的 sorted set 存储消息，基本操作如下:</p>
+
+<blockquote><p>用户发弹幕，通过 zAdd 添加数据，其中 score 是弹幕的发送时间；</p>
+
+<p>接收直播间的消息，通过 zRangeByScore 操作，两秒一次轮询；</p>
+
+<p>进入直播间，获取用户的列表，通过 zRange 操作来完成；</p></blockquote>
+
+<p>整个系统的流程应该是：</p>
+
+<blockquote><p>写流程是:  前端提交弹幕给后端 &ndash;> 后端将弹幕推入队列 &ndash;> 队列处理机进行处理 &ndash;> 存储到 redis</p>
+
+<p>读流程是:  前端轮询请求后端 &ndash;> 后端使用 zRangeByScore查询 redis &ndash;> 前端按时间顺序显示弹幕</p></blockquote>
+
+<p>这个初步方案可能只能在直播人数较少的情况下起效，随着人数越来越多，瓶颈很快就能达到，会产生一些问题。</p>
+
+<p>第一个问题——<strong><em>消息串行写入 redis，如果某个直播间消息量很大，那么消息会堆积在队列中，消息延迟较大。</em></strong></p>
+
+<p>这个问题需要使用合适的消息队列来进行处理，由于我目前使用的最多的消息队列只有基于 redis 的 resque 和基于 Golang 的 nsque。没有做过详尽的性能测试来确定这两种队列能处理多大的 QPS，如果可以的话那就自然最好；如果不行的话，那就要选择更高性能的比如 Kafka 或者其他的分布式消息队列。</p>
+
+<p>第二个问题——<strong><em>用户轮询最新消息，需要进行 redis 的 zRangeByScore 操作，redis slave 的性能瓶颈较大。</em></strong></p>
+
+<p>解决这个问题可以额外增加一层缓存。后端每隔 1 秒左右取拉取一次直播间的弹幕，前端轮询数据时，从该缓存读取数据。弹幕的返回条数根据直播间的大小自动调整，小直播间返回允许时间跨度大一些的弹幕，大直播间则对时间跨度以及弹幕条数做更严格的限制。这里缓存与平常使用的本地缓存问题，有一个最大区别：成本问题。如果所有直播间的弹幕都进行缓存，假设同时有 1000 个直播间，每个直播间有5种弹幕类型，缓存每隔 1 秒拉取一次数据，40 台缓存处理机器，那么对 redis 的访问 QPS 是 1000 * 5 * 40 = 20W。成本太高，因此我们只有大直播间才自动开启缓存，小直播间不开启。</p>
+
+<p>第三个问题——<strong><em>弹幕数据也支持回放，直播结束后，这些数据存放于 redis 中，在回放时，会与直播的数据竞争 redis 的 CPU 资源。</em></strong></p>
+
+<p>解决方案——直播结束后，数据备份到 MySQL；增加一组回放的 redis；增加回放的缓存。回放时，读取数据顺序是: 缓存 &ndash;> redis &ndash;> MySQL。缓存与回放 redis 都可以只存某个直播间某种弹幕类型的部分数据，有效控制容量；缓存与回放 redis 使用 sorted set数据结构，这样整个系统的数据结构都保持一致。</p>
+
+<p>我个人能力有限，暂时只能想到这么多。除了上面这些之外，还需要考虑整个系统的高可用保障——包括机房部署、降级和熔断、全面的业务监控、轮询方案的优化等等。</p>
+
+<p>暂时就这些，我的知识面还需要不断完善，业务场景还需要不断扩充。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-25T20:45:36+08:00" pubdate data-updated="true">Nov 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dan-mu-xi-tong/'>弹幕系统</a>, <a class='category' href='/blog/categories/jia-gou/'>架构</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/11/25/pa-lou-ti-suan-fa/" title="Previous Post: 算法题：爬楼梯算法">&laquo; 算法题：爬楼梯算法</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/25/zhi-bo-dan-mu-xi-tong-de-she-ji/">思考题：直播弹幕系统的设计</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/25/pa-lou-ti-suan-fa/">算法题：爬楼梯算法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/24/goyu-yan-ji-zhi-shi/">思维导图：Go语言基础知识</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/24/ru-he-she-ji-ge-miao-sha-xi-tong/">思维导图：如何设计一个秒杀系统</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/21/phpan-zhuang-imapkuo-zhan/">PHP安装IMAP扩展</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/20/si-wei-dao-tu-liang-zhang/">思维导图两张</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/17/qu-wei-ti-qiu-zi-fu-chuan-de-quan-pai-lie/">趣味题：求字符串的全排列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/17/qu-wei-ti-zhao-chu-nge-shu-zi-zhong-zui-da-de-kge/">趣味题：找出N个数字中最大的K个</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/16/shi-yong-glidejin-xing-gode-bao-guan-li/">使用glide进行Go的包管理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/15/shi-yong-pythonjiao-ben-zhua-qu-zao-qi-zhi-hu-ye-mian-li-de-tu-pian/">使用Python脚本抓取早期知乎页面里的图片</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <div class="sf-usercard" id="sf-usercard-1030000000157336"></div>
+    <script>
+    (function() {
+    var sf = document.createElement('script'); sf.type = 'text/javascript'; sf.async = true;
+    sf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://w.segmentfault.com/card/1030000000157336.js?w=0&3rd=1&bg=0&bd=dddddd&cl=333333&btn=eaeaea';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf, s);
+    })();
+    </script>
+</section><section>
+    <ul class="ds-recent-comments" data-num-items="10" data-show-title="1"></ul>
+    <!--多说js加载开始，一个页面只需要加载一次 -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+<section>
+    <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1649186337&verifier=f479351c&dpc=1"></iframe>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F54c89ad841b193f6fbef6bde11681aed' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>
