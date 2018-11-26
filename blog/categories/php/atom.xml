@@ -4,7 +4,7 @@
   <title><![CDATA[Category: php | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/php/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-26T10:28:40+08:00</updated>
+  <updated>2018-11-26T10:50:13+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[PSR标准备忘]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/26/psrbiao-zhun-bei-wang/"/>
+    <updated>2018-11-26T10:35:19+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/26/psrbiao-zhun-bei-wang</id>
+    <content type="html"><![CDATA[<p>PSR 是 PHP Standard Recommendations 的简写，由 PHP FIG 组织制定的 PHP 规范，是 PHP 开发的实践标准。</p>
+
+<p>项目的目的在于：通过框架作者或者框架的代表之间讨论，以最低程度的限制，制定一个协作标准，各个框架遵循统一的编码规范，避免各家自行发展的风格阻碍了 PHP 的发展，解决这个程序设计师由来已久的困扰。</p>
+
+<!-- more -->
+
+
+<p>目前的 PSR 中文翻译地址：<a href="https://laravel-china.org/docs/psr">https://laravel-china.org/docs/psr</a></p>
+
+<p>基本的规范要求应该达到 PSR-4，随着项目工程的增长、人员的扩招，最终遵循的标准必须越来越高。</p>
+
+<p>以下是从PSR-0到PSR-4的内容，需要详细了解。PSR-5已经废弃，PSR-6以上的有一定概念即可。</p>
+
+<ul>
+<li><p>PSR-0 自动加载规范（已弃用）- <a href="https://laravel-china.org/docs/psr/psr-0-automatic-loading-specification/1603">https://laravel-china.org/docs/psr/psr-0-automatic-loading-specification/1603</a></p></li>
+<li><p>PSR-1 基础编码规范 &ndash; <a href="https://laravel-china.org/docs/psr/basic-coding-standard/1605">https://laravel-china.org/docs/psr/basic-coding-standard/1605</a></p></li>
+<li><p>PSR-2 编码风格规范 &ndash; <a href="https://laravel-china.org/docs/psr/psr-2-coding-style-guide/1606">https://laravel-china.org/docs/psr/psr-2-coding-style-guide/1606</a></p></li>
+<li><p>PSR-3 日志接口规范 &ndash; <a href="https://laravel-china.org/docs/psr/psr-3-logger-interface/1607">https://laravel-china.org/docs/psr/psr-3-logger-interface/1607</a></p></li>
+<li><p>PSR-4 自动加载规范 &ndash; <a href="https://laravel-china.org/docs/psr/psr-4-autoloader/1608">https://laravel-china.org/docs/psr/psr-4-autoloader/1608</a></p></li>
+<li><p>PSR-4 自动加载规范 &ndash; 示例文档 &ndash; <a href="https://laravel-china.org/docs/psr/psr-4-autoloader-example/1609">https://laravel-china.org/docs/psr/psr-4-autoloader-example/1609</a></p></li>
+<li><p>PSR-4 自动加载规范 &ndash; 说明文档 &ndash; <a href="https://laravel-china.org/docs/psr/psr-4-autoloader-meta/1610">https://laravel-china.org/docs/psr/psr-4-autoloader-meta/1610</a></p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[PHP安装IMAP扩展]]></title>
@@ -535,139 +566,6 @@ Zend Engine v2.4.0, Copyright &copy; 1998-2014 Zend Technologies</p>
 </code></pre>
 
 <p>```</p></blockquote>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[给 CakePHP 的 Session Flash 做点小修改]]></title>
-    <link href="http://caiknife.github.io/blog/2014/02/25/hack-session-flash-for-cakephp/"/>
-    <updated>2014-02-25T11:59:36+08:00</updated>
-    <id>http://caiknife.github.io/blog/2014/02/25/hack-session-flash-for-cakephp</id>
-    <content type="html"><![CDATA[<p>在 CakePHP 的教程中，CRUD 操作结束后跳转到新页面时，一般会做一个提示框显示在页面上。这个做法在教程中是按照下面的这么个流程写的：</p>
-
-<!-- more -->
-
-
-<p>首先在 Controller 里面做跳转之前：</p>
-
-<p>``` php
-public function add() {</p>
-
-<pre><code>if ($this-&gt;request-&gt;is('post')) {
-    $this-&gt;Post-&gt;create();
-    if ($this-&gt;Post-&gt;save($this-&gt;request-&gt;data)) {
-        /**
-         * 跳转之前设置一条 Session 信息
-         */
-        $this-&gt;Session-&gt;setFlash(__('Your post has been saved.'));
-        return $this-&gt;redirect(array('action' =&gt; 'index'));
-    }
-    $this-&gt;Session-&gt;setFlash(__('Unable to add your post.'));
-}
-</code></pre>
-
-<p>}
-```</p>
-
-<p>在 View 上要做下面修改：</p>
-
-<p>``` php</p>
-
-<div id="content">
-    <?php echo $this->Session->flash(); ?>
-    <?php echo $this->fetch('content'); ?>
-</div>
-
-
-<p>```</p>
-
-<p>上面代码中的 <code>&lt;?php echo $this-&gt;Session-&gt;flash(); ?&gt;</code> 的作用就是将前一次跳转中设置的 Session 跳转信息显示在页面上，随后删除 Session 中的跳转信息，以确保下一次不会再显示。</p>
-
-<p>但是，默认情况下，这段跳转信息的 HTML 结构是这样的：</p>
-
-<p>``` php</p>
-
-<div id="flashMessage" class="message">Hello, world!</div>
-
-
-<p>```</p>
-
-<p>那么，如果要配合 BootStrap 一起使用的话，应该如何设置呢？咱们先来看看 SessionComponent 和 SessionHelper 的部分源代码。</p>
-
-<p>``` php SessionComponent
-public function setFlash($message, $element = &lsquo;default&rsquo;, $params = array(), $key = &lsquo;flash&rsquo;) {</p>
-
-<pre><code>CakeSession::write('Message.' . $key, compact('message', 'element', 'params'));
-</code></pre>
-
-<p>}</p>
-
-<p>```</p>
-
-<p>很明显，在跳转之前调用 $this->Session->setFlash(__(&lsquo;Your post has been saved.&rsquo;)); ，会在 Session 中以 <code>Message{$key}</code> 作为 Key 写入对应的 <code>$message</code> ，<code>$element</code> ，<code>$params</code>。接着会在 SessionHelper 中调用：</p>
-
-<p>``` php SessionHelper
-public function flash($key = &lsquo;flash&rsquo;, $attrs = array()) {</p>
-
-<pre><code>$out = false;
-
-if (CakeSession::check('Message.' . $key)) {
-    $flash = CakeSession::read('Message.' . $key);
-    $message = $flash['message'];
-    unset($flash['message']);
-
-    if (!empty($attrs)) {
-        $flash = array_merge($flash, $attrs);
-    }
-
-    if ($flash['element'] === 'default') {
-        $class = 'message';
-        if (!empty($flash['params']['class'])) {
-            $class = $flash['params']['class'];
-        }
-        $out = '&lt;div id="' . $key . 'Message" class="' . $class . '"&gt;' . $message . '&lt;/div&gt;';
-    } elseif (!$flash['element']) {
-        $out = $message;
-    } else {
-        $options = array();
-        if (isset($flash['params']['plugin'])) {
-            $options['plugin'] = $flash['params']['plugin'];
-        }
-        $tmpVars = $flash['params'];
-        $tmpVars['message'] = $message;
-        $out = $this-&gt;_View-&gt;element($flash['element'], $tmpVars, $options);
-    }
-    CakeSession::delete('Message.' . $key);
-}
-return $out;
-</code></pre>
-
-<p>}
-```</p>
-
-<p>从上面默认的代码可以看出，如果 <code>$element</code> 为 <code>default</code> 的话，就是之前默认的 HTML 结构；如果没设置的话，则直接显示 <code>$message</code> 文本信息；如果设置成其他的值，就会到 <code>View/Elements</code> 下调用相对应的模板文件。</p>
-
-<p>为此，我特别写了一个模板：</p>
-
-<p>``` php notify.ctp</p>
-
-<div id="flashMessage" class="alert <?php echo isset($status) ? 'alert-' . $status : ''; ?> <?php echo isset($block) && $block ? 'alert-block' : ''; ?> text-center">
-    <a class="close" data-dismiss="alert">×</a>
-    <?php echo h($message)?>
-</div>
-
-
-<p>```</p>
-
-<p>这样调用的时候，只需要在 Controller 里用下面的代码即可，View 中不需要更改。最终在显示的时候，就会呈现出一个通栏的提示框，当然你也可以把它放在特定的 DIV 里，让它的样式能够符合你的需求。</p>
-
-<p><code>php
-$this-&gt;Session-&gt;setFlash("Hello, world!", 'notify' , array('status'=&gt;'success'));
-</code></p>
-
-<p>第三个参数中的 <code>status</code> 就是用来定制显示信息的样式，具体有哪些配置可以参考 <a href="http://v2.bootcss.com/components.html#alerts">http://v2.bootcss.com/components.html#alerts</a> 。</p>
 
 <p>Have a nice day！</p>
 ]]></content>

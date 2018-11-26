@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 规范 | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/gui-fan/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-11-26T10:50:13+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[PSR标准备忘]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/26/psrbiao-zhun-bei-wang/"/>
+    <updated>2018-11-26T10:35:19+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/26/psrbiao-zhun-bei-wang</id>
+    <content type="html"><![CDATA[<p>PSR 是 PHP Standard Recommendations 的简写，由 PHP FIG 组织制定的 PHP 规范，是 PHP 开发的实践标准。</p>
+
+<p>项目的目的在于：通过框架作者或者框架的代表之间讨论，以最低程度的限制，制定一个协作标准，各个框架遵循统一的编码规范，避免各家自行发展的风格阻碍了 PHP 的发展，解决这个程序设计师由来已久的困扰。</p>
+
+<!-- more -->
+
+
+<p>目前的 PSR 中文翻译地址：<a href="https://laravel-china.org/docs/psr">https://laravel-china.org/docs/psr</a></p>
+
+<p>基本的规范要求应该达到 PSR-4，随着项目工程的增长、人员的扩招，最终遵循的标准必须越来越高。</p>
+
+<p>以下是从PSR-0到PSR-4的内容，需要详细了解。PSR-5已经废弃，PSR-6以上的有一定概念即可。</p>
+
+<ul>
+<li><p>PSR-0 自动加载规范（已弃用）- <a href="https://laravel-china.org/docs/psr/psr-0-automatic-loading-specification/1603">https://laravel-china.org/docs/psr/psr-0-automatic-loading-specification/1603</a></p></li>
+<li><p>PSR-1 基础编码规范 &ndash; <a href="https://laravel-china.org/docs/psr/basic-coding-standard/1605">https://laravel-china.org/docs/psr/basic-coding-standard/1605</a></p></li>
+<li><p>PSR-2 编码风格规范 &ndash; <a href="https://laravel-china.org/docs/psr/psr-2-coding-style-guide/1606">https://laravel-china.org/docs/psr/psr-2-coding-style-guide/1606</a></p></li>
+<li><p>PSR-3 日志接口规范 &ndash; <a href="https://laravel-china.org/docs/psr/psr-3-logger-interface/1607">https://laravel-china.org/docs/psr/psr-3-logger-interface/1607</a></p></li>
+<li><p>PSR-4 自动加载规范 &ndash; <a href="https://laravel-china.org/docs/psr/psr-4-autoloader/1608">https://laravel-china.org/docs/psr/psr-4-autoloader/1608</a></p></li>
+<li><p>PSR-4 自动加载规范 &ndash; 示例文档 &ndash; <a href="https://laravel-china.org/docs/psr/psr-4-autoloader-example/1609">https://laravel-china.org/docs/psr/psr-4-autoloader-example/1609</a></p></li>
+<li><p>PSR-4 自动加载规范 &ndash; 说明文档 &ndash; <a href="https://laravel-china.org/docs/psr/psr-4-autoloader-meta/1610">https://laravel-china.org/docs/psr/psr-4-autoloader-meta/1610</a></p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
