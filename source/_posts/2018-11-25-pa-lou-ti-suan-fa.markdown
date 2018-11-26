@@ -27,6 +27,8 @@ categories: 算法 编程 实战 递归
 
 {% include_code stair/stair_with_tail.go %}
 
+这种情况下，该算法的时间复杂度是`O(n)`。
+
 下面扩展一下思路：
 
 > 这小屁孩的老师作业留少了，闲着没事爬楼梯，楼梯有s阶台阶(steps)，小孩一次可以上m阶（maxStep）。计算小孩有多少种上楼梯的方式。输入s,m，返回一个整数。
