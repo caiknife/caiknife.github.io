@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 算法 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/suan-fa/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-26T03:39:35+08:00</updated>
+  <updated>2018-11-26T10:28:40+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -161,6 +161,8 @@
 </span><span class='line'>	<span class="k">return</span> <span class="nx">GoStairWithTail</span><span class="p">(</span><span class="nx">s</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">tmp</span><span class="p">,</span> <span class="nx">result</span><span class="o">+</span><span class="nx">tmp</span><span class="p">)</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>这种情况下，该算法的时间复杂度是<code>O(n)</code>。</p>
 
 <p>下面扩展一下思路：</p>
 
