@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 缓存 | 但行好事，莫问前程]]></title>
+  <link href="http://caiknife.github.io/blog/categories/huan-cun/atom.xml" rel="self"/>
+  <link href="http://caiknife.github.io/"/>
+  <updated>2018-11-27T22:46:58+08:00</updated>
+  <id>http://caiknife.github.io/</id>
+  <author>
+    <name><![CDATA[CaiKnife]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[有关缓存的一些思考]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/27/huan-cun-shuang-tao-tai/"/>
+    <updated>2018-11-27T21:24:20+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/27/huan-cun-shuang-tao-tai</id>
+    <content type="html"><![CDATA[<p>通常使用缓存的情况下，如果先删缓存，再更新数据库，有这样一个场景：</p>
+
+<blockquote><p>单库情况下，服务层在进行长时间的逻辑计算，在这个过程中，可能读到旧数据入缓存。</p>
+
+<p>主从库+读写分离情况下，在主从同步延时过程中，可能读到旧数据入缓存。</p></blockquote>
+
+<!-- more -->
+
+
+<p><strong><em>第一个问题产生的原因可能是同时有一个请求A进行更新操作，另一个请求B进行查询操作，那么可能会出现下面的情况：</em></strong></p>
+
+<p><code>
+请求A进行写操作，删除缓存
+请求B查询发现缓存不存在
+请求B去数据库查询得到旧值
+请求B将旧值写入缓存
+请求A将新值写入数据库
+</code></p>
+
+<p><strong><em>第二个问题产生的原因可能是，还是两个请求，一个请求A进行更新操作，另一个请求B进行查询操作，可能会出现下面的情况：</em></strong></p>
+
+<p><code>
+请求A进行写操作，删除缓存
+请求A将数据写入数据库了
+请求B查询缓存发现，缓存没有值
+请求B去从库查询，这时，还没有完成主从同步，因此查询到的是旧值
+请求B将旧值写入缓存
+数据库完成主从同步，从库变为新值
+</code></p>
+
+<p>上面的这两种情况，都可以使用在写操作更新数据库之后，休眠一小段时间之后第二次再删除缓存。休眠的时间根据系统评估下来的写入时间或者是主从数据库的延迟时间上再加上几百毫秒即可。这样在增加一次cache miss的前提下，只花费了很少的成本，就避免了脏数据的长时间存在，保障了数据一致性。</p>
+
+<p>而如果你并不想因为这个休眠时间导致影响到用户体验的话，其实可以使用异步的方式，通过队列来进行第二次删除，在队列里进行这段时间的休眠，从而保证用户体验，加大系统的吞吐量。</p>
+
+<p><strong><em>如果在第二次删除缓存时失败了怎么办？</em></strong></p>
+
+<p>假设有一个请求A进行更新操作，另一个请求B进行查询操作，为了方便，假设是单库：</p>
+
+<p><code>
+请求A进行写操作，删除缓存
+请求B查询发现缓存不存在
+请求B去数据库查询得到旧值
+请求B将旧值写入缓存
+请求A将新值写入数据库
+请求A试图去删除请求B写入的缓存值，结果失败了
+</code></p>
+
+<p>即如果第二次删除缓存失败，会再次出现缓存和数据库不一致的问题。这种情况下，可以往队列中插入要删除的缓存key，在队列中处理删除缓存直到成功为止，如果可以接受的话，这未尝不是一种可行的解决方案。</p>
+
+<p>暂时先想到这么多，如果有更好的解决方案，我会继续更新。</p>
+]]></content>
+  </entry>
+  
+</feed>
