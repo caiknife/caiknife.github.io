@@ -3,7 +3,7 @@ layout: post
 title: "如何处理 Dog Pile Effect"
 date: 2013-11-20 16:02
 comments: true
-categories: memcache php redis
+categories: memcache php redis cache 缓存
 ---
 什么是 Dog Pile Effect？
 

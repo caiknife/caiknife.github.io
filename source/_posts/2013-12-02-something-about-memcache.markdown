@@ -3,7 +3,7 @@ layout: post
 title: "聊聊 Memcache"
 date: 2013-12-02 09:28:28 +0800
 comments: true
-categories: memcache
+categories: memcache cache 缓存
 ---
 
 ##什么是 Memcache
