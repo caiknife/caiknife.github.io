@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 编程 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/bian-cheng/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-26T10:50:13+08:00</updated>
+  <updated>2018-11-27T20:50:11+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,125 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[算法题：三针重叠问题]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/27/san-zhen-zhong-die-wen-ti/"/>
+    <updated>2018-11-27T19:23:06+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/27/san-zhen-zhong-die-wen-ti</id>
+    <content type="html"><![CDATA[<p>经典问题——三针重叠问题。</p>
+
+<blockquote><p>在时针走满一圈的情况下，也就是12小时内，时针、分针、秒针会重合多少次？</p></blockquote>
+
+<p>分析一下：秒针60s走完一整圈，每秒的旋转角度是6度，分针速度是秒针的1/60，每s的旋转角度是1/10度，时针速度是分针的1/12，每s的旋转角度是1/120度。那么就需要计算出12个小时的时间内，也就是12*3600秒内，每秒钟三个指针的位置即可。如果度数相同，那么就认为三针重合。</p>
+
+<!-- more -->
+
+
+<p>更简单地来说，假设把时针的最小步长定位1，那么分针的步长就是12，而秒针的步长就是720。再针对各自一圈的步长取模，就可以得到每秒时每个位置的偏移量，如果三个偏移量相等的话，</p>
+
+<p>编写程序如下：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (clock.php)</span> <a href='/downloads/code/quiz/clock.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/11/27</span>
+</span><span class='line'><span class="sd"> * Time: 10:51</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Time</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">const</span> <span class="no">TOTAL_TIME</span> <span class="o">=</span> <span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_hourNeedle</span>   <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_minuteNeedle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_secondNeedle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_nextMinuteNeedle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nb">date_default_timezone_set</span><span class="p">(</span><span class="s1">&#39;Asia/Shanghai&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$baseTime</span> <span class="o">=</span> <span class="nb">strtotime</span><span class="p">(</span><span class="s1">&#39;2018-01-01 00:00:00&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="k">static</span><span class="o">::</span><span class="na">TOTAL_TIME</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// 求时针的偏移量</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_hourNeedle</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nv">$i</span><span class="p">)</span> <span class="o">%</span> <span class="k">static</span><span class="o">::</span><span class="na">TOTAL_TIME</span><span class="p">;</span>
+</span><span class='line'>            <span class="c1">// 求分针的偏移量</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_minuteNeedle</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="nv">$i</span><span class="p">)</span> <span class="o">%</span> <span class="k">static</span><span class="o">::</span><span class="na">TOTAL_TIME</span><span class="p">;</span>
+</span><span class='line'>            <span class="c1">// 求秒针的偏移量</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_secondNeedle</span> <span class="o">=</span> <span class="p">(</span><span class="mi">720</span> <span class="o">*</span> <span class="nv">$i</span><span class="p">)</span> <span class="o">%</span> <span class="k">static</span><span class="o">::</span><span class="na">TOTAL_TIME</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_hourNeedle</span> <span class="o">==</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_minuteNeedle</span>
+</span><span class='line'>                <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_minuteNeedle</span> <span class="o">==</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_secondNeedle</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">echo</span> <span class="nv">$i</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>                <span class="k">echo</span> <span class="nb">date</span><span class="p">(</span><span class="s2">&quot;H:i:s&quot;</span><span class="p">,</span> <span class="nv">$baseTime</span> <span class="o">+</span> <span class="nv">$i</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>所以，在12个小时内，三针重合只有在0点和12点的时候才会出现。这个时候是真正的停止重合。</p>
+
+<p>而在其他的条件下，时针和分针只会出现划过重合，不会出现停止重合。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[算法题：爬楼梯算法]]></title>
