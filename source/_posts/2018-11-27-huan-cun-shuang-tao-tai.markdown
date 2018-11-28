@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "有关缓存的一些思考"
+title: "数据延迟的情况下如何解决缓存脏数据"
 date: 2018-11-27 21:24:20 +0800
 comments: true
 categories: 架构 缓存 cache
