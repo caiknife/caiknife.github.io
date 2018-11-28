@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-28T13:23:40+08:00</updated>
+  <updated>2018-11-28T19:56:11+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,86 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FEED流系统实现思想]]></title>
+    <link href="http://caiknife.github.io/blog/2018/11/28/zhong-xiao-xing-fedliu-xi-tong-shi-xian/"/>
+    <updated>2018-11-28T17:21:04+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/11/28/zhong-xiao-xing-fedliu-xi-tong-shi-xian</id>
+    <content type="html"><![CDATA[<p>从最早的Twitter、Facebook，到后来的微信朋友圈、信息流咨询，这些产品其实都是常见的FEED流系统。</p>
+
+<p>那么今天思考一下，如何实现一个中小型FEED流系统。</p>
+
+<!-- more -->
+
+
+<p>在系统刚开始创建的时候，可以先考虑下面这两种方式：推模式和拉模式。</p>
+
+<h3>推模式</h3>
+
+<p>推模式，是发生在用户触发行为（发布新的动态，关注某个人，点赞）的时候。在触发时，用户的自身行为会记录到对应的行为表中，其次用户的行为也会记录到自己的粉丝对应动态表中。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/feed/推模式.png" title="推模式 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/feed/推模式.png" alt="推模式 " /></a></p>
+
+<p>上面的流程大概是：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>用户A发布新的帖子（动态），帖子记录到帖子表（主表）中。
+</span><span class='line'>发帖行为塞到队列中。触发异步操作，消费者会先读取用户的粉丝列表（UID分表），依次写入到用户的动态表（UID分表）中。
+</span><span class='line'>前端读取用户动态FEED，使用过滤条件，读取用户的动态表（关联查询帖子表）。</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用推方式，对需求变更是易适应的。</p>
+
+<p>因为用户每一次的行为，我们都有存储相应的数据。即使变更，只需更改逻辑层代码。另外性能较好，后台数据已经准备好了，无需复杂的SQL查询。当然这样做，也存在很多弊端。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>如果在用户A发完动态后，其粉丝B取消关注了A。在这个时间差内，内容已经推送给粉丝B了。
+</span><span class='line'>数据量存储成本较大，假如一个用户的粉丝数是100万，在发帖后会写入100万条数据。</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>拉模式</h3>
+
+<p>拉方式，是发生在粉丝拉取FEED时。粉丝拉取自己的动态，首先会检索自己的关注用户（UID分表）。得到关注的UID之后，再根据UID去查询关注用户发布的帖子。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/feed/拉模式.png" title="拉模式 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/feed/拉模式.png" alt="拉模式 " /></a></p>
+
+<p>拉的模式相对是比较简单易实现的，另外对用户关系变更（新增，删除用户）是敏感的。其次也不存在数据存储压力。但在查询的时候，对帖子表本身压力是很大的。尤其是用户本身关注的人很多的话，会有很严重的性能问题。</p>
+
+<p>下面可以使用另外一种方式来优化拉模式。</p>
+
+<h3>拉方式优化-伪实时拉取</h3>
+
+<p>用户在登录APP时，会发送用户活跃态到服务端。活跃信号塞到队列中，消费者依次读取活跃态UID，得到用户的关注者列表。得到关注者列表后，会去帖子表，查询关注人的发布的帖子。写到用户自己的FEED中。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/feed/伪实时拉取.png" title="伪实时拉取 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/feed/伪实时拉取.png" alt="伪实时拉取 " /></a></p>
+
+<p>这种方式和对拉方式而言，能有效避免接口性能问题，相当于通过定时任务提前把用户的动态FEED跑出来。</p>
+
+<p>和推方式比较，推是比较盲目的，这种方式只需针对活跃用户即可，能避免存储浪费。缺点在于实时性不好，用户登录APP后马上进入自己的FEED页，此时如果后台用户动态还没跑完，接口读取的就是历史数据了。当然这种方式不适合知乎，微博这种类型的APP的。</p>
+
+<h3>拉方式优化-分区拉取</h3>
+
+<p>分区拉取，是为了避免频繁查询单一帖子表所采用的一种优化手段。通过对帖子按照时间片分表，每次查询都能均摊到不同的表中，以此减轻主表的压力。</p>
+
+<h3>推方式优化-定时推</h3>
+
+<p>定时推，是以常驻进程的方式读取用户的发帖行为，再批量写入到粉丝的动态表中。这种方式和推方式差不多，只不过可以对多个发帖行为做聚合。</p>
+
+<h3>推方式优化-特定用户推</h3>
+
+<p>特定用户推，是推方式的一种优化方法。用户发送帖子时，只对活跃的粉丝用户写入。当然活跃用户的判定策略，是需要商定的。</p>
+
+<h3>总结</h3>
+
+<p>以上几种方案，都有自己的利弊和适用场景。选择最适合自己的就是最好的。</p>
+
+<p>所以到底怎么样能够实现一个超级牛逼的FEED流系统呢？</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[数据延迟的情况下如何解决缓存脏数据]]></title>
@@ -1715,40 +1795,6 @@ abc acb bac bca cab cba</p></blockquote>
 
 
 <p>注意不要留最后一行。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[入手了一个新玩具]]></title>
-    <link href="http://caiknife.github.io/blog/2018/09/30/ru-shou-liao-yi-ge-xin-wan-ju/"/>
-    <updated>2018-09-30T17:08:57+08:00</updated>
-    <id>http://caiknife.github.io/blog/2018/09/30/ru-shou-liao-yi-ge-xin-wan-ju</id>
-    <content type="html"><![CDATA[<p>今天是2018年9月30日，按照常理，我们应该都会听一首歌。</p>
-
-<p><embed src="https://imgcache.qq.com/tencentvideo_v1/playerv3/TPout.swf?max_age=86400&v=20161117&vid=c0668elhqi3&auto=0" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed></p>
-
-<!-- more -->
-
-
-<p>同时在今天，我也给自己准备了一件礼物。</p>
-
-<p><a href="http://caiknife.github.io/downloads/image/clarinet/1.jpeg" title="Buffet Crampon Prodige Clarinet " class="fancybox"><img src="http://caiknife.github.io/downloads/image/clarinet/1.jpeg" alt="Buffet Crampon Prodige Clarinet " /></a></p>
-
-<p><a href="http://caiknife.github.io/downloads/image/clarinet/2.jpeg" title="Buffet Crampon Prodige Clarinet " class="fancybox"><img src="http://caiknife.github.io/downloads/image/clarinet/2.jpeg" alt="Buffet Crampon Prodige Clarinet " /></a></p>
-
-<p><a href="http://caiknife.github.io/downloads/image/clarinet/3.jpeg" title="Buffet Crampon Prodige Clarinet " class="fancybox"><img src="http://caiknife.github.io/downloads/image/clarinet/3.jpeg" alt="Buffet Crampon Prodige Clarinet " /></a></p>
-
-<p><a href="http://caiknife.github.io/downloads/image/clarinet/4.jpeg" title="Buffet Crampon Prodige Clarinet " class="fancybox"><img src="http://caiknife.github.io/downloads/image/clarinet/4.jpeg" alt="Buffet Crampon Prodige Clarinet " /></a></p>
-
-<p><strong>Buffet Crampon Prodige Clarinet</strong></p>
-
-<p>在知乎的这篇回答里<a href="https://www.zhihu.com/question/39718466/answer/83423060">https://www.zhihu.com/question/39718466/answer/83423060</a>我提到了我中学时代在学校的铜管乐团里的经历，那个时候我吹的是Tenor Saxphone。</p>
-
-<p>现在我已经30多岁了，出于对中学时代的这段经历的怀念，今天我给自己送了这件礼物，也算是今年生日的补偿——今年的生日我被需求方折腾到凌晨1点多才下班，呵呵呵。</p>
-
-<p>年龄摆在这里，我从小练习萨克斯的基础也并没有打好，所以肯定还是要找老师学习的。学习单簧管只是想让自己开心开心，吹古典曲子我就不指望了，只希望能打好基础，积累足够的语汇，好好练习一下即兴技巧，也许过几年可以在爵士乐队中JAM一下。</p>
-
-<p>希望将来有一天真的可以办到。</p>
 ]]></content>
   </entry>
   
