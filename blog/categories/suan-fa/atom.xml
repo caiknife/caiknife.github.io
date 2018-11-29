@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 算法 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/suan-fa/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-28T19:57:55+08:00</updated>
+  <updated>2018-11-29T23:31:29+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -129,6 +129,75 @@
 <p>所以，在12个小时内，三针重合只有在0点和12点的时候才会出现。这个时候是真正的停止重合。</p>
 
 <p>而在其他的条件下，时针和分针只会出现划过重合，不会出现停止重合。</p>
+
+<p>下面更新一个Golang写的版本，了解一下Golang时间处理的奇葩……</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (clock.go)</span> <a href='/downloads/code/quiz/clock.go'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="p">(</span>
+</span><span class='line'>	<span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>	<span class="s">&quot;time&quot;</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">const</span> <span class="p">(</span>
+</span><span class='line'>	<span class="nx">TotalTime</span> <span class="p">=</span> <span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span>
+</span><span class='line'>	<span class="nx">FDateTime</span> <span class="p">=</span> <span class="s">&quot;2006-01-02 15:04:05&quot;</span> <span class="c1">// 奇葩的时间点，格式化必须是这个格式……</span>
+</span><span class='line'>	<span class="nx">FDate</span>     <span class="p">=</span> <span class="s">&quot;2006-01-02&quot;</span>
+</span><span class='line'>	<span class="nx">FTime</span>     <span class="p">=</span> <span class="s">&quot;15:04:05&quot;</span>
+</span><span class='line'>	<span class="nx">StartTime</span> <span class="p">=</span> <span class="s">&quot;2018-01-01 00:00:00&quot;</span> <span class="c1">// 我们设置的起点时间</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Format</span><span class="p">(</span><span class="nx">FDate</span><span class="p">))</span> <span class="c1">// 先试试格式化日期</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Format</span><span class="p">(</span><span class="nx">FTime</span><span class="p">))</span> <span class="c1">// 再试试格式化时间</span>
+</span><span class='line'>	<span class="c1">// 下面定个时间起点</span>
+</span><span class='line'>	<span class="nx">fromDate</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">ParseInLocation</span><span class="p">(</span><span class="nx">FDateTime</span><span class="p">,</span> <span class="nx">StartTime</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Local</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">TotalTime</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span><span class='line'>		<span class="nx">hourNeedle</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nx">TotalTime</span>
+</span><span class='line'>		<span class="nx">minuteNeedle</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)</span> <span class="o">%</span> <span class="nx">TotalTime</span>
+</span><span class='line'>		<span class="nx">secondNeedle</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="mi">720</span><span class="p">)</span> <span class="o">%</span> <span class="nx">TotalTime</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="k">if</span> <span class="nx">hourNeedle</span> <span class="o">==</span> <span class="nx">minuteNeedle</span> <span class="o">&amp;&amp;</span> <span class="nx">minuteNeedle</span> <span class="o">==</span> <span class="nx">secondNeedle</span> <span class="p">{</span>
+</span><span class='line'>			<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Three needles get together!&quot;</span><span class="p">)</span>
+</span><span class='line'>			<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Unix</span><span class="p">(</span><span class="nx">fromDate</span><span class="p">.</span><span class="nx">Unix</span><span class="p">()</span><span class="o">+</span><span class="nb">int64</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span> <span class="mi">0</span><span class="p">).</span><span class="nx">Format</span><span class="p">(</span><span class="nx">FTime</span><span class="p">))</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 ]]></content>
   </entry>
   
