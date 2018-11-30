@@ -4,7 +4,7 @@
   <title><![CDATA[Category: macos | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/macos/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-29T23:31:29+08:00</updated>
+  <updated>2018-11-30T19:59:17+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -29,7 +29,7 @@
 
 <p>这是一个取代 <code>cat</code> 的命令。通常情况下 <code>cat</code> 只显示普通文本的内容，而 <code>bat</code> 还会根据文件的扩展名高亮显示语法。效果如下图：</p>
 
-<p><a href="/downloads/image/cli/bat.gif" title="bat " class="fancybox"><img src="/downloads/image/cli/bat.gif" alt="bat " /></a></p>
+<p>{% fancybox /downloads/image/cli/bat.gif bat %}</p>
 
 <h2>prettyping</h2>
 
@@ -37,7 +37,7 @@
 
 <p>这是一个取代 <code>ping</code> 的命令。可以更加直观地显示 ping 的进度。</p>
 
-<p><a href="/downloads/image/cli/ping.gif" title="prettyping " class="fancybox"><img src="/downloads/image/cli/ping.gif" alt="prettyping " /></a></p>
+<p>{% fancybox /downloads/image/cli/ping.gif prettyping %}</p>
 
 <p>可以用别名来替换已有的 <code>ping</code> 命令：<code>alias ping='prettyping --nolegend'</code></p>
 
@@ -47,7 +47,7 @@
 
 <p>这个命令自然是用来取代 <code>find</code> 。</p>
 
-<p><a href="/downloads/image/cli/fd.png" title="fd " class="fancybox"><img src="/downloads/image/cli/fd.png" alt="fd " /></a></p>
+<p>{% fancybox /downloads/image/cli/fd.png fd %}</p>
 
 <p>下面是一些常用的例子：</p>
 
@@ -63,7 +63,7 @@ fd cli -x wc -w # find "cli" and run `wc -w` on each file
 
 <p>这个命令可以取代 <code>du</code> 。而且还可以在界面内进行操作，通过操作光标进入不同的目录查看文件大小。</p>
 
-<p><a href="/downloads/image/cli/ncdu.png" title="ncdu " class="fancybox"><img src="/downloads/image/cli/ncdu.png" alt="ncdu " /></a></p>
+<p>{% fancybox /downloads/image/cli/ncdu.png ncdu %}</p>
 
 <p>别名配置可以写成：<code>alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"</code></p>
 

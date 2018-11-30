@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ubuntu | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/ubuntu/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-29T23:31:29+08:00</updated>
+  <updated>2018-11-30T19:59:17+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -27,15 +27,15 @@
 
 <p>按照图中的方法修改一下配置，终端又变回真透明了。</p>
 
-<p><a href="/downloads/image/terminal/config.png" title="Config " class="fancybox"><img src="/downloads/image/terminal/config.png" alt="Config " /></a></p>
+<p>{% fancybox /downloads/image/terminal/config.png Config %}</p>
 
 <p>下面是之前的假透明：</p>
 
-<p><a href="/downloads/image/terminal/faketrans.png" title="Fake Transparency " class="fancybox"><img src="/downloads/image/terminal/faketrans.png" alt="Fake Transparency " /></a></p>
+<p>{% fancybox /downloads/image/terminal/faketrans.png Fake Transparency %}</p>
 
 <p>修改之后回到了真透明：</p>
 
-<p><a href="/downloads/image/terminal/truetrans.png" title="True Transparency " class="fancybox"><img src="/downloads/image/terminal/truetrans.png" alt="True Transparency " /></a></p>
+<p>{% fancybox /downloads/image/terminal/truetrans.png True Transparency %}</p>
 
 <p>Have a nice day！</p>
 ]]></content>
@@ -139,7 +139,7 @@ Copyright &copy; 2006-2011 Varnish Software AS
 
 <p>再来看看 varnish 的状态图。</p>
 
-<p><img src="/downloads/image/varnish/120044934.jpg"></p>
+<p>{% img /downloads/image/varnish/120044934.jpg %}</p>
 
 <p>一个请求发送到 varnish ，第一个状态是 recv ，然后根据不同的逻辑进入三种不同的模式： <code>pipe</code> 、 <code>pass</code> 和 <code>lookup</code> 。</p>
 

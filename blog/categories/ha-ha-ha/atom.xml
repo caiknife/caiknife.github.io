@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 哈哈哈 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/ha-ha-ha/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-29T23:31:29+08:00</updated>
+  <updated>2018-11-30T19:59:17+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -18,7 +18,7 @@
     <link href="http://caiknife.github.io/blog/2013/07/25/ti-yan/"/>
     <updated>2013-07-25T10:45:00+08:00</updated>
     <id>http://caiknife.github.io/blog/2013/07/25/ti-yan</id>
-    <content type="html"><![CDATA[<p>哈哈哈哈哈哈哈哈。折腾，真TMD折腾。这咋办啊？</p>
+    <content type="html"><![CDATA[<p>哈哈哈哈哈哈哈哈。折腾，真TMD折腾。{{ root_url }}这咋办啊？</p>
 
 <p>Have a nice day！</p>
 ]]></content>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 思维导图 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/si-wei-dao-tu/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-29T23:31:29+08:00</updated>
+  <updated>2018-11-30T19:59:17+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -27,7 +27,7 @@
 <!-- more -->
 
 
-<p><a href="/downloads/image/go/go.png" title="Go语言基础知识 " class="fancybox"><img src="/downloads/image/go/go.png" alt="Go语言基础知识 " /></a></p>
+<p>{% fancybox /downloads/image/go/go.png Go语言基础知识 %}</p>
 
 <p>我现在只想尽快成为一个优秀的Go工程师。</p>
 ]]></content>
@@ -45,7 +45,7 @@
 <!-- more -->
 
 
-<p><a href="/downloads/image/miaosha/miaosha.png" title="如何设计一个秒杀系统 " class="fancybox"><img src="/downloads/image/miaosha/miaosha.png" alt="如何设计一个秒杀系统 " /></a></p>
+<p>{% fancybox /downloads/image/miaosha/miaosha.png 如何设计一个秒杀系统 %}</p>
 
 <p>这个思维导图我还会不断完善，不断迭代。</p>
 
@@ -65,9 +65,9 @@
 <!-- more -->
 
 
-<p><a href="/downloads/image/composer/ds.png" title="数据结构与算法 " class="fancybox"><img src="/downloads/image/composer/ds.png" alt="数据结构与算法 " /></a></p>
+<p>{% fancybox /downloads/image/composer/ds.png 数据结构与算法 %}</p>
 
-<p><a href="/downloads/image/composer/linux.png" title="Linux性能优化 " class="fancybox"><img src="/downloads/image/composer/linux.png" alt="Linux性能优化 " /></a></p>
+<p>{% fancybox /downloads/image/composer/linux.png Linux性能优化 %}</p>
 
 <p>一时偷懒造成的问题可能花数十倍的时间精力去善后。</p>
 
@@ -97,7 +97,7 @@
 
 <p>原图在下面：</p>
 
-<p><a href="/downloads/image/php/php.png" title="PHP知识体系 " class="fancybox"><img src="/downloads/image/php/php.png" alt="PHP知识体系 " /></a></p>
+<p>{% fancybox /downloads/image/php/php.png PHP知识体系 %}</p>
 ]]></content>
   </entry>
   

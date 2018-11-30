@@ -9,11 +9,8 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="很早之前就做过跨域设置 cookie 的项目了，但是以前没有做好积累，今晚花了点时间重新复习一下。 OK ，有两个域名， www.a.com 和 www.b.com ，现在要通过 a 网站来设置 b 网站下的 cookie 。 a 网站下 setcookie.php 的代码： 1
-2
-3
-4
-5 &hellip;">
+  <meta name="description" content="最近不知道为何，在更新 Ubuntu 内核时总是报错： 1
+Failed to process /etc/kernel/postinst.d at /var/lib/dpkg/info/linux-image-3.2.0-52-generic.postinst line 1010 Google &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +77,99 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/29/apt-get-install-error/">Apt-get Install Error</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-29T13:59:00+08:00" pubdate data-updated="true">Aug 29<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-29T13:59:00+08:00" pubdate data-updated="true">Aug 29<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/apt-get/'>apt-get</a>, <a class='category' href='/blog/categories/bug/'>bug</a>, <a class='category' href='/blog/categories/error/'>error</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>最近不知道为何，在更新 Ubuntu 内核时总是报错：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Failed to process /etc/kernel/postinst.d at /var/lib/dpkg/info/linux-image-3.2.0-52-generic.postinst line 1010</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Google 了一下，是以前使用 apt-get 卸载软件时不完全引起的，解决方法是：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /var/lib/dpkg
+</span><span class='line'><span class="nv">$ </span>mv info infobak
+</span><span class='line'><span class="nv">$ </span>mkdir info
+</span><span class='line'><span class="nv">$ </span>dpkg --configure -a
+</span><span class='line'><span class="nv">$ </span>apt-get -f install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>困扰了我多年的顽疾终于得到解决了，妈蛋！</p>
+
+<p>Have a nice day！</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/29/apt-get-install-error/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -947,76 +1037,6 @@ foosbar!</p></blockquote>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/13/python-decorator/">使用装饰器为Python函数做缓存</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-13T10:11:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-13T10:11:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/she-ji-mo-shi/'>设计模式</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>写了个函数作为装饰器为Fibonacci数列做缓存，做了一下性能比较。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/13/python-decorator/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; 向前</a>
@@ -1032,6 +1052,10 @@ foosbar!</p></blockquote>
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/30/shi-yong-redisshi-xian-fen-bu-shi-suo/">使用redis实现分布式锁</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/11/28/zhong-xiao-xing-fedliu-xi-tong-shi-xian/">FEED流系统实现思想</a>
@@ -1067,10 +1091,6 @@ foosbar!</p></blockquote>
     
       <li class="post">
         <a href="/blog/2018/11/21/phpan-zhuang-imapkuo-zhan/">PHP安装IMAP扩展</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/20/si-wei-dao-tu-liang-zhang/">思维导图两张</a>
       </li>
     
   </ul>

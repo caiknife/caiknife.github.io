@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 文艺女与理工男 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/wen-yi-nu-yu-li-gong-nan/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-29T23:31:29+08:00</updated>
+  <updated>2018-11-30T19:59:17+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -33,7 +33,7 @@
 
 <p>女：不知道，那我先去 Google 一下～咦，怎么会是这个样子？</p>
 
-<p><a href="/downloads/image/recursion/recursion.jpg" title="递归 " class="fancybox"><img src="/downloads/image/recursion/recursion.jpg" alt="递归 " /></a></p>
+<p>{% fancybox /downloads/image/recursion/recursion.jpg 递归 %}</p>
 
 <p>男：哈哈，果然让你碰到了这个坑。其实递归是指在函数的定义中使用函数自身的方法。高中的时候学过 fibonacci 数列吧？</p>
 

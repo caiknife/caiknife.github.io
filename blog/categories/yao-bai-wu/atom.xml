@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 摇摆舞 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/yao-bai-wu/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-29T23:31:29+08:00</updated>
+  <updated>2018-11-30T19:59:17+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -27,7 +27,7 @@
 
 <p>最终，我写出了一张摇摆舞者可以用得上的有关乐理和乐感的思维导图：</p>
 
-<p><a href="/downloads/image/about/swing.png" title="摇摆舞者乐感入门指南 " class="fancybox"><img src="/downloads/image/about/swing.png" alt="摇摆舞者乐感入门指南 " /></a></p>
+<p>{% fancybox /downloads/image/about/swing.png 摇摆舞者乐感入门指南 %}</p>
 
 <p>配合几次分享的录音，加上这张图，我相信会对各位舞者的乐感有所帮助。</p>
 

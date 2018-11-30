@@ -4,7 +4,7 @@
   <title><![CDATA[Category: js | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/js/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-29T23:31:29+08:00</updated>
+  <updated>2018-11-30T19:59:17+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -218,7 +218,7 @@ $('body').click(function(e){
 
 <p>实在是太多了，最后找到了这个网站 <a href="http://www.jsdb.io/">http://www.jsdb.io/</a> ，JS 类库和框架层出不穷，令人眼花缭乱。</p>
 
-<p><a href="/downloads/image/frontend/jsdb.png" title="JSDB.io " class="fancybox"><img src="/downloads/image/frontend/jsdb.png" alt="JSDB.io " /></a></p>
+<p>{% fancybox /downloads/image/frontend/jsdb.png JSDB.io %}</p>
 
 <p>每一个项目都是一个坑，坑肯定是要踩的，但是该猜哪些，应该慎重考虑。</p>
 
@@ -240,7 +240,7 @@ $('body').click(function(e){
 <p>打开文件 <code>/source/_includes/custom/head.html</code> ，在最后增加一条语句：</p>
 
 <p><code>erb /source/_includes/custom/head.html
-{% include fancybox.html %}
+{% raw %}{% include fancybox.html %}{% endraw %}
 </code></p>
 
 <!-- more -->
@@ -273,8 +273,8 @@ $('body').click(function(e){
 <p>module Jekyll</p>
 
 <p>  # Usage:
-  # {% fancybox @filename [thumb:@thumb] [@title] %}
-  # {% fancybox @filename [@title] %}</p>
+  # {% raw %}{% fancybox @filename [thumb:@thumb] [@title] %}{% endraw %}
+  # {% raw %}{% fancybox @filename [@title] %}{% endraw %}</p>
 
 <p>  class FancyboxTag &lt; Liquid::Tag</p>
 
@@ -292,7 +292,7 @@ def render(context)
   if @filename
     "&lt;a href=\"#{@filename}\" title=\"#{@title}\" class=\"fancybox\"&gt;&lt;img src=\"#{thumb_for(@filename, @thumb)}\" alt=\"#{@title}\" /&gt;&lt;/a&gt;"
   else
-    "Error. Usage: {% fancybox @filename [thumb:@thumb] [@title] %}"
+    "Error. Usage: {% raw %}{% fancybox @filename [thumb:@thumb] [@title] %}{% endraw %}"
   end
 end
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 架构设计 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/jia-gou-she-ji/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-29T23:31:29+08:00</updated>
+  <updated>2018-11-30T19:59:17+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -31,7 +31,7 @@
 
 <p>推模式，是发生在用户触发行为（发布新的动态，关注某个人，点赞）的时候。在触发时，用户的自身行为会记录到对应的行为表中，其次用户的行为也会记录到自己的粉丝对应动态表中。</p>
 
-<p><a href="/downloads/image/feed/推模式.png" title="推模式 " class="fancybox"><img src="/downloads/image/feed/推模式.png" alt="推模式 " /></a></p>
+<p>{% fancybox /downloads/image/feed/推模式.png 推模式 %}</p>
 
 <p>上面的流程大概是：</p>
 
@@ -54,7 +54,7 @@
 
 <p>拉方式，是发生在粉丝拉取FEED时。粉丝拉取自己的动态，首先会检索自己的关注用户（UID分表）。得到关注的UID之后，再根据UID去查询关注用户发布的帖子。</p>
 
-<p><a href="/downloads/image/feed/拉模式.png" title="拉模式 " class="fancybox"><img src="/downloads/image/feed/拉模式.png" alt="拉模式 " /></a></p>
+<p>{% fancybox /downloads/image/feed/拉模式.png 拉模式 %}</p>
 
 <p>拉的模式相对是比较简单易实现的，另外对用户关系变更（新增，删除用户）是敏感的。其次也不存在数据存储压力。但在查询的时候，对帖子表本身压力是很大的。尤其是用户本身关注的人很多的话，会有很严重的性能问题。</p>
 
@@ -64,7 +64,7 @@
 
 <p>用户在登录APP时，会发送用户活跃态到服务端。活跃信号塞到队列中，消费者依次读取活跃态UID，得到用户的关注者列表。得到关注者列表后，会去帖子表，查询关注人的发布的帖子。写到用户自己的FEED中。</p>
 
-<p><a href="/downloads/image/feed/伪实时拉取.png" title="伪实时拉取 " class="fancybox"><img src="/downloads/image/feed/伪实时拉取.png" alt="伪实时拉取 " /></a></p>
+<p>{% fancybox /downloads/image/feed/伪实时拉取.png 伪实时拉取 %}</p>
 
 <p>这种方式和对拉方式而言，能有效避免接口性能问题，相当于通过定时任务提前把用户的动态FEED跑出来。</p>
 
@@ -177,7 +177,7 @@
 <!-- more -->
 
 
-<p><a href="/downloads/image/miaosha/miaosha.png" title="如何设计一个秒杀系统 " class="fancybox"><img src="/downloads/image/miaosha/miaosha.png" alt="如何设计一个秒杀系统 " /></a></p>
+<p>{% fancybox /downloads/image/miaosha/miaosha.png 如何设计一个秒杀系统 %}</p>
 
 <p>这个思维导图我还会不断完善，不断迭代。</p>
 

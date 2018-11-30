@@ -4,7 +4,7 @@
   <title><![CDATA[Category: composer | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/composer/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-29T23:31:29+08:00</updated>
+  <updated>2018-11-30T19:59:17+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -20,7 +20,7 @@
     <id>http://caiknife.github.io/blog/2018/10/19/composepai-cha</id>
     <content type="html"><![CDATA[<p>今天更新 composer 库的时候出现了一个问题：</p>
 
-<p><a href="/downloads/image/composer/1.png" title="Composer Issue " class="fancybox"><img src="/downloads/image/composer/1.png" alt="Composer Issue " /></a></p>
+<p>{% fancybox /downloads/image/composer/1.png Composer Issue %}</p>
 
 <p>上图不是我的电脑出现的问题，是通过搜索引擎搜到的图片，我和提出这个问题的题主碰到了一样的问题。</p>
 

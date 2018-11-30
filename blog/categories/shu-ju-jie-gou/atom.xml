@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 数据结构 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/shu-ju-jie-gou/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-29T23:31:29+08:00</updated>
+  <updated>2018-11-30T19:59:17+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -23,9 +23,9 @@
 <!-- more -->
 
 
-<p><a href="/downloads/image/composer/ds.png" title="数据结构与算法 " class="fancybox"><img src="/downloads/image/composer/ds.png" alt="数据结构与算法 " /></a></p>
+<p>{% fancybox /downloads/image/composer/ds.png 数据结构与算法 %}</p>
 
-<p><a href="/downloads/image/composer/linux.png" title="Linux性能优化 " class="fancybox"><img src="/downloads/image/composer/linux.png" alt="Linux性能优化 " /></a></p>
+<p>{% fancybox /downloads/image/composer/linux.png Linux性能优化 %}</p>
 
 <p>一时偷懒造成的问题可能花数十倍的时间精力去善后。</p>
 
@@ -52,38 +52,7 @@ abc acb bac bca cab cba</p></blockquote>
 <!-- more -->
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (perm.py)</span> <a href='/downloads/code/quiz/perm.py'>download</a></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
-</span><span class='line'><span class="c"># coding:utf8</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">permutations</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="n">permutations</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">v</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">main</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code quiz/perm.py %}</p>
 
 <p>当然我们不能这么赖皮地使用Python的内置库来解决这个问题，更重要的是，我们需要了解全排列的算法。</p>
 
@@ -97,106 +66,7 @@ abc acb bac bca cab cba</p></blockquote>
 
 <p>最后我写了一个PHP版本的实现：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (perm.php)</span> <a href='/downloads/code/quiz/perm.php'>download</a></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
-</span><span class='line'><span class="sd">/**</span>
-</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
-</span><span class='line'><span class="sd"> * User: caiknife</span>
-</span><span class='line'><span class="sd"> * Date: 2018/11/17</span>
-</span><span class='line'><span class="sd"> * Time: 15:09</span>
-</span><span class='line'><span class="sd"> */</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">StringPlace</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">stringPlace</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">stringPlace</span><span class="p">(</span><span class="nv">$stringSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$tmpString</span> <span class="o">=</span> <span class="p">[];</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$stringSize</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="nv">$tmpString</span><span class="p">[]</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nx">rand</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span> <span class="mi">122</span><span class="p">));</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Origin string is &quot;</span> <span class="o">.</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$tmpString</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">perm</span><span class="p">(</span><span class="nv">$tmpString</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">sizeof</span><span class="p">(</span><span class="nv">$tmpString</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">perm</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$arr</span><span class="p">,</span> <span class="nv">$k</span><span class="p">,</span> <span class="nv">$m</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$k</span> <span class="o">==</span> <span class="nv">$m</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">echo</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="nv">$k</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="nv">$m</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_swap</span><span class="p">(</span><span class="nv">$arr</span><span class="p">[</span><span class="nv">$k</span><span class="p">],</span> <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
-</span><span class='line'>                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">perm</span><span class="p">(</span><span class="nv">$arr</span><span class="p">,</span> <span class="nv">$k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">$m</span><span class="p">);</span>
-</span><span class='line'>                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_swap</span><span class="p">(</span><span class="nv">$arr</span><span class="p">[</span><span class="nv">$k</span><span class="p">],</span> <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">protected</span> <span class="k">function</span> <span class="nf">_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$a</span><span class="p">,</span> <span class="o">&amp;</span><span class="nv">$b</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">list</span><span class="p">(</span><span class="nv">$b</span><span class="p">,</span> <span class="nv">$a</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code quiz/perm.php %}</p>
 
 <p>全排列就是这样，代码看起来还是有点点难懂，需要深入了解才能融会贯通。</p>
 ]]></content>
@@ -220,92 +90,7 @@ abc acb bac bca cab cba</p></blockquote>
 
 <p>其实源码很简单：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (heap.php)</span> <a href='/downloads/code/quiz/heap.php'>download</a></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
-</span><span class='line'><span class="sd">/**</span>
-</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
-</span><span class='line'><span class="sd"> * User: caiknife</span>
-</span><span class='line'><span class="sd"> * Date: 2018/11/17</span>
-</span><span class='line'><span class="sd"> * Time: 14:54</span>
-</span><span class='line'><span class="sd"> */</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Number</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">printKMaxFromN</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">printKMaxFromN</span><span class="p">(</span><span class="nv">$n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">$k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="nv">$k</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">echo</span> <span class="s2">&quot;BOTH n k must be positive.&quot;</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">exit</span><span class="p">();</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;</span> <span class="nv">$k</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">echo</span> <span class="s2">&quot;n MUST geq k.&quot;</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">exit</span><span class="p">();</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nv">$tmpHeap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\SplMaxHeap</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$n</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="nv">$tmpHeap</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nx">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">));</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$k</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">echo</span> <span class="nv">$tmpHeap</span><span class="o">-&gt;</span><span class="na">current</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-</span><span class='line'>            <span class="nv">$tmpHeap</span><span class="o">-&gt;</span><span class="na">next</span><span class="p">();</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code quiz/heap.php %}</p>
 
 <p>上面的代码就是给定了10个0到50的随机数，每生成一个就放入到SplMaxHeap中。</p>
 
