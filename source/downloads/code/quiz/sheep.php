@@ -13,28 +13,29 @@ class Sheep
 {
     public function __construct()
     {
-        ini_set("memory_limit", "1024M");
+        ini_set("memory_limit", "2048M");
     }
 
     public function main()
     {
         $sheeps    = [0];
         $startTime = microtime(true);
-        for ($i = 1; $i <= 50; $i++) {
-            foreach ($sheeps as $key => &$age) {
-                $age++;
+        for ($i = 1; $i <= 10; $i++) {
+            foreach ($sheeps as $key => $age) {
+                $sheeps[$key]++;
 
-                switch ($age) {
+                switch ($sheeps[$key]) {
                     case 1:
                     case 4:
                         // do nothing
                         break;
                     case 2:
                     case 3:
-                        $sheeps[] = 0;
+                        $sheeps[] = 0; // 刚出生算0岁
                         break;
                     case 5:
                         unset($sheeps[$key]);
+                        break;
                     default:
                         break;
                 }
