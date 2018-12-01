@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cookie | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/cookie/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -82,7 +82,7 @@ echo $callback."(".json_encode($_COOKIE).")";
 
 <p>先别管if语句里前面的代码是什么意思，我们直接访问<code>http://www.b.com/cookie/getcookie.php</code> ，就能看到结果：{&ldquo;name&rdquo;:&ldquo;world&rdquo;}，OK，cookie跨域设置成功！</p>
 
-<p>{% img /downloads/image/cross-domain-cookie/a.jpg %}</p>
+<p><img src="/downloads/image/cross-domain-cookie/a.jpg"></p>
 
 <p>接下来，是cookie跨域读取，看看a网站的getcookie.php代码：</p>
 
@@ -121,7 +121,7 @@ $.getJSON("http://www.b.com/cookie/getcookie.php?callback=?", function(data){
 
 <p>现在访问 a 网站的 <code>http://www.a.com/cookie/getcookie.php</code> 页面，看到p标签里显示了“world”，跨域 cookie 读取成功！</p>
 
-<p>{% img /downloads/image/cross-domain-cookie/b.jpg %}</p>
+<p><img src="/downloads/image/cross-domain-cookie/b.jpg"></p>
 
 <p>以上代码在 FireFox 20.0，IE9 下测试通过。</p>
 

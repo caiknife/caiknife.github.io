@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cache | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/cache/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -126,7 +126,7 @@ $memcache-&gt;addServer('memcache_host2', 11211);
 
 <p>首先求出机器节点的 hash 值，然后将其分布到0～2<sup>32</sup>的一个圆环上（顺时针分布）。如下图所示：</p>
 
-<p>{% fancybox /downloads/image/memcache/1.gif 图 – 1 %}</p>
+<p><a href="/downloads/image/memcache/1.gif" title="图 – 1 " class="fancybox"><img src="/downloads/image/memcache/1.gif" alt="图 – 1 " /></a></p>
 
 <p>集群中有机器：A , B, C, D, E 五台机器，通过一定的 hash 算法我们将其分布到如上图所示的环上。</p>
 
@@ -140,13 +140,13 @@ $memcache-&gt;addServer('memcache_host2', 11211);
 
 <p>计算机器节点的 hash值，将机器映射到环中的一个节点，如下图：</p>
 
-<p>{% fancybox /downloads/image/memcache/2.gif 图 – 2 %}</p>
+<p><a href="/downloads/image/memcache/2.gif" title="图 – 2 " class="fancybox"><img src="/downloads/image/memcache/2.gif" alt="图 – 2 " /></a></p>
 
 <p>增加机器节点 F 之后，访问策略不改变，依然按照之前方式访问，此时缓存命不中的情况依然不可避免，不能命中的数据是 hash(K)在增加节点以前落在 C～F 之间的数据。尽管依然存在节点增加带来的命中问题，但是比较传统的 hash 取模的方式，一致性 hash 已经将不命中的数据降到了最低。</p>
 
 <p>一致性哈希算法最大限度地抑制了 hash 键的重新分布。另外要取得比较好的负载均衡的效果，往往在服务器数量比较少的时候需要增加虚拟节点来保证服务器能均匀的分布在圆环上。因为使用一般的 hash 方法，服务器的映射地点的分布非常不均匀。使用虚拟节点的思想，为每个物理节点（服务器）在圆上分配 100～200 个点。这样就能抑制分布不均匀，最大限度地减小服务器增减时的缓存重新分布。用户数据映射在虚拟节点上，就表示用户数据真正存储位置是在该虚拟节点代表的实际物理服务器上。下面有一个图描述了需要为每台物理服务器增加的虚拟节点。</p>
 
-<p>{% fancybox /downloads/image/memcache/3.gif 图 – 3 %}</p>
+<p><a href="/downloads/image/memcache/3.gif" title="图 – 3 " class="fancybox"><img src="/downloads/image/memcache/3.gif" alt="图 – 3 " /></a></p>
 
 <p>X 轴表示的是需要为每台物理服务器扩展的虚拟节点倍数(scale)，Y 轴是实际物理服务器数，可以看出，当物理服务器的数量很小时，需要更大的虚拟节点，反之则需要更少的节点。从图上可以看出，在物理服务器有 10 台时，差不多需要为每台服务器增加 100 ~ 200 个虚拟节点才能达到真正的负载均衡。</p>
 
@@ -185,7 +185,7 @@ $memcache-&gt;addServer('memcache_host2', 11211);
 <!-- more -->
 
 
-<p>{% fancybox /downloads/image/dog-pile/dog-pile.png Dog Pile Effect %}</p>
+<p><a href="/downloads/image/dog-pile/dog-pile.png" title="Dog Pile Effect " class="fancybox"><img src="/downloads/image/dog-pile/dog-pile.png" alt="Dog Pile Effect " /></a></p>
 
 <p>参考下面的代码：</p>
 

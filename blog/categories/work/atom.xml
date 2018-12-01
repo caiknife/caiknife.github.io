@@ -4,7 +4,7 @@
   <title><![CDATA[Category: work | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/work/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -49,9 +49,9 @@
 <!-- more -->
 
 
-<p>{% fancybox /downloads/image/byebye/1.jpg %}</p>
+<p><a href="/downloads/image/byebye/1.jpg" title="" class="fancybox"><img src="/downloads/image/byebye/1.jpg" alt="" /></a></p>
 
-<p>{% fancybox /downloads/image/byebye/2.jpg %}</p>
+<p><a href="/downloads/image/byebye/2.jpg" title="" class="fancybox"><img src="/downloads/image/byebye/2.jpg" alt="" /></a></p>
 
 <p>I will never come back again！</p>
 
@@ -79,11 +79,11 @@
 
 <p>不过我已经要离开了，只能拍几张照片怀念一下。</p>
 
-<p>{% fancybox /downloads/image/vcb/1.jpg %}</p>
+<p><a href="/downloads/image/vcb/1.jpg" title="" class="fancybox"><img src="/downloads/image/vcb/1.jpg" alt="" /></a></p>
 
-<p>{% fancybox /downloads/image/vcb/2.jpg %}</p>
+<p><a href="/downloads/image/vcb/2.jpg" title="" class="fancybox"><img src="/downloads/image/vcb/2.jpg" alt="" /></a></p>
 
-<p>{% fancybox /downloads/image/vcb/3.jpg %}</p>
+<p><a href="/downloads/image/vcb/3.jpg" title="" class="fancybox"><img src="/downloads/image/vcb/3.jpg" alt="" /></a></p>
 
 <p>这两个项目一被砍掉，我之前做过的项目和交接的文档基本就是无用功……</p>
 

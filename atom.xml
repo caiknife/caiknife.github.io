@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:55:24+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,336 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[算法题：羊生羊问题]]></title>
+    <link href="http://caiknife.github.io/blog/2018/12/01/yang-sheng-yang-wen-ti/"/>
+    <updated>2018-12-01T18:25:40+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/12/01/yang-sheng-yang-wen-ti</id>
+    <content type="html"><![CDATA[<p>面试题：</p>
+
+<blockquote><p>农夫有一只羊，这只羊在第2、3年会生一只小羊，第4年不会生小羊，第5年时羊会死亡，生出来的小羊也是这个规律。求问50年后会有多少只羊？</p></blockquote>
+
+<!-- more -->
+
+
+<p>这道题最直接的办法就是用递归来做，不过我暂时还没想到递归怎么做，所以先用最笨的方法——遍历50年，每一年遍历羊的数组，根据年纪来进行对应的处理。详细见下面的代码：</p>
+
+<figure class='code'><figcaption><span> (sheep.php)</span> <a href='http://caiknife.github.io/downloads/code/quiz/sheep.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/12/1</span>
+</span><span class='line'><span class="sd"> * Time: 18:29</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Sheep</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nb">ini_set</span><span class="p">(</span><span class="s2">&quot;memory_limit&quot;</span><span class="p">,</span> <span class="s2">&quot;2048M&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$sheeps</span>    <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>        <span class="nv">$startTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">foreach</span> <span class="p">(</span><span class="nv">$sheeps</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$age</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$sheeps</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="k">switch</span> <span class="p">(</span><span class="nv">$sheeps</span><span class="p">[</span><span class="nv">$key</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span><span class='line'>                    <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
+</span><span class='line'>                        <span class="c1">// do nothing</span>
+</span><span class='line'>                        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>                    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span><span class='line'>                    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+</span><span class='line'>                        <span class="nv">$sheeps</span><span class="p">[]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 刚出生算0岁</span>
+</span><span class='line'>                        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>                    <span class="k">case</span> <span class="mi">5</span><span class="o">:</span>
+</span><span class='line'>                        <span class="nb">unset</span><span class="p">(</span><span class="nv">$sheeps</span><span class="p">[</span><span class="nv">$key</span><span class="p">]);</span>
+</span><span class='line'>                        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>                    <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>                        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nv">$endTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Time cost:&quot;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">$endTime</span> <span class="o">-</span> <span class="nv">$startTime</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$sheeps</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是这个方法是有问题的，那就是数组占用的内存太大，用PHP来跑的话，50的数据量根本就没办法解决。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-&gt;php cli.php Sheep.main                                                                                                   master [08f1c0ba] modified
+</span><span class='line'>PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 1073741832 bytes) in /Users/caiknife/Projects/PHPLib/src/Cron/Sheep.php on line 34
+</span><span class='line'>PHP Stack trace:
+</span><span class='line'>PHP   1. {main}() /Users/caiknife/Projects/PHPLib/cli.php:0
+</span><span class='line'>PHP   2. App\Cron\Sheep-&gt;main() /Users/caiknife/Projects/PHPLib/cli.php:34
+</span><span class='line'>
+</span><span class='line'>Fatal error: Allowed memory size of 1073741824 bytes exhausted (tried to allocate 1073741832 bytes) in /Users/caiknife/Projects/PHPLib/src/Cron/Sheep.php on line 34
+</span><span class='line'>
+</span><span class='line'>Call Stack:
+</span><span class='line'>    0.0003     369648   1. {main}() /Users/caiknife/Projects/PHPLib/cli.php:0
+</span><span class='line'>    0.0335    5328840   2. App\Cron\Sheep-&gt;main() /Users/caiknife/Projects/PHPLib/cli.php:34</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面尝试一下用递归的解法。</p>
+
+<figure class='code'><figcaption><span> (sheep_recursive.php)</span> <a href='http://caiknife.github.io/downloads/code/quiz/sheep_recursive.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/12/1</span>
+</span><span class='line'><span class="sd"> * Time: 18:54</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">SheepRecursive</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nb">ini_set</span><span class="p">(</span><span class="s2">&quot;memory_limit&quot;</span><span class="p">,</span> <span class="s2">&quot;2048M&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_countSheep</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">function</span> <span class="nf">_countSheep</span><span class="p">(</span><span class="nv">$year</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$year</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="mi">3</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$year</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$year</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// $year &gt;= 5时，表示有羊死去</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">(</span><span class="nv">$year</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_countSheep</span><span class="p">(</span><span class="nv">$year</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_countSheep</span><span class="p">(</span><span class="nv">$year</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后再使用一个移动窗口的解法。</p>
+
+<figure class='code'><figcaption><span> (sheep_window.php)</span> <a href='http://caiknife.github.io/downloads/code/quiz/sheep_window.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/12/1</span>
+</span><span class='line'><span class="sd"> * Time: 22:11</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">SheepWindow</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nb">ini_set</span><span class="p">(</span><span class="s2">&quot;memory_limit&quot;</span><span class="p">,</span> <span class="s2">&quot;2048M&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$startTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$arr</span>       <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">];</span> <span class="c1">// 这个数组分别表示一到五年</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="mi">50</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$tmp</span> <span class="o">=</span> <span class="nv">$arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nv">$arr</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// 只有2岁和3岁的羊会生小羊</span>
+</span><span class='line'>            <span class="nb">array_unshift</span><span class="p">(</span><span class="nv">$arr</span><span class="p">,</span> <span class="nv">$tmp</span><span class="p">);</span> <span class="c1">// 这表示新一年生的小羊数</span>
+</span><span class='line'>            <span class="nb">array_pop</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span> <span class="c1">// 将5岁的小羊消灭</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nv">$endTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Time cost:&quot;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">$endTime</span> <span class="o">-</span> <span class="nv">$startTime</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="nb">array_sum</span><span class="p">(</span><span class="nv">$arr</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">another</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$startTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$arr</span>       <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="mi">50</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">list</span><span class="p">(</span><span class="nv">$one</span><span class="p">,</span> <span class="nv">$two</span><span class="p">,</span> <span class="nv">$three</span><span class="p">,</span> <span class="nv">$four</span><span class="p">,</span> <span class="nv">$five</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$arr</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$two</span> <span class="o">+</span> <span class="nv">$three</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$one</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$arr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$two</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$three</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$arr</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$four</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nv">$endTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Time cost:&quot;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">$endTime</span> <span class="o">-</span> <span class="nv">$startTime</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="nb">array_sum</span><span class="p">(</span><span class="nv">$arr</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[使用redis实现分布式锁]]></title>
@@ -107,16 +437,17 @@
 
 <p>这下redis可没有一条命令，可以做这么多事情的，好在redis提供了lua脚本的调用方式，只需使用eval命令调用以下脚本即可：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>if redis.call("get",KEYS[1]) == ARGV[1] then
-</span><span class='line'>    return redis.call("del",KEYS[1])
-</span><span class='line'>else
-</span><span class='line'>    return 0
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='lua'><span class='line'><span class="k">if</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">get&quot;</span><span class="p">,</span><span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">then</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">del&quot;</span><span class="p">,</span><span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>其实还有问题</h3>
@@ -139,21 +470,22 @@
 
 <p>好，现在客户端想获取一把分布式锁：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>记下开始获取锁的时间 startTime
-</span><span class='line'>按照A-&gt;B-&gt;C的顺序，依次向这三台Master发送获取锁的命令。客户端在等待每台Master回响应时，都有超时时间 timeout。举个例子，客户端向A发送获取锁的命令，在等了timeout时间之后，都没收到响应，就会认为获取锁失败，继续尝试获取下一把锁
-</span><span class='line'>如果获取到超过半数的锁，也就是 3/2+1 = 2把锁，这时候还没完，要记下当前时间endTime
-</span><span class='line'>计算拿到这些锁花费的时间 costTime = endTime - startTime，如果costTime小于锁的过期时间 expireTime，则认为获取锁成功
-</span><span class='line'>如果获取不到超过一半的锁，或者拿到超过一半的锁时，计算出 costTime&gt;=expireTime，这两种情况下，都视为获取锁失败
-</span><span class='line'>如果获取锁失败，需要向全部Master节点，都发生释放锁的命令，也就是那段Lua脚本</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>记下开始获取锁的时间 startTime
+</span><span class='line'>按照A-&gt;B-&gt;C的顺序，依次向这三台Master发送获取锁的命令。客户端在等待每台Master回响应时，都有超时时间 timeout。举个例子，客户端向A发送获取锁的命令，在等了 timeout 时间之后，都没收到响应，就会认为获取锁失败，继续尝试获取下一把锁
+</span><span class='line'>如果获取到超过半数的锁，也就是 3/2+1 <span class="o">=</span> 2把锁，这时候还没完，要记下当前时间 endTime
+</span><span class='line'>计算拿到这些锁花费的时间 <span class="nv">costTime</span> <span class="o">=</span> endTime - startTime，如果costTime小于锁的过期时间 expireTime，则认为获取锁成功
+</span><span class='line'>如果获取不到超过一半的锁，或者拿到超过一半的锁时，计算出 costTime &gt;<span class="o">=</span> expireTime，这两种情况下，都视为获取锁失败
+</span><span class='line'>如果获取锁失败，需要向全部Master节点，都发生释放锁的命令，也就是那段Lua脚本
+</span></code></pre></td></tr></table></div></figure>
 
 
-
+<p>当然这个Redlock算法也并不是万能的，也会有缺陷，我也在思考在哪些场景下会有这样的问题。但是在目前绝大情况下来说，Redlock已经足够用了。</p>
 ]]></content>
   </entry>
   
@@ -1766,150 +2098,6 @@ abc acb bac bca cab cba</p></blockquote>
 
 
 <p>Problem resolved.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RVM使用]]></title>
-    <link href="http://caiknife.github.io/blog/2018/10/16/rvmshi-yong/"/>
-    <updated>2018-10-16T16:07:18+08:00</updated>
-    <id>http://caiknife.github.io/blog/2018/10/16/rvmshi-yong</id>
-    <content type="html"><![CDATA[<p>之前因为 Ruby 版本的问题，博客一直用不了。前段时间使用了 RVM 来管理 Ruby 的版本，所以博客又复活了。</p>
-
-<p>所以今天就来总结一下如何用 RVM 来管理不同的 Ruby 版本。</p>
-
-<!-- more -->
-
-
-<h2>RVM 的安装</h2>
-
-<p>先安装 RVM</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-</span><span class='line'>
-</span><span class='line'><span class="se">\c</span>url -sSL https://get.rvm.io | bash -s stable
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Ruby 的安装和切换</h2>
-
-<p>列出已知的 Ruby 版本</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm list known
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>安装一个 Ruby 版本</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm install 2.2.0
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>切换 Ruby 版本</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm use 2.2.0
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果想设置为默认版本，这样一来以后新打开的控制台默认的 Ruby 就是这个版本。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm use 2.2.0 --default
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>查询已经安装的ruby</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm list
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>卸载一个已安装版本</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm remove 1.8.7
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>gemset 的使用</h2>
-
-<p>RVM 不仅可以提供一个多 Ruby 版本共存的环境，还可以根据项目管理不同的 gemset。gemset 可以理解为是一个独立的虚拟 gem 环境，每一个 gemset 都是相互独立的。</p>
-
-<p>比如你有两个项目，一个是 Rails 2.3 一个是 Rails3。gemset 可以帮你便捷的建立两套 gem 开发环境，并且方便的切换。gemset 是附加在 Ruby 语言版本下面的，例如你用了 1.9.2, 建立了一个叫 rails3 的 gemset,当切换到 1.8.7 的时候，rails3 这个 gemset 并不存在。</p>
-
-<p>建立 gemset</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm use 1.8.7
-</span><span class='line'>rvm gemset create rails23
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后可以设定已建立的 gemset 做为当前环境。use 可以用来切换语言或者 gemset，前提是他们已经被安装(或者建立)，并可以在 list 命令中看到。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm use 1.8.7
-</span><span class='line'>rvm use 1.8.7@rails23
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后所有安装的 gem 都是安装在这个 gemset 之下。</p>
-
-<p>列出当前 Ruby 的 gemset</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm gemset list
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果你想清空一个 gemset 的所有 gem， 想重新安装所有 gem，可以这样</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm gemset empty 1.8.7@rails23
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>删除一个 gemset</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm gemset delete rails2-3
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>RVM 还可以自动加载 gemset。 例如我们有一个 Rails 3.1.3 项目，需要 1.9.3 版本 Ruby，整个流程可以这样。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm install 1.9.3
-</span><span class='line'>rvm use 1.9.3
-</span><span class='line'>rvm gemset create rails313
-</span><span class='line'>rvm use 1.9.3@rails313
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>下面进入到项目目录，建立一个 .rvmrc 文件。在这个文件里可以很简单的加一个命令：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rvm use 1.9.3@rails313
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后无论你当前 Ruby 设置是什么，cd 到这个项目的时候，RVM 会帮你加载 Ruby 1.9.3 和 rails313 gemset.</p>
-
-<h2>使用 .ruby-gemset 和 .ruby-version</h2>
-
-<p>在项目目录下创建这两个文件 <code>.ruby-gemset</code> 和 <code>.ruby-version</code>，在 <code>.ruby-gemset</code> 中填入 gemset 的名称，在 <code>.ruby-version</code> 填入 Ruby 版本的名称，当 cd 到这个目录的时候，就会自动加载。</p>
 ]]></content>
   </entry>
   

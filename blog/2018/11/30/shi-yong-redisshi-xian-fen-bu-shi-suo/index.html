@@ -220,16 +220,17 @@
 
 <p>这下redis可没有一条命令，可以做这么多事情的，好在redis提供了lua脚本的调用方式，只需使用eval命令调用以下脚本即可：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>if redis.call("get",KEYS[1]) == ARGV[1] then
-</span><span class='line'>    return redis.call("del",KEYS[1])
-</span><span class='line'>else
-</span><span class='line'>    return 0
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='lua'><span class='line'><span class="k">if</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">get&quot;</span><span class="p">,</span><span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">then</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">del&quot;</span><span class="p">,</span><span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>其实还有问题</h3>
@@ -252,21 +253,22 @@
 
 <p>好，现在客户端想获取一把分布式锁：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>记下开始获取锁的时间 startTime
-</span><span class='line'>按照A-&gt;B-&gt;C的顺序，依次向这三台Master发送获取锁的命令。客户端在等待每台Master回响应时，都有超时时间 timeout。举个例子，客户端向A发送获取锁的命令，在等了timeout时间之后，都没收到响应，就会认为获取锁失败，继续尝试获取下一把锁
-</span><span class='line'>如果获取到超过半数的锁，也就是 3/2+1 = 2把锁，这时候还没完，要记下当前时间endTime
-</span><span class='line'>计算拿到这些锁花费的时间 costTime = endTime - startTime，如果costTime小于锁的过期时间 expireTime，则认为获取锁成功
-</span><span class='line'>如果获取不到超过一半的锁，或者拿到超过一半的锁时，计算出 costTime&gt;=expireTime，这两种情况下，都视为获取锁失败
-</span><span class='line'>如果获取锁失败，需要向全部Master节点，都发生释放锁的命令，也就是那段Lua脚本</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>记下开始获取锁的时间 startTime
+</span><span class='line'>按照A-&gt;B-&gt;C的顺序，依次向这三台Master发送获取锁的命令。客户端在等待每台Master回响应时，都有超时时间 timeout。举个例子，客户端向A发送获取锁的命令，在等了 timeout 时间之后，都没收到响应，就会认为获取锁失败，继续尝试获取下一把锁
+</span><span class='line'>如果获取到超过半数的锁，也就是 3/2+1 <span class="o">=</span> 2把锁，这时候还没完，要记下当前时间 endTime
+</span><span class='line'>计算拿到这些锁花费的时间 <span class="nv">costTime</span> <span class="o">=</span> endTime - startTime，如果costTime小于锁的过期时间 expireTime，则认为获取锁成功
+</span><span class='line'>如果获取不到超过一半的锁，或者拿到超过一半的锁时，计算出 costTime &gt;<span class="o">=</span> expireTime，这两种情况下，都视为获取锁失败
+</span><span class='line'>如果获取锁失败，需要向全部Master节点，都发生释放锁的命令，也就是那段Lua脚本
+</span></code></pre></td></tr></table></div></figure>
 
 
-
+<p>当然这个Redlock算法也并不是万能的，也会有缺陷，我也在思考在哪些场景下会有这样的问题。但是在目前绝大情况下来说，Redlock已经足够用了。</p>
 </div>
 
 
@@ -314,6 +316,8 @@
         <a class="basic-alignment left" href="/blog/2018/11/28/zhong-xiao-xing-fedliu-xi-tong-shi-xian/" title="Previous Post: FEED流系统实现思想">&laquo; FEED流系统实现思想</a>
       
       
+        <a class="basic-alignment right" href="/blog/2018/12/01/yang-sheng-yang-wen-ti/" title="Next Post: 算法题：羊生羊问题">算法题：羊生羊问题 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -326,6 +330,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/12/01/yang-sheng-yang-wen-ti/">算法题：羊生羊问题</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/11/30/shi-yong-redisshi-xian-fen-bu-shi-suo/">使用redis实现分布式锁</a>
@@ -361,10 +369,6 @@
     
       <li class="post">
         <a href="/blog/2018/11/24/ru-he-she-ji-ge-miao-sha-xi-tong/">思维导图：如何设计一个秒杀系统</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/21/phpan-zhuang-imapkuo-zhan/">PHP安装IMAP扩展</a>
       </li>
     
   </ul>

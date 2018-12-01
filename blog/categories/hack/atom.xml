@@ -4,7 +4,7 @@
   <title><![CDATA[Category: hack | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/hack/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -107,7 +107,134 @@ array(5) {
 
 <p>但是在Python中用来解析ini文件的ConfigParser类，则对ini文件的格式有着非常严格的要求——必须在文件开头含有[section]部分，否则在读取时会抛出<code>ConfigParser.MissingSectionHeaderError</code>。为了能让Python解析ini也可以容错，有必要做一下hack。</p>
 
-<p>{% include_code python-ini/demo.py %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (demo.py)</span> <a href='/downloads/code/python-ini/demo.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/python</span>
+</span><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">ConfigParser</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">FakeSectionHead</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    文件wrapper</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fp</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;如果没有section的话，默认添加一个叫[default]的section&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fp</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="s">&quot;[default]</span><span class="se">\n</span><span class="s">&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">readline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;第一次输出[default], 以后就输出文件的内容&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span>
+</span><span class='line'>            <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>                <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ini</span> <span class="o">=</span> <span class="s">&#39;./config/smus.ini&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">parse_ini_file</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">p</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;标准格式的ini文件，直接读取内容&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">ini</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">except</span> <span class="n">ConfigParser</span><span class="o">.</span><span class="n">MissingSectionHeaderError</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;非标准格式的ini文件，用FakeSectionHead类包装一下&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">error</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">        此处输出：</span>
+</span><span class='line'><span class="sd">        File contains no section headers.</span>
+</span><span class='line'><span class="sd">        file: ./config/smus.ini, line: 1</span>
+</span><span class='line'><span class="sd">        &#39;master.host                 = stats10.mezimedia.com\r\n&#39;</span>
+</span><span class='line'><span class="sd">        &quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="n">FakeSectionHead</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">ini</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">p</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span> <span class="o">=</span> <span class="n">parse_ini_file</span><span class="p">(</span><span class="n">ini</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">[(&#39;master.host&#39;, &#39;stats10.mezimedia.com&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.username&#39;, &#39;scltrk&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.password&#39;, &#39;Mhok8homL7&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.dbname&#39;, &#39;tracking&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.host&#39;, &#39;stats11.mezimedia.com&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.port&#39;, &#39;3308&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.username&#39;, &#39;scltrk&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.password&#39;, &#39;Mhok8homL7&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.dbname&#39;, &#39;tracking&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;msgsite&#39;, &#39;smarter&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;offset&#39;, &#39;20000&#39;)]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">sections</span><span class="p">()</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">[&#39;default&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>如此一来就能正常工作了。部分内容参考自StackOverflow——<a href="http://stackoverflow.com/questions/2819696/parsing-properties-file-in-python/2819788#2819788">parsing .properties file in Python</a> 。</p>
 

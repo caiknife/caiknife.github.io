@@ -4,7 +4,7 @@
   <title><![CDATA[Category: redis | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/redis/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -136,7 +136,7 @@ if redis.call(&ldquo;get&rdquo;,KEYS[1]) == ARGV[1] then</p>
 
 <p>好，现在客户端想获取一把分布式锁：</p>
 
-<p><code>txt
+<p><code>bash
 记下开始获取锁的时间 startTime
 按照A-&gt;B-&gt;C的顺序，依次向这三台Master发送获取锁的命令。客户端在等待每台Master回响应时，都有超时时间 timeout。举个例子，客户端向A发送获取锁的命令，在等了 timeout 时间之后，都没收到响应，就会认为获取锁失败，继续尝试获取下一把锁
 如果获取到超过半数的锁，也就是 3/2+1 = 2把锁，这时候还没完，要记下当前时间 endTime
@@ -161,7 +161,7 @@ if redis.call(&ldquo;get&rdquo;,KEYS[1]) == ARGV[1] then</p>
 <!-- more -->
 
 
-<p>{% fancybox /downloads/image/dog-pile/dog-pile.png Dog Pile Effect %}</p>
+<p><a href="/downloads/image/dog-pile/dog-pile.png" title="Dog Pile Effect " class="fancybox"><img src="/downloads/image/dog-pile/dog-pile.png" alt="Dog Pile Effect " /></a></p>
 
 <p>参考下面的代码：</p>
 
@@ -440,7 +440,224 @@ redis&gt;
 
 <p>下面是一部分测试代码，里面有更详细的注释。</p>
 
-<p>{% include_code redis-py/demo.py %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (demo.py)</span> <a href='/downloads/code/redis-py/demo.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">redis</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">random</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">string</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">gen_random_string</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="o">+</span><span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    生成指定长度的随机字符串</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)])</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="n">r</span><span class="o">.</span><span class="n">flushdb</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+</span><span class='line'>    <span class="n">caiknife</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">cai</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">zhi</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">jiang</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">knife</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">test</span><span class="o">=</span><span class="mi">6</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">r</span><span class="o">.</span><span class="n">mset</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">mget</span><span class="p">([</span><span class="s">&#39;cai&#39;</span><span class="p">,</span> <span class="s">&#39;caiknife&#39;</span><span class="p">])</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">获得key=cai和key=caiknife的值</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;1&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;*cai*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配包含cai的key</span>
+</span><span class='line'><span class="sd">[&#39;cai&#39;, &#39;caiknife&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;c??&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配以c开头，长度为3的key</span>
+</span><span class='line'><span class="sd">[&#39;cai&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;k[n]*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配k开头，包含0个或者多个n的key</span>
+</span><span class='line'><span class="sd">[&#39;knife&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="s">&#39;*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">匹配所有key</span>
+</span><span class='line'><span class="sd">[&#39;zhi&#39;, &#39;test&#39;, &#39;jiang&#39;, &#39;knife&#39;, &#39;cai&#39;, &#39;caiknife&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">r</span><span class="o">.</span><span class="n">flushdb</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">生成10个随机数据 id    name    score</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">gen_random_string</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">r</span><span class="o">.</span><span class="n">lpush</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;name:</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;score:</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;score&#39;</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s">&#39;score&#39;</span><span class="p">]):</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">d</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">按照score进行升序排序</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 7, &#39;name&#39;: &#39;Uir8Pfo27c&#39;, &#39;id&#39;: 2}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 17, &#39;name&#39;: &#39;oFhLHSu42X&#39;, &#39;id&#39;: 7}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 19, &#39;name&#39;: &#39;C3DWCos4wq&#39;, &#39;id&#39;: 10}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 56, &#39;name&#39;: &#39;I7JRymyPJ5&#39;, &#39;id&#39;: 9}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 58, &#39;name&#39;: &#39;gJPkpD1TGn&#39;, &#39;id&#39;: 6}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 63, &#39;name&#39;: &#39;Vzt7gy2349&#39;, &#39;id&#39;: 1}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 75, &#39;name&#39;: &#39;eRHfRbeWrW&#39;, &#39;id&#39;: 4}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 77, &#39;name&#39;: &#39;Kja64ofoP1&#39;, &#39;id&#39;: 3}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 85, &#39;name&#39;: &#39;VRRPhp5Vmz&#39;, &#39;id&#39;: 8}</span>
+</span><span class='line'><span class="sd">{&#39;score&#39;: 94, &#39;name&#39;: &#39;m5mKg1s7Ji&#39;, &#39;id&#39;: 5}</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">&#39;score:*&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">根据score获得排序后的id</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;7&#39;, &#39;10&#39;, &#39;9&#39;, &#39;6&#39;, &#39;1&#39;, &#39;4&#39;, &#39;3&#39;, &#39;8&#39;, &#39;5&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">&#39;score:*&#39;</span><span class="p">,</span> <span class="n">get</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;#&#39;</span><span class="p">,</span> <span class="s">&#39;name:*&#39;</span><span class="p">,</span> <span class="s">&#39;score:*&#39;</span><span class="p">])</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">根据score获得排序后的id, name, score, 返回的是一个N*M的数组，N是id的数量，M是GET中所取属性的数量</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;7&#39;, &#39;10&#39;, &#39;9&#39;, &#39;6&#39;, &#39;1&#39;, &#39;4&#39;, &#39;3&#39;, &#39;8&#39;, &#39;5&#39;]</span>
+</span><span class='line'><span class="sd">[&#39;2&#39;, &#39;Uir8Pfo27c&#39;, &#39;7&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;7&#39;, &#39;oFhLHSu42X&#39;, &#39;17&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;10&#39;, &#39;C3DWCos4wq&#39;, &#39;19&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;9&#39;, &#39;I7JRymyPJ5&#39;, &#39;56&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;6&#39;, &#39;gJPkpD1TGn&#39;, &#39;58&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;1&#39;, &#39;Vzt7gy2349&#39;, &#39;63&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;4&#39;, &#39;eRHfRbeWrW&#39;, &#39;75&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;3&#39;, &#39;Kja64ofoP1&#39;, &#39;77&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;8&#39;, &#39;VRRPhp5Vmz&#39;, &#39;85&#39;, </span>
+</span><span class='line'><span class="sd"> &#39;5&#39;, &#39;m5mKg1s7Ji&#39;, &#39;94&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Have a nice day！</p>
 ]]></content>
@@ -481,7 +698,182 @@ $ cp /etc/init.d/redis-server /etc/init.d/redis-server-slave
 
 <p>修改启动项：</p>
 
-<p>{% include_code redis-replication/redis-server-slave %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (redis-server-slave)</span> <a href='/downloads/code/redis-replication/redis-server-slave'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'><span class="c">#! /bin/sh</span>
+</span><span class='line'><span class="c">### BEGIN INIT INFO</span>
+</span><span class='line'><span class="c"># Provides:     redis-server</span>
+</span><span class='line'><span class="c"># Required-Start:   $syslog $remote_fs</span>
+</span><span class='line'><span class="c"># Required-Stop:    $syslog $remote_fs</span>
+</span><span class='line'><span class="c"># Should-Start:     $local_fs</span>
+</span><span class='line'><span class="c"># Should-Stop:      $local_fs</span>
+</span><span class='line'><span class="c"># Default-Start:    2 3 4 5</span>
+</span><span class='line'><span class="c"># Default-Stop:     0 1 6</span>
+</span><span class='line'><span class="c"># Short-Description:    redis-server - Persistent key-value db</span>
+</span><span class='line'><span class="c"># Description:      redis-server - Persistent key-value db</span>
+</span><span class='line'><span class="c">### END INIT INFO</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+</span><span class='line'><span class="nv">DAEMON</span><span class="o">=</span>/usr/bin/redis-server
+</span><span class='line'><span class="nv">DAEMON_ARGS</span><span class="o">=</span>/etc/redis/slave.conf <span class="c"># modified to slave</span>
+</span><span class='line'><span class="nv">NAME</span><span class="o">=</span>redis-server-slave <span class="c"># modified to slave</span>
+</span><span class='line'><span class="nv">DESC</span><span class="o">=</span>redis-server-slave <span class="c"># modified to slave</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">RUNDIR</span><span class="o">=</span>/var/run/redis
+</span><span class='line'><span class="nv">PIDFILE</span><span class="o">=</span><span class="nv">$RUNDIR</span>/redis-server-slave.pid <span class="c"># modified to slave</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">test</span> -x <span class="nv">$DAEMON</span> <span class="o">||</span> <span class="nb">exit </span>0
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> -r /etc/default/<span class="nv">$NAME</span> <span class="o">]</span>
+</span><span class='line'><span class="k">then</span>
+</span><span class='line'>    . /etc/default/<span class="nv">$NAME</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">set</span> -e
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
+</span><span class='line'>  start<span class="o">)</span>
+</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;Starting $DESC: &quot;</span>
+</span><span class='line'>    mkdir -p <span class="nv">$RUNDIR</span>
+</span><span class='line'>    touch <span class="nv">$PIDFILE</span>
+</span><span class='line'>    chown redis:redis <span class="nv">$RUNDIR</span> <span class="nv">$PIDFILE</span>
+</span><span class='line'>    chmod 755 <span class="nv">$RUNDIR</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;$ULIMIT&quot;</span> <span class="o">]</span>
+</span><span class='line'>    <span class="k">then</span>
+</span><span class='line'><span class="k">        </span><span class="nb">ulimit</span> -n <span class="nv">$ULIMIT</span>
+</span><span class='line'>    <span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">    if </span>start-stop-daemon --start --quiet --umask 007 --pidfile <span class="nv">$PIDFILE</span> --chuid redis:redis --exec <span class="nv">$DAEMON</span> -- <span class="nv">$DAEMON_ARGS</span>
+</span><span class='line'>    <span class="k">then</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;$NAME.&quot;</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;failed&quot;</span>
+</span><span class='line'>    <span class="k">fi</span>
+</span><span class='line'>    ;;
+</span><span class='line'>  stop<span class="o">)</span>
+</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;Stopping $DESC: &quot;</span>
+</span><span class='line'>    <span class="k">if </span>start-stop-daemon --stop --retry forever/TERM/1 --quiet --oknodo --pidfile <span class="nv">$PIDFILE</span> --exec <span class="nv">$DAEMON</span>
+</span><span class='line'>    <span class="k">then</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;$NAME.&quot;</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;failed&quot;</span>
+</span><span class='line'>    <span class="k">fi</span>
+</span><span class='line'><span class="k">    </span>rm -f <span class="nv">$PIDFILE</span>
+</span><span class='line'>    sleep 1
+</span><span class='line'>    ;;
+</span><span class='line'>
+</span><span class='line'>  restart|force-reload<span class="o">)</span>
+</span><span class='line'>    <span class="k">${</span><span class="nv">0</span><span class="k">}</span> stop
+</span><span class='line'>    <span class="k">${</span><span class="nv">0</span><span class="k">}</span> start
+</span><span class='line'>    ;;
+</span><span class='line'>
+</span><span class='line'>  status<span class="o">)</span>
+</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;$DESC is &quot;</span>
+</span><span class='line'>    <span class="k">if </span>start-stop-daemon --stop --quiet --signal 0 --name <span class="k">${</span><span class="nv">NAME</span><span class="k">}</span> --pidfile <span class="k">${</span><span class="nv">PIDFILE</span><span class="k">}</span>
+</span><span class='line'>    <span class="k">then</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;running&quot;</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;not running&quot;</span>
+</span><span class='line'>        <span class="nb">exit </span>1
+</span><span class='line'>    <span class="k">fi</span>
+</span><span class='line'>    ;;
+</span><span class='line'>
+</span><span class='line'>  *<span class="o">)</span>
+</span><span class='line'>    <span class="nb">echo</span> <span class="s2">&quot;Usage: /etc/init.d/$NAME {start|stop|restart|force-reload}&quot;</span> &gt;&amp;2
+</span><span class='line'>    <span class="nb">exit </span>1
+</span><span class='line'>    ;;
+</span><span class='line'><span class="k">esac</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">exit </span>0
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>最后执行：</p>
 

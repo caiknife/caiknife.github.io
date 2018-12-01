@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 爬虫 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/pa-chong/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -29,7 +29,172 @@
 
 <p>Python 源码如下：</p>
 
-<p>{% include_code zhihu/dl_with_names.py %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (dl_with_names.py)</span> <a href='/downloads/code/zhihu/dl_with_names.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c"># coding:utf8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">os</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">requests</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">re</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">pyquery</span> <span class="kn">import</span> <span class="n">PyQuery</span> <span class="k">as</span> <span class="n">pq</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">entity</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'><span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">get_url</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">load_page</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">save_imgs</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">e</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_url</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">args</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span>
+</span><span class='line'>    <span class="c"># 如果不是dl.py zhihu_url这种格式的话，抛出异常</span>
+</span><span class='line'>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">u&quot;Wrong number for args, please use Zhihu question url!&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">zhihu_url</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span class='line'>    <span class="c"># zhihu_url不符合问题页面url格式的话，抛出异常</span>
+</span><span class='line'>    <span class="n">re_exp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">ur&quot;^https://www\.zhihu\.com/question/(\d+)&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">match</span> <span class="o">=</span> <span class="n">re_exp</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">zhihu_url</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">u&quot;Zhihu url is invalid!&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">entity</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">zhihu_url</span>
+</span><span class='line'>    <span class="n">entity</span><span class="p">[</span><span class="s">&#39;question&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span> <span class="n">entity</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">load_page</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>        <span class="s">ur&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s">ur&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Host&#39;</span><span class="p">:</span> <span class="s">ur&#39;www.zhihu.com&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Accept&#39;</span><span class="p">:</span> <span class="s">ur&#39;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Accept-Language&#39;</span><span class="p">:</span> <span class="s">ur&#39;zh-CN,zh;q=0.8,en;q=0.6&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Accept-Encoding&#39;</span><span class="p">:</span> <span class="s">ur&#39;gzip, deflate, sdch&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Connection&#39;</span><span class="p">:</span> <span class="s">ur&#39;keep-alive&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Cache-Control&#39;</span><span class="p">:</span> <span class="s">ur&#39;max-age=0&#39;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">],</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">u&quot;Http error!&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">d</span> <span class="o">=</span> <span class="n">pq</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">title</span> <span class="o">=</span> <span class="n">d</span><span class="p">(</span><span class="s">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">entity</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">u&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">imgs</span> <span class="o">=</span> <span class="n">d</span><span class="p">(</span><span class="s">&quot;img.origin_image.zh-lightbox-thumb.lazy&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pq</span><span class="p">(</span><span class="n">ele</span><span class="p">)</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="s">&quot;data-original&quot;</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">save_imgs</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">dest_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span> <span class="o">+</span> <span class="s">&quot;/images/&quot;</span> <span class="o">+</span> <span class="n">entity</span><span class="p">[</span><span class="s">&#39;question&#39;</span><span class="p">]</span> <span class="o">+</span> \
+</span><span class='line'>               <span class="n">entity</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">dest_dir</span>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dest_dir</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dest_dir</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">dest_dir</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">img</span> <span class="o">+</span> <span class="s">&quot; done.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>使用方法很简单：</p>
 
@@ -41,7 +206,26 @@ python dl_with_names.py https://www.zhihu.com/question/37709992
 
 <p>上面这种方法适合有一定命令行基础的人群，对于普通人来说，更简单的方法是使用 <code>javascript</code> 。</p>
 
-<p>{% include_code zhihu/dl.js %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (dl.js)</span> <a href='/downloads/code/zhihu/dl.js'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * Created by caiknife on 16/9/9.</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div id=&quot;showImg&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">).</span><span class="nx">prependTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">));</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;img.origin_image.zh-lightbox-thumb.lazy&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#showImg&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;original&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&lt;br/&gt;&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>先在地址栏里输入 <code>javascript:</code> ， 再把上面的 JS 代码复制到地址栏里，回车之后就会在页面顶端出现问题页之内图片的链接。</p>
 

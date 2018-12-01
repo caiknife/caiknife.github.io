@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ini | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/ini/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -43,11 +43,335 @@ offset                      = 20000
 
 <p>源代码：</p>
 
-<p>{% include_code python-ini/pyparseini.py %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (pyparseini.py)</span> <a href='/downloads/code/python-ini/pyparseini.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">ast</span> <span class="kn">import</span> <span class="n">literal_eval</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">re</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;parse_ini&#39;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">default</span> <span class="o">=</span> <span class="s">&#39;__default__&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># [ production ]</span>
+</span><span class='line'><span class="n">REGEX_SEC</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;\[\s?([\w]+)\s?\]&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+</span><span class='line'><span class="c"># [ dev : production ]</span>
+</span><span class='line'><span class="n">REGEX_I_SEC</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;\[\s?([\w]+)\s?:\s?([\w]+)\s?\]&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">parse_ini</span><span class="p">(</span><span class="n">ini_path</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">ini</span> <span class="o">=</span> <span class="n">_Obj</span><span class="p">({</span><span class="n">default</span><span class="p">:</span> <span class="n">_Obj</span><span class="p">()})</span>
+</span><span class='line'>    <span class="n">current_section</span> <span class="o">=</span> <span class="n">default</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ini_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span class='line'>            <span class="c"># empty line or a comment line</span>
+</span><span class='line'>            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">isspace</span><span class="p">()</span> <span class="ow">or</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s">&#39;;&#39;</span> <span class="ow">or</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s">&#39;#&#39;</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">continue</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c"># section</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s">&#39;[&#39;</span><span class="p">:</span>
+</span><span class='line'>                <span class="c"># a common section </span>
+</span><span class='line'>                <span class="n">result</span> <span class="o">=</span> <span class="n">REGEX_SEC</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>                    <span class="n">section</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>                    <span class="n">ini</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">ini</span><span class="p">[</span><span class="n">default</span><span class="p">])</span>
+</span><span class='line'>                <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                    <span class="c"># a inherited section </span>
+</span><span class='line'>                    <span class="n">result</span> <span class="o">=</span> <span class="n">REGEX_I_SEC</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><span class='line'>                    <span class="k">if</span> <span class="n">result</span> <span class="ow">in</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>                        <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s">&quot;Invalid section declaration&quot;</span><span class="p">)</span>
+</span><span class='line'>                    <span class="n">section</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>                    <span class="n">parent</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>                    <span class="c"># wrong parent section</span>
+</span><span class='line'>                    <span class="k">if</span> <span class="n">parent</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ini</span><span class="p">:</span>
+</span><span class='line'>                        <span class="k">raise</span> <span class="n">MissingSectionError</span><span class="p">(</span><span class="s">&quot;&#39;</span><span class="si">%s</span><span class="s">&#39; inherits from &#39;</span><span class="si">%s</span><span class="s">&#39; which hasn&#39;t been declared.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">parent</span><span class="p">))</span>
+</span><span class='line'>                    <span class="n">ini</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">ini</span><span class="p">[</span><span class="n">parent</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="n">current_section</span> <span class="o">=</span> <span class="n">section</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c"># option</span>
+</span><span class='line'>            <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">pieces</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;=&quot;</span><span class="p">)</span>
+</span><span class='line'>                <span class="c"># master.foo.bar</span>
+</span><span class='line'>                <span class="n">vals</span> <span class="o">=</span> <span class="n">pieces</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
+</span><span class='line'>                <span class="c"># [&#39;bar&#39;, &#39;foo&#39;, &#39;master&#39;]</span>
+</span><span class='line'>                <span class="n">vals</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+</span><span class='line'>                <span class="n">data</span> <span class="o">=</span> <span class="n">_cast</span><span class="p">(</span><span class="n">pieces</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span><span class='line'>                <span class="n">working_obj</span> <span class="o">=</span> <span class="n">ini</span><span class="p">[</span><span class="n">current_section</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="k">while</span> <span class="n">vals</span><span class="p">:</span>
+</span><span class='line'>                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+</span><span class='line'>                        <span class="n">working_obj</span><span class="p">[</span><span class="n">vals</span><span class="o">.</span><span class="n">pop</span><span class="p">()]</span> <span class="o">=</span> <span class="n">data</span>
+</span><span class='line'>                    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                        <span class="n">val</span> <span class="o">=</span> <span class="n">vals</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class='line'>                        <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">working_obj</span><span class="p">:</span>
+</span><span class='line'>                            <span class="n">working_obj</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="n">_Obj</span><span class="p">()</span>
+</span><span class='line'>                        <span class="n">working_obj</span> <span class="o">=</span> <span class="n">working_obj</span><span class="p">[</span><span class="n">val</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="n">env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">env</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ini</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">raise</span> <span class="n">MissingSectionError</span><span class="p">(</span><span class="s">&quot;The section being loaded does not exist.&quot;</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">ini</span><span class="p">[</span><span class="n">env</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">ini</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">_cast</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">val</span> <span class="o">=</span> <span class="n">literal_eval</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">except</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">pass</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">val</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">_Obj</span><span class="p">(</span><span class="n">OrderedDict</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    A dict that allows for object-like property access syntax.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">_Obj</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</span><span class='line'>        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">default</span><span class="p">][</span><span class="n">name</span><span class="p">]</span>
+</span><span class='line'>            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>            <span class="bp">self</span><span class="o">.</span><span class="n">__getattr__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">False</span>
+</span><span class='line'>        <span class="k">return</span> <span class="bp">True</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">MissingSectionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    Thrown when a section header inherits from a section that has yet been undeclared.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">pass</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>测试代码：</p>
 
-<p>{% include_code python-ini/test_parseini.py %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (test_parseini.py)</span> <a href='/downloads/code/python-ini/test_parseini.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">unittest</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">os</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">..pyparseini</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">ParseIniTestCase</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">        master.host                 = stats10.mezimedia.com</span>
+</span><span class='line'><span class="sd">        master.username             = scltrk</span>
+</span><span class='line'><span class="sd">        master.password             = Mhok8homL7</span>
+</span><span class='line'><span class="sd">        master.dbname               = tracking</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">        slave.host                  = stats11.mezimedia.com</span>
+</span><span class='line'><span class="sd">        slave.port                  = 3308</span>
+</span><span class='line'><span class="sd">        slave.username              = scltrk</span>
+</span><span class='line'><span class="sd">        slave.password              = Mhok8homL7</span>
+</span><span class='line'><span class="sd">        slave.dbname                = tracking</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">        msgsite                     = smarter</span>
+</span><span class='line'><span class="sd">        offset                      = 20000</span>
+</span><span class='line'><span class="sd">        &quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="s">&#39;files/smus.ini&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">parse_ini</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">test_master</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s">&#39;master&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="s">&#39;stats10.mezimedia.com&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="s">&#39;scltrk&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="s">&#39;Mhok8homL7&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">dbname</span><span class="p">,</span> <span class="s">&#39;tracking&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">test_slave</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s">&#39;slave&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">slave</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="s">&#39;stats11.mezimedia.com&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">slave</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="mi">3308</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">slave</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="s">&#39;scltrk&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">slave</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="s">&#39;Mhok8homL7&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">slave</span><span class="o">.</span><span class="n">dbname</span><span class="p">,</span> <span class="s">&#39;tracking&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">test_msgsite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">msgsite</span><span class="p">,</span> <span class="s">&#39;smarter&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">test_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="mi">20000</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>不知道把Python的东西写成Zend的风格是不是一种好习惯。对我来说，Python很轻巧，我很喜欢，Zend虽然很重，但是大气的架构和丰富的功能以及各种设计模式的运用都非常值得学习。艺不压身，努力学习才是关键。</p>
 
@@ -149,7 +473,134 @@ array(5) {
 
 <p>但是在Python中用来解析ini文件的ConfigParser类，则对ini文件的格式有着非常严格的要求——必须在文件开头含有[section]部分，否则在读取时会抛出<code>ConfigParser.MissingSectionHeaderError</code>。为了能让Python解析ini也可以容错，有必要做一下hack。</p>
 
-<p>{% include_code python-ini/demo.py %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (demo.py)</span> <a href='/downloads/code/python-ini/demo.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/python</span>
+</span><span class='line'><span class="c">#coding: utf-8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">ConfigParser</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">FakeSectionHead</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    文件wrapper</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fp</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;如果没有section的话，默认添加一个叫[default]的section&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fp</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="s">&quot;[default]</span><span class="se">\n</span><span class="s">&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">readline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;第一次输出[default], 以后就输出文件的内容&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span>
+</span><span class='line'>            <span class="k">finally</span><span class="p">:</span>
+</span><span class='line'>                <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ini</span> <span class="o">=</span> <span class="s">&#39;./config/smus.ini&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">parse_ini_file</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">p</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;标准格式的ini文件，直接读取内容&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">ini</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">except</span> <span class="n">ConfigParser</span><span class="o">.</span><span class="n">MissingSectionHeaderError</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;非标准格式的ini文件，用FakeSectionHead类包装一下&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">error</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">        此处输出：</span>
+</span><span class='line'><span class="sd">        File contains no section headers.</span>
+</span><span class='line'><span class="sd">        file: ./config/smus.ini, line: 1</span>
+</span><span class='line'><span class="sd">        &#39;master.host                 = stats10.mezimedia.com\r\n&#39;</span>
+</span><span class='line'><span class="sd">        &quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="n">FakeSectionHead</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">ini</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">p</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span> <span class="o">=</span> <span class="n">parse_ini_file</span><span class="p">(</span><span class="n">ini</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">[(&#39;master.host&#39;, &#39;stats10.mezimedia.com&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.username&#39;, &#39;scltrk&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.password&#39;, &#39;Mhok8homL7&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;master.dbname&#39;, &#39;tracking&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.host&#39;, &#39;stats11.mezimedia.com&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.port&#39;, &#39;3308&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.username&#39;, &#39;scltrk&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.password&#39;, &#39;Mhok8homL7&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;slave.dbname&#39;, &#39;tracking&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;msgsite&#39;, &#39;smarter&#39;), </span>
+</span><span class='line'><span class="sd"> (&#39;offset&#39;, &#39;20000&#39;)]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">sections</span><span class="p">()</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">[&#39;default&#39;]</span>
+</span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>如此一来就能正常工作了。部分内容参考自StackOverflow——<a href="http://stackoverflow.com/questions/2819696/parsing-properties-file-in-python/2819788#2819788">parsing .properties file in Python</a> 。</p>
 

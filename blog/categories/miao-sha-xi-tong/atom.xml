@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 秒杀系统 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/miao-sha-xi-tong/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -25,7 +25,7 @@
 <!-- more -->
 
 
-<p>{% fancybox /downloads/image/miaosha/miaosha.png 如何设计一个秒杀系统 %}</p>
+<p><a href="/downloads/image/miaosha/miaosha.png" title="如何设计一个秒杀系统 " class="fancybox"><img src="/downloads/image/miaosha/miaosha.png" alt="如何设计一个秒杀系统 " /></a></p>
 
 <p>这个思维导图我还会不断完善，不断迭代。</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 锁 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/suo/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -136,7 +136,7 @@ if redis.call(&ldquo;get&rdquo;,KEYS[1]) == ARGV[1] then</p>
 
 <p>好，现在客户端想获取一把分布式锁：</p>
 
-<p><code>txt
+<p><code>bash
 记下开始获取锁的时间 startTime
 按照A-&gt;B-&gt;C的顺序，依次向这三台Master发送获取锁的命令。客户端在等待每台Master回响应时，都有超时时间 timeout。举个例子，客户端向A发送获取锁的命令，在等了 timeout 时间之后，都没收到响应，就会认为获取锁失败，继续尝试获取下一把锁
 如果获取到超过半数的锁，也就是 3/2+1 = 2把锁，这时候还没完，要记下当前时间 endTime

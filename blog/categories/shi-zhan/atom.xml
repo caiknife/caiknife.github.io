@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 实战 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/shi-zhan/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,326 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[算法题：羊生羊问题]]></title>
+    <link href="http://caiknife.github.io/blog/2018/12/01/yang-sheng-yang-wen-ti/"/>
+    <updated>2018-12-01T18:25:40+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/12/01/yang-sheng-yang-wen-ti</id>
+    <content type="html"><![CDATA[<p>面试题：</p>
+
+<blockquote><p>农夫有一只羊，这只羊在第2、3年会生一只小羊，第4年不会生小羊，第5年时羊会死亡，生出来的小羊也是这个规律。求问50年后会有多少只羊？</p></blockquote>
+
+<!-- more -->
+
+
+<p>这道题最直接的办法就是用递归来做，不过我暂时还没想到递归怎么做，所以先用最笨的方法——遍历50年，每一年遍历羊的数组，根据年纪来进行对应的处理。详细见下面的代码：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (sheep.php)</span> <a href='/downloads/code/quiz/sheep.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/12/1</span>
+</span><span class='line'><span class="sd"> * Time: 18:29</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Sheep</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nb">ini_set</span><span class="p">(</span><span class="s2">&quot;memory_limit&quot;</span><span class="p">,</span> <span class="s2">&quot;2048M&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$sheeps</span>    <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>        <span class="nv">$startTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">foreach</span> <span class="p">(</span><span class="nv">$sheeps</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$age</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$sheeps</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="k">switch</span> <span class="p">(</span><span class="nv">$sheeps</span><span class="p">[</span><span class="nv">$key</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span><span class='line'>                    <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
+</span><span class='line'>                        <span class="c1">// do nothing</span>
+</span><span class='line'>                        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>                    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span><span class='line'>                    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+</span><span class='line'>                        <span class="nv">$sheeps</span><span class="p">[]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 刚出生算0岁</span>
+</span><span class='line'>                        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>                    <span class="k">case</span> <span class="mi">5</span><span class="o">:</span>
+</span><span class='line'>                        <span class="nb">unset</span><span class="p">(</span><span class="nv">$sheeps</span><span class="p">[</span><span class="nv">$key</span><span class="p">]);</span>
+</span><span class='line'>                        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>                    <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>                        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nv">$endTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Time cost:&quot;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">$endTime</span> <span class="o">-</span> <span class="nv">$startTime</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$sheeps</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>但是这个方法是有问题的，那就是数组占用的内存太大，用PHP来跑的话，50的数据量根本就没办法解决。</p>
+
+<p>```
+&ndash;>php cli.php Sheep.main                                                                                                   master [08f1c0ba] modified
+PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 1073741832 bytes) in /Users/caiknife/Projects/PHPLib/src/Cron/Sheep.php on line 34
+PHP Stack trace:
+PHP   1. {main}() /Users/caiknife/Projects/PHPLib/cli.php:0
+PHP   2. App\Cron\Sheep->main() /Users/caiknife/Projects/PHPLib/cli.php:34</p>
+
+<p>Fatal error: Allowed memory size of 1073741824 bytes exhausted (tried to allocate 1073741832 bytes) in /Users/caiknife/Projects/PHPLib/src/Cron/Sheep.php on line 34</p>
+
+<p>Call Stack:</p>
+
+<pre><code>0.0003     369648   1. {main}() /Users/caiknife/Projects/PHPLib/cli.php:0
+0.0335    5328840   2. App\Cron\Sheep-&gt;main() /Users/caiknife/Projects/PHPLib/cli.php:34
+</code></pre>
+
+<p>```</p>
+
+<p>下面尝试一下用递归的解法。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (sheep_recursive.php)</span> <a href='/downloads/code/quiz/sheep_recursive.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/12/1</span>
+</span><span class='line'><span class="sd"> * Time: 18:54</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">SheepRecursive</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nb">ini_set</span><span class="p">(</span><span class="s2">&quot;memory_limit&quot;</span><span class="p">,</span> <span class="s2">&quot;2048M&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_countSheep</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">function</span> <span class="nf">_countSheep</span><span class="p">(</span><span class="nv">$year</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$year</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="mi">3</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$year</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$year</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// $year &gt;= 5时，表示有羊死去</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">(</span><span class="nv">$year</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_countSheep</span><span class="p">(</span><span class="nv">$year</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_countSheep</span><span class="p">(</span><span class="nv">$year</span> <span class="o">-</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>最后再使用一个移动窗口的解法。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (sheep_window.php)</span> <a href='/downloads/code/quiz/sheep_window.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/12/1</span>
+</span><span class='line'><span class="sd"> * Time: 22:11</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">SheepWindow</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nb">ini_set</span><span class="p">(</span><span class="s2">&quot;memory_limit&quot;</span><span class="p">,</span> <span class="s2">&quot;2048M&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$startTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$arr</span>       <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">];</span> <span class="c1">// 这个数组分别表示一到五年</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="mi">50</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$tmp</span> <span class="o">=</span> <span class="nv">$arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nv">$arr</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// 只有2岁和3岁的羊会生小羊</span>
+</span><span class='line'>            <span class="nb">array_unshift</span><span class="p">(</span><span class="nv">$arr</span><span class="p">,</span> <span class="nv">$tmp</span><span class="p">);</span> <span class="c1">// 这表示新一年生的小羊数</span>
+</span><span class='line'>            <span class="nb">array_pop</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span> <span class="c1">// 将5岁的小羊消灭</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nv">$endTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Time cost:&quot;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">$endTime</span> <span class="o">-</span> <span class="nv">$startTime</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="nb">array_sum</span><span class="p">(</span><span class="nv">$arr</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">another</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$startTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$arr</span>       <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="mi">50</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">list</span><span class="p">(</span><span class="nv">$one</span><span class="p">,</span> <span class="nv">$two</span><span class="p">,</span> <span class="nv">$three</span><span class="p">,</span> <span class="nv">$four</span><span class="p">,</span> <span class="nv">$five</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$arr</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$two</span> <span class="o">+</span> <span class="nv">$three</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$one</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$arr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$two</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$three</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$arr</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$four</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nv">$endTime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Time cost:&quot;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">$endTime</span> <span class="o">-</span> <span class="nv">$startTime</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="nb">array_sum</span><span class="p">(</span><span class="nv">$arr</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[算法题：三针重叠问题]]></title>
@@ -31,7 +351,100 @@
 
 <p>编写程序如下：</p>
 
-<p>{% include_code quiz/clock.php %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (clock.php)</span> <a href='/downloads/code/quiz/clock.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/11/27</span>
+</span><span class='line'><span class="sd"> * Time: 10:51</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Time</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">const</span> <span class="no">TOTAL_TIME</span> <span class="o">=</span> <span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_hourNeedle</span>   <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_minuteNeedle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_secondNeedle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="nv">$_nextMinuteNeedle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nb">date_default_timezone_set</span><span class="p">(</span><span class="s1">&#39;Asia/Shanghai&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$baseTime</span> <span class="o">=</span> <span class="nb">strtotime</span><span class="p">(</span><span class="s1">&#39;2018-01-01 00:00:00&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="k">static</span><span class="o">::</span><span class="na">TOTAL_TIME</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// 求时针的偏移量</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_hourNeedle</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nv">$i</span><span class="p">)</span> <span class="o">%</span> <span class="k">static</span><span class="o">::</span><span class="na">TOTAL_TIME</span><span class="p">;</span>
+</span><span class='line'>            <span class="c1">// 求分针的偏移量</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_minuteNeedle</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="nv">$i</span><span class="p">)</span> <span class="o">%</span> <span class="k">static</span><span class="o">::</span><span class="na">TOTAL_TIME</span><span class="p">;</span>
+</span><span class='line'>            <span class="c1">// 求秒针的偏移量</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_secondNeedle</span> <span class="o">=</span> <span class="p">(</span><span class="mi">720</span> <span class="o">*</span> <span class="nv">$i</span><span class="p">)</span> <span class="o">%</span> <span class="k">static</span><span class="o">::</span><span class="na">TOTAL_TIME</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_hourNeedle</span> <span class="o">==</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_minuteNeedle</span>
+</span><span class='line'>                <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_minuteNeedle</span> <span class="o">==</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_secondNeedle</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="k">echo</span> <span class="nv">$i</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>                <span class="k">echo</span> <span class="nb">date</span><span class="p">(</span><span class="s2">&quot;H:i:s&quot;</span><span class="p">,</span> <span class="nv">$baseTime</span> <span class="o">+</span> <span class="nv">$i</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>所以，在12个小时内，三针重合只有在0点和12点的时候才会出现。这个时候是真正的停止重合。</p>
 
@@ -39,7 +452,72 @@
 
 <p>下面更新一个Golang写的版本，了解一下Golang时间处理的奇葩……</p>
 
-<p>{% include_code quiz/clock.go %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (clock.go)</span> <a href='/downloads/code/quiz/clock.go'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="p">(</span>
+</span><span class='line'>	<span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>	<span class="s">&quot;time&quot;</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">const</span> <span class="p">(</span>
+</span><span class='line'>	<span class="nx">TotalTime</span> <span class="p">=</span> <span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span>
+</span><span class='line'>	<span class="nx">FDateTime</span> <span class="p">=</span> <span class="s">&quot;2006-01-02 15:04:05&quot;</span> <span class="c1">// 奇葩的时间点，格式化必须是这个格式……</span>
+</span><span class='line'>	<span class="nx">FDate</span>     <span class="p">=</span> <span class="s">&quot;2006-01-02&quot;</span>
+</span><span class='line'>	<span class="nx">FTime</span>     <span class="p">=</span> <span class="s">&quot;15:04:05&quot;</span>
+</span><span class='line'>	<span class="nx">StartTime</span> <span class="p">=</span> <span class="s">&quot;2018-01-01 00:00:00&quot;</span> <span class="c1">// 我们设置的起点时间</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Format</span><span class="p">(</span><span class="nx">FDate</span><span class="p">))</span> <span class="c1">// 先试试格式化日期</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Format</span><span class="p">(</span><span class="nx">FTime</span><span class="p">))</span> <span class="c1">// 再试试格式化时间</span>
+</span><span class='line'>	<span class="c1">// 下面定个时间起点</span>
+</span><span class='line'>	<span class="nx">fromDate</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">ParseInLocation</span><span class="p">(</span><span class="nx">FDateTime</span><span class="p">,</span> <span class="nx">StartTime</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Local</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">TotalTime</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span><span class='line'>		<span class="nx">hourNeedle</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nx">TotalTime</span>
+</span><span class='line'>		<span class="nx">minuteNeedle</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)</span> <span class="o">%</span> <span class="nx">TotalTime</span>
+</span><span class='line'>		<span class="nx">secondNeedle</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="mi">720</span><span class="p">)</span> <span class="o">%</span> <span class="nx">TotalTime</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="k">if</span> <span class="nx">hourNeedle</span> <span class="o">==</span> <span class="nx">minuteNeedle</span> <span class="o">&amp;&amp;</span> <span class="nx">minuteNeedle</span> <span class="o">==</span> <span class="nx">secondNeedle</span> <span class="p">{</span>
+</span><span class='line'>			<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Three needles get together!&quot;</span><span class="p">)</span>
+</span><span class='line'>			<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Unix</span><span class="p">(</span><span class="nx">fromDate</span><span class="p">.</span><span class="nx">Unix</span><span class="p">()</span><span class="o">+</span><span class="nb">int64</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span> <span class="mi">0</span><span class="p">).</span><span class="nx">Format</span><span class="p">(</span><span class="nx">FTime</span><span class="p">))</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 ]]></content>
   </entry>
   
@@ -61,15 +539,136 @@
 
 <p>编写程序如下：</p>
 
-<p>{% include_code stair/stair.go %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (stair.go)</span> <a href='/downloads/code/stair/stair.go'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="c1">// 默认走10阶</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStair</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">GoStair</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="p">&lt;</span> <span class="mi">1</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">return</span> <span class="mi">0</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="p">&lt;</span> <span class="mi">3</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">return</span> <span class="nx">s</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">return</span> <span class="nx">GoStair</span><span class="p">(</span><span class="nx">s</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">GoStair</span><span class="p">(</span><span class="nx">s</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>使用正常的递归，在递归层数过多的情况下，可能会有stack overflow的风险，所以可以改写为用循环处理的方式：</p>
 
-<p>{% include_code stair/stair_with_loop.go %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (stair_with_loop.go)</span> <a href='/downloads/code/stair/stair_with_loop.go'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="c1">// 默认走10阶</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStairWithLoop</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">GoStairWithLoop</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span><span class='line'>	<span class="c1">// f(1) = 1</span>
+</span><span class='line'>	<span class="c1">// f(2) = 2</span>
+</span><span class='line'>	<span class="c1">// result是f(1)的值 tmp是f(2)-f(1)的值</span>
+</span><span class='line'>	<span class="nx">result</span><span class="p">,</span> <span class="nx">tmp</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">for</span> <span class="p">;</span> <span class="nx">s</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">{</span>
+</span><span class='line'>		<span class="nx">tmp</span> <span class="p">=</span> <span class="nx">result</span> <span class="o">+</span> <span class="nx">tmp</span>
+</span><span class='line'>		<span class="nx">result</span> <span class="p">=</span> <span class="nx">tmp</span> <span class="o">-</span> <span class="nx">result</span>
+</span><span class='line'>		<span class="nx">s</span><span class="o">--</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">return</span> <span class="nx">result</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>将循环中使用到的变量提取出来作为函数的参数使用，就成了尾递归。在方法最后被调用时，线程栈里面的临时变量与参数此时已经没任何用了，可以被GC回收，所以理论上就是同上面的循环方法是一致的，无论有多深，都不会发生内存异常。</p>
 
-<p>{% include_code stair/stair_with_tail.go %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (stair_with_tail.go)</span> <a href='/downloads/code/stair/stair_with_tail.go'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="c1">// 默认走10阶</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStairWithTail</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">GoStairWithTail</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">result</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">tmp</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="p">&lt;</span> <span class="mi">1</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">return</span> <span class="nx">result</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">return</span> <span class="nx">GoStairWithTail</span><span class="p">(</span><span class="nx">s</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">tmp</span><span class="p">,</span> <span class="nx">result</span><span class="o">+</span><span class="nx">tmp</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>这种情况下，该算法的时间复杂度是<code>O(n)</code>。</p>
 
@@ -83,7 +682,7 @@
 
 <p>我们现在看steps &lt;= maxStep时，怎么给出类似上例里f(2)，f(3)的返回值。其实，上例中的f(3)，就是台阶一共3级，最大可以跨2步的值，即f(2) 就是f(2,2)，f(3)就是f(3,2)。分析一下就得出下面的图解：</p>
 
-<p>{% fancybox /downloads/image/go/stair.jpg 爬楼梯算法 %}</p>
+<p><a href="/downloads/image/go/stair.jpg" title="爬楼梯算法 " class="fancybox"><img src="/downloads/image/go/stair.jpg" alt="爬楼梯算法 " /></a></p>
 
 <p>根据以上图解，分析如下：</p>
 
@@ -96,7 +695,68 @@ steps = 0时，return 0;
 
 <p>编码如下：</p>
 
-<p>{% include_code stair/stair_with_s_m.go %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (stair_with_s_m.go)</span> <a href='/downloads/code/stair/stair_with_s_m.go'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="kn">package</span> <span class="nx">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>	<span class="c1">// 默认走10阶，每次最多2阶</span>
+</span><span class='line'>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">GoStairWithSM</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">func</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">m</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">return</span> <span class="mi">0</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">return</span> <span class="mi">1</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="nx">result</span> <span class="o">:=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">if</span> <span class="nx">s</span> <span class="p">&gt;</span> <span class="nx">m</span> <span class="p">{</span>
+</span><span class='line'>		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">m</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span><span class='line'>			<span class="nx">result</span> <span class="o">+=</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">s</span><span class="o">-</span><span class="nx">i</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
+</span><span class='line'>		<span class="p">}</span>
+</span><span class='line'>	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>		<span class="nx">result</span> <span class="p">=</span> <span class="nx">GoStairWithSM</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">s</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>	<span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">return</span> <span class="nx">result</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>打完收工。</p>
 ]]></content>
@@ -119,7 +779,38 @@ abc acb bac bca cab cba</p></blockquote>
 <!-- more -->
 
 
-<p>{% include_code quiz/perm.py %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (perm.py)</span> <a href='/downloads/code/quiz/perm.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c"># coding:utf8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">permutations</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="n">permutations</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">v</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>当然我们不能这么赖皮地使用Python的内置库来解决这个问题，更重要的是，我们需要了解全排列的算法。</p>
 
@@ -133,7 +824,106 @@ abc acb bac bca cab cba</p></blockquote>
 
 <p>最后我写了一个PHP版本的实现：</p>
 
-<p>{% include_code quiz/perm.php %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (perm.php)</span> <a href='/downloads/code/quiz/perm.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/11/17</span>
+</span><span class='line'><span class="sd"> * Time: 15:09</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">StringPlace</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">stringPlace</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">stringPlace</span><span class="p">(</span><span class="nv">$stringSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$tmpString</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$stringSize</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$tmpString</span><span class="p">[]</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nx">rand</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span> <span class="mi">122</span><span class="p">));</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Origin string is &quot;</span> <span class="o">.</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$tmpString</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">perm</span><span class="p">(</span><span class="nv">$tmpString</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">sizeof</span><span class="p">(</span><span class="nv">$tmpString</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">perm</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$arr</span><span class="p">,</span> <span class="nv">$k</span><span class="p">,</span> <span class="nv">$m</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$k</span> <span class="o">==</span> <span class="nv">$m</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">echo</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="nv">$k</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="nv">$m</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_swap</span><span class="p">(</span><span class="nv">$arr</span><span class="p">[</span><span class="nv">$k</span><span class="p">],</span> <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+</span><span class='line'>                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">perm</span><span class="p">(</span><span class="nv">$arr</span><span class="p">,</span> <span class="nv">$k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">$m</span><span class="p">);</span>
+</span><span class='line'>                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_swap</span><span class="p">(</span><span class="nv">$arr</span><span class="p">[</span><span class="nv">$k</span><span class="p">],</span> <span class="nv">$arr</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">function</span> <span class="nf">_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$a</span><span class="p">,</span> <span class="o">&amp;</span><span class="nv">$b</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">list</span><span class="p">(</span><span class="nv">$b</span><span class="p">,</span> <span class="nv">$a</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>全排列就是这样，代码看起来还是有点点难懂，需要深入了解才能融会贯通。</p>
 ]]></content>
@@ -157,7 +947,92 @@ abc acb bac bca cab cba</p></blockquote>
 
 <p>其实源码很简单：</p>
 
-<p>{% include_code quiz/heap.php %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (heap.php)</span> <a href='/downloads/code/quiz/heap.php'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Created by PhpStorm.</span>
+</span><span class='line'><span class="sd"> * User: caiknife</span>
+</span><span class='line'><span class="sd"> * Date: 2018/11/17</span>
+</span><span class='line'><span class="sd"> * Time: 14:54</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">App\Cron</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Number</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">printKMaxFromN</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">printKMaxFromN</span><span class="p">(</span><span class="nv">$n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">$k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="nv">$k</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">echo</span> <span class="s2">&quot;BOTH n k must be positive.&quot;</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">exit</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">&lt;</span> <span class="nv">$k</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">echo</span> <span class="s2">&quot;n MUST geq k.&quot;</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">exit</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nv">$tmpHeap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\SplMaxHeap</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$n</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$tmpHeap</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nx">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">));</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$k</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">echo</span> <span class="nv">$tmpHeap</span><span class="o">-&gt;</span><span class="na">current</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$tmpHeap</span><span class="o">-&gt;</span><span class="na">next</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>上面的代码就是给定了10个0到50的随机数，每生成一个就放入到SplMaxHeap中。</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: varnish | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/varnish/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -749,7 +749,7 @@ Copyright &copy; 2006-2011 Varnish Software AS
 
 <p>再来看看 varnish 的状态图。</p>
 
-<p>{% img /downloads/image/varnish/120044934.jpg %}</p>
+<p><img src="/downloads/image/varnish/120044934.jpg"></p>
 
 <p>一个请求发送到 varnish ，第一个状态是 recv ，然后根据不同的逻辑进入三种不同的模式： <code>pipe</code> 、 <code>pass</code> 和 <code>lookup</code> 。</p>
 

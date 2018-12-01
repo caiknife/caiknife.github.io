@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mysql | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/mysql/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -116,7 +116,7 @@ WHERE MATCH(column1, column2) AGAINST('word1', 'word2', 'word3');
 
 <p>这个架构可以通过下图比较清晰的展示：</p>
 
-<p>{% fancybox /downloads/image/mysql/master-slave.jpg %}</p>
+<p><a href="/downloads/image/mysql/master-slave.jpg" title="" class="fancybox"><img src="/downloads/image/mysql/master-slave.jpg" alt="" /></a></p>
 
 <p>一个 Master 复制多个 Slave 的架构实施非常简单，多个 Slave 和单个 Slave 的实施并没有实质性的区别。在 Master 端并不Care 有多少个 Slave 连上了自己，只要有 Slave 的 IO 线程通过了连接认证，向他请求指定位置之后的 Binary Log 信息，他就会按照该 IO 线程的要求，读取自己的 Binary Log 信息，返回给 Slave 的 IO 线程。</p>
 
@@ -134,7 +134,7 @@ WHERE MATCH(column1, column2) AGAINST('word1', 'word2', 'word3');
 
 <p>下如将更清晰的展示DualMaster复制架构组成：</p>
 
-<p>{% fancybox /downloads/image/mysql/dual-master.jpg %}</p>
+<p><a href="/downloads/image/mysql/dual-master.jpg" title="" class="fancybox"><img src="/downloads/image/mysql/dual-master.jpg" alt="" /></a></p>
 
 <p>通过 Dual Master 复制架构，我们不仅能够避免因为正常的常规维护操作需要的停机所带来的重新搭建 Replication 环境的操作，因为我们任何一端都记录了自己当前复制到对方的什么位置了，当系统起来之后，就会自动开始从之前的位置重新开始复制，而不需要人为去进行任何干预，大大节省了维护成本。</p>
 
@@ -148,7 +148,7 @@ WHERE MATCH(column1, column2) AGAINST('word1', 'word2', 'word3');
 
 <p>这种多层级联复制的架构，很容易就解决了 Master 端因为附属 Slave 太多而成为瓶颈的风险。下图展示了多层级联复制的 Replication 架构。</p>
 
-<p>{% fancybox /downloads/image/mysql/master-slave-slave.jpg %}</p>
+<p><a href="/downloads/image/mysql/master-slave-slave.jpg" title="" class="fancybox"><img src="/downloads/image/mysql/master-slave-slave.jpg" alt="" /></a></p>
 
 <p>当然，如果条件允许，我更倾向于建议大家通过拆分成多个 Replication 集群来解决。</p>
 
@@ -162,7 +162,7 @@ WHERE MATCH(column1, column2) AGAINST('word1', 'word2', 'word3');
 
 <p>和 Master-Slaves-Slaves 架构相比，区别仅仅只是将第一级 Slave 集群换成了一台单独的 Master ，作为备用 Master ，然后再从这个备用的 Master 进行复制到一个 Slave 集群。下面的图片更清晰的展示了这个架构的组成：</p>
 
-<p>{% fancybox /downloads/image/mysql/master-master-slave.jpg %}</p>
+<p><a href="/downloads/image/mysql/master-master-slave.jpg" title="" class="fancybox"><img src="/downloads/image/mysql/master-master-slave.jpg" alt="" /></a></p>
 
 <p>这种 Dual Master 与级联复制结合的架构，最大的好处就是既可以避免主 Master 的写入操作不会受到 Slave 集群的复制所带来的影响，同时主 Master 需要切换的时候也基本上不会出现重搭 Replication 的情况。但是，这个架构也有一个弊端，那就是备用的 Master 有可能成为瓶颈，因为如果后面的 Slave 集群比较大的话，备用 Master 可能会因为过多的 Slave IO 线程请求而成为瓶颈。当然，该备用 Master 不提供任何的读服务的时候，瓶颈出现的可能性并不是特别高，如果出现瓶颈，也可以在备用 Master 后面再次进行级联复制，架设多层 Slave 集群。当然，级联复制的级别越多，Slave 集群可能出现的数据延时也会更为明显，所以考虑使用多层级联复制之前，也需要评估数据延时对应用系统的影响。</p>
 

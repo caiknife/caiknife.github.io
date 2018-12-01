@@ -4,7 +4,7 @@
   <title><![CDATA[Category: vim | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/vim/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -418,7 +418,7 @@ $ git submodule update
 
 <p>配置完成之后，在 vim 里的效果就是下面这个样子：</p>
 
-<p>{% fancybox /downloads/image/vim/vim.png Vim %}</p>
+<p><a href="/downloads/image/vim/vim.png" title="Vim " class="fancybox"><img src="/downloads/image/vim/vim.png" alt="Vim " /></a></p>
 
 <p>不过听说还有个叫 <code>Vundle</code> 的工具比 <code>Pathogen</code> 更加智能化，不用 Git 来更新仓库，只用同步 vim 配置文件就可以了，这两天有空再研究一下。</p>
 

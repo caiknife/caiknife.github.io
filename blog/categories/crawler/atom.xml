@@ -4,7 +4,7 @@
   <title><![CDATA[Category: crawler | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/crawler/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-11-30T19:59:17+08:00</updated>
+  <updated>2018-12-01T23:15:31+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -29,7 +29,172 @@
 
 <p>Python 源码如下：</p>
 
-<p>{% include_code zhihu/dl_with_names.py %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (dl_with_names.py)</span> <a href='/downloads/code/zhihu/dl_with_names.py'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'><span class="c"># coding:utf8</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">os</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">requests</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">re</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">pyquery</span> <span class="kn">import</span> <span class="n">PyQuery</span> <span class="k">as</span> <span class="n">pq</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">entity</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'><span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">get_url</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">load_page</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">save_imgs</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">e</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_url</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">args</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span>
+</span><span class='line'>    <span class="c"># 如果不是dl.py zhihu_url这种格式的话，抛出异常</span>
+</span><span class='line'>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">u&quot;Wrong number for args, please use Zhihu question url!&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">zhihu_url</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span class='line'>    <span class="c"># zhihu_url不符合问题页面url格式的话，抛出异常</span>
+</span><span class='line'>    <span class="n">re_exp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">ur&quot;^https://www\.zhihu\.com/question/(\d+)&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">match</span> <span class="o">=</span> <span class="n">re_exp</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">zhihu_url</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">u&quot;Zhihu url is invalid!&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">entity</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">zhihu_url</span>
+</span><span class='line'>    <span class="n">entity</span><span class="p">[</span><span class="s">&#39;question&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span> <span class="n">entity</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">load_page</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>        <span class="s">ur&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s">ur&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Host&#39;</span><span class="p">:</span> <span class="s">ur&#39;www.zhihu.com&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Accept&#39;</span><span class="p">:</span> <span class="s">ur&#39;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Accept-Language&#39;</span><span class="p">:</span> <span class="s">ur&#39;zh-CN,zh;q=0.8,en;q=0.6&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Accept-Encoding&#39;</span><span class="p">:</span> <span class="s">ur&#39;gzip, deflate, sdch&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Connection&#39;</span><span class="p">:</span> <span class="s">ur&#39;keep-alive&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s">ur&#39;Cache-Control&#39;</span><span class="p">:</span> <span class="s">ur&#39;max-age=0&#39;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">entity</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">],</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">u&quot;Http error!&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">d</span> <span class="o">=</span> <span class="n">pq</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">title</span> <span class="o">=</span> <span class="n">d</span><span class="p">(</span><span class="s">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">entity</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">u&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">imgs</span> <span class="o">=</span> <span class="n">d</span><span class="p">(</span><span class="s">&quot;img.origin_image.zh-lightbox-thumb.lazy&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pq</span><span class="p">(</span><span class="n">ele</span><span class="p">)</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="s">&quot;data-original&quot;</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">save_imgs</span><span class="p">():</span>
+</span><span class='line'>    <span class="n">dest_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span> <span class="o">+</span> <span class="s">&quot;/images/&quot;</span> <span class="o">+</span> <span class="n">entity</span><span class="p">[</span><span class="s">&#39;question&#39;</span><span class="p">]</span> <span class="o">+</span> \
+</span><span class='line'>               <span class="n">entity</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">dest_dir</span>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dest_dir</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dest_dir</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">dest_dir</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">img</span> <span class="o">+</span> <span class="s">&quot; done.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>使用方法很简单：</p>
 
@@ -41,7 +206,26 @@ python dl_with_names.py https://www.zhihu.com/question/37709992
 
 <p>上面这种方法适合有一定命令行基础的人群，对于普通人来说，更简单的方法是使用 <code>javascript</code> 。</p>
 
-<p>{% include_code zhihu/dl.js %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (dl.js)</span> <a href='/downloads/code/zhihu/dl.js'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * Created by caiknife on 16/9/9.</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div id=&quot;showImg&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">).</span><span class="nx">prependTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">));</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;img.origin_image.zh-lightbox-thumb.lazy&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#showImg&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;original&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&lt;br/&gt;&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>先在地址栏里输入 <code>javascript:</code> ， 再把上面的 JS 代码复制到地址栏里，回车之后就会在页面顶端出现问题页之内图片的链接。</p>
 
@@ -63,13 +247,555 @@ python dl_with_names.py https://www.zhihu.com/question/37709992
 <!-- more -->
 
 
-<p>{% include_code album_download/album_download.rb %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (album_download.rb)</span> <a href='/downloads/code/album_download/album_download.rb'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="c1">#!/usr/bin/ruby</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;rubygems&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;nokogiri&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;open-uri&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;thread&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;iconv&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;rbconfig&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../album&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Win环境？</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">on_windows?</span>
+</span><span class='line'>  <span class="k">if</span> <span class="ss">Config</span><span class="p">:</span><span class="ss">:CONFIG</span><span class="o">[</span><span class="s2">&quot;host_os&quot;</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;mingw32&quot;</span>
+</span><span class='line'>    <span class="kp">true</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="kp">false</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 任务类</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">AlbumDownload</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span>
+</span><span class='line'>    <span class="k">begin</span>
+</span><span class='line'>      <span class="n">get_cmd_params</span>
+</span><span class='line'>    <span class="k">rescue</span> <span class="no">ArgumentError</span> <span class="o">=&gt;</span> <span class="n">e</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="n">e</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">backtrace</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="vi">@verified_urls</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">go</span>
+</span><span class='line'>    <span class="k">begin</span>
+</span><span class='line'>      <span class="n">verify_urls</span>
+</span><span class='line'>      <span class="vi">@verified_urls</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">url</span><span class="o">|</span>
+</span><span class='line'>        <span class="no">Album</span><span class="o">.</span><span class="n">factory</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">download</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">rescue</span> <span class="no">InvalidUrlError</span> <span class="o">=&gt;</span> <span class="n">e</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="n">e</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">backtrace</span>
+</span><span class='line'>      <span class="nb">exit</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">download</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">protected</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">get_cmd_params</span>
+</span><span class='line'>    <span class="c1"># 没有命令行参数，抛出异常</span>
+</span><span class='line'>    <span class="k">raise</span> <span class="no">ArgumentError</span><span class="p">,</span> <span class="s2">&quot;Please input an album url!&quot;</span> <span class="k">if</span> <span class="no">ARGV</span><span class="o">.</span><span class="n">empty?</span>
+</span><span class='line'>    <span class="vi">@args</span> <span class="o">=</span> <span class="no">ARGV</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">verify_urls</span>
+</span><span class='line'>    <span class="c1"># 如果是有效链接，放入@verify_urls变量中</span>
+</span><span class='line'>    <span class="c1"># 命令行可以接收多个URL，但是实际用起来还是每次只输入一个就好。</span>
+</span><span class='line'>    <span class="vi">@args</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">arg</span><span class="o">|</span>
+</span><span class='line'>      <span class="vi">@verified_urls</span> <span class="o">&lt;&lt;</span> <span class="n">arg</span> <span class="k">if</span> <span class="n">valid_album?</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="k">raise</span> <span class="no">InvalidUrlError</span><span class="p">,</span> <span class="s2">&quot;Please input an valid album url!&quot;</span> <span class="k">if</span> <span class="vi">@verified_urls</span><span class="o">.</span><span class="n">empty?</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">valid_album?</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1"># 如果是豆瓣相册链接或者是人人相册链接</span>
+</span><span class='line'>    <span class="n">douban_album?</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="o">||</span> <span class="n">renren_album?</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">douban_album?</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1"># 豆瓣相册URL正则验证</span>
+</span><span class='line'>    <span class="no">DOUBAN_PUBLIC_ALBUM_URL_EXP</span> <span class="o">=~</span> <span class="n">url</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">renren_album?</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1"># 人人相册URL正则验证</span>
+</span><span class='line'>    <span class="no">RENREN_PUBLIC_ALBUM_URL_EXP</span> <span class="o">=~</span> <span class="n">url</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="bp">__FILE__</span> <span class="o">==</span> <span class="vg">$0</span>
+</span><span class='line'>  <span class="no">AlbumDownload</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">go</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>{% include_code album_download/album.rb %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (album.rb)</span> <a href='/downloads/code/album_download/album.rb'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="no">DOUBAN_PUBLIC_ALBUM_URL_EXP</span> <span class="o">=</span> <span class="sr">/http:\/\/www\.douban\.com\/photos\/album\/\d+\//</span>
+</span><span class='line'><span class="no">RENREN_PUBLIC_ALBUM_URL_EXP</span> <span class="o">=</span> <span class="sr">/http:\/\/page\.renren\.com\/\w+\/album\/\d+/</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">InvalidPicError</span> <span class="o">&lt;</span> <span class="no">Exception</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">InvalidUrlError</span> <span class="o">&lt;</span> <span class="no">Exception</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">InvalidAlbumError</span> <span class="o">&lt;</span> <span class="no">Exception</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Album</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@current_url</span> <span class="o">=</span> <span class="n">url</span>
+</span><span class='line'>    <span class="vi">@doc</span> <span class="o">=</span> <span class="ss">Nokogiri</span><span class="p">:</span><span class="ss">:HTML</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="vi">@current_url</span><span class="p">))</span>
+</span><span class='line'>    <span class="vi">@page_threads</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>    <span class="vi">@pic_threads</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>    <span class="vi">@download_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="vi">@lock</span> <span class="o">=</span> <span class="no">Mutex</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">download</span>
+</span><span class='line'>    <span class="k">begin</span>
+</span><span class='line'>      <span class="c1"># 获取相册图片数量，在子类中重载</span>
+</span><span class='line'>      <span class="n">get_album_pic_count</span>
+</span><span class='line'>    <span class="k">rescue</span> <span class="no">InvalidAlbumError</span> <span class="o">=&gt;</span> <span class="n">e</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="n">e</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">backtrace</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">time_start</span> <span class="o">=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;You are downloading pics from </span><span class="si">#{</span><span class="vi">@current_url</span><span class="si">}</span><span class="s2"> ...&quot;</span>
+</span><span class='line'>    <span class="c1"># 下载，也是需要重载的</span>
+</span><span class='line'>    <span class="n">start_downloading</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Downloading pics from </span><span class="si">#{</span><span class="vi">@current_url</span><span class="si">}</span><span class="s2"> completed ...&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Costing time </span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="n">time_start</span><span class="si">}</span><span class="s2"> seconds ...&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span><span class='line'>    <span class="c1"># 工厂方法，跟前面判断URL的地方有些重复</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">factory</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">case</span>
+</span><span class='line'>        <span class="k">when</span> <span class="no">DOUBAN_PUBLIC_ALBUM_URL_EXP</span> <span class="o">=~</span> <span class="n">url</span> <span class="k">then</span> <span class="no">DoubanAlbum</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">when</span> <span class="no">RENREN_PUBLIC_ALBUM_URL_EXP</span> <span class="o">=~</span> <span class="n">url</span> <span class="k">then</span> <span class="no">RenrenAlbum</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="no">InvalidUrlError</span><span class="p">,</span> <span class="s2">&quot;The album url </span><span class="si">#{</span><span class="n">url</span><span class="si">}</span><span class="s2"> is invalid!&quot;</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">protected</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># 创建相册文件夹</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">create_album_folder</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="no">File</span><span class="o">.</span><span class="n">exist?</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;Creating folder </span><span class="si">#{</span><span class="n">folder_name</span><span class="si">}</span><span class="s2"> ...&quot;</span>
+</span><span class='line'>      <span class="ss">Dir</span><span class="p">:</span><span class="ss">:mkdir</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Downloaidng pics to </span><span class="si">#{</span><span class="n">folder_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># 写入单个图片</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">write_file</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">stream</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span> <span class="p">}</span>
+</span><span class='line'>    <span class="nb">open</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># 下载任务，在子类中重载  </span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">start_downloading</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># 获取相册名字，要重载</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">get_folder_name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># 获取相册图片数量，要重载</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">get_album_pic_count</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 加载子类</span>
+</span><span class='line'><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../douban_album&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+</span><span class='line'><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../renren_album&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>{% include_code album_download/douban_album.rb %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (douban_album.rb)</span> <a href='/downloads/code/album_download/douban_album.rb'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">DoubanAlbum</span> <span class="o">&lt;</span> <span class="no">Album</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">super</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@page_item</span> <span class="o">=</span> <span class="mi">18</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">protected</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">start_downloading</span>
+</span><span class='line'>    <span class="c1"># 创建文件夹</span>
+</span><span class='line'>    <span class="n">create_album_folder</span><span class="p">(</span><span class="n">get_folder_name</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># 分页下载</span>
+</span><span class='line'>    <span class="p">(</span><span class="vi">@sum</span><span class="o">/</span><span class="vi">@page_item</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1"># 多线程下载</span>
+</span><span class='line'>      <span class="vi">@page_threads</span> <span class="o">&lt;&lt;</span> <span class="no">Thread</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">url</span> <span class="o">=</span> <span class="vi">@current_url</span> <span class="o">+</span> <span class="s2">&quot;?start=&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="vi">@page_item</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>        <span class="n">page</span> <span class="o">=</span> <span class="ss">Nokogiri</span><span class="p">:</span><span class="ss">:HTML</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+</span><span class='line'>        <span class="nb">puts</span> <span class="s2">&quot;Analyzing url </span><span class="si">#{</span><span class="n">url</span><span class="si">}</span><span class="s2"> ...&quot;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1"># 页内下载</span>
+</span><span class='line'>        <span class="n">page</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;.photo_wrap a img&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">img</span><span class="o">|</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="c1"># 每一页内也要进行多线程下载</span>
+</span><span class='line'>          <span class="vi">@pic_threads</span> <span class="o">&lt;&lt;</span> <span class="no">Thread</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+</span><span class='line'>            <span class="n">source</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sr">/thumb/</span><span class="p">,</span> <span class="s2">&quot;photo&quot;</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">dest</span> <span class="o">=</span> <span class="sr">/[\w_]+\.(jpg|jpeg|png)/i</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>            <span class="n">write_file</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vi">@folder_name</span><span class="p">,</span> <span class="n">dest</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1"># 在命令行内同步输出</span>
+</span><span class='line'>            <span class="vi">@lock</span><span class="o">.</span><span class="n">synchronize</span> <span class="p">{</span> <span class="nb">puts</span> <span class="s2">&quot;Created file </span><span class="si">#{</span><span class="n">dest</span><span class="si">}</span><span class="s2"> to </span><span class="si">#{</span><span class="vi">@folder_name</span><span class="si">}</span><span class="s2"> from </span><span class="si">#{</span><span class="n">source</span><span class="si">}</span><span class="s2"> ... </span><span class="si">#{</span><span class="vi">@download_count</span> <span class="o">+=</span> <span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="vi">@sum</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+</span><span class='line'>          <span class="k">end</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># 线程同步</span>
+</span><span class='line'>    <span class="vi">@page_threads</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span> <span class="n">t</span><span class="o">.</span><span class="n">join</span> <span class="p">}</span>
+</span><span class='line'>    <span class="vi">@pic_threads</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span> <span class="n">t</span><span class="o">.</span><span class="n">join</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">get_folder_name</span>
+</span><span class='line'>    <span class="vi">@folder_name</span> <span class="o">=</span> <span class="sr">/\d+\/$/</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="vi">@current_url</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sr">/\//</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="vi">@doc</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span>
+</span><span class='line'>    <span class="c1"># Win下要转码</span>
+</span><span class='line'>    <span class="vi">@folder_name</span> <span class="o">=</span> <span class="no">Iconv</span><span class="o">.</span><span class="n">iconv</span><span class="p">(</span><span class="s2">&quot;GB2312&quot;</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span> <span class="vi">@folder_name</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span> <span class="k">if</span> <span class="n">on_windows?</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">get_album_pic_count</span>
+</span><span class='line'>    <span class="n">re</span> <span class="o">=</span> <span class="vi">@doc</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;.wr span.pl&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">raise</span> <span class="no">InvalidAlbumError</span><span class="p">,</span> <span class="s2">&quot;This is an invalid ablum!&quot;</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">empty?</span>
+</span><span class='line'>    <span class="vi">@sum</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">inner_text</span><span class="o">.</span><span class="n">to_i</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>{% include_code album_download/renren_album.rb %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (renren_album.rb)</span> <a href='/downloads/code/album_download/renren_album.rb'>download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">RenrenAlbum</span> <span class="o">&lt;</span> <span class="no">Album</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">super</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@page_item</span> <span class="o">=</span> <span class="mi">15</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">protected</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">start_downloading</span>
+</span><span class='line'>    <span class="n">create_album_folder</span><span class="p">(</span><span class="n">get_folder_name</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="vi">@sum</span><span class="o">/</span><span class="vi">@page_item</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+</span><span class='line'>      <span class="vi">@page_threads</span> <span class="o">&lt;&lt;</span> <span class="no">Thread</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">url</span> <span class="o">=</span> <span class="vi">@current_url</span><span class="o">+</span><span class="s2">&quot;?curpage=&quot;</span><span class="o">+</span><span class="n">i</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>        <span class="n">page</span> <span class="o">=</span> <span class="ss">Nokogiri</span><span class="p">:</span><span class="ss">:HTML</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+</span><span class='line'>        <span class="nb">puts</span> <span class="s2">&quot;Analyzing url </span><span class="si">#{</span><span class="n">url</span><span class="si">}</span><span class="s2"> ...&quot;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">page</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;td.photoPan a&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">link</span><span class="o">|</span>
+</span><span class='line'>          <span class="vi">@pic_threads</span> <span class="o">&lt;&lt;</span> <span class="no">Thread</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+</span><span class='line'>            <span class="n">url</span> <span class="o">=</span> <span class="vi">@current_url</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="sr">/http:\/\/[\w+\.]+/</span><span class="p">)</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="n">to_s</span> <span class="o">+</span> <span class="n">link</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>            <span class="n">source</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="sr">/&quot;large&quot;:&quot;(http:[\\\/\w.]+\.jpg)&quot;/</span><span class="p">)</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">0</span><span class="o">].</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\\/</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">dest</span> <span class="o">=</span> <span class="sr">/[\w_]+\.(jpg|jpeg|png)/i</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>            <span class="n">write_file</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vi">@folder_name</span><span class="p">,</span> <span class="n">dest</span><span class="p">))</span>
+</span><span class='line'>            <span class="vi">@lock</span><span class="o">.</span><span class="n">synchronize</span> <span class="p">{</span> <span class="nb">puts</span> <span class="s2">&quot;Created file </span><span class="si">#{</span><span class="n">dest</span><span class="si">}</span><span class="s2"> to </span><span class="si">#{</span><span class="vi">@folder_name</span><span class="si">}</span><span class="s2"> from </span><span class="si">#{</span><span class="n">source</span><span class="si">}</span><span class="s2"> ... </span><span class="si">#{</span><span class="vi">@download_count</span> <span class="o">+=</span> <span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="vi">@sum</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">}</span>
+</span><span class='line'>          <span class="k">end</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="vi">@page_threads</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span> <span class="n">t</span><span class="o">.</span><span class="n">join</span> <span class="p">}</span>
+</span><span class='line'>    <span class="vi">@pic_threads</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span> <span class="n">t</span><span class="o">.</span><span class="n">join</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">get_folder_name</span>
+</span><span class='line'>    <span class="vi">@folder_name</span> <span class="o">=</span> <span class="sr">/\d+$/</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="vi">@current_url</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="vi">@doc</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;div.pager-top span h3&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>    <span class="vi">@folder_name</span> <span class="o">=</span> <span class="no">Iconv</span><span class="o">.</span><span class="n">iconv</span><span class="p">(</span><span class="s2">&quot;GB2312&quot;</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span> <span class="vi">@folder_name</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span> <span class="k">if</span> <span class="n">on_windows?</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">get_album_pic_count</span>
+</span><span class='line'>    <span class="n">re</span> <span class="o">=</span> <span class="vi">@doc</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&quot;div.pager-top span&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="sr">/共(\d+)张/</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">raise</span> <span class="no">InvalidAlbumError</span><span class="p">,</span> <span class="s2">&quot;This is an invalid ablum!&quot;</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">nil?</span>
+</span><span class='line'>    <span class="vi">@sum</span> <span class="o">=</span> <span class="n">re</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">0</span><span class="o">].</span><span class="n">to_i</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>用起来很简单，直接在命令行下输入：</p>
 
