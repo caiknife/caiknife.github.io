@@ -9,14 +9,32 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="晚上在家尝试做了一下redis的主从复制。下面的Linux命令有一部分需要sudo才能完成。 首先复制一份redis.conf： 1
-$ cp /etc/redis/redis.conf /etc/redis/slave.conf 有几处地方需要修改： 1
+  <meta name="description" content="在PHP里，根据字符串动态调用方法是一件很简单的事情。 1
 2
 3
 4
 5
 6
-$ vi /etc/ &hellip;">
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+class Foo { // static method public static function &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +101,135 @@ $ vi /etc/ &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/15/dynamic-method/">根据字符串名称动态调用Python的函数和对象方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-15T14:31:00+08:00" pubdate data-updated="true">Aug 15<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-15T14:31:00+08:00" pubdate data-updated="true">Aug 15<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/magic/'>magic</a>, <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>在PHP里，根据字符串动态调用方法是一件很简单的事情。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// static method</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">sbar</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;foosbar!&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// normal method</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;foobar!&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// normal function</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">echo</span> <span class="s2">&quot;bar!&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$name</span> <span class="o">=</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$sname</span> <span class="o">=</span> <span class="s2">&quot;sbar&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$name</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$foo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">();</span>
+</span><span class='line'><span class="nv">$foo</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">$name</span><span class="p">}();</span>
+</span><span class='line'><span class="nv">$foo</span><span class="o">::</span><span class="nv">$sname</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>输出结果：</p>
+
+<blockquote><p>bar!<br/>
+foobar!<br/>
+foosbar!</p></blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/15/dynamic-method/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -865,78 +1012,6 @@ $ vi /etc/ &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/02/scrapy-json-solution/">Scrapy保存json格式的一点小问题</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-02T00:01:00+08:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-02T00:01:00+08:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/scrapy/'>scrapy</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>折腾了两天，才把Scrapy的稍微弄懂了一点点，还得多加努力。</p>
-
-<p>昨天用Scrapy练手，打算先爬豆瓣小组的帖子。没想到由于中文的问题，Scrapy会用unicode来处理中文，所以保存到文件中就成了unicode字符串，昨天弄了一晚上都没弄好，今晚稍微理清了一点头绪。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/02/scrapy-json-solution/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; 向前</a>
@@ -952,6 +1027,10 @@ $ vi /etc/ &hellip;">
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/12/11/ji-zhu-ren-yuan-de-fa-zhan-zhi-lu/">技术人员的发展之路</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/12/01/yang-sheng-yang-wen-ti/">算法题：羊生羊问题</a>
@@ -987,10 +1066,6 @@ $ vi /etc/ &hellip;">
     
       <li class="post">
         <a href="/blog/2018/11/24/goyu-yan-ji-zhi-shi/">思维导图：Go语言基础知识</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/24/ru-he-she-ji-ge-miao-sha-xi-tong/">思维导图：如何设计一个秒杀系统</a>
       </li>
     
   </ul>

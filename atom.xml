@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-12-01T23:15:31+08:00</updated>
+  <updated>2018-12-11T17:20:53+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[技术人员的发展之路]]></title>
+    <link href="http://caiknife.github.io/blog/2018/12/11/ji-zhu-ren-yuan-de-fa-zhan-zhi-lu/"/>
+    <updated>2018-12-11T15:02:42+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/12/11/ji-zhu-ren-yuan-de-fa-zhan-zhi-lu</id>
+    <content type="html"><![CDATA[<p>看过左耳朵耗子的这篇文章<a href="https://coolshell.cn/articles/17583.html">《技术人员的发展之路》</a>有感而发，技术人员年纪大了之后的出路真的是一个问题。</p>
+
+<p>多年以来一直在看coolshell的文章，从很早就在Google Reader里订阅了RSS。直到Google Reader死掉，coolshell都没停更过。我一直从这里面吸取着营养。</p>
+
+<!-- more -->
+
+
+<p>这篇文章真的给我不少启示，确实可以从此思考一下，作为一个普通人的发展到底可以做成什么样？</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/about/career.png" title="技术人员的发展之路 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/about/career.png" alt="技术人员的发展之路 " /></a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[算法题：羊生羊问题]]></title>
@@ -2046,58 +2064,6 @@ abc acb bac bca cab cba</p></blockquote>
 </span><span class='line'>    StrictHostKeyChecking no
 </span><span class='line'>    Port 2222</span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[composer问题排查]]></title>
-    <link href="http://caiknife.github.io/blog/2018/10/19/composepai-cha/"/>
-    <updated>2018-10-19T14:48:38+08:00</updated>
-    <id>http://caiknife.github.io/blog/2018/10/19/composepai-cha</id>
-    <content type="html"><![CDATA[<p>今天更新 composer 库的时候出现了一个问题：</p>
-
-<p><a href="http://caiknife.github.io/downloads/image/composer/1.png" title="Composer Issue " class="fancybox"><img src="http://caiknife.github.io/downloads/image/composer/1.png" alt="Composer Issue " /></a></p>
-
-<p>上图不是我的电脑出现的问题，是通过搜索引擎搜到的图片，我和提出这个问题的题主碰到了一样的问题。</p>
-
-<!-- more -->
-
-
-<p>查了半天没找到原因是什么，后来在查当前代码库的时候，composer.json 文件里的配置是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="nt">&quot;repositories&quot;</span><span class="p">:</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nt">&quot;packagist&quot;</span><span class="p">:</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;composer&quot;</span><span class="p">,</span>
-</span><span class='line'>      <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;packagist.phpcomposer.com&quot;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>搜索了问题之后，发现 packagist.phpcomposer.com 这个镜像已经很久没有更新了，所以就造成了目前的问题。只需要把仓库换个镜像源就可以了。</p>
-
-<p>用下面的命令将镜像地址替换为 <a href="https://packagist.laravel-china.org">https://packagist.laravel-china.org</a> 即可。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>composer config -g repo.packagist composer https://packagist.laravel-china.org
-</span><span class='line'>
-</span><span class='line'>composer config repo.packagist composer https://packagist.laravel-china.org
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Problem resolved.</p>
 ]]></content>
   </entry>
   
