@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-12-11T17:20:53+08:00</updated>
+  <updated>2018-12-17T09:57:13+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,28 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[开始刷leetcode]]></title>
+    <link href="http://caiknife.github.io/blog/2018/12/17/kai-shi-shua-leetcode/"/>
+    <updated>2018-12-17T09:50:09+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/12/17/kai-shi-shua-leetcode</id>
+    <content type="html"><![CDATA[<p>周末开始刷<code>Leetcode</code>，是不是有点太晚了？</p>
+
+<!-- more -->
+
+
+<p>目前只能从简单的题目开始入手，周末主要把数据库和Bash的题目刷掉了，算法和数据结构的题目还是慢慢入手，毕竟已经不用这些很久了。</p>
+
+<p><code>Leetcode</code>账号在这里：<a href="https://leetcode-cn.com/caiknife/">https://leetcode-cn.com/caiknife/</a></p>
+
+<p>源代码在这里：<a href="https://github.com/caiknife/leetcode">https://github.com/caiknife/leetcode</a></p>
+
+<p>题目描述和单元测试都有，我觉得我做得还行。</p>
+
+<p>加油。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[技术人员的发展之路]]></title>
@@ -2030,40 +2052,6 @@ abc acb bac bca cab cba</p></blockquote>
 <p>20180925乐感讲座浓缩版-打拍子&amp;听乐器 <a href="https://music.163.com/#/program?id=2056693131">https://music.163.com/#/program?id=2056693131</a></p>
 
 <p>为了音乐，我实在是付出了不少，回报也微乎其微，苦中作乐不容易啊。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[SSH配置备忘]]></title>
-    <link href="http://caiknife.github.io/blog/2018/10/22/zhi-bei-wang/"/>
-    <updated>2018-10-22T19:46:38+08:00</updated>
-    <id>http://caiknife.github.io/blog/2018/10/22/zhi-bei-wang</id>
-    <content type="html"><![CDATA[<p>记录一下我机器上的SSHConfig，防止将来忘记了。</p>
-
-<!-- more -->
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Host jserver
-</span><span class='line'>    HostName ********
-</span><span class='line'>    User caiknife
-</span><span class='line'>
-</span><span class='line'>Host j2server
-</span><span class='line'>    HostName ********
-</span><span class='line'>    User caiknife
-</span><span class='line'>    StrictHostKeyChecking no
-</span><span class='line'>    Port 2222</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

@@ -9,7 +9,8 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="折腾了两天，才把Scrapy的稍微弄懂了一点点，还得多加努力。 昨天用Scrapy练手，打算先爬豆瓣小组的帖子。没想到由于中文的问题，Scrapy会用unicode来处理中文，所以保存到文件中就成了unicode字符串，昨天弄了一晚上都没弄好，今晚稍微理清了一点头绪。 ">
+  <meta name="description" content="现在在公司里做Tracking的工作，在开发环境下，Tracking的log文件保存在服务器的/mezi/sites/apache/logs下，然后又根据网站的不同有着下面这样的格式： 1
+{site_name}_{machine_name}_YYYY_MM_DD_HH_xx.tracking. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,82 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/02/print-site-log-in-vcb/">一个用来打印log的脚本</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-02T00:48:00+08:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-02T00:48:00+08:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/shell/'>shell</a>, <a class='category' href='/blog/categories/vcb/'>vcb</a>, <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>现在在公司里做Tracking的工作，在开发环境下，Tracking的log文件保存在服务器的/mezi/sites/apache/logs下，然后又根据网站的不同有着下面这样的格式：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{site_name}_{machine_name}_YYYY_MM_DD_HH_xx.tracking.log</span></code></pre></td></tr></table></div></figure>
+
+
+<p>从文件格式来看，是每小时生成一个log文件，但是有些站点会每10分钟生成一个log文件，而服务器上又是UTC时间，但是在我的机器上却是北京时间，这样就很不方便看到最新的log。每次要看log，还得脑子里计算一下时差来确认最新的log文件名，实在太不方便了，于是就写了个脚本来看最新的log文件内容。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/02/print-site-log-in-vcb/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -303,6 +380,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2018/12/17/kai-shi-shua-leetcode/">开始刷leetcode</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/12/11/ji-zhu-ren-yuan-de-fa-zhan-zhi-lu/">技术人员的发展之路</a>
       </li>
     
@@ -336,10 +417,6 @@
     
       <li class="post">
         <a href="/blog/2018/11/25/pa-lou-ti-suan-fa/">算法题：爬楼梯算法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/24/goyu-yan-ji-zhi-shi/">思维导图：Go语言基础知识</a>
       </li>
     
   </ul>

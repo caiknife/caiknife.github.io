@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="octopress 默认没有放大图片的效果，今天用 fancybox 做了一个插件扩展。 首先从 http://fancyapps.com/fancybox/#license 下载最新版的 fancybox ，解压缩后复制 source 目录到 octopress 的 javascripts &hellip;">
+  <meta name="description" content="曾经我以为只要能用好 jQuery 就够了，后来做天猫的外包之后接触到了 Kissy 这个东西，感觉自己才刚进了前端的门。 很久之前，因为经常使用 CakePHP ，就用上了 Scriptaculous 这个框架，接着就是 jQuery 一路用下来，期间又对 YUI 和 MooTools 浅尝辄止 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/10/frontend-is-a-big-hole/">前端这个坑该不该踩？该踩多深？</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-10T00:47:00+08:00" pubdate data-updated="true">Oct 10<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-10T00:47:00+08:00" pubdate data-updated="true">Oct 10<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/js/'>js</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>曾经我以为只要能用好 jQuery 就够了，后来做天猫的外包之后接触到了 Kissy 这个东西，感觉自己才刚进了前端的门。</p>
+
+<p>很久之前，因为经常使用 CakePHP ，就用上了 Scriptaculous 这个框架，接着就是 jQuery 一路用下来，期间又对 YUI 和 MooTools 浅尝辄止。接着又惊闻 JS 可以做后端开发了（Node.JS），过完 2012 年，当我再想看看前端界有什么新技术的时候，似乎那里已经百花齐放、百家争艳了。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/10/10/frontend-is-a-big-hole/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -784,82 +856,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/01/varnish-testing/">Varnish 测试（2）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-01T23:27:00+08:00" pubdate data-updated="true">Sep 1<span>st</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-01T23:27:00+08:00" pubdate data-updated="true">Sep 1<span>st</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/test/'>test</a>, <a class='category' href='/blog/categories/varnish/'>varnish</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>继续上次的话题。</p>
-
-<h3>加上了反向代理之后如何获取客户端 IP ？</h3>
-
-<p>由于 varnish 是处于 web 服务器之前的位置，所以 varnish 实际上可以看作是一个 reverse proxy 的服务器。后端的代码要获取客户端 IP 地址的话，如果不做设置，获取的实际上是 varnish 服务器的 IP 地址。比如在 PHP 中经常使用到的 <code>$_SERVER['REMOTE_ADDR']</code> 这个变量，如果没有 varnish 做代理，就是正确的客户端 IP ;如果在 varnish 之后使用的话，只能获得 varnish 服务器的 IP 地址。所以，我们得对 varnish 做一点特殊的处理。</p>
-
-<p>还好 varnish 的配置文件里已经给我们默认写出了这段代码，我们只需要在自己的代码中 copy 过来即可。直接在 <code>vcl_recv</code> 这里补充就行。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/09/01/varnish-testing/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; 向前</a>
@@ -875,6 +871,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/12/17/kai-shi-shua-leetcode/">开始刷leetcode</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/12/11/ji-zhu-ren-yuan-de-fa-zhan-zhi-lu/">技术人员的发展之路</a>
@@ -910,10 +910,6 @@
     
       <li class="post">
         <a href="/blog/2018/11/25/pa-lou-ti-suan-fa/">算法题：爬楼梯算法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/24/goyu-yan-ji-zhi-shi/">思维导图：Go语言基础知识</a>
       </li>
     
   </ul>
