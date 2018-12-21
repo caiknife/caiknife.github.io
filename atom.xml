@@ -4,7 +4,7 @@
   <title><![CDATA[但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-12-17T09:57:13+08:00</updated>
+  <updated>2018-12-22T01:58:49+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[如何保障项目成功]]></title>
+    <link href="http://caiknife.github.io/blog/2018/12/22/ru-he-bao-zhang-xiang-mu-cheng-gong/"/>
+    <updated>2018-12-22T01:37:59+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/12/22/ru-he-bao-zhang-xiang-mu-cheng-gong</id>
+    <content type="html"><![CDATA[<p>凡事都是学问，最好都能有一定的方法论进行指导，如果只会蛮干硬上，靠本能驱动的话会造成非常可怕的后果。</p>
+
+<p>千万不能迷信<strong><em>“有条件要上，没有条件创造条件也要上”</em></strong>。</p>
+
+<!-- more -->
+
+
+<blockquote><p>思路要开阔点，一个项目成功可不仅仅是写代码这么简单。你也做过很多项目效益分析，你自己想想，有几个项目是真的死于技术不行的。如果老板期望过高呢？如果给的资源不够呢？如果其他部门不配合你呢？你做精准营销，人家一线销售根本不鸟你，你怎么精准？如果你能从结果出发，倒推做成项目需要什么。用这些分析去影响业务部门，岂不是比别人挖好了坑，自己边骂边填更好？</p></blockquote>
+
+<p>确实，为什么要一辈子做爬坑的那个，而不试着拿过挖坑的锹呢？</p>
+
+<p>上一个台阶看问题，就发现影响项目成功的因素有很多，技术只占其中一部分。特别是销售、市场、运营类项目。这些项目本质上还是要和人打交道。无论是做经营分析、做精准营销、做个性化推送、最后还是要靠各部门通力合作。从做好项目的角度来看，还是有很多发挥余空间的。</p>
+
+<p>最后写了一张图。</p>
+
+<p><a href="http://caiknife.github.io/downloads/image/about/pm.png" title="如何保障项目成功 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/about/pm.png" alt="如何保障项目成功 " /></a></p>
+
+<p>可能还会有缺陷，希望每当我跨上一个新的台阶的时候，我能够将这张图做得更加完善。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[开始刷leetcode]]></title>
@@ -2022,36 +2048,6 @@ abc acb bac bca cab cba</p></blockquote>
 <hr />
 
 <p>今天就先到这里，下回再继续吧。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[摇摆舞者乐感入门指南]]></title>
-    <link href="http://caiknife.github.io/blog/2018/11/01/yao-bai-wu-zhe-le-gan-ru-men-zhi-nan/"/>
-    <updated>2018-11-01T10:24:18+08:00</updated>
-    <id>http://caiknife.github.io/blog/2018/11/01/yao-bai-wu-zhe-le-gan-ru-men-zhi-nan</id>
-    <content type="html"><![CDATA[<p>很久以前，我想成为一个牛逼的吉他手；多年以后，我致力于做音乐的传播者，提高身边朋友们的音乐素养，告诉大家如何去欣赏音乐。</p>
-
-<p>自从 2017 年开始学习摇摆舞以来，我一直都把之前学习吉他的经验应用到学习摇摆舞中，进步还算明显，跳舞之余，还给大家分享了一些有关乐理和乐感的知识。</p>
-
-<!-- more -->
-
-
-<p>最终，我写出了一张摇摆舞者可以用得上的有关乐理和乐感的思维导图：</p>
-
-<p><a href="http://caiknife.github.io/downloads/image/about/swing.png" title="摇摆舞者乐感入门指南 " class="fancybox"><img src="http://caiknife.github.io/downloads/image/about/swing.png" alt="摇摆舞者乐感入门指南 " /></a></p>
-
-<p>配合几次分享的录音，加上这张图，我相信会对各位舞者的乐感有所帮助。</p>
-
-<p>20180819乐感讲座（1）-打拍子 <a href="https://music.163.com/program?id=1370712472">https://music.163.com/program?id=1370712472</a></p>
-
-<p>20180909乐感讲座（2）-听乐器 <a href="https://music.163.com/program?id=2056478909">https://music.163.com/program?id=2056478909</a></p>
-
-<p>20180916乐感讲座（3）-识风格 <a href="https://music.163.com/program?id=2056582052">https://music.163.com/program?id=2056582052</a></p>
-
-<p>20180925乐感讲座浓缩版-打拍子&amp;听乐器 <a href="https://music.163.com/#/program?id=2056693131">https://music.163.com/#/program?id=2056693131</a></p>
-
-<p>为了音乐，我实在是付出了不少，回报也微乎其微，苦中作乐不容易啊。</p>
 ]]></content>
   </entry>
   

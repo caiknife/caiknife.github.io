@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="继续上次的话题。 加上了反向代理之后如何获取客户端 IP ？ 由于 varnish 是处于 web 服务器之前的位置，所以 varnish 实际上可以看作是一个 reverse proxy 的服务器。后端的代码要获取客户端 IP 地址的话，如果不做设置，获取的实际上是 varnish 服务器的 &hellip;">
+  <meta name="description" content="花了一个下午的时间学习了 bootstrap ，用的版本是 2.3.2 ，暂时不用 bs3 还是想保守一点先用 2.x 这个比较成熟的框架做点东西出来。 今天的成果就是一个页面 bootstrap 速查卡。写得很简陋，列出了一些平常开发时会用到的元素，方便以后开发的时候可以很快就能利用起来。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,79 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/05/start-bootstrap/">Bootstrap 初学习</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-05T00:13:00+08:00" pubdate data-updated="true">Sep 5<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-05T00:13:00+08:00" pubdate data-updated="true">Sep 5<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bootstrap/'>bootstrap</a>, <a class='category' href='/blog/categories/css/'>css</a>, <a class='category' href='/blog/categories/js/'>js</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>花了一个下午的时间学习了 bootstrap ，用的版本是 2.3.2 ，暂时不用 bs3 还是想保守一点先用 2.x 这个比较成熟的框架做点东西出来。</p>
+
+<p>今天的成果就是一个页面 <a href="/bootstrap/" target="_blank">bootstrap 速查卡</a>。写得很简陋，列出了一些平常开发时会用到的元素，方便以后开发的时候可以很快就能利用起来。</p>
+
+<p>更详细的文档可以在 <a href="http://www.bootcss.com/scaffolding.html">http://www.bootcss.com/scaffolding.html</a> 查到。</p>
+
+<p>今天花了很多时间在学习 bootstrap 上，有些心得暂时来不及写了。过几天时间补上。</p>
+
+<p>Have a nice day！</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -899,120 +972,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/20/redis-experiment/">Redis实验（1）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-20T21:30:00+08:00" pubdate data-updated="true">Aug 20<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-20T21:30:00+08:00" pubdate data-updated="true">Aug 20<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/redis/'>redis</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>研究了一下redis的常用技巧。</p>
-
-<p>除了SET方法之外，redis还有MSET方法可以批量设置，如果发现有同名的key存在，就会覆盖原有的key。如果不想覆盖已经存在的key，请使用MSETNX方法。</p>
-
-<p>用法：MSET key value [key value &hellip;]</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>redis&gt; MSET key1 "Hello" key2 "World"
-</span><span class='line'>OK
-</span><span class='line'>redis&gt; GET key1
-</span><span class='line'>"Hello"
-</span><span class='line'>redis&gt; GET key2
-</span><span class='line'>"World"
-</span><span class='line'>redis&gt; </span></code></pre></td></tr></table></div></figure>
-
-
-<p>用法：MSETNX key value [key value &hellip;]</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>redis&gt; MSETNX key1 "Hello" key2 "there"
-</span><span class='line'>(integer) 1
-</span><span class='line'>redis&gt; MSETNX key2 "there" key3 "world"
-</span><span class='line'>(integer) 0
-</span><span class='line'>redis&gt; MGET key1 key2 key3
-</span><span class='line'>1) "Hello"
-</span><span class='line'>2) "there"
-</span><span class='line'>3) (nil)
-</span><span class='line'>redis&gt; </span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/20/redis-experiment/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; 向前</a>
@@ -1028,6 +987,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/12/22/ru-he-bao-zhang-xiang-mu-cheng-gong/">如何保障项目成功</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/12/17/kai-shi-shua-leetcode/">开始刷leetcode</a>
@@ -1063,10 +1026,6 @@
     
       <li class="post">
         <a href="/blog/2018/11/25/zhi-bo-dan-mu-xi-tong-de-she-ji/">思考题：直播弹幕系统的设计</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/25/pa-lou-ti-suan-fa/">算法题：爬楼梯算法</a>
       </li>
     
   </ul>

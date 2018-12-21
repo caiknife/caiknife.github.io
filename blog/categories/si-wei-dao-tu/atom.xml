@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 思维导图 | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/si-wei-dao-tu/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-12-17T09:57:13+08:00</updated>
+  <updated>2018-12-22T01:58:49+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[如何保障项目成功]]></title>
+    <link href="http://caiknife.github.io/blog/2018/12/22/ru-he-bao-zhang-xiang-mu-cheng-gong/"/>
+    <updated>2018-12-22T01:37:59+08:00</updated>
+    <id>http://caiknife.github.io/blog/2018/12/22/ru-he-bao-zhang-xiang-mu-cheng-gong</id>
+    <content type="html"><![CDATA[<p>凡事都是学问，最好都能有一定的方法论进行指导，如果只会蛮干硬上，靠本能驱动的话会造成非常可怕的后果。</p>
+
+<p>千万不能迷信<strong><em>“有条件要上，没有条件创造条件也要上”</em></strong>。</p>
+
+<!-- more -->
+
+
+<blockquote><p>思路要开阔点，一个项目成功可不仅仅是写代码这么简单。你也做过很多项目效益分析，你自己想想，有几个项目是真的死于技术不行的。如果老板期望过高呢？如果给的资源不够呢？如果其他部门不配合你呢？你做精准营销，人家一线销售根本不鸟你，你怎么精准？如果你能从结果出发，倒推做成项目需要什么。用这些分析去影响业务部门，岂不是比别人挖好了坑，自己边骂边填更好？</p></blockquote>
+
+<p>确实，为什么要一辈子做爬坑的那个，而不试着拿过挖坑的锹呢？</p>
+
+<p>上一个台阶看问题，就发现影响项目成功的因素有很多，技术只占其中一部分。特别是销售、市场、运营类项目。这些项目本质上还是要和人打交道。无论是做经营分析、做精准营销、做个性化推送、最后还是要靠各部门通力合作。从做好项目的角度来看，还是有很多发挥余空间的。</p>
+
+<p>最后写了一张图。</p>
+
+<p><a href="/downloads/image/about/pm.png" title="如何保障项目成功 " class="fancybox"><img src="/downloads/image/about/pm.png" alt="如何保障项目成功 " /></a></p>
+
+<p>可能还会有缺陷，希望每当我跨上一个新的台阶的时候，我能够将这张图做得更加完善。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[技术人员的发展之路]]></title>
@@ -92,30 +118,6 @@
 <p>人生艰难。</p>
 
 <p>人间不值得，我自己最值得。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[PHP知识体系]]></title>
-    <link href="http://caiknife.github.io/blog/2018/09/13/phpzhi-shi-ti-xi/"/>
-    <updated>2018-09-13T10:06:52+08:00</updated>
-    <id>http://caiknife.github.io/blog/2018/09/13/phpzhi-shi-ti-xi</id>
-    <content type="html"><![CDATA[<p>最近花了几天时间写了一个有关PHP的思维导图。</p>
-
-<!-- more -->
-
-
-<p>虽然已经工作了很多年了，但是之前一直很少静下来给自己做一次深刻的总结。</p>
-
-<p>这一次，就当写了一次给自己的My Back Pages。</p>
-
-<p><embed src="https://imgcache.qq.com/tencentvideo_v1/playerv3/TPout.swf?max_age=86400&v=20161117&vid=x01784z0bba&auto=0" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed></p>
-
-<p>思维导图源文件下载点击这里：<a href="/downloads/image/php/php.xmind">PHP知识体系</a></p>
-
-<p>原图在下面：</p>
-
-<p><a href="/downloads/image/php/php.png" title="PHP知识体系 " class="fancybox"><img src="/downloads/image/php/php.png" alt="PHP知识体系 " /></a></p>
 ]]></content>
   </entry>
   

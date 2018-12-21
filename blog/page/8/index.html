@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="曾经我以为只要能用好 jQuery 就够了，后来做天猫的外包之后接触到了 Kissy 这个东西，感觉自己才刚进了前端的门。 很久之前，因为经常使用 CakePHP ，就用上了 Scriptaculous 这个框架，接着就是 jQuery 一路用下来，期间又对 YUI 和 MooTools 浅尝辄止 &hellip;">
+  <meta name="description" content="前段时间 SMKR 上线了一个 coupon 频道，用的是 CMUS 的 coupon 数据，用户点击一个 coupon 之后，会先跳转到 CMUS 站点然后再跳转到商家站点。这样在 SMKR 站点上就会记录一个 Affiliate Outgoing Log，在 CMUS 站点上记录一个 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,80 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/11/http-referer-not-available-in-ie/">IE 下获取 HTTP_REFERER 无效</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-11T15:19:00+08:00" pubdate data-updated="true">Oct 11<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-11T15:19:00+08:00" pubdate data-updated="true">Oct 11<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/browser/'>browser</a>, <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>前段时间 SMKR 上线了一个 coupon 频道，用的是 CMUS 的 coupon 数据，用户点击一个 coupon 之后，会先跳转到 CMUS 站点然后再跳转到商家站点。这样在 SMKR 站点上就会记录一个 <code>Affiliate Outgoing Log</code>，在 CMUS 站点上记录一个 <code>Offer Outgoing Log</code>。</p>
+
+<p>今天收到一个问题，在 Oracle 的报表中，我发现 IE 浏览器下产生的 <code>Offer Outgoing Log</code> 文件里，所有的 <code>HTTP_REFERER</code> 字段都为空。</p>
+
+<p>Here comes the bug， what can we do？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/10/11/http-referer-not-available-in-ie/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -783,79 +857,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/05/start-bootstrap/">Bootstrap 初学习</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-05T00:13:00+08:00" pubdate data-updated="true">Sep 5<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-05T00:13:00+08:00" pubdate data-updated="true">Sep 5<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/bootstrap/'>bootstrap</a>, <a class='category' href='/blog/categories/css/'>css</a>, <a class='category' href='/blog/categories/js/'>js</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>花了一个下午的时间学习了 bootstrap ，用的版本是 2.3.2 ，暂时不用 bs3 还是想保守一点先用 2.x 这个比较成熟的框架做点东西出来。</p>
-
-<p>今天的成果就是一个页面 <a href="/bootstrap/" target="_blank">bootstrap 速查卡</a>。写得很简陋，列出了一些平常开发时会用到的元素，方便以后开发的时候可以很快就能利用起来。</p>
-
-<p>更详细的文档可以在 <a href="http://www.bootcss.com/scaffolding.html">http://www.bootcss.com/scaffolding.html</a> 查到。</p>
-
-<p>今天花了很多时间在学习 bootstrap 上，有些心得暂时来不及写了。过几天时间补上。</p>
-
-<p>Have a nice day！</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; 向前</a>
@@ -871,6 +872,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/12/22/ru-he-bao-zhang-xiang-mu-cheng-gong/">如何保障项目成功</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/12/17/kai-shi-shua-leetcode/">开始刷leetcode</a>
@@ -906,10 +911,6 @@
     
       <li class="post">
         <a href="/blog/2018/11/25/zhi-bo-dan-mu-xi-tong-de-she-ji/">思考题：直播弹幕系统的设计</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/25/pa-lou-ti-suan-fa/">算法题：爬楼梯算法</a>
       </li>
     
   </ul>
