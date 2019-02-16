@@ -4,7 +4,7 @@
   <title><![CDATA[Category: redis | 但行好事，莫问前程]]></title>
   <link href="http://caiknife.github.io/blog/categories/redis/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2018-12-22T01:58:49+08:00</updated>
+  <updated>2019-02-16T16:11:25+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,46 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[单线程redis为什么这么快？]]></title>
+    <link href="http://caiknife.github.io/blog/2019/02/16/dan-xian-cheng-rediswei-shi-yao-zhe-yao-kuai/"/>
+    <updated>2019-02-16T15:47:07+08:00</updated>
+    <id>http://caiknife.github.io/blog/2019/02/16/dan-xian-cheng-rediswei-shi-yao-zhe-yao-kuai</id>
+    <content type="html"><![CDATA[<p>redis 采用的是基于内存的采用的是单进程单线程模型的 KV 数据库，由 C 语言编写，官方提供的数据是可以达到 100000+ 的 QPS。这个数据不比采用单进程多线程的同样基于内存的 KV 数据库 Memcached 差。</p>
+
+<p>有兴趣的可以参考官方的基准程序测试《How fast is Redis？》<a href="https://redis.io/topics/benchmarks">https://redis.io/topics/benchmarks</a></p>
+
+<p><a href="/downloads/image/redis/benchmark.png" title="redis benchmark " class="fancybox"><img src="/downloads/image/redis/benchmark.png" alt="redis benchmark " /></a></p>
+
+<!-- more -->
+
+
+<p>Redis快的主要原因是：</p>
+
+<blockquote><p>完全基于内存</p>
+
+<p>数据结构简单，对数据操作也简单</p>
+
+<p>使用多路 I/O 复用模型</p></blockquote>
+
+<p>下面主要围绕第三点采用多路 I/O 复用技术来展开。</p>
+
+<p>多路 I/O 复用模型是利用 select、poll、epoll 可以同时监察多个流的 I/O 事件的能力，在空闲的时候，会把当前线程阻塞掉，当有一个或多个流有 I/O 事件时，就从阻塞态中唤醒，于是程序就会轮询一遍所有的流（epoll 是只轮询那些真正发出了事件的流），并且只依次顺序的处理就绪的流，这种做法就避免了大量的无用操作。这里“多路”指的是多个网络连接，“复用”指的是复用同一个线程。采用多路 I/O 复用技术可以让单个线程高效的处理多个连接请求（尽量减少网络IO的时间消耗），且Redis在内存中操作数据的速度非常快（内存内的操作不会成为这里的性能瓶颈），主要以上两点造就了 redis 具有很高的吞吐量。</p>
+
+<p>和 Memcached 不同，redis 并没有直接使用 libevent，而是自己完成了一个非常轻量级的对 select、epoll、evport、kqueue 这些通用的接口的实现。在不同的系统调用选用适合的接口，linux 下默认是 epoll。因为 libevent 比较重更通用代码量也就很庞大，拥有很多 redis 用不上的功能，redis为了追求“轻巧”并且去除依赖，就选择自己去封装了一套。</p>
+
+<p>至于为什么 redis 要使用单进程单线程：</p>
+
+<blockquote><p>代码更清晰，处理逻辑更简单</p>
+
+<p>不用去考虑各种锁的问题，不存在加锁释放锁操作，没有因为可能出现死锁而导致的性能消耗</p>
+
+<p>不存在多进程或者多线程导致的切换而消耗CPU</p></blockquote>
+
+<p>至于弊端，那也是显而易见的——无法发挥多核 CPU 性能，不过可以通过在单机开多个 redis 实例来完善。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[使用redis实现分布式锁]]></title>
@@ -658,290 +698,6 @@ redis&gt;
 </span><span class='line'><span class="sd"> &#39;5&#39;, &#39;m5mKg1s7Ji&#39;, &#39;94&#39;]</span>
 </span><span class='line'><span class="sd">&quot;&quot;&quot;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>Have a nice day！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[redis主从复制]]></title>
-    <link href="http://caiknife.github.io/blog/2013/08/13/redis-replication/"/>
-    <updated>2013-08-13T23:54:00+08:00</updated>
-    <id>http://caiknife.github.io/blog/2013/08/13/redis-replication</id>
-    <content type="html"><![CDATA[<p>晚上在家尝试做了一下redis的主从复制。下面的Linux命令有一部分需要sudo才能完成。</p>
-
-<p>首先复制一份redis.conf：</p>
-
-<p><code>bash
-$ cp /etc/redis/redis.conf /etc/redis/slave.conf
-</code></p>
-
-<p>有几处地方需要修改：</p>
-
-<p>``` bash
-$ vi /etc/redis/slave.conf</p>
-
-<p>port 6380
-logfile /var/log/redis/redis-server-slave.log
-dbfilename slave.rdb
-slaveof 127.0.0.1 6379
-```</p>
-
-<!-- more -->
-
-
-<p>设置开机启动：</p>
-
-<p><code>bash
-$ cp /etc/init.d/redis-server /etc/init.d/redis-server-slave
-</code></p>
-
-<p>修改启动项：</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (redis-server-slave)</span> <a href='/downloads/code/redis-replication/redis-server-slave'>download</a></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'><span class="c">#! /bin/sh</span>
-</span><span class='line'><span class="c">### BEGIN INIT INFO</span>
-</span><span class='line'><span class="c"># Provides:     redis-server</span>
-</span><span class='line'><span class="c"># Required-Start:   $syslog $remote_fs</span>
-</span><span class='line'><span class="c"># Required-Stop:    $syslog $remote_fs</span>
-</span><span class='line'><span class="c"># Should-Start:     $local_fs</span>
-</span><span class='line'><span class="c"># Should-Stop:      $local_fs</span>
-</span><span class='line'><span class="c"># Default-Start:    2 3 4 5</span>
-</span><span class='line'><span class="c"># Default-Stop:     0 1 6</span>
-</span><span class='line'><span class="c"># Short-Description:    redis-server - Persistent key-value db</span>
-</span><span class='line'><span class="c"># Description:      redis-server - Persistent key-value db</span>
-</span><span class='line'><span class="c">### END INIT INFO</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-</span><span class='line'><span class="nv">DAEMON</span><span class="o">=</span>/usr/bin/redis-server
-</span><span class='line'><span class="nv">DAEMON_ARGS</span><span class="o">=</span>/etc/redis/slave.conf <span class="c"># modified to slave</span>
-</span><span class='line'><span class="nv">NAME</span><span class="o">=</span>redis-server-slave <span class="c"># modified to slave</span>
-</span><span class='line'><span class="nv">DESC</span><span class="o">=</span>redis-server-slave <span class="c"># modified to slave</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">RUNDIR</span><span class="o">=</span>/var/run/redis
-</span><span class='line'><span class="nv">PIDFILE</span><span class="o">=</span><span class="nv">$RUNDIR</span>/redis-server-slave.pid <span class="c"># modified to slave</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">test</span> -x <span class="nv">$DAEMON</span> <span class="o">||</span> <span class="nb">exit </span>0
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="o">[</span> -r /etc/default/<span class="nv">$NAME</span> <span class="o">]</span>
-</span><span class='line'><span class="k">then</span>
-</span><span class='line'>    . /etc/default/<span class="nv">$NAME</span>
-</span><span class='line'><span class="k">fi</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">set</span> -e
-</span><span class='line'>
-</span><span class='line'><span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
-</span><span class='line'>  start<span class="o">)</span>
-</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;Starting $DESC: &quot;</span>
-</span><span class='line'>    mkdir -p <span class="nv">$RUNDIR</span>
-</span><span class='line'>    touch <span class="nv">$PIDFILE</span>
-</span><span class='line'>    chown redis:redis <span class="nv">$RUNDIR</span> <span class="nv">$PIDFILE</span>
-</span><span class='line'>    chmod 755 <span class="nv">$RUNDIR</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;$ULIMIT&quot;</span> <span class="o">]</span>
-</span><span class='line'>    <span class="k">then</span>
-</span><span class='line'><span class="k">        </span><span class="nb">ulimit</span> -n <span class="nv">$ULIMIT</span>
-</span><span class='line'>    <span class="k">fi</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">    if </span>start-stop-daemon --start --quiet --umask 007 --pidfile <span class="nv">$PIDFILE</span> --chuid redis:redis --exec <span class="nv">$DAEMON</span> -- <span class="nv">$DAEMON_ARGS</span>
-</span><span class='line'>    <span class="k">then</span>
-</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;$NAME.&quot;</span>
-</span><span class='line'>    <span class="k">else</span>
-</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;failed&quot;</span>
-</span><span class='line'>    <span class="k">fi</span>
-</span><span class='line'>    ;;
-</span><span class='line'>  stop<span class="o">)</span>
-</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;Stopping $DESC: &quot;</span>
-</span><span class='line'>    <span class="k">if </span>start-stop-daemon --stop --retry forever/TERM/1 --quiet --oknodo --pidfile <span class="nv">$PIDFILE</span> --exec <span class="nv">$DAEMON</span>
-</span><span class='line'>    <span class="k">then</span>
-</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;$NAME.&quot;</span>
-</span><span class='line'>    <span class="k">else</span>
-</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;failed&quot;</span>
-</span><span class='line'>    <span class="k">fi</span>
-</span><span class='line'><span class="k">    </span>rm -f <span class="nv">$PIDFILE</span>
-</span><span class='line'>    sleep 1
-</span><span class='line'>    ;;
-</span><span class='line'>
-</span><span class='line'>  restart|force-reload<span class="o">)</span>
-</span><span class='line'>    <span class="k">${</span><span class="nv">0</span><span class="k">}</span> stop
-</span><span class='line'>    <span class="k">${</span><span class="nv">0</span><span class="k">}</span> start
-</span><span class='line'>    ;;
-</span><span class='line'>
-</span><span class='line'>  status<span class="o">)</span>
-</span><span class='line'>    <span class="nb">echo</span> -n <span class="s2">&quot;$DESC is &quot;</span>
-</span><span class='line'>    <span class="k">if </span>start-stop-daemon --stop --quiet --signal 0 --name <span class="k">${</span><span class="nv">NAME</span><span class="k">}</span> --pidfile <span class="k">${</span><span class="nv">PIDFILE</span><span class="k">}</span>
-</span><span class='line'>    <span class="k">then</span>
-</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;running&quot;</span>
-</span><span class='line'>    <span class="k">else</span>
-</span><span class='line'><span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;not running&quot;</span>
-</span><span class='line'>        <span class="nb">exit </span>1
-</span><span class='line'>    <span class="k">fi</span>
-</span><span class='line'>    ;;
-</span><span class='line'>
-</span><span class='line'>  *<span class="o">)</span>
-</span><span class='line'>    <span class="nb">echo</span> <span class="s2">&quot;Usage: /etc/init.d/$NAME {start|stop|restart|force-reload}&quot;</span> &gt;&amp;2
-</span><span class='line'>    <span class="nb">exit </span>1
-</span><span class='line'>    ;;
-</span><span class='line'><span class="k">esac</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">exit </span>0
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>最后执行：</p>
-
-<p><code>bash
-$ service redis-server-slave start
-</code></p>
-
-<p>最后确认同步是否成功：</p>
-
-<p><code>bash
-$ cd /var/lib/redis
-$ md5sum *.rdb
-</code></p>
-
-<p>如果checksum值是相同的，则表示同步成功。</p>
-
-<p>把redis-server-slave设置为开机启动：</p>
-
-<p><code>bash
-$ update-rc.d redis-server-slave defaults
-</code></p>
-
-<p>如果要取消开机启动：</p>
-
-<p><code>bash
-$ update-rc.d -f redis-server-slave remove
-</code></p>
-
-<p>配置文件redis.conf里有一部分和save相关的参数，缺省如下：</p>
-
-<p>``` bash</p>
-
-<h1>Save the DB on disk:</h1>
-
-<p>#</p>
-
-<h1>save <seconds> <changes></h1>
-
-<p>#</p>
-
-<h1>Will save the DB if both the given number of seconds and the given</h1>
-
-<h1>number of write operations against the DB occurred.</h1>
-
-<p>#</p>
-
-<h1>In the example below the behaviour will be to save:</h1>
-
-<h1>after 900 sec (15 min) if at least 1 key changed</h1>
-
-<h1>after 300 sec (5 min) if at least 10 keys changed</h1>
-
-<h1>after 60 sec if at least 10000 keys changed</h1>
-
-<p>save 900 1
-save 300 10
-save 60 10000
-```</p>
-
-<p>在主服务器上，我们可以去掉上面的设置，改成类似下面的设置（只要参数值够大即可）：</p>
-
-<p><code>bash
-save 10000000000 10000000000
-</code></p>
-
-<p>如此一来主服务器变成一个完全的内存服务器，所有的操作都在内存里完成，“永远”不会再往磁盘上持久化保存数据，异步的也没有。持久化则通过从服务器来完成，这样在操作主服务器的时候效率会更高。不过要注意的一点是此方法不适合保存关键数据，否则一旦主服务器挂掉，如果你头脑一热简单的重启服务，那么从服务器的数据也会跟着消失，此时，必须拷贝一份备份数据到主服务器，然后再重启服务才可以，数据的恢复稍显麻烦。</p>
-
-<p>从服务器也可以通过设置这个参数来调整从内存同步到磁盘的频率。</p>
 
 <p>Have a nice day！</p>
 ]]></content>

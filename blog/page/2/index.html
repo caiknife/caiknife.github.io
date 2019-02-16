@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="有这样一个题目：应该是大学时代的经典算法题了——小孩上楼梯。 有个小孩正在上楼梯，楼梯有s阶台阶，小孩一次可以上1阶或2阶。实现一个算法，计算小孩有多少种上楼梯的方式。输入n，返回一个整数。 稍微想了一下，这个题目可以用递归来解决。根据题目的规则，最后一步只有两种走法：要么走1阶，要么走2阶。 &hellip;">
+  <meta name="description" content="从来没有开发过弹幕系统，今天在被问到这个问题的时候有点不知所措，以为是传统的像 BiliBili 这样的弹幕视频网站一样，从存储系统中拉取已有弹幕数据交付给前端按时间顺序显示就好，但是事后重新思考这个的问题的时候，发现不对——绝对不是这么简单。当时我应该误解了对方的意思，没有及时作出沟通， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,80 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/11/25/zhi-bo-dan-mu-xi-tong-de-she-ji/">思考题：直播弹幕系统的设计</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-25T20:45:36+08:00" pubdate data-updated="true">Nov 25<span>th</span>, 2018</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-25T20:45:36+08:00" pubdate data-updated="true">Nov 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dan-mu-xi-tong/'>弹幕系统</a>, <a class='category' href='/blog/categories/jia-gou/'>架构</a>, <a class='category' href='/blog/categories/jia-gou-she-ji/'>架构设计</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>从来没有开发过弹幕系统，今天在被问到这个问题的时候有点不知所措，以为是传统的像 BiliBili 这样的弹幕视频网站一样，从存储系统中拉取已有弹幕数据交付给前端按时间顺序显示就好，但是事后重新思考这个的问题的时候，发现不对——绝对不是这么简单。当时我应该误解了对方的意思，没有及时作出沟通，一下子就懵了。</p>
+
+<p>面试官想考察我的真正场景是——<strong><em>如何设计一个直播平台的弹幕系统</em></strong>。</p>
+
+<p>晚上回来赶紧再复盘一下这个问题。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2018/11/25/zhi-bo-dan-mu-xi-tong-de-she-ji/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -354,7 +428,7 @@
   </header>
 
 
-  <div class="entry-content"><p>在经历了MacOS上的homebrew升级之后，imap就不再是homebrew的PHP里默认安装的扩展了，这样如果你在composer.json中引用了一个需要用到imap扩展的库，那么久没有办法更新composer库，这样着实让人内伤。</p>
+  <div class="entry-content"><p>在经历了 macOS 上的 homebrew 升级之后，imap 就不再是 homebrew 的 PHP 里默认安装的扩展了，这样如果你在 composer.json 中引用了一个需要用到 imap 扩展的库，那么久没有办法更新 composer 库，这样着实让人内伤。</p>
 
 <p>所以今天就来解决这个问题。</p>
 
@@ -734,76 +808,6 @@ abc acb bac bca cab cba</p></blockquote>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/11/14/cli-improvement/">CLI 环境高级配置</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-14T12:40:07+08:00" pubdate data-updated="true">Nov 14<span>th</span>, 2018</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-14T12:40:07+08:00" pubdate data-updated="true">Nov 14<span>th</span>, 2018</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/bash/'>bash</a>, <a class='category' href='/blog/categories/cli/'>cli</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/macos/'>macos</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>最近又发现了几个在 CLI 环境下，对几个已有命令的强化，可以提高用户体验，现在来总结一下。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/11/14/cli-improvement/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; 向前</a>
@@ -819,6 +823,10 @@ abc acb bac bca cab cba</p></blockquote>
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2019/02/16/dan-xian-cheng-rediswei-shi-yao-zhe-yao-kuai/">单线程redis为什么这么快？</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/12/22/ru-he-bao-zhang-xiang-mu-cheng-gong/">如何保障项目成功</a>
@@ -856,10 +864,6 @@ abc acb bac bca cab cba</p></blockquote>
         <a href="/blog/2018/11/26/psrbiao-zhun-bei-wang/">PSR标准备忘</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2018/11/25/zhi-bo-dan-mu-xi-tong-de-she-ji/">思考题：直播弹幕系统的设计</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -895,7 +899,7 @@ abc acb bac bca cab cba</p></blockquote>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2018 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
+  Copyright &copy; 2019 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

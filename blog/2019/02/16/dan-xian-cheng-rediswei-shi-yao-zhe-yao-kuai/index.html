@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>单线程redis为什么这么快？ - 但行好事，莫问前程</title>
+  <meta name="author" content="CaiKnife">
+
+  
+  <meta name="description" content="redis 采用的是基于内存的采用的是单进程单线程模型的 KV 数据库，由 C 语言编写，官方提供的数据是可以达到 100000+ 的 QPS。这个数据不比采用单进程多线程的同样基于内存的 KV 数据库 Memcached 差。 有兴趣的可以参考官方的基准程序测试《How fast is &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caiknife.github.io/blog/2019/02/16/dan-xian-cheng-rediswei-shi-yao-zhe-yao-kuai">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="但行好事，莫问前程" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="/javascripts/fancybox/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="/javascripts/fancybox/jquery.fancybox.css" />
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">但行好事，莫问前程</a></h1>
+  
+    <h2>挖了太多坑，一点点填回来</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caiknife.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">存档</a></li>
+  <li><a href="/about/">关于我</a></li>
+  <li><a href="/category/">所有分类</a></li>
+  <li><a href="/blog/2014/02/24/http-status-code/">HTTP状态码</a></li>
+  <li><a href="/blog/2013/10/18/git-memo/">Git 备忘</a></li>
+  <li><a href="/bootstrap/" target="_blank">BS 速查</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">单线程redis为什么这么快？</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-02-16T15:47:07+08:00" pubdate data-updated="true">Feb 16<span>th</span>, 2019</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-02-16T15:47:07+08:00" pubdate data-updated="true">Feb 16<span>th</span>, 2019</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/redis/'>redis</a>, <a class='category' href='/blog/categories/huan-cun/'>缓存</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+<div class="entry-content"><p>redis 采用的是基于内存的采用的是单进程单线程模型的 KV 数据库，由 C 语言编写，官方提供的数据是可以达到 100000+ 的 QPS。这个数据不比采用单进程多线程的同样基于内存的 KV 数据库 Memcached 差。</p>
+
+<p>有兴趣的可以参考官方的基准程序测试《How fast is Redis？》<a href="https://redis.io/topics/benchmarks">https://redis.io/topics/benchmarks</a></p>
+
+<p><a href="/downloads/image/redis/benchmark.png" title="redis benchmark " class="fancybox"><img src="/downloads/image/redis/benchmark.png" alt="redis benchmark " /></a></p>
+
+<!-- more -->
+
+
+<p>Redis快的主要原因是：</p>
+
+<blockquote><p>完全基于内存</p>
+
+<p>数据结构简单，对数据操作也简单</p>
+
+<p>使用多路 I/O 复用模型</p></blockquote>
+
+<p>下面主要围绕第三点采用多路 I/O 复用技术来展开。</p>
+
+<p>多路 I/O 复用模型是利用 select、poll、epoll 可以同时监察多个流的 I/O 事件的能力，在空闲的时候，会把当前线程阻塞掉，当有一个或多个流有 I/O 事件时，就从阻塞态中唤醒，于是程序就会轮询一遍所有的流（epoll 是只轮询那些真正发出了事件的流），并且只依次顺序的处理就绪的流，这种做法就避免了大量的无用操作。这里“多路”指的是多个网络连接，“复用”指的是复用同一个线程。采用多路 I/O 复用技术可以让单个线程高效的处理多个连接请求（尽量减少网络IO的时间消耗），且Redis在内存中操作数据的速度非常快（内存内的操作不会成为这里的性能瓶颈），主要以上两点造就了 redis 具有很高的吞吐量。</p>
+
+<p>和 Memcached 不同，redis 并没有直接使用 libevent，而是自己完成了一个非常轻量级的对 select、epoll、evport、kqueue 这些通用的接口的实现。在不同的系统调用选用适合的接口，linux 下默认是 epoll。因为 libevent 比较重更通用代码量也就很庞大，拥有很多 redis 用不上的功能，redis为了追求“轻巧”并且去除依赖，就选择自己去封装了一套。</p>
+
+<p>至于为什么 redis 要使用单进程单线程：</p>
+
+<blockquote><p>代码更清晰，处理逻辑更简单</p>
+
+<p>不用去考虑各种锁的问题，不存在加锁释放锁操作，没有因为可能出现死锁而导致的性能消耗</p>
+
+<p>不存在多进程或者多线程导致的切换而消耗CPU</p></blockquote>
+
+<p>至于弊端，那也是显而易见的——无法发挥多核 CPU 性能，不过可以通过在单机开多个 redis 实例来完善。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-02-16T15:47:07+08:00" pubdate data-updated="true">Feb 16<span>th</span>, 2019</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/redis/'>redis</a>, <a class='category' href='/blog/categories/huan-cun/'>缓存</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/12/22/ru-he-bao-zhang-xiang-mu-cheng-gong/" title="Previous Post: 如何保障项目成功">&laquo; 如何保障项目成功</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最新文章</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2019/02/16/dan-xian-cheng-rediswei-shi-yao-zhe-yao-kuai/">单线程redis为什么这么快？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/12/22/ru-he-bao-zhang-xiang-mu-cheng-gong/">如何保障项目成功</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/12/17/kai-shi-shua-leetcode/">开始刷leetcode</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/12/11/ji-zhu-ren-yuan-de-fa-zhan-zhi-lu/">技术人员的发展之路</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/12/01/yang-sheng-yang-wen-ti/">算法题：羊生羊问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/30/shi-yong-redisshi-xian-fen-bu-shi-suo/">使用redis实现分布式锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/28/zhong-xiao-xing-fedliu-xi-tong-shi-xian/">FEED流系统实现思想</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/27/huan-cun-shuang-tao-tai/">数据延迟的情况下如何解决缓存脏数据</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/27/san-zhen-zhong-die-wen-ti/">算法题：三针重叠问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/11/26/psrbiao-zhun-bei-wang/">PSR标准备忘</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+    <div class="sf-usercard" id="sf-usercard-1030000000157336"></div>
+    <script>
+    (function() {
+    var sf = document.createElement('script'); sf.type = 'text/javascript'; sf.async = true;
+    sf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://w.segmentfault.com/card/1030000000157336.js?w=0&3rd=1&bg=0&bd=dddddd&cl=333333&btn=eaeaea';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf, s);
+    })();
+    </script>
+</section><section>
+    <ul class="ds-recent-comments" data-num-items="10" data-show-title="1"></ul>
+    <!--多说js加载开始，一个页面只需要加载一次 -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"caiknife"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+<section>
+    <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1649186337&verifier=f479351c&dpc=1"></iframe>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2019 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F54c89ad841b193f6fbef6bde11681aed' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

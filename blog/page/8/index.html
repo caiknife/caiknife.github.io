@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="前段时间 SMKR 上线了一个 coupon 频道，用的是 CMUS 的 coupon 数据，用户点击一个 coupon 之后，会先跳转到 CMUS 站点然后再跳转到商家站点。这样在 SMKR 站点上就会记录一个 Affiliate Outgoing Log，在 CMUS 站点上记录一个 &hellip;">
+  <meta name="description" content="写了这么多年的 PHP ，还真没好好记过笔记什么的，说起来挺惭愧的。现在年纪也越来越大了，记忆力开始下降，俗话说“好记性不如烂笔头”，知识通过白纸黑字记下来，要比一直用脑子记好得多，还方便查漏补缺。 先从最基本的开始吧。 PHP 访问权限 PHP 的类有 public 、protected 、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,89 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/14/php-note/">PHP 笔记</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-14T22:35:00+08:00" pubdate data-updated="true">Oct 14<span>th</span>, 2013</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-14T22:35:00+08:00" pubdate data-updated="true">Oct 14<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/she-ji-mo-shi/'>设计模式</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>写了这么多年的 PHP ，还真没好好记过笔记什么的，说起来挺惭愧的。现在年纪也越来越大了，记忆力开始下降，俗话说“好记性不如烂笔头”，知识通过白纸黑字记下来，要比一直用脑子记好得多，还方便查漏补缺。</p>
+
+<p>先从最基本的开始吧。</p>
+
+<h2>PHP 访问权限</h2>
+
+<p>PHP 的类有 <code>public</code> 、<code>protected</code> 、<code>private</code> 三种权限修饰符。这三种修饰符的作用如下：</p>
+
+<ul>
+<li>public (公有的)：类中的成员将没有访问限制，所有的外部成员都可以访问（读和写）这个类成员(包括成员属性和成员方法)。如果类的成员没有指定成员访问修饰符，将被视为 public 。</li>
+<li>protected (受保护的)：被定义为 protected 的成员不能被该类的外部代码访问，但该类的子类具有访问权限。</li>
+<li>private (私有的)：被定义为 private 的成员，允许同一个类里的所有成员访问，但对于该类的外部代码和子类都不允许访问。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/10/14/php-note/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -770,93 +853,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/06/git-config/">Git 设置</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-06T21:09:00+08:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-06T21:09:00+08:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>花了两天时间，看了关于 git 的资料，稍微整理一下，挖个坑先。</p>
-
-<p>首先在 ubuntu 上更新 git 的源。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> sudo apt-add-repository ppa:git-core/ppa
-</span><span class='line'>
-</span><span class='line'><span class="gp">$</span> sudo update
-</span><span class='line'>
-</span><span class='line'><span class="gp">$</span> sudo apt-get install git
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/09/06/git-config/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; 向前</a>
@@ -872,6 +868,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2019/02/16/dan-xian-cheng-rediswei-shi-yao-zhe-yao-kuai/">单线程redis为什么这么快？</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/12/22/ru-he-bao-zhang-xiang-mu-cheng-gong/">如何保障项目成功</a>
@@ -909,10 +909,6 @@
         <a href="/blog/2018/11/26/psrbiao-zhun-bei-wang/">PSR标准备忘</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2018/11/25/zhi-bo-dan-mu-xi-tong-de-she-ji/">思考题：直播弹幕系统的设计</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -948,7 +944,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2018 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
+  Copyright &copy; 2019 - CaiKnife - 生活是场马拉松，千万不要半途而废。 -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
