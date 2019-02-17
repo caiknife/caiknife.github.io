@@ -50,4 +50,3 @@ epoll 的设计和实现 select 完全不同。epoll 通过在 linux 内核中�
 epoll_wait 在调用时，在给定的 timeout 时间内，当在监控的所有句柄中有事件发生时，就返回用户态的进程。
 
 从上面的调用方式就可以看到 epoll 比 select/poll 的优越之处：因为后者每次调用时都要传递你所要监控的所有 socket 给 select/poll 系统调用，这意味着需要将用户态的 socket 列表 copy 到内核态，如果以万计的句柄会导致每次都要 copy 几十几百 KB 的内存到内核态，非常低效。而我们调用 epoll_wait 时就相当于以往调用 select/poll，但是这时却不用传递 socket 句柄给内核，因为内核已经在 epoll_ctl 中拿到了要监控的句柄列表。
-
