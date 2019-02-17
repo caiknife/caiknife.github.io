@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="redis 采用的是基于内存的采用的是单进程单线程模型的 KV 数据库，由 C 语言编写，官方提供的数据是可以达到 100000+ 的 QPS。这个数据不比采用单进程多线程的同样基于内存的 KV 数据库 Memcached 差。 有兴趣的可以参考官方的基准程序测试《How fast is &hellip;">
+  <meta name="description" content="在 linux 没有实现 epoll 事件驱动机制之前，我们一般选择用 select 或者 poll 等 IO 多路复用的方法来实现并发服务程序。 在大数据、高并发、集群等一些名词唱的火热之年代，select 和 poll 的用武之地越来越有限了，风头已经被 epoll 占尽。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2019/02/17/select-poll-epollde-qu-bie/">Select Poll Epoll的区别</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-02-17T17:56:41+08:00" pubdate data-updated="true">Feb 17<span>th</span>, 2019</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-02-17T17:56:41+08:00" pubdate data-updated="true">Feb 17<span>th</span>, 2019</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/io/'>io</a>, <a class='category' href='/blog/categories/linux/'>linux</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>在 linux 没有实现 epoll 事件驱动机制之前，我们一般选择用 select 或者 poll 等 IO 多路复用的方法来实现并发服务程序。</p>
+
+<p>在大数据、高并发、集群等一些名词唱的火热之年代，select 和 poll 的用武之地越来越有限了，风头已经被 epoll 占尽。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2019/02/17/select-poll-epollde-qu-bie/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -729,78 +801,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/11/26/psrbiao-zhun-bei-wang/">PSR标准备忘</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-26T10:35:19+08:00" pubdate data-updated="true">Nov 26<span>th</span>, 2018</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-26T10:35:19+08:00" pubdate data-updated="true">Nov 26<span>th</span>, 2018</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/psr/'>psr</a>, <a class='category' href='/blog/categories/biao-zhun/'>标准</a>, <a class='category' href='/blog/categories/gui-fan/'>规范</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>PSR 是 PHP Standard Recommendations 的简写，由 PHP FIG 组织制定的 PHP 规范，是 PHP 开发的实践标准。</p>
-
-<p>项目的目的在于：通过框架作者或者框架的代表之间讨论，以最低程度的限制，制定一个协作标准，各个框架遵循统一的编码规范，避免各家自行发展的风格阻碍了 PHP 的发展，解决这个程序设计师由来已久的困扰。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/11/26/psrbiao-zhun-bei-wang/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; 向前</a>
@@ -814,6 +814,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2019/02/17/select-poll-epollde-qu-bie/">Select Poll Epoll的区别</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2019/02/16/dan-xian-cheng-rediswei-shi-yao-zhe-yao-kuai/">单线程redis为什么这么快？</a>
@@ -849,10 +853,6 @@
     
       <li class="post">
         <a href="/blog/2018/11/27/san-zhen-zhong-die-wen-ti/">算法题：三针重叠问题</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/26/psrbiao-zhun-bei-wang/">PSR标准备忘</a>
       </li>
     
   </ul>
