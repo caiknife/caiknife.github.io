@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="在 linux 没有实现 epoll 事件驱动机制之前，我们一般选择用 select 或者 poll 等 IO 多路复用的方法来实现并发服务程序。 在大数据、高并发、集群等一些名词唱的火热之年代，select 和 poll 的用武之地越来越有限了，风头已经被 epoll 占尽。 ">
+  <meta name="description" content="最近一次面试时做的笔试题目，虽然很简单，但是我挺有印象的。做过很多笔试题目，这应该是第一个让我觉得挺有印象的数据库笔试题。 题目大概是这样的： 有一张表 rail 存储着上海地铁线路的信息。line 表示线路，stop 表示站点名称，sequence 表示站点在线路上的顺序。（为了简洁，我直接用 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,119 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2019/02/20/yi-dao-mysqlde-bi-shi-ti/">一道MySQL的笔试题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-02-20T13:32:09+08:00" pubdate data-updated="true">Feb 20<span>th</span>, 2019</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-02-20T13:32:09+08:00" pubdate data-updated="true">Feb 20<span>th</span>, 2019</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mysql/'>mysql</a>, <a class='category' href='/blog/categories/shu-ju-ku/'>数据库</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>最近一次面试时做的笔试题目，虽然很简单，但是我挺有印象的。做过很多笔试题目，这应该是第一个让我觉得挺有印象的数据库笔试题。</p>
+
+<p>题目大概是这样的：</p>
+
+<p>有一张表 rail 存储着上海地铁线路的信息。line 表示线路，stop 表示站点名称，sequence 表示站点在线路上的顺序。（为了简洁，我直接用 SQL 语句表示数据）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">rail</span><span class="o">`</span> <span class="p">(</span>
+</span><span class='line'>  <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+</span><span class='line'>  <span class="o">`</span><span class="n">line</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'>  <span class="o">`</span><span class="n">stop</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="o">`</span><span class="n">squence</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'>  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span>
+</span><span class='line'><span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">9</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="o">`</span><span class="n">rail</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">line</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">stop</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">squence</span><span class="o">`</span><span class="p">)</span>
+</span><span class='line'><span class="k">VALUES</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;人民广场&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;人民广场&#39;</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="s1">&#39;人民广场&#39;</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;世纪大道&#39;</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="s1">&#39;世纪大道&#39;</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="s1">&#39;曹杨路&#39;</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;静安寺&#39;</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="s1">&#39;静安寺&#39;</span><span class="p">,</span><span class="mi">9</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2019/02/20/yi-dao-mysqlde-bi-shi-ti/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -727,80 +840,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/11/27/san-zhen-zhong-die-wen-ti/">算法题：三针重叠问题</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-27T19:23:06+08:00" pubdate data-updated="true">Nov 27<span>th</span>, 2018</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-27T19:23:06+08:00" pubdate data-updated="true">Nov 27<span>th</span>, 2018</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/shi-zhan/'>实战</a>, <a class='category' href='/blog/categories/suan-fa/'>算法</a>, <a class='category' href='/blog/categories/bian-cheng/'>编程</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>经典问题——三针重叠问题。</p>
-
-<blockquote><p>在时针走满一圈的情况下，也就是12小时内，时针、分针、秒针会重合多少次？</p></blockquote>
-
-<p>分析一下：秒针60s走完一整圈，每秒的旋转角度是6度，分针速度是秒针的1/60，每s的旋转角度是1/10度，时针速度是分针的1/12，每s的旋转角度是1/120度。那么就需要计算出12个小时的时间内，也就是12*3600秒内，每秒钟三个指针的位置即可。如果度数相同，那么就认为三针重合。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/11/27/san-zhen-zhong-die-wen-ti/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; 向前</a>
@@ -814,6 +853,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2019/02/20/yi-dao-mysqlde-bi-shi-ti/">一道MySQL的笔试题</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2019/02/17/select-poll-epollde-qu-bie/">Select Poll Epoll的区别</a>
@@ -849,10 +892,6 @@
     
       <li class="post">
         <a href="/blog/2018/11/27/huan-cun-shuang-tao-tai/">数据延迟的情况下如何解决缓存脏数据</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/27/san-zhen-zhong-die-wen-ti/">算法题：三针重叠问题</a>
       </li>
     
   </ul>

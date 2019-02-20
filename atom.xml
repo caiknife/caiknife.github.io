@@ -4,7 +4,7 @@
   <title><![CDATA[CDEFGAB 1010110]]></title>
   <link href="http://caiknife.github.io/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2019-02-20T12:22:18+08:00</updated>
+  <updated>2019-02-20T14:02:23+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -12,6 +12,94 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[一道MySQL的笔试题]]></title>
+    <link href="http://caiknife.github.io/blog/2019/02/20/yi-dao-mysqlde-bi-shi-ti/"/>
+    <updated>2019-02-20T13:32:09+08:00</updated>
+    <id>http://caiknife.github.io/blog/2019/02/20/yi-dao-mysqlde-bi-shi-ti</id>
+    <content type="html"><![CDATA[<p>最近一次面试时做的笔试题目，虽然很简单，但是我挺有印象的。做过很多笔试题目，这应该是第一个让我觉得挺有印象的数据库笔试题。</p>
+
+<p>题目大概是这样的：</p>
+
+<p>有一张表 rail 存储着上海地铁线路的信息。line 表示线路，stop 表示站点名称，sequence 表示站点在线路上的顺序。（为了简洁，我直接用 SQL 语句表示数据）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">rail</span><span class="o">`</span> <span class="p">(</span>
+</span><span class='line'>  <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+</span><span class='line'>  <span class="o">`</span><span class="n">line</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'>  <span class="o">`</span><span class="n">stop</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="o">`</span><span class="n">squence</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'>  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span>
+</span><span class='line'><span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">9</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="o">`</span><span class="n">rail</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">line</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">stop</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">squence</span><span class="o">`</span><span class="p">)</span>
+</span><span class='line'><span class="k">VALUES</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;人民广场&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;人民广场&#39;</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="s1">&#39;人民广场&#39;</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;世纪大道&#39;</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="s1">&#39;世纪大道&#39;</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="s1">&#39;曹杨路&#39;</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;静安寺&#39;</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="s1">&#39;静安寺&#39;</span><span class="p">,</span><span class="mi">9</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+
+<p>题目的要求有两个：</p>
+
+<blockquote><p>1、查询经过站点最多的站点。</p>
+
+<p>2、给出任意两条线路，查询这两条线路换乘的站点。</p></blockquote>
+
+<p>第一个要求很简单，直接用下面的语句完成就可以了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">`</span><span class="n">stop</span><span class="o">`</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">`</span><span class="n">stop</span><span class="o">`</span><span class="p">)</span> <span class="k">AS</span> <span class="n">stop_count</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">rail</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="o">`</span><span class="n">stop</span><span class="o">`</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">stop_count</span> <span class="k">DESC</span> <span class="k">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>倒是第二个要求，我在第一次思考的时候就踩坑了，我写了一个非常低级错误的 SQL。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">`</span><span class="n">stop</span><span class="o">`</span> <span class="k">FROM</span> <span class="n">tail</span> <span class="k">WHERE</span> <span class="o">`</span><span class="n">line</span><span class="o">`=@</span><span class="n">a</span> <span class="k">AND</span> <span class="o">`</span><span class="n">line</span><span class="o">`=@</span><span class="n">b</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>刚写完最后的分号我就反应过来了，这里不对，正确的做法是得让 rail 表自己和自己 join 之后查询。于是思考了一小会儿写下了第二个 SQL。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="n">r1</span><span class="p">.</span><span class="n">stop</span> <span class="k">FROM</span> <span class="n">rail</span> <span class="n">r1</span><span class="p">,</span> <span class="n">rail</span> <span class="n">r2</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">r1</span><span class="p">.</span><span class="n">line</span><span class="o">=@</span><span class="n">a</span> <span class="k">AND</span> <span class="n">r2</span><span class="p">.</span><span class="n">line</span><span class="o">=@</span><span class="n">b</span> <span class="k">AND</span> <span class="n">r1</span><span class="p">.</span><span class="n">stop</span><span class="o">=</span><span class="n">r2</span><span class="p">.</span><span class="n">stop</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>题目是挺简单的，只是我今后不能直接靠直觉去想结题的思路，还是要多思考一会儿，把解决问题的步骤想清楚。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[select poll epoll的区别]]></title>
@@ -1802,58 +1890,6 @@ abc acb bac bca cab cba</p></blockquote>
 <p>在找出前K个最小(或最大)的元素时，如果元素个数较少，可以采用简单选择排序；如果元素较多，可以采用堆排序；如果元素基本有序，可以采用冒泡排序。本文采用的是堆排序，时间复杂度是O(n*lgk)。</p>
 
 <p>虽然PHP的数组几乎是万能的，但是也别忘了PHP还是提供了更多更强大的数据结构可以让我们使用，在特定的场景下使用合适的数据结构，不要一股脑儿地只使用PHP的数组，这对于技术人员才是最重要的——要学会思考，要有自己的想法。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[使用glide进行Go的包管理]]></title>
-    <link href="http://caiknife.github.io/blog/2018/11/16/shi-yong-glidejin-xing-gode-bao-guan-li/"/>
-    <updated>2018-11-16T19:05:17+08:00</updated>
-    <id>http://caiknife.github.io/blog/2018/11/16/shi-yong-glidejin-xing-gode-bao-guan-li</id>
-    <content type="html"><![CDATA[<p>长话短说，一切从简。</p>
-
-<p>今天开始使用 <code>glide</code> 进行 <code>Golang</code> 的包管理。</p>
-
-<!-- more -->
-
-
-<p>先安装 <code>glide</code> ：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install glide
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后进入工作目录，使用 <code>glide</code> 进行初始化：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>glide init
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>由于有些库放在 golang.org 上，不能直接下载，所以需要使用代理。我自己本身用了 <code>ShadowSocks</code> 作为翻墙工具，所以使用 <code>SS</code> 代理即可。</p>
-
-<p>把下面的代码写到一个脚本里，命名为 <code>proxy</code> ，位置是 <code>/usr/local/bin/</code> 。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/usr/bin/env bash</span>
-</span><span class='line'><span class="nb">export </span><span class="nv">http_proxy</span><span class="o">=</span>socks5://127.0.0.1:1080
-</span><span class='line'><span class="nb">export </span><span class="nv">https_proxy</span><span class="o">=</span>socks5://127.0.0.1:1080
-</span><span class='line'><span class="nv">$*</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后执行：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>proxy glide install
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就可以顺利下载库了。</p>
 ]]></content>
   </entry>
   
