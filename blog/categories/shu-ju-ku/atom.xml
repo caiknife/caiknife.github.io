@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 数据库 | CDEFGAB 1010110]]></title>
   <link href="http://caiknife.github.io/blog/categories/shu-ju-ku/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2019-02-20T16:22:01+08:00</updated>
+  <updated>2019-02-20T16:23:15+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -81,7 +81,7 @@ SELECT r1.stop FROM rail r1, rail r2
 WHERE r1.line=@a AND r2.line=@b AND r1.stop=r2.stop;
 </code></p>
 
-<p>题目是挺简单的，只是我今后不能直接靠直觉去想结题的思路，还是要多思考一会儿，把解决问题的步骤想清楚。</p>
+<p>题目是挺简单的，只是我今后不能直接靠直觉去想解题的思路，还是要多思考一会儿，把解决问题的步骤想清楚。</p>
 ]]></content>
   </entry>
   
