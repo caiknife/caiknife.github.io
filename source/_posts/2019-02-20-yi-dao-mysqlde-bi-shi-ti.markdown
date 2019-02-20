@@ -20,7 +20,8 @@ CREATE TABLE `rail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-INSERT INTO `rail` (`id`, `line`, `stop`, `squence`)
+INSERT INTO `rail` 
+    (`id`, `line`, `stop`, `squence`)
 VALUES
 	(1,1,'人民广场',10),
 	(2,2,'人民广场',11),
