@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 数据库 | CDEFGAB 1010110]]></title>
   <link href="http://caiknife.github.io/blog/categories/shu-ju-ku/atom.xml" rel="self"/>
   <link href="http://caiknife.github.io/"/>
-  <updated>2019-02-20T14:02:23+08:00</updated>
+  <updated>2019-02-20T16:22:01+08:00</updated>
   <id>http://caiknife.github.io/</id>
   <author>
     <name><![CDATA[CaiKnife]]></name>
@@ -33,8 +33,12 @@ CREATE TABLE</code>rail<code>(
   PRIMARY KEY (</code>id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;</p>
 
-<p>INSERT INTO <code>rail</code> (<code>id</code>, <code>line</code>, <code>stop</code>, <code>squence</code>)
-VALUES</p>
+<p>INSERT INTO <code>rail</code></p>
+
+<pre><code>(`id`, `line`, `stop`, `squence`)
+</code></pre>
+
+<p>VALUES</p>
 
 <pre><code>(1,1,'人民广场',10),
 (2,2,'人民广场',11),
