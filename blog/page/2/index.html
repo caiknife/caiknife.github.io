@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="经典问题——三针重叠问题。 在时针走满一圈的情况下，也就是12小时内，时针、分针、秒针会重合多少次？ 分析一下：秒针60s走完一整圈，每秒的旋转角度是6度，分针速度是秒针的1/60，每s的旋转角度是1/10度，时针速度是分针的1/12，每s的旋转角度是1/120度。 &hellip;">
+  <meta name="description" content="通常使用缓存的情况下，如果先删缓存，再更新数据库，有这样一个场景： 单库情况下，服务层在进行长时间的逻辑计算，在这个过程中，可能读到旧数据入缓存。 主从库+读写分离情况下，在主从同步延时过程中，可能读到旧数据入缓存。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,80 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/11/27/huan-cun-shuang-tao-tai/">数据延迟的情况下如何解决缓存脏数据</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-27T21:24:20+08:00" pubdate data-updated="true">Nov 27<span>th</span>, 2018</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-27T21:24:20+08:00" pubdate data-updated="true">Nov 27<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cache/'>cache</a>, <a class='category' href='/blog/categories/jia-gou/'>架构</a>, <a class='category' href='/blog/categories/huan-cun/'>缓存</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>通常使用缓存的情况下，如果先删缓存，再更新数据库，有这样一个场景：</p>
+
+<blockquote><p>单库情况下，服务层在进行长时间的逻辑计算，在这个过程中，可能读到旧数据入缓存。</p>
+
+<p>主从库+读写分离情况下，在主从同步延时过程中，可能读到旧数据入缓存。</p></blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2018/11/27/huan-cun-shuang-tao-tai/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -736,80 +810,6 @@ abc acb bac bca cab cba</p></blockquote>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/11/17/qu-wei-ti-zhao-chu-nge-shu-zi-zhong-zui-da-de-kge/">趣味题：找出N个数字中最大的K个</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-17T17:58:40+08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2018</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-17T17:58:40+08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2018</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/shi-zhan/'>实战</a>, <a class='category' href='/blog/categories/shu-ju-jie-gou/'>数据结构</a>, <a class='category' href='/blog/categories/suan-fa/'>算法</a>, <a class='category' href='/blog/categories/bian-cheng/'>编程</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>算是一个面试题吧，内容就是如标题所写的一样：</p>
-
-<blockquote><p>给定N个指定的数字，输出前K个最大的数字，比如给出了1，2，3，4，5，6，7，8，要求输出前3个最大的数字，那么就输出8，7，6</p></blockquote>
-
-<p>其实这个题目，看起来很简单，其实只需要从大到小排序之后，输出前K个数字就可以了，只是排序有很多种算法——常用的就有冒泡排序、选择排序、插入排序、归并排序、快速排序等等，冒泡、选择、插入的时间复杂度是O(n<sup>2</sup>)，归并、快速的时间复杂度是O(n*lgn)。如果需要自己手动实现排序算法的话，那么使用快速排序和归并排序的效果肯定是最好的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/11/17/qu-wei-ti-zhao-chu-nge-shu-zi-zhong-zui-da-de-kge/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; 向前</a>
@@ -825,6 +825,10 @@ abc acb bac bca cab cba</p></blockquote>
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2019/02/21/bu-yao-zhi-di-tou-gan-huo-geng-yao-tai-tou-kan-lu/">不要只低头干活，更要抬头看路</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2019/02/20/yi-dao-mysqlde-bi-shi-ti/">一道MySQL的笔试题</a>
@@ -860,10 +864,6 @@ abc acb bac bca cab cba</p></blockquote>
     
       <li class="post">
         <a href="/blog/2018/11/28/zhong-xiao-xing-fedliu-xi-tong-shi-xian/">FEED流系统实现思想</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/27/huan-cun-shuang-tao-tai/">数据延迟的情况下如何解决缓存脏数据</a>
       </li>
     
   </ul>
