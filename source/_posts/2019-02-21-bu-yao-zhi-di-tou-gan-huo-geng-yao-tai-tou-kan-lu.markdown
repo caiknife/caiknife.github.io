@@ -3,7 +3,7 @@ layout: post
 title: "不要只低头干活，更要抬头看路"
 date: 2019-02-21 11:52:21 +0800
 comments: true
-categories: 管理学
+categories: 管理学 PMP
 ---
 过去两年我有两个目标：
 
