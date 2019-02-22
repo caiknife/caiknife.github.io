@@ -37,7 +37,7 @@ categories: 音乐 生活
 
 今天的就讲这么多，希望我清晰地向大家传达了内容。
 
-{% fancybox /downloads/image/music/mj.jpg Michael Jackson %}
+{% fancybox /downloads/image/music/mj.jpeg Michael Jackson %}
 
 Love & Peace
 
