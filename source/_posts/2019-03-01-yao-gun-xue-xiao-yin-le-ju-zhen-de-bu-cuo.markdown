@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "《摇滚学校》音乐剧真的不错"
-date: 2019-04-29 23:17:39 +0800
+date: 2019-03-01 23:17:39 +0800
 comments: true
 categories: 音乐 生活
 ---
