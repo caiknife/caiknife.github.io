@@ -9,7 +9,7 @@
   <meta name="author" content="CaiKnife">
 
   
-  <meta name="description" content="从最早的Twitter、Facebook，到后来的微信朋友圈、信息流咨询，这些产品其实都是常见的FEED流系统。 那么今天思考一下，如何实现一个中小型FEED流系统。 ">
+  <meta name="description" content="redis除了是很强大的存储/缓存工具之外，还可以实现分布式锁。 下面我们来看看到底怎么样用redis来实现分布式锁。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/11/30/shi-yong-redisshi-xian-fen-bu-shi-suo/">使用redis实现分布式锁</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-30T19:03:54+08:00" pubdate data-updated="true">Nov 30<span>th</span>, 2018</time>
+        
+      </p>
+    
+    <p>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-11-30T19:03:54+08:00" pubdate data-updated="true">Nov 30<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/lock/'>lock</a>, <a class='category' href='/blog/categories/redis/'>redis</a>, <a class='category' href='/blog/categories/suo/'>锁</a>
+  
+</span>
+
+
+    </p>
+  </header>
+
+
+  <div class="entry-content"><p>redis除了是很强大的存储/缓存工具之外，还可以实现分布式锁。</p>
+
+<p>下面我们来看看到底怎么样用redis来实现分布式锁。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2018/11/30/shi-yong-redisshi-xian-fen-bu-shi-suo/">阅读全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -735,76 +807,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/11/20/si-wei-dao-tu-liang-zhang/">思维导图两张</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-20T14:03:41+08:00" pubdate data-updated="true">Nov 20<span>th</span>, 2018</time>
-        
-      </p>
-    
-    <p>
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">CaiKnife</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-20T14:03:41+08:00" pubdate data-updated="true">Nov 20<span>th</span>, 2018</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/si-wei-dao-tu/'>思维导图</a>, <a class='category' href='/blog/categories/shu-ju-jie-gou/'>数据结构</a>, <a class='category' href='/blog/categories/suan-fa/'>算法</a>
-  
-</span>
-
-
-    </p>
-  </header>
-
-
-  <div class="entry-content"><p>更新两张思维导图，有关于数据结构和算法，以及Linux性能优化的知识框架。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/11/20/si-wei-dao-tu-liang-zhang/">阅读全文</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; 向前</a>
@@ -820,6 +822,10 @@
     <section>
   <h1>最新文章</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2019/04/29/yao-gun-xue-xiao-yin-le-ju-zhen-de-bu-cuo/">《摇滚学校》音乐剧真的不错</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2019/02/22/shi-yao-shi-hao-de-pin-wei/">什么是好的“品味”？</a>
@@ -855,10 +861,6 @@
     
       <li class="post">
         <a href="/blog/2018/12/01/yang-sheng-yang-wen-ti/">算法题：羊生羊问题</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/11/30/shi-yong-redisshi-xian-fen-bu-shi-suo/">使用redis实现分布式锁</a>
       </li>
     
   </ul>
