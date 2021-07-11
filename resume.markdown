@@ -11,6 +11,8 @@
 * 多年 PHP 开发经验，熟练掌握相关的 Web 开发技术和工具，形成了系统的知识体系。<http://caiknife.github.io/blog/2018/09/13/phpzhi-shi-ti-xi/>
 * 多年的外企工作经验，培养了良好的团队工作习惯和英文交流能力，有标准化的工作流程，并能够接受有压力的工作。
 * 多年的腾讯工作经验，更深入了解大集团的工作方式和流程管理。带领外包团队一起工作，积累了一定的项目管理能力。
+* 参加 PHPChina 社区组织的 Learning jQuery 书籍志愿汉化工作，详细链接：<http://bbs.phpchina.com/viewthread.php?tid=31367>
+* 自行翻译 Django Tutorial 官方文档，详细链接：<http://www.iteye.com/topic/360373#952079>
 
 
 ## 教育背景
